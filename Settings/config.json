@@ -1,5 +1,5 @@
 {
-	"Device Parameters": {
+	"Devices": {
 		"Bushy Park FDMS": {
 			"Bucket": "AURN",
 			"Measurement": "Automatic Urban Rural Network",
@@ -43,7 +43,7 @@
 			"Measurement": "ACOEM UK Systems",
 			"Field": "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]",
 			"Filters": {
-				"Serial Number": "1505150",
+				"SerialNumber": "1505150",
 				"Particulate Matter (PM 2.5) Flag": "Valid"
 			},
 			"Start": "",
@@ -54,7 +54,7 @@
 			"Measurement": "ACOEM UK Systems",
 			"Field": "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]",
 			"Filters": {
-				"Serial Number": "1506150",
+				"SerialNumber": "1506150",
 				"Particulate Matter (PM 2.5) Flag": "Valid"
 			},
 			"Start": "",
@@ -65,7 +65,7 @@
 			"Measurement": "ACOEM UK Systems",
 			"Field": "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]",
 			"Filters": {
-				"Serial Number": "2450100",
+				"SerialNumber": "2450100",
 				"Particulate Matter (PM 2.5) Flag": "Valid"
 			},
 			"Start": "",
@@ -76,7 +76,7 @@
 			"Measurement": "ACOEM UK Systems",
 			"Field": "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]",
 			"Filters": {
-				"Serial Number": "2450222",
+				"SerialNumber": "2450222",
 				"Particulate Matter (PM 2.5) Flag": "Valid"
 			},
 			"Start": "",
