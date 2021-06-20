@@ -32,19 +32,30 @@ class InfluxQuery:
         Keyword Arguments:
             config (dict): Keys correspond to location and access info for
             InfluxDB 2.x database. Keys are:
-                URL: URL of database, localhost if on same machine
+                IP: IP/URL of database, localhost if on same machine
                 Port: Port for database
                 Token: Authorisation token to access database
                 Organisation: Organisation of auth token
             corresponding organisation
 
         """
+        self.config = config
         self.client = InfluxDBClient(
-                url=f"{config['URL']}:{config['Port']}",
+                url=f"{config['IP']}:{config['Port']}",
                 token=config['Token'],
-                org=config['Organisation']
+                org=config['Organisation'],
+                timeout=15000000
                 )
         self.query_api = self.client.query_api()
+
+    def data_query(self, query):
+        query_return = self.query_api.query(
+                query=query,
+                org=self.config['Organisation']
+                )
+        for table in query_return:
+            for record in table.records:
+                print(record.values)
 
 
 class FluxQuery:
@@ -104,7 +115,7 @@ class FluxQuery:
             field (str): The field to query
         """
         self._query = (
-                f"{self._query}  |> filter(fn: (r) => r._field == "
+                f"{self._query}  |> filter(fn: (r) => r[\"_field\"] == "
                 f"\"{field}\")\n"
                 )
 
@@ -117,7 +128,7 @@ class FluxQuery:
             value (str): Tag you want to isolate
         """
         self._query = (
-                f"{self._query}  |> filter(fn: (r) => r.{key} == "
+                f"{self._query}  |> filter(fn: (r) => r[\"{key}\"] == "
                 f"\"{value}\")\n"
                 )
 
@@ -155,6 +166,14 @@ class FluxQuery:
                 f"fn: {function}, column: \"{column}\", timeSrc: "
                 f"\"{time_source}\", timeDst: \"_time\", createEmpty: "
                 f"{str(create_empty).lower()})\n"
+                )
+
+    def drop_start_stop(self):
+        """ Adds drop function which removes superfluous start and stop
+        columns
+        """
+        self._query = (
+                f"{self._query}  |> drop(columns: [\"_start\", \"_stop\"])\n"
                 )
 
     def add_yield(self, name):

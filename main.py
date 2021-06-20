@@ -13,16 +13,50 @@ __status__ = "Indev"
 import datetime as dt
 
 from modules.influxquery import InfluxQuery, FluxQuery
+from modules.idriskit import get_json
 
 if __name__ == "__main__":
-    query = FluxQuery(
-            dt.datetime(2020, 1, 1),
-            dt.datetime(2020, 2, 1),
-            "Nova PM",
-            "Nova PM"
-            )
-    query.add_group("Serial Number")
-    query.add_window("1h", "mean")
-    query.add_yield("data")
-    print(query.return_query())
+    # Setup
+    start_date = dt.datetime(2020, 1, 1)
+    end_date = dt.datetime(2021, 1, 1)
+    window_size = "1h"
+    window_function = "mean"
+    config = get_json("Settings/config.json")
+    query_config = config["Devices"]
+
+    # Download measurements from InfluxDB 2.x
+    for name, settings in config["Devices"].items():
+        # Generate flux query
+        query = FluxQuery(
+                start_date,
+                end_date,
+                settings["Bucket"],
+                settings["Measurement"]
+                )
+        query.add_field(settings["Field"])
+        for key, value in settings["Filters"].items():
+            query.add_filter(key, value)
+        query.add_window(window_size, window_function)
+        query.drop_start_stop()
+        query.add_yield(name)
+        print(query.return_query())
+        # Download from Influx
+        influx = InfluxQuery(config["Influx"])
+        influx.data_query(query.return_query())
+
+
+#    query = FluxQuery(
+#            dt.datetime(2020, 1, 1),
+#            dt.datetime(2020, 2, 1),
+#            "Nova PM",
+#            "Nova PM"
+#            )
+#    query.add_field("PM2.5")
+#    query.add_filter("Serial Number", "C008-0003")
+#    query.add_window("1h", "mean")
+#    query.drop_start_stop()
+#    query.add_yield("data")
+#    print(query.return_query())
+#    influx = InfluxQuery(settings["Influx"])
+#    influx.data_query(query.return_query())
 
