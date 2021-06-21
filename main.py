@@ -25,6 +25,7 @@ if __name__ == "__main__":
     query_config = config["Devices"]
 
     # Download measurements from InfluxDB 2.x
+    measurements = list()
     for name, settings in config["Devices"].items():
         # Generate flux query
         query = FluxQuery(
@@ -36,14 +37,25 @@ if __name__ == "__main__":
         query.add_field(settings["Field"])
         for key, value in settings["Filters"].items():
             query.add_filter(key, value)
-        query.add_window(window_size, window_function)
+        query.add_window(
+                window_size,
+                window_function,
+                time_starting=settings["Hour Beginning"]
+                )
         query.keep_measurements()
-        query.scale_measurements(100, 0)
+        for scale in settings["Scaling"]:
+            query.scale_measurements(
+                    scale["Slope"],
+                    scale["Offset"],
+                    scale["Start"],
+                    scale["End"]
+                    )
         query.add_yield(name)
-        print(query.return_query())
         # Download from Influx
         influx = InfluxQuery(config["Influx"])
         influx.data_query(query.return_query())
+        measurements.append(influx.return_measurements())
+        print(measurements)
 
 
 #    query = FluxQuery(

@@ -18,15 +18,21 @@ from influxdb_client import InfluxDBClient
 class InfluxQuery:
     """ Queries and formats data from InfluxDB 2.x database
 
-
     Attributes:
-        client (InfluxDBClient): Object that handles connection to InfluxDB
+        _config (dict): The config file passed in via keyword argument during
+        initialisation
+
+        _client (InfluxDBClient): Object that handles connection to InfluxDB
         2.x database
 
-        query_api (InfluxDBClient.query_api): Handles queries to InfluxDB 2.x
+        _query_api (InfluxDBClient.query_api): Handles queries to InfluxDB 2.x
         database
 
+        _measurements (dict): Measurements and timestamps from query
+
     Methods:
+        data_query: Queries the InfluxDB database for the specified
+        measurements and stores them in the measurements instance
     """
     def __init__(self, config):
         """Initialises class 
@@ -41,25 +47,47 @@ class InfluxQuery:
             corresponding organisation
 
         """
-        self.config = config
-        self.client = InfluxDBClient(
+        self._config = config
+        self._client = InfluxDBClient(
                 url=f"{config['IP']}:{config['Port']}",
                 token=config['Token'],
                 org=config['Organisation'],
                 timeout=15000000
                 )
-        self.query_api = self.client.query_api()
+        self._query_api = self._client.query_api()
+        self._measurements = {
+                "Values": list(),
+                "Timestamps": list()
+                }
 
     def data_query(self, query):
-        query_return = self.query_api.query(
+        """ Sends flux query, receives data and sorts it in to the measurement
+        dict.
+
+        Keyword Arguments:
+            query (str): Flux query
+        """
+        query_return = self._query_api.query(
                 query=query,
-                org=self.config['Organisation']
+                org=self._config['Organisation']
                 )
-        print(query_return[0].records[0].values)
-        print(query_return[0].records[-1].values)
-#        for table in query_return:
-#            for record in table.records:
-#                print(record.values)
+        # query_return should only have one table so this just selects the
+        # first one
+        self._measurements[
+                'Name'
+                ] = query_return[0].records[0].values['result']
+        for record in query_return[0].records:
+            values = record.values
+            self._measurements['Timestamps'].append(values['_time'])
+            self._measurements['Values'].append(values['_value'])
+
+    def return_measurements(self):
+        """ Returns the measurements downloaded from the database
+
+        Returns:
+            Copy of self._measurements (dict)
+        """
+        return self._measurements.copy()
 
 
 class FluxQuery:
@@ -145,7 +173,7 @@ class FluxQuery:
         self._query = f"{self._query}  |> group(columns: [\"{group}\"])\n"
 
     def add_window(self, range, function, create_empty=True,
-                   time_ending=True, column="_value"):
+                   time_starting=False, column="_value"):
         """Adds aggregate window to data
 
         Keyword Arguments:
@@ -163,7 +191,7 @@ class FluxQuery:
             column (str): Column to aggregate (default: "_value")
         """
         time_source = "_stop"
-        if not time_ending:
+        if time_starting:
             time_source = "_start"
         self._query = (
                 f"{self._query}  |> aggregateWindow(every: {range}, "
@@ -221,7 +249,6 @@ class FluxQuery:
                 f"{dt_to_rfc3339(end)} then (r._value * {slope:.1f}) + "
                 f"{offset:.1f} else r._value}}))\n"
                 )
-
 
     def add_yield(self, name):
         """ Adds yield function, allows data to be output
