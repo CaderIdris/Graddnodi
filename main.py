@@ -37,7 +37,8 @@ if __name__ == "__main__":
         for key, value in settings["Filters"].items():
             query.add_filter(key, value)
         query.add_window(window_size, window_function)
-        query.drop_start_stop()
+        query.keep_measurements()
+        query.scale_measurements(100, 0)
         query.add_yield(name)
         print(query.return_query())
         # Download from Influx

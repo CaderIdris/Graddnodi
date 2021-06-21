@@ -10,6 +10,8 @@ __maintainer__ = "Idris Hayward"
 __email__ = "j.d.hayward@surrey.ac.uk"
 __status__ = "Indev"
 
+import datetime as dt
+
 from influxdb_client import InfluxDBClient
 
 
@@ -53,9 +55,11 @@ class InfluxQuery:
                 query=query,
                 org=self.config['Organisation']
                 )
-        for table in query_return:
-            for record in table.records:
-                print(record.values)
+        print(query_return[0].records[0].values)
+        print(query_return[0].records[-1].values)
+#        for table in query_return:
+#            for record in table.records:
+#                print(record.values)
 
 
 class FluxQuery:
@@ -168,6 +172,14 @@ class FluxQuery:
                 f"{str(create_empty).lower()})\n"
                 )
 
+    def keep_measurements(self):
+        """ Removes all columns except _time and _value, can help download
+        time
+        """
+        self._query = (
+                f"{self._query}  |> keep(columns: [\"_time\", \"_value\"])\n"
+                )
+
     def drop_start_stop(self):
         """ Adds drop function which removes superfluous start and stop
         columns
@@ -175,6 +187,41 @@ class FluxQuery:
         self._query = (
                 f"{self._query}  |> drop(columns: [\"_start\", \"_stop\"])\n"
                 )
+
+    def scale_measurements(self, slope, offset, start="", end=""):
+        """ Scales measurements. If start or stop is provided in RFC3339
+        format, they are scaled within that range only.
+
+        This function uses the map function to scale the measurements, within a
+        set range. If a start and/or end range is not provided they default to
+        1970-01-01 and 2800-01-01 respectively which should land outside of
+        any measurements passed through it for a while at least. This means
+        the function only has a limited lifespan, depracating after 2800 but
+        in all fairness, we should at least be on Python 4 by then. Feel free
+        to fix this future catastrophic bug, Python 4 genii.
+
+        Keyword Arguments:
+            slope (int/float): Number to multiply measurements by
+
+            offset (int/float): Number to offset scaled measurements by
+
+            start (datetime): Start date to scale measurements from
+            (Default: None, not added to query)
+
+            end (datetime): End date to scale measurements until
+            (Default: None, not added to query)
+        """
+        if type(start) != dt.datetime:
+            start = dt.datetime(1970, 1, 1)
+        if type(end) != dt.datetime:
+            end = dt.datetime(2800, 1, 1)
+        self._query = (
+                f"{self._query}  |> map(fn: (r) => ({{ r with _value: if "
+                f"{dt_to_rfc3339(start)} <= r._time and r._time <= "
+                f"{dt_to_rfc3339(end)} then (r._value * {slope:.1f}) + "
+                f"{offset:.1f} else r._value}}))\n"
+                )
+
 
     def add_yield(self, name):
         """ Adds yield function, allows data to be output
