@@ -8,6 +8,8 @@
 				"Site Name": "London Teddington Bushy Park",
 				"PM2.5 particulate matter unit": "ugm-3 (TEOM FDMS)"
 			},
+			"Hour Beginning": true,
+			"Scaling": [],
 			"Start": "",
 			"Stop": ""
 		},
@@ -19,6 +21,8 @@
 				"Site Name": "London Teddington Bushy Park",
 				"PM2.5 particulate matter unit": "ugm-3 (Ref.eq)"
 			},
+			"Hour Beginning": true,
+			"Scaling": [],
 			"Start": "",
 			"Stop": ""
 		},
@@ -27,6 +31,8 @@
 			"Measurement": "Nova PM",
 			"Field": "PM2.5",
 			"Filters": {"Serial Number": "C008-0001"},
+			"Hour Beginning": true,
+			"Scaling": [],
 			"Start": "",
 			"Stop": ""
 		},
@@ -35,9 +41,11 @@
 			"Measurement": "Nova PM",
 			"Field": "PM2.5",
 			"Filters": {"Serial Number": "C008-0003"},
+			"Hour Beginning": true,
+			"Scaling": [],
 			"Start": "",
 			"Stop": ""
-		},
+		},	
 		"NPL AQMesh A": {
 			"Bucket": "ACOEM Data",
 			"Measurement": "ACOEM UK Systems",
@@ -46,6 +54,8 @@
 				"SerialNumber": "1505150",
 				"Particulate Matter (PM 2.5) Flag": "Valid"
 			},
+			"Hour Beginning": true,
+			"Scaling": [],
 			"Start": "",
 			"Stop": ""
 		},
@@ -57,6 +67,8 @@
 				"SerialNumber": "1506150",
 				"Particulate Matter (PM 2.5) Flag": "Valid"
 			},
+			"Hour Beginning": true,
+			"Scaling": [],
 			"Start": "",
 			"Stop": ""
 		},
@@ -68,6 +80,8 @@
 				"SerialNumber": "2450100",
 				"Particulate Matter (PM 2.5) Flag": "Valid"
 			},
+			"Hour Beginning": true,
+			"Scaling": [],
 			"Start": "",
 			"Stop": ""
 		},
@@ -79,6 +93,8 @@
 				"SerialNumber": "2450222",
 				"Particulate Matter (PM 2.5) Flag": "Valid"
 			},
+			"Hour Beginning": true,
+			"Scaling": [],
 			"Start": "",
 			"Stop": ""
 		}
@@ -89,5 +105,6 @@
 	  	"Token": "",
 	  	"Organisation": ""
 	},
+
 	"Debug Stats": true
 }
