@@ -3,108 +3,174 @@
 		"Bushy Park FDMS": {
 			"Bucket": "AURN",
 			"Measurement": "Automatic Urban Rural Network",
-			"Field": "PM2.5 particulate matter",
-			"Filters": {
-				"Site Name": "London Teddington Bushy Park",
-				"PM2.5 particulate matter unit": "ugm-3 (TEOM FDMS)"
-			},
-			"Hour Beginning": true,
-			"Scaling": [],
+			"Fields": [
+				{
+					"Tag": "PM2.5",
+					"Field": "PM2.5 particulate matter",
+					"Boolean Filters": {
+						"Site Name": "London Teddington Bushy Park",
+						"PM2.5 particulate matter unit": "ugm-3 (TEOM FDMS)"
+					},
+					"Range Filters": [],
+					"Hour Beginning": true,
+					"Scaling": []
+				}
+			],
 			"Start": "",
 			"Stop": ""
 		},
 		"Bushy Park OPC": {
 			"Bucket": "AURN",
 			"Measurement": "Automatic Urban Rural Network",
-			"Field": "PM2.5 particulate matter",
-			"Filters": {
-				"Site Name": "London Teddington Bushy Park",
-				"PM2.5 particulate matter unit": "ugm-3 (Ref.eq)"
-			},
-			"Hour Beginning": true,
-			"Scaling": [],
+			"Fields": [
+				{
+					"Tag": "PM2.5",
+					"Field": "PM2.5 particulate matter",
+					"Boolean Filters": {
+						"Site Name": "London Teddington Bushy Park",
+						"PM2.5 particulate matter unit": "ugm-3 (Ref.eq)"
+					},
+					"Range Filters": [],
+					"Hour Beginning": true,
+					"Scaling": []
+				}
+			],
+			"Start": "",
+			"Stop": ""
+		},
+		"AirView Reference A": {
+			"Bucket": "AirView",
+			"Measurement": "AirView",
+			"Fields": [
+				{
+					"Tag": "PM2.5",
+					"Field": "Palas Fidas100 pm2.5 ug/m^3",
+					"Boolean Filters": {
+						"Car": "27522",
+						"Palas Fidas100 Status": "5x5"
+					},
+					"Range Filters": [],
+					"Hour Beginning": true,
+					"Scaling": []
+				}
+			],
 			"Start": "",
 			"Stop": ""
 		},
 		"Nova Sensor A": {
 			"Bucket": "Nova PM",
 			"Measurement": "Nova PM",
-			"Field": "PM2.5",
-			"Filters": {"Serial Number": "C008-0001"},
-			"Hour Beginning": true,
-			"Scaling": [],
+			"Fields": [
+				{
+					"Tag": "PM2.5",
+					"Field": "PM2.5",
+					"Boolean Filters": {"Serial Number": "C008-0001"},
+					"Range Filters": [],
+					"Hour Beginning": true,
+					"Scaling": []
+				}
+			],
 			"Start": "",
 			"Stop": ""
 		},
 		"Nova Sensor B": {
 			"Bucket": "Nova PM",
 			"Measurement": "Nova PM",
-			"Field": "PM2.5",
-			"Filters": {"Serial Number": "C008-0003"},
-			"Hour Beginning": true,
-			"Scaling": [],
+			"Fields": [
+				{
+					"Tag": "PM2.5",
+					"Field": "PM2.5",
+					"Boolean Filters": {"Serial Number": "C008-0003"},
+					"Range Filters": [],
+					"Hour Beginning": true,
+					"Scaling": []
+				}
+			],
 			"Start": "",
 			"Stop": ""
 		},	
 		"NPL AQMesh A": {
 			"Bucket": "ACOEM Data",
 			"Measurement": "ACOEM UK Systems",
-			"Field": "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]",
-			"Filters": {
-				"SerialNumber": "1505150",
-				"Particulate Matter (PM 2.5) Flag": "Valid"
-			},
-			"Hour Beginning": true,
-			"Scaling": [],
+			"Fields": [
+				{
+					"Tag": "PM2.5",
+					"Field": "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]",
+					"Boolean Filters": {
+						"SerialNumber": "1505150",
+						"Particulate Matter (PM 2.5) Flag": "Valid"
+					},
+					"Range Filters": [],
+					"Hour Beginning": true,
+					"Scaling": []
+				}
+			],
 			"Start": "",
 			"Stop": ""
 		},
 		"NPL AQMesh B": {
 			"Bucket": "ACOEM Data",
 			"Measurement": "ACOEM UK Systems",
-			"Field": "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]",
-			"Filters": {
-				"SerialNumber": "1506150",
-				"Particulate Matter (PM 2.5) Flag": "Valid"
-			},
-			"Hour Beginning": true,
-			"Scaling": [],
+			"Fields": [
+				{
+					"Tag": "PM2.5",
+					"Field": "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]",
+					"Boolean Filters": {
+						"SerialNumber": "1506150",
+						"Particulate Matter (PM 2.5) Flag": "Valid"
+					},
+					"Range Filters": [],
+					"Hour Beginning": true,
+					"Scaling": []
+				}
+			],
 			"Start": "",
 			"Stop": ""
 		},
 		"Breathe London AQMesh": {
 			"Bucket": "ACOEM Data",
 			"Measurement": "ACOEM UK Systems",
-			"Field": "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]",
-			"Filters": {
-				"SerialNumber": "2450100",
-				"Particulate Matter (PM 2.5) Flag": "Valid"
-			},
-			"Hour Beginning": true,
-			"Scaling": [],
+			"Fields": [
+				{
+					"Tag": "PM2.5",
+					"Field": "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]",
+					"Boolean Filters": {
+						"SerialNumber": "2450100",
+						"Particulate Matter (PM 2.5) Flag": "Valid"
+					},
+					"Range Filters": [],
+					"Hour Beginning": true,
+					"Scaling": []
+				}
+			],
 			"Start": "",
 			"Stop": ""
 		},
 		"NPL AQMesh C": {
 			"Bucket": "ACOEM Data",
 			"Measurement": "ACOEM UK Systems",
-			"Field": "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]",
-			"Filters": {
-				"SerialNumber": "2450222",
-				"Particulate Matter (PM 2.5) Flag": "Valid"
-			},
-			"Hour Beginning": true,
-			"Scaling": [],
+			"Fields": [
+				{
+					"Tag": "PM2.5",
+					"Field": "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]",
+					"Boolean Filters": {
+						"SerialNumber": "2450222",
+						"Particulate Matter (PM 2.5) Flag": "Valid"
+					},
+					"Range Filters": [],
+					"Hour Beginning": true,
+					"Scaling": []
+				}
+			],
 			"Start": "",
 			"Stop": ""
 		}
 	},
 	"Influx": {
-	  	"IP": "",
-	  	"Port": "",
-	  	"Token": "",
-	  	"Organisation": ""
+		"IP": "",
+		"Port": "",
+		"Token": "",
+		"Organisation": ""
 	},
-
 	"Debug Stats": true
 }

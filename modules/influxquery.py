@@ -151,6 +151,24 @@ class FluxQuery:
                 f"\"{field}\")\n"
                 )
 
+    def add_multiple_fields(self, fields):
+        """ Adds multiple fields to the query 
+
+        Useful if you want to filter one measurement based on others 
+
+        Keyword Arguments:
+            fields (list): All the fields to be queried 
+        """
+        self._query = (
+                f"{self._query}  |> filter(fn: (r) => r[\"_field\"] == "
+                f"\"{fields[0]}\" or "
+                )
+        if len(fields) > 2:
+            for field in fields[1:-1]:
+                f"{self.query} r[\"_field\"] == \"{field}\" or "
+
+        self._query = f"{self.query} r[\"_field\"] == \"{fields[-1]}\")\n"
+
     def add_filter(self, key, value):
         """ Adds a filter to the query
 
@@ -163,6 +181,39 @@ class FluxQuery:
                 f"{self._query}  |> filter(fn: (r) => r[\"{key}\"] == "
                 f"\"{value}\")\n"
                 )
+
+    def add_filter_range(self, field, filter_fields):
+        """ Adds filter range to the query
+
+        Adds a filter to the query that only selects measurements when one
+        measurement lies inside or outside a specified range
+
+        Keyword arguments:
+            field (str): The field that is being filtered 
+
+            filter_fields (list): Contains all fields used to filter field data
+        """
+        self._query = (
+                f"{self._query}  |> keep(columns: [\"_time\", \"_field\", "
+                f"\"_value\"])\n"
+                f"  |> pivot(rowKey: [\"_time\"], columnKey: [\"_field\"], "
+                f"valueColumn: \"_value\")\n"
+                )
+        for filter_field in filter_fields:
+            name = filter_field["Field"]
+            min = filter_field["Min"]
+            max = filter_field["Max"]
+            min_equals_sign = "=" if  filter_field["Max Equal"] else ""
+            max_equals_sign = "=" if filter_field["Max Equal"] else ""
+            self._query = (
+                f"{self._query}"
+                f"  |> filter(fn): (r) => r[\"{name}\"] >{min_equals_sign}"
+                f" {min} and r[\"{name}\"] <{max_equals_sign} {max})\n"
+                )
+        self._query = (
+                f"{self._query}"
+                f"  |> rename(columns: {{\"{field}\": \"_value\"}})\n"
+                    )
 
     def add_group(self, group):
         """ Adds group tag to query

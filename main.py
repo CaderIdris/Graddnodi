@@ -11,6 +11,7 @@ __email__ = "j.d.hayward@surrey.ac.uk"
 __status__ = "Indev"
 
 import datetime as dt
+from collections import defaultdict
 
 from modules.influxquery import InfluxQuery, FluxQuery
 from modules.idriskit import get_json
@@ -25,7 +26,7 @@ if __name__ == "__main__":
     query_config = config["Devices"]
 
     # Download measurements from InfluxDB 2.x
-    measurements = list()
+    measurements = defaultdict(list)
     for name, settings in config["Devices"].items():
         # Generate flux query
         query = FluxQuery(
@@ -34,28 +35,40 @@ if __name__ == "__main__":
                 settings["Bucket"],
                 settings["Measurement"]
                 )
-        query.add_field(settings["Field"])
-        for key, value in settings["Filters"].items():
-            query.add_filter(key, value)
-        query.add_window(
-                window_size,
-                window_function,
-                time_starting=settings["Hour Beginning"]
-                )
-        query.keep_measurements()
-        for scale in settings["Scaling"]:
-            query.scale_measurements(
-                    scale["Slope"],
-                    scale["Offset"],
-                    scale["Start"],
-                    scale["End"]
+        for dev_field in settings["Fields"]:
+            if len(dev_field["Range Filters"].items()) == 0:
+                query.add_field(dev_field["Field"])
+            else:
+                all_fields = [dev_field["Field"]]
+                for key, value in dev_field["Range Filters"].items():
+                    all_fields.append(value["Field"])
+                query.add_multiple_fields(all_fields)
+            for key, value in dev_field["Boolean Filters"].items():
+                query.add_filter(key, value)
+            query.keep_measurements()
+            query.add_window(
+                    window_size,
+                    window_function,
+                    time_starting=dev_field["Hour Beginning"]
                     )
-        query.add_yield(name)
-        # Download from Influx
-        influx = InfluxQuery(config["Influx"])
-        influx.data_query(query.return_query())
-        measurements.append(influx.return_measurements())
-        print(measurements)
+            for scale in dev_field["Scaling"]:
+                query.scale_measurements(
+                        scale["Slope"],
+                        scale["Offset"],
+                        scale["Start"],
+                        scale["End"]
+                        )
+            query.add_yield(window_function)
+            # Download from Influx
+            influx = InfluxQuery(config["Influx"])
+            influx.data_query(query.return_query())
+            measurements[dev_field["Tag"]].append(
+                    {
+                        "Name": name,
+                        "Measurements": influx.return_measurements()
+                        }
+                    )
+            print(measurements[dev_field["Tag"]][-1])
 
 
 #    query = FluxQuery(
