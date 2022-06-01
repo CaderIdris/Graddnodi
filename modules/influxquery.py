@@ -73,13 +73,16 @@ class InfluxQuery:
                 )
         # query_return should only have one table so this just selects the
         # first one
-        self._measurements[
-                'Name'
-                ] = query_return[0].records[0].values['result']
-        for record in query_return[0].records:
-            values = record.values
-            self._measurements['Timestamps'].append(values['_time'])
-            self._measurements['Values'].append(values['_value'])
+        if len(query_return) > 0:
+            self._measurements[
+                    'Name'
+                    ] = query_return[0].records[0].values['result']
+            for record in query_return[0].records:
+                values = record.values
+                self._measurements['Timestamps'].append(values['_time'])
+                self._measurements['Values'].append(values['_value'])
+        else:
+            self._measurements = None
 
     def return_measurements(self):
         """ Returns the measurements downloaded from the database
@@ -87,7 +90,10 @@ class InfluxQuery:
         Returns:
             Copy of self._measurements (dict)
         """
-        return self._measurements.copy()
+        if self._measurements is not None:
+            return self._measurements.copy()
+        else:
+            return None
 
 
 class FluxQuery:

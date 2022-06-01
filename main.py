@@ -36,15 +36,20 @@ if __name__ == "__main__":
                 settings["Measurement"]
                 )
         for dev_field in settings["Fields"]:
-            if len(dev_field["Range Filters"].items()) == 0:
+            if len(dev_field["Range Filters"]) == 0:
                 query.add_field(dev_field["Field"])
             else:
                 all_fields = [dev_field["Field"]]
-                for key, value in dev_field["Range Filters"].items():
+                for value in dev_field["Range Filters"]:
                     all_fields.append(value["Field"])
                 query.add_multiple_fields(all_fields)
             for key, value in dev_field["Boolean Filters"].items():
                 query.add_filter(key, value)
+            if len(dev_field["Range Filters"]) > 0:
+                    query.add_filter_range(
+                        dev_field["Field"],
+                        dev_field["Range Filters"]
+                        )
             query.keep_measurements()
             query.add_window(
                     window_size,
@@ -62,13 +67,16 @@ if __name__ == "__main__":
             # Download from Influx
             influx = InfluxQuery(config["Influx"])
             influx.data_query(query.return_query())
-            measurements[dev_field["Tag"]].append(
-                    {
-                        "Name": name,
-                        "Measurements": influx.return_measurements()
-                        }
-                    )
-            print(measurements[dev_field["Tag"]][-1])
+            inf_measurements = influx.return_measurements
+            if inf_measurements is not None:
+                measurements[dev_field["Tag"]].append(
+                        {
+                            "Name": name,
+                            "Measurements": influx.return_measurements()
+                            }
+                        )
+            else:
+                continue
 
 
 #    query = FluxQuery(
