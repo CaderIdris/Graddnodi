@@ -16,13 +16,15 @@ previously I was copy and pasting them in to each program separately.
         them have been read by the program previously
 
         append_to_file: Appends a string to the end of a file
+        
+        parse_data_string: Parses date string in to datetime format
 """
 
 __author__ = "Idris Hayward"
 __copyright__ = "2021, The University of Surrey & National Physical Laboratory"
 __credits__ = ["Idris Hayward"]
 __license__ = "GNU General Public License v3.0"
-__version__ = "1.0"
+__version__ = "1.0.1"
 __maintainer__ = "Idris Hayward"
 __email__ = "j.d.hayward@surrey.ac.uk"
 __status__ = "Stable Release"
@@ -262,3 +264,38 @@ def append_to_file(line, file):
     """
     with open(file, "a") as read_files_txt:
         read_files_txt.write(f"{line}\n")
+
+def parse_date_string(dateString):
+    """Parses input strings in to date objects
+
+    Keyword arguments:
+        date_string (str): String to be parsed in to date object
+
+    Variables:
+        parsable_formats (list): List of formats recognised by
+        the program. If none are suitable, the program informs
+        the user of suitable formats that can be used instead
+
+    Returns:
+        Datetime object equivalent of input
+
+    Raises:
+        ValueError if input isn't in a suitable format
+
+    """
+    parsableFormats = [
+            "%Y-%m-%d",
+            "%Y/%m/%d",
+            "%Y\\%m\\%d",
+            "%Y.%m.%d"
+            ]
+
+    for fmt in parsableFormats:
+        try:
+            return dt.datetime.strptime(dateString, fmt)
+        except ValueError:
+            pass
+    raise ValueError(
+        f'"{dateString}" is not in the correct format. Please'
+        f" use one of the following:\n{parsableFormats}"
+    )
