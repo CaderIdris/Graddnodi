@@ -303,8 +303,8 @@ class FluxQuery:
         self._query = (
                 f"{self._query}  |> map(fn: (r) => ({{ r with _value: if "
                 f"{dt_to_rfc3339(start)} <= r._time and r._time <= "
-                f"{dt_to_rfc3339(end)} then (r._value * {slope:.1f}) + "
-                f"{offset:.1f} else r._value}}))\n"
+                f"{dt_to_rfc3339(end)} then (r._value * {float(slope)}) + "
+                f"{float(slope)} else r._value}}))\n"
                 )
 
     def add_yield(self, name):

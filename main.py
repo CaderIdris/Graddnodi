@@ -5,7 +5,7 @@ __author__ = "Idris Hayward"
 __copyright__ = "2021, Idris Hayward"
 __credits__ = ["Idris Hayward"]
 __license__ = "GNU General Public License v3.0"
-__version__ = "0.1"
+__version__ = "0.2"
 __maintainer__ = "Idris Hayward"
 __email__ = "j.d.hayward@surrey.ac.uk"
 __status__ = "Indev"
@@ -14,15 +14,13 @@ import datetime as dt
 from collections import defaultdict
 
 from modules.influxquery import InfluxQuery, FluxQuery
-from modules.idriskit import get_json
+from modules.idristools import get_json, parse_date_string
 
 if __name__ == "__main__":
     # Setup
-    start_date = dt.datetime(2020, 1, 1)
-    end_date = dt.datetime(2021, 1, 1)
-    window_size = "1h"
-    window_function = "mean"
     config = get_json("Settings/config.json")
+    start_date = parse_date_string(config["Runtime"]["Start"])
+    end_date = parse_date_string(config["Runtime"]["End"])
     query_config = config["Devices"]
 
     # Download measurements from InfluxDB 2.x
@@ -51,11 +49,6 @@ if __name__ == "__main__":
                         dev_field["Range Filters"]
                         )
             query.keep_measurements()
-            query.add_window(
-                    window_size,
-                    window_function,
-                    time_starting=dev_field["Hour Beginning"]
-                    )
             for scale in dev_field["Scaling"]:
                 query.scale_measurements(
                         scale["Slope"],
@@ -63,7 +56,12 @@ if __name__ == "__main__":
                         scale["Start"],
                         scale["End"]
                         )
-            query.add_yield(window_function)
+            query.add_window(
+                    config["Runtime"]["Averaging Period"],
+                    config["Runtime"]["Average Operator"],
+                    time_starting=dev_field["Hour Beginning"]
+                    )
+            query.add_yield(config["Runtime"]["Average Operator"])
             # Download from Influx
             influx = InfluxQuery(config["Influx"])
             influx.data_query(query.return_query())

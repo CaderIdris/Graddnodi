@@ -51,7 +51,40 @@
 					},
 					"Range Filters": [],
 					"Hour Beginning": true,
-					"Scaling": []
+					"Scaling": [
+						{
+							"Start": "2019/04/12 15:53:44",
+							"End": "",
+							"Slope": "1000",
+							"Offset": ""
+						}
+					]
+				}
+			],
+			"Start": "",
+			"Stop": ""
+		},
+		"AirView Reference B": {
+			"Bucket": "AirView",
+			"Measurement": "AirView",
+			"Fields": [
+				{
+					"Tag": "PM2.5",
+					"Field": "Palas Fidas100 pm2.5 ug/m^3",
+					"Boolean Filters": {
+						"Car": "27533",
+						"Palas Fidas100 Status": "5x5"
+					},
+					"Range Filters": [],
+					"Hour Beginning": true,
+					"Scaling": [
+						{
+							"Start": "2019/04/12 14:58:20",
+							"End": "",
+							"Slope": "1000",
+							"Offset": ""
+						}
+					]
 				}
 			],
 			"Start": "",
@@ -165,6 +198,12 @@
 			"Start": "",
 			"Stop": ""
 		}
+	},
+	"Runtime": {
+		"Start": "2018/10/01",
+		"End": "2020/10/01",
+		"Average Operator": "mean",
+		"Averaging Period": "1h"
 	},
 	"Influx": {
 		"IP": "",

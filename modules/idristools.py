@@ -31,6 +31,7 @@ __status__ = "Stable Release"
 
 import os
 import json
+import datetime as dt
 
 def fancy_print(
     str_to_print,
@@ -265,7 +266,7 @@ def append_to_file(line, file):
     with open(file, "a") as read_files_txt:
         read_files_txt.write(f"{line}\n")
 
-def parse_date_string(dateString):
+def parse_date_string(date_string):
     """Parses input strings in to date objects
 
     Keyword arguments:
@@ -283,19 +284,28 @@ def parse_date_string(dateString):
         ValueError if input isn't in a suitable format
 
     """
-    parsableFormats = [
+    parsable_formats = [
+            "%Y-%m-%d %H:%M:%S",
+            "%Y/%m/%d %H:%M:%S",
+            "%Y\\%m\\%d %H:%M:%S",
+            "%Y.%m.%d %H:%M:%S",
+            "%Y-%m-%d %H.%M.%S",
+            "%Y/%m/%d %H.%M.%S",
+            "%Y\\%m\\%d %H.%M.%S",
+            "%Y.%m.%d %H.%M.%S",
+            "%Y-%m-%dT%H:%M:%SZ",
             "%Y-%m-%d",
             "%Y/%m/%d",
             "%Y\\%m\\%d",
             "%Y.%m.%d"
             ]
 
-    for fmt in parsableFormats:
+    for fmt in parsable_formats:
         try:
-            return dt.datetime.strptime(dateString, fmt)
+            return dt.datetime.strptime(date_string, fmt)
         except ValueError:
             pass
     raise ValueError(
-        f'"{dateString}" is not in the correct format. Please'
-        f" use one of the following:\n{parsableFormats}"
+        f'"{date_string}" is not in the correct format. Please'
+        f" use one of the following:\n{parsable_formats}"
     )
