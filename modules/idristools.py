@@ -1,26 +1,38 @@
-""" Idris Kit
+""" Set of tools I find useful in all my programs
 
-This is a set of functions and classes I find useful across a range of
-applications, collated in one place for ease of use in multiple programs.
+This module contains functions I have found useful in other programs,
+previously I was copy and pasting them in to each program separately.
 
+    Methods:
+        fancy_print: Makes string output to the console look nicer
+
+        get_json: Finds json file and returns it as dict
+
+        save_to_file: Saves data to file in specified path
+
+        debug_stats: Prints out a json file/dictionary nicely
+
+        unread_files: Scans a directory for files and determines how many of
+        them have been read by the program previously
+
+        append_to_file: Appends a string to the end of a file
 """
 
 __author__ = "Idris Hayward"
-__copyright__ = "2021, Idris Hayward"
+__copyright__ = "2021, The University of Surrey & National Physical Laboratory"
 __credits__ = ["Idris Hayward"]
 __license__ = "GNU General Public License v3.0"
-__version__ = "0.1"
+__version__ = "1.0"
 __maintainer__ = "Idris Hayward"
 __email__ = "j.d.hayward@surrey.ac.uk"
-__status__ = "Indev"
+__status__ = "Stable Release"
 
-import json
 import os
-
+import json
 
 def fancy_print(
     str_to_print,
-    length=70,
+    length=120,
     form="NORM",
     char="\U0001F533",
     end="\n",
@@ -61,8 +73,6 @@ def fancy_print(
             Nothing, prints a 'form' formatted 'str_to_print' of
             length 'length'
     """
-    if len(str_to_print) - 4 > length:
-        str_to_print = f"{str_to_print[:len(str_to_print)-7]}..."
     length_adjust = 1
     length_offset = 0
     if len(char) > 1:
@@ -145,8 +155,110 @@ def save_to_file(write_data, path_to_file, filename):
         filename (str): Name of file to write data to, please include file
         format e.g "filename.csv"
 
+    Returns:
+        None
     """
     while not os.path.isdir(path_to_file):
         os.makedirs(path_to_file, exist_ok=True)
     with open(f"{path_to_file}/{filename}", "w") as newfile:
         newfile.write(write_data)
+
+
+def debug_stats(stats, line_length=120, level=1, max_level=3):
+    """ Prints out a json file/dictionary nicely
+
+    Used to print out config files in an easily readable way, can also be used
+    for other dictionary type formats. Will print nested dictionaries up to a 
+    depth of max_level.
+
+    Keyword arguments:
+        stats (dict): Dictionary to print to console
+
+        line_length (int): Length of the console
+
+        level(int): How far the dictionary is nested, the user should never use
+        this keyword when calling this function.
+
+        max_level (int): How deep in to a nested dictionary the function will print
+
+    Returns:
+        None
+    """
+    base_string = f"{'    '*level}- "
+    for key, item in stats.items():
+        if type(item) == dict and level <= max_level:
+            fancy_print(f"{base_string}{key}:", length=line_length)
+            debug_stats(item, level=level+1)
+        elif type(item) == dict:
+            fancy_print(f"{base_string}{key}: {...}", length=line_length)
+        else:
+            stat_string = f"{base_string}{key}: {item}"
+            if len(stat_string) > line_length - 10:
+                stat_string = f"{stat_string[:line_length-15]}..."
+            fancy_print(stat_string, length=line_length)
+
+
+def unread_files(path, read_list, return_stats=False):
+    """ Scans a directory for files and determines how many of them have been
+    read by the program previously
+
+    Scans a directory for a list of files and then removes them from the list
+    if the program has read them previously. This function requires that files
+    read by the master program are added to a list after they have been
+    processed.
+
+    Keyword arguments:
+        path (str): Path to directory containing files to be read
+
+        read_list (str): Path to file containing all previously read files. The
+        path must include the file extension.
+
+        return_stats (boolean): If true, a dictionary containing the list of
+        unread files, the number of files in total and the number of read files
+        is returned. Otherwise, the list of unread files is returned on its
+        own. Defaults to False.
+
+    Returns:
+        A list of unread files if return_stats is false
+        A dictionary containing:
+            "Unread File List": A list of unread files
+            "Total Files": The number of files in the directory
+            "Read Files": The number of read files
+        if return_stats is true
+    """
+    file_list = os.listdir(path)
+    file_list.sort()
+    try:
+        with open(read_list, "r") as read_files_txt:
+            read_files = read_files_txt.readlines()
+            read_files = [line[:-1] for line in read_files]
+    except FileNotFoundError:
+        with open(read_list, "w") as read_files_txt:
+                read_files = list()
+    if len(read_files) == 0:
+        unread_files = file_list
+    else:
+        unread_files = [file for file in file_list if file not in read_files]
+    if return_stats:
+        return {
+            "Unread File List": unread_files,
+            "Total Files": len(file_list),
+            "Read Files": len(read_files)
+            }
+    else:
+        return unread_files
+
+
+def append_to_file(line, file):
+    """ Appends a line to a file
+
+    Keyword arguments:
+        line (str): What to append to the file
+
+        file (str): Path to the file to append to
+
+    Returns:
+        None
+    """
+    with open(file, "a") as read_files_txt:
+        read_files_txt.write(f"{line}\n")
