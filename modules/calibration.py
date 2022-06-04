@@ -10,16 +10,14 @@ __maintainer__ = "Idris Hayward"
 __email__ = "j.d.hayward@surrey.ac.uk"
 __status__ = "Indev"
 
+import numpy as np
+from sklearn import linear_model as lm
+
 class Calibration:
     """ Calibrates one set of measurements against another 
 
     Attributes:
-        - x (dict): Measurements to be calibrated against. Keys include:
-            - 'Measurements' (dict): Contains two keys:
-                - 'Values' (list): Measurements 
-                - 'Timestamps' (list): Times measurements made
-            - 'Name' (str): Name of device
-        - y (dict): Measurements to be calibrated. Keys include:
+        - x (dict): Independent measurements. Keys include:
             - 'Measurements' (dict): Contains two keys:
                 - 'Values' (list): Measurements 
                 - 'Timestamps' (list): Times measurements made
@@ -27,6 +25,11 @@ class Calibration:
             - 'Secondary Measurements' (dict): Contains keys representing
             the different secondary variables. Can be empty:
                 - *variable* (list): Contains list of measurements
+        - y (dict): Dependent measurements. Keys include:
+            - 'Measurements' (dict): Contains two keys:
+                - 'Values' (list): Measurements 
+                - 'Timestamps' (list): Times measurements made
+            - 'Name' (str): Name of device
 
     Methods:
         - ols_linear: Performs OLS linear regression 
@@ -52,32 +55,37 @@ class Calibration:
         secondary variables are provided.
 
         Keyword Arguments:
-            - x_data (dict): Dict of the data that y is to be calibrated
-            against. Keys includes:
-                - 'Measurements' (dict): Contains two keys:
-                    - 'Values' (list): Measurements 
-                    - 'Timestamps' (list): Times measurements made
-                - 'Name' (str): Name of device
-    
-            - y_data (dict): Dict of the data that is to be calibrated
-            Keys includes:
-                - 'Measurements' (dict): Contains two keys:
-                    - 'Values' (list): Measurements 
-                    - 'Timestamps' (list): Times measurements made
-                - 'Name' (str): Name of device
-                - 'Secondary Measurements' (dict): Contains keys representing
-                the different secondary variables. Can be empty:
-                    - *variable* (list): Contains list of measurements
-                     
-
+        - x (dict): Independent measurements. Keys include:
+            - 'Measurements' (dict): Contains two keys:
+                - 'Values' (list): Measurements 
+                - 'Timestamps' (list): Times measurements made
+            - 'Name' (str): Name of device
+            - 'Secondary Measurements' (dict): Contains keys representing
+            the different secondary variables. Can be empty:
+                - *variable* (list): Contains list of measurements
+        - y_data (dict): Dependent measurements. Keys include:
+            - 'Measurements' (dict): Contains two keys:
+                - 'Values' (list): Measurements 
+                - 'Timestamps' (list): Times measurements made
+            - 'Name' (str): Name of device
+        - coefficients (dict): Results of the calibrations
         """
         self.x = x_data 
-        self.y = y_data 
+        self.y = y_data
+        self.coefficients = dict()
 
     def ols_linear(self):
         """ Performs OLS linear regression comparing y against x
         """
-        pass
+        x_array = np.array(self.x["Measurements"]["Values"])
+        y_array = np.array(self.y["Measurements"]["Values"])
+        ols_lr = lm.LinearRegression()
+        ols_lr.fit(x_array[:, np.newaxis], y_array[:, np.newaxis])
+        slope, offset = float(ols_lr.coef_[0]), float(ols_lr.intercept_)
+        self.coefficients["OLS Univariate Linear Regression"] = {
+                "Slope": slope,
+                "Offset": offset 
+                }
 
     def maximum_a_posteriori(self):
         """ Performs MAP regression comparing y against x
@@ -110,3 +118,5 @@ class Calibration:
         """ Performs appended OLS
         """
         pass
+
+
