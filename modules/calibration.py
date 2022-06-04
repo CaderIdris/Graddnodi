@@ -12,6 +12,7 @@ __status__ = "Indev"
 
 import numpy as np
 from sklearn import linear_model as lm
+from itertools import combinations
 
 class Calibration:
     """ Calibrates one set of measurements against another 
@@ -82,10 +83,43 @@ class Calibration:
         ols_lr = lm.LinearRegression()
         ols_lr.fit(x_array[:, np.newaxis], y_array[:, np.newaxis])
         slope, offset = float(ols_lr.coef_[0]), float(ols_lr.intercept_)
-        self.coefficients["OLS Univariate Linear Regression"] = {
+        self.coefficients["OLS Univariate"] = {
                 "Slope": slope,
                 "Offset": offset 
                 }
+
+    def ols_multivariate(self):
+        """ Performs multivariate OLS on y against x
+        """
+        mv_keys = list(self.x["Secondary Measurements"].keys())
+        mv_variations = list()
+#        for index, key in enumerate(mv_keys[-1]):
+#            combo = mv_keys[index:]
+#            for size in range(1, len(combo)+1):
+#                for begin_index in range(0, len(combo) - size + 1):
+#                    print(combo[begin_index:begin_index + size])
+        for combo_length in range(1, len(mv_keys) + 1):
+            combos = list(combinations(mv_keys, combo_length))
+            for combo in combos:
+                mv_variations.append(combo)
+        print(*mv_variations, sep='\n')
+        
+        for variation in mv_variations:
+            combo_string = "x"
+            x_array = np.array(self.x["Measurements"]["Values"])[:, np.newaxis]
+            for key in variation:
+                combo_string = f"{combo_string} + {key}"
+                secondary = self.x["Secondary Measurements"][key]
+                x_array = np.hstack((x_array, np.array(secondary)[:, np.newaxis]))
+            y_array = np.array(self.y["Measurements"]["Values"])[:, np.newaxis]
+            ols_lr = lm.LinearRegression()
+            ols_lr.fit(x_array, y_array)
+            slope, offset = list(ols_lr.coef_[0]), float(ols_lr.intercept_[0])
+            self.coefficients[f"OLS Multivariate ({combo_string})"] = {
+                    "Slope": slope,
+                    "Offset": offset 
+                    }
+        print(self.coefficients.keys())
 
     def maximum_a_posteriori(self):
         """ Performs MAP regression comparing y against x
@@ -104,10 +138,6 @@ class Calibration:
         """
         pass
 
-    def multivariate(self):
-        """ Performs multivariate OLS on y against x
-        """
-        pass
 
     def rolling(self):
         """ Performs rolling OLS
