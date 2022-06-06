@@ -3,8 +3,10 @@ import modules.idristools as IdrisTools
 import modules.calibration as Calibration
 
 class TestIdrisTools(unittest.TestCase):
-    def test_test(self):
-        self.assertEqual(1+1, 2, "Should be 2")
+    def test_all_combinations(self):
+        test_list = ["A", "B", "C", "D", "E", "F", "G"]
+        test_combos = IdrisTools.all_combinations(test_list)
+        self.assertEqual(len(test_combos), 127)
 
 class TestCalibration(unittest.TestCase):
     def test_ols_ulr(self):
@@ -59,15 +61,13 @@ class TestCalibration(unittest.TestCase):
             "Name": "Y"
             }
         test_ols = Calibration.Calibration(test_data_x, test_data_y)
-        test_ols.ols_multivariate()
+        test_ols.ols_multivariate(["A"])
         with self.subTest(): # Test x slope 
             self.assertEqual(round(test_ols.coefficients["OLS Multivariate (x + A)"]["Slope"][0], 2), 0.5)
         with self.subTest(): # Test A slope 
             self.assertEqual(round(test_ols.coefficients["OLS Multivariate (x + A)"]["Slope"][1], 2), 0.5)
         with self.subTest(): # Test intercept
             self.assertEqual(round(test_ols.coefficients["OLS Multivariate (x + A)"]["Offset"], 2), 0)
-        with self.subTest(): # Test correct number of combos
-            self.assertEqual(len(list(test_ols.coefficients)), 63)
 
 if __name__ == '__main__':
     unittest.main()

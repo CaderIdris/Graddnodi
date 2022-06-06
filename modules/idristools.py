@@ -32,6 +32,7 @@ __status__ = "Stable Release"
 import os
 import json
 import datetime as dt
+from itertools import combinations
 
 def fancy_print(
     str_to_print,
@@ -309,3 +310,20 @@ def parse_date_string(date_string):
         f'"{date_string}" is not in the correct format. Please'
         f" use one of the following:\n{parsable_formats}"
     )
+
+def all_combinations(input_list):
+    """ Returns all possible combinations of input_list with all possible
+    variables included or not included 
+
+    Keyword Arguments:
+        input_list (list): List containing all variables to be combined
+
+    Returns:
+        List of all possible combinations
+    """
+    all_combos = list()
+    for combo_length in range(1, len(input_list) + 1):
+        combos = list(combinations(input_list, combo_length))
+        for combo in combos:
+            all_combos.append(combo)
+    return all_combos

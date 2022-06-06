@@ -14,7 +14,7 @@ import datetime as dt
 from collections import defaultdict
 
 from modules.influxquery import InfluxQuery, FluxQuery
-from modules.idristools import get_json, parse_date_string
+from modules.idristools import get_json, parse_date_string, all_combinations
 
 if __name__ == "__main__":
     # Setup
