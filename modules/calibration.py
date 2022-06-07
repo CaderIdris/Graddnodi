@@ -7,7 +7,7 @@ __credits__ = ["Idris Hayward"]
 __license__ = "GNU General Public License v3.0"
 __version__ = "0.1"
 __maintainer__ = "Idris Hayward"
-__email__ = "j.d.hayward@surrey.ac.uk"
+__email__ = "CaderIdrisGH@outlook.com"
 __status__ = "Indev"
 
 import numpy as np

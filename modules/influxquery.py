@@ -5,10 +5,10 @@ __author__ = "Idris Hayward"
 __copyright__ = "2021, Idris Hayward"
 __credits__ = ["Idris Hayward"]
 __license__ = "GNU General Public License v3.0"
-__version__ = "0.1"
+__version__ = "0.4"
 __maintainer__ = "Idris Hayward"
-__email__ = "j.d.hayward@surrey.ac.uk"
-__status__ = "Indev"
+__email__ = "CaderIdrisGH@outlook.com"
+__status__ = "Beta"
 
 import datetime as dt
 
