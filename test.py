@@ -31,11 +31,11 @@ class TestCalibration(unittest.TestCase):
             "Name": "Y"
             }
         test_ols = Calibration.Calibration(test_data_x, test_data_y)
-        test_ols.ols_linear()
+        test_ols.ols()
         with self.subTest():
-            self.assertEqual(round(test_ols.coefficients["OLS Univariate"]["Slope"], 2), 1)
+            self.assertEqual(round(test_ols.coefficients["OLS (x)"]["Slope"]["x"], 2), 1)
         with self.subTest():
-            self.assertEqual(round(test_ols.coefficients["OLS Univariate"]["Offset"], 2), 0)
+            self.assertEqual(round(test_ols.coefficients["OLS (x)"]["Offset"], 2), 0)
 
     def test_ols_mlr(self):
         test_data_x = {
@@ -61,13 +61,13 @@ class TestCalibration(unittest.TestCase):
             "Name": "Y"
             }
         test_ols = Calibration.Calibration(test_data_x, test_data_y)
-        test_ols.ols_multivariate(["A"])
+        test_ols.ols(["A"])
         with self.subTest(): # Test x slope 
-            self.assertEqual(round(test_ols.coefficients["OLS Multivariate (x + A)"]["Slope"][0], 2), 0.5)
+            self.assertEqual(round(test_ols.coefficients["OLS (x + A)"]["Slope"]["x"], 2), 0.5)
         with self.subTest(): # Test A slope 
-            self.assertEqual(round(test_ols.coefficients["OLS Multivariate (x + A)"]["Slope"][1], 2), 0.5)
+            self.assertEqual(round(test_ols.coefficients["OLS (x + A)"]["Slope"]["A"], 2), 0.5)
         with self.subTest(): # Test intercept
-            self.assertEqual(round(test_ols.coefficients["OLS Multivariate (x + A)"]["Offset"], 2), 0)
+            self.assertEqual(round(test_ols.coefficients["OLS (x + A)"]["Offset"], 2), 0)
 
 if __name__ == '__main__':
     unittest.main()

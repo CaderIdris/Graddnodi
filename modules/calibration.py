@@ -12,6 +12,7 @@ __status__ = "Indev"
 
 import numpy as np
 from sklearn import linear_model as lm
+from sklearn.preprocessing import StandardScaler
 
 class Calibration:
     """ Calibrates one set of measurements against another 
@@ -74,21 +75,8 @@ class Calibration:
         self.y = y_data
         self.coefficients = dict()
 
-    def ols_linear(self):
-        """ Performs OLS linear regression comparing y against x
-        """
-        x_array = np.array(self.x["Measurements"]["Values"])
-        y_array = np.array(self.y["Measurements"]["Values"])
-        ols_lr = lm.LinearRegression()
-        ols_lr.fit(x_array[:, np.newaxis], y_array[:, np.newaxis])
-        slope, offset = float(ols_lr.coef_[0]), float(ols_lr.intercept_)
-        self.coefficients["OLS Univariate"] = {
-                "Slope": slope,
-                "Offset": offset 
-                }
-
-    def ols_multivariate(self, mv_keys):
-        """ Performs multivariate OLS on y against x
+    def ols(self, mv_keys=list()):
+        """ Performs OLS linear regression on array X against y
         """
         mv_variations = list()
         combo_string = "x"
@@ -100,11 +88,17 @@ class Calibration:
         y_array = np.array(self.y["Measurements"]["Values"])[:, np.newaxis]
         ols_lr = lm.LinearRegression()
         ols_lr.fit(x_array, y_array)
-        slope, offset = list(ols_lr.coef_[0]), float(ols_lr.intercept_[0])
-        self.coefficients[f"OLS Multivariate ({combo_string})"] = {
-                "Slope": slope,
+        slopes_list, offset = list(ols_lr.coef_[0]), float(ols_lr.intercept_[0])
+        slopes = {"x": slopes_list[0]}
+        for index, key in enumerate(mv_keys):
+            slopes[key] = slopes_list[index + 1]
+        self.coefficients[f"OLS ({combo_string})"] = {
+                "Slope": slopes,
                 "Offset": offset 
                 }
+
+    def ridge_regression(self, mv_keys=list()):
+        pass
 
     def maximum_a_posteriori(self):
         """ Performs MAP regression comparing y against x
