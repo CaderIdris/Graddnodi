@@ -12,6 +12,7 @@
 						"PM2.5 particulate matter unit": "ugm-3 (TEOM FDMS)"
 					},
 					"Range Filters": [],
+					"Secondary Fields": [],
 					"Hour Beginning": true,
 					"Scaling": []
 				}
@@ -31,6 +32,7 @@
 						"PM2.5 particulate matter unit": "ugm-3 (Ref.eq)"
 					},
 					"Range Filters": [],
+					"Secondary Fields": [],
 					"Hour Beginning": true,
 					"Scaling": []
 				}
@@ -49,14 +51,30 @@
 						"Car": "27522",
 						"Palas Fidas100 Status": "5x5"
 					},
-					"Range Filters": [],
+					"Range Filters": [
+						{
+							"Field": "GlobalSat G-Star IV latitude degrees N",
+							"Min": 51.22,
+							"Max": 51.44,
+							"Min Equal": false,
+							"Max Equal": false
+						},
+						{
+							"Field": "GlobalSat G-Star IV longitude degrees E",
+							"Min": -0.36,
+							"Max": -0.34,
+							"Min Equal": false,
+							"Max Equal": true
+						}
+					],
+					"Secondary Fields": [],
 					"Hour Beginning": true,
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
 							"End": "",
-							"Slope": "1000",
-							"Offset": ""
+							"Slope": 1000,
+							"Offset": 0
 						}
 					]
 				}
@@ -75,14 +93,30 @@
 						"Car": "27533",
 						"Palas Fidas100 Status": "5x5"
 					},
-					"Range Filters": [],
+					"Range Filters": [
+						{
+							"Field": "GlobalSat G-Star IV latitude degrees N",
+							"Min": 51.22,
+							"Max": 51.44,
+							"Min Equal": false,
+							"Max Equal": false
+						},
+						{
+							"Field": "GlobalSat G-Star IV longitude degrees E",
+							"Min": -0.36,
+							"Max": -0.34,
+							"Min Equal": false,
+							"Max Equal": true
+						}
+					],
+					"Secondary Fields": [],
 					"Hour Beginning": true,
 					"Scaling": [
 						{
 							"Start": "2019/04/12 14:58:20",
 							"End": "",
-							"Slope": "1000",
-							"Offset": ""
+							"Slope": 1000,
+							"Offset": 0
 						}
 					]
 				}
@@ -99,6 +133,7 @@
 					"Field": "PM2.5",
 					"Boolean Filters": {"Serial Number": "C008-0001"},
 					"Range Filters": [],
+					"Secondary Fields": [],
 					"Hour Beginning": true,
 					"Scaling": []
 				}
@@ -115,6 +150,7 @@
 					"Field": "PM2.5",
 					"Boolean Filters": {"Serial Number": "C008-0003"},
 					"Range Filters": [],
+					"Secondary Fields": [],
 					"Hour Beginning": true,
 					"Scaling": []
 				}
@@ -134,6 +170,7 @@
 						"Particulate Matter (PM 2.5) Flag": "Valid"
 					},
 					"Range Filters": [],
+					"Secondary Fields": [],
 					"Hour Beginning": true,
 					"Scaling": []
 				}
@@ -153,6 +190,7 @@
 						"Particulate Matter (PM 2.5) Flag": "Valid"
 					},
 					"Range Filters": [],
+					"Secondary Fields": [],
 					"Hour Beginning": true,
 					"Scaling": []
 				}
@@ -172,6 +210,7 @@
 						"Particulate Matter (PM 2.5) Flag": "Valid"
 					},
 					"Range Filters": [],
+					"Secondary Fields": [],
 					"Hour Beginning": true,
 					"Scaling": []
 				}
@@ -191,6 +230,7 @@
 						"Particulate Matter (PM 2.5) Flag": "Valid"
 					},
 					"Range Filters": [],
+					"Secondary Fields": [],
 					"Hour Beginning": true,
 					"Scaling": []
 				}

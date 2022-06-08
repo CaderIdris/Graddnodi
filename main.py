@@ -50,11 +50,17 @@ if __name__ == "__main__":
                         )
             query.keep_measurements()
             for scale in dev_field["Scaling"]:
+                scale_start = ""
+                scale_end = ""
+                if scale["Start"] != "":
+                    scale_start = parse_date_string(scale["Start"])
+                if scale["End"] != "":
+                    scale_end = parse_date_string(scale["End"])
                 query.scale_measurements(
                         scale["Slope"],
                         scale["Offset"],
-                        scale["Start"],
-                        scale["End"]
+                        scale_start,
+                        scale_end
                         )
             query.add_window(
                     config["Runtime"]["Averaging Period"],

@@ -171,9 +171,9 @@ class FluxQuery:
                 )
         if len(fields) > 2:
             for field in fields[1:-1]:
-                f"{self.query} r[\"_field\"] == \"{field}\" or "
+                f"{self._query} r[\"_field\"] == \"{field}\" or "
 
-        self._query = f"{self.query} r[\"_field\"] == \"{fields[-1]}\")\n"
+        self._query = f"{self._query} r[\"_field\"] == \"{fields[-1]}\")\n"
 
     def add_filter(self, key, value):
         """ Adds a filter to the query
@@ -209,11 +209,11 @@ class FluxQuery:
             name = filter_field["Field"]
             min = filter_field["Min"]
             max = filter_field["Max"]
-            min_equals_sign = "=" if  filter_field["Max Equal"] else ""
+            min_equals_sign = "=" if  filter_field["Min Equal"] else ""
             max_equals_sign = "=" if filter_field["Max Equal"] else ""
             self._query = (
                 f"{self._query}"
-                f"  |> filter(fn): (r) => r[\"{name}\"] >{min_equals_sign}"
+                f"  |> filter(fn: (r) => r[\"{name}\"] >{min_equals_sign}"
                 f" {min} and r[\"{name}\"] <{max_equals_sign} {max})\n"
                 )
         self._query = (
@@ -296,15 +296,15 @@ class FluxQuery:
             end (datetime): End date to scale measurements until
             (Default: None, not added to query)
         """
-        if type(start) != dt.datetime:
+        if not isinstance(start, dt.datetime):
             start = dt.datetime(1970, 1, 1)
-        if type(end) != dt.datetime:
+        if not isinstance(end, dt.datetime):
             end = dt.datetime(2800, 1, 1)
         self._query = (
-                f"{self._query}  |> map(fn: (r) => ({{ r with _value: if "
-                f"{dt_to_rfc3339(start)} <= r._time and r._time <= "
-                f"{dt_to_rfc3339(end)} then (r._value * {float(slope)}) + "
-                f"{float(slope)} else r._value}}))\n"
+                f"{self._query}  |> map(fn: (r) => ({{ r with \"_value\": if "
+                f"r[\"_time\"] >= {dt_to_rfc3339(start)} and r[\"_time\"] <= "
+                f"{dt_to_rfc3339(end)} then (r[\"_value\"] * {float(slope)}) + "
+                f"{float(offset)} else r[\"_value\"]}}))\n"
                 )
 
     def add_yield(self, name):
