@@ -122,6 +122,13 @@ class Calibration:
                 "Offset": offset 
                 }
 
+    # Lasso?
+    # Elastic-net?
+    # Multi task elastic net?
+    # Random sample consensus?
+    # Theil sen?
+
+
     def maximum_a_posteriori(self):
         """ Performs MAP regression comparing y against x
         """
