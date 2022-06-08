@@ -97,8 +97,30 @@ class Calibration:
                 "Offset": offset 
                 }
 
-    def ridge_regression(self, mv_keys=list()):
-        pass
+    def ridge(self, mv_keys=list()):
+        """ Performs ridge linear regression on array X against y
+        """
+        mv_variations = list()
+        combo_string = "x"
+        x_array = np.array(self.x["Measurements"]["Values"])[:, np.newaxis]
+        for key in mv_keys:
+            combo_string = f"{combo_string} + {key}"
+            secondary = self.x["Secondary Measurements"][key]
+            x_array = np.hstack((x_array, np.array(secondary)[:, np.newaxis]))
+        y_array = np.array(self.y["Measurements"]["Values"])[:, np.newaxis]
+        regr_cv = lm.RidgeCV(alphas=np.logspace(-5, 5, 11))
+        regr_cv.fit(x_array, y_array)
+        ridge_alpha = regr_cv.alpha_
+        ridge = lm.Ridge(alpha=ridge_alpha)
+        ridge.fit(x_array, y_array)
+        slopes_list, offset = list(ridge.coef_[0]), float(ridge.intercept_[0])
+        slopes = {"x": slopes_list[0]}
+        for index, key in enumerate(mv_keys):
+            slopes[key] = slopes_list[index + 1]
+        self.coefficients[f"Ridge ({combo_string})"] = {
+                "Slope": slopes,
+                "Offset": offset 
+                }
 
     def maximum_a_posteriori(self):
         """ Performs MAP regression comparing y against x
