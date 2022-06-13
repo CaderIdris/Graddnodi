@@ -108,7 +108,8 @@ if __name__ == "__main__":
                         settings["Measurement"]
                         )
                 sec_query.add_field(sec_measurement["Field"])
-                sec_query.keep_measurements()
+                for key, value in dev_field["Boolean Filters"].items():
+                    sec_query.add_filter(key, value)
                 for scale in sec_measurement["Scaling"]:
                     scale_start = ""
                     scale_end = ""
@@ -123,8 +124,7 @@ if __name__ == "__main__":
                             scale_start,
                             scale_end
                             )
-                for key, value in dev_field["Boolean Filters"].items():
-                    sec_query.add_filter(key, value)
+                sec_query.keep_measurements()
                 sec_query.add_window(
                         run_config["Runtime"]["Averaging Period"],
                         run_config["Runtime"]["Average Operator"],
