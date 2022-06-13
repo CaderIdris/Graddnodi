@@ -156,6 +156,8 @@ class FluxQuery:
                 f"  |> filter(fn: (r) => r._measurement == "
                 f"\"{measurement}\")\n"
                 )
+        self._start = start
+        self._end = end
 
     def add_field(self, field):
         """ Adds a field to the query
@@ -311,10 +313,10 @@ class FluxQuery:
             (Default: None, not added to query)
         """
         if not isinstance(start, dt.datetime):
-            start = dt.datetime(1970, 1, 1)
+            start = self._start
         if not isinstance(end, dt.datetime):
-            end = dt.datetime(2800, 1, 1)
-        if not isinstance(power, str):
+            end = self._end
+        if isinstance(power, str):
             power = 1
         if slope != 1:
             slope_str = f" * {float(slope)}"
@@ -324,14 +326,14 @@ class FluxQuery:
             off_str = f" + {float(offset)}"
         else:
             off_str = ""
-        value_str = "(r[\"Value\"]"
+        value_str = "(r[\"_value\"]"
         if power != 1:
             value_str = f"{value_str} ^ {power}"
         value_str = f"{value_str})"
         self._query = (
                 f"{self._query}  |> map(fn: (r) => ({{ r with \"_value\": if "
-                f"r[\"_time\"] >= {dt_to_rfc3339(start)} and r[\"_time\"] <= "
-                f"{dt_to_rfc3339(end)} then ({value_str}{slope_str}){off_str}"
+                f"(r[\"_time\"] >= {dt_to_rfc3339(start)} and r[\"_time\"] <= "
+                f"{dt_to_rfc3339(end)}) then ({value_str}{slope_str}){off_str}"
                 f" else r[\"_value\"]}}))\n"
                 )
 
