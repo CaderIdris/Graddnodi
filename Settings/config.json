@@ -170,7 +170,18 @@
 						"Particulate Matter (PM 2.5) Flag": "Valid"
 					},
 					"Range Filters": [],
-					"Secondary Fields": [],
+					"Secondary Fields": [
+						{
+							"Field": "Humidity PreScaled [Percent]",
+							"Slope": "",
+							"Offset": ""
+						},
+						{
+							"Field": "Temperature PreScaled [Celsius]",
+							"Slope": "",
+							"Offset": ""
+						}
+					],
 					"Hour Beginning": true,
 					"Scaling": []
 				}
@@ -190,7 +201,18 @@
 						"Particulate Matter (PM 2.5) Flag": "Valid"
 					},
 					"Range Filters": [],
-					"Secondary Fields": [],
+					"Secondary Fields": [
+						{
+							"Field": "Humidity PreScaled [Percent]",
+							"Slope": "",
+							"Offset": ""
+						},
+						{
+							"Field": "Temperature PreScaled [Celsius]",
+							"Slope": "",
+							"Offset": ""
+						}
+					],
 					"Hour Beginning": true,
 					"Scaling": []
 				}
@@ -210,7 +232,18 @@
 						"Particulate Matter (PM 2.5) Flag": "Valid"
 					},
 					"Range Filters": [],
-					"Secondary Fields": [],
+					"Secondary Fields": [
+						{
+							"Field": "Humidity PreScaled [Percent]",
+							"Slope": "",
+							"Offset": ""
+						},
+						{
+							"Field": "Temperature PreScaled [Celsius]",
+							"Slope": "",
+							"Offset": ""
+						}
+					],
 					"Hour Beginning": true,
 					"Scaling": []
 				}
@@ -230,7 +263,18 @@
 						"Particulate Matter (PM 2.5) Flag": "Valid"
 					},
 					"Range Filters": [],
-					"Secondary Fields": [],
+					"Secondary Fields": [
+						{
+							"Field": "Humidity PreScaled [Percent]",
+							"Slope": "",
+							"Offset": ""
+						},
+						{
+							"Field": "Temperature PreScaled [Celsius]",
+							"Slope": "",
+							"Offset": ""
+						}
+					],
 					"Hour Beginning": true,
 					"Scaling": []
 				}
@@ -244,12 +288,6 @@
 		"End": "2020/10/01",
 		"Average Operator": "mean",
 		"Averaging Period": "1h"
-	},
-	"Influx": {
-		"IP": "",
-		"Port": "",
-		"Token": "",
-		"Organisation": ""
 	},
 	"Debug Stats": true
 }
