@@ -24,6 +24,7 @@ if __name__ == "__main__":
     end_date = parse_date_string(run_config["Runtime"]["End"])
     query_config = run_config["Devices"]
 
+    # TODO: REWORK THIS FOR MONTHLY DOWNLOAD WINDOWS FOR YOUR OWN SANITY
     # Download measurements from InfluxDB 2.x
     measurements = defaultdict(list)
     for name, settings in query_config.items():
