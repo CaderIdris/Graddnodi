@@ -73,6 +73,7 @@
 						{
 							"Start": "2019/04/12 15:53:44",
 							"End": "",
+							"Power": 1,
 							"Slope": 1000,
 							"Offset": 0
 						}
@@ -115,6 +116,7 @@
 						{
 							"Start": "2019/04/12 14:58:20",
 							"End": "",
+							"Power": 1,
 							"Slope": 1000,
 							"Offset": 0
 						}
@@ -172,14 +174,40 @@
 					"Range Filters": [],
 					"Secondary Fields": [
 						{
+							"Tag": "RH",
 							"Field": "Humidity PreScaled [Percent]",
-							"Slope": "",
-							"Offset": ""
+							"Scaling": []
 						},
 						{
+							"Tag": "T",
 							"Field": "Temperature PreScaled [Celsius]",
-							"Slope": "",
-							"Offset": ""
+							"Scaling": []
+						},
+						{
+							"Tag": "RH$^2$",
+							"Field": "Humidity PreScaled [Percent]",
+							"Scaling": [
+								{
+									"Start": "",
+									"End": "",
+									"Power": 2,
+									"Slope": 1,
+									"Offset": 0
+								}
+							]
+						},
+						{
+							"Tag": "T$^2$",
+							"Field": "Temperature PreScaled [Celsius]",
+							"Scaling": [
+								{
+									"Start": "",
+									"End": "",
+									"Power": 2,
+									"Slope": 1,
+									"Offset": 0
+								}
+							]
 						}
 					],
 					"Hour Beginning": true,
@@ -203,14 +231,40 @@
 					"Range Filters": [],
 					"Secondary Fields": [
 						{
+							"Tag": "RH",
 							"Field": "Humidity PreScaled [Percent]",
-							"Slope": "",
-							"Offset": ""
+							"Scaling": []
 						},
 						{
+							"Tag": "T",
 							"Field": "Temperature PreScaled [Celsius]",
-							"Slope": "",
-							"Offset": ""
+							"Scaling": []
+						},
+						{
+							"Tag": "RH$^2$",
+							"Field": "Humidity PreScaled [Percent]",
+							"Scaling": [
+								{
+									"Start": "",
+									"End": "",
+									"Power": 2,
+									"Slope": 1,
+									"Offset": 0
+								}
+							]
+						},
+						{
+							"Tag": "T$^2$",
+							"Field": "Temperature PreScaled [Celsius]",
+							"Scaling": [
+								{
+									"Start": "",
+									"End": "",
+									"Power": 2,
+									"Slope": 1,
+									"Offset": 0
+								}
+							]
 						}
 					],
 					"Hour Beginning": true,
@@ -234,14 +288,40 @@
 					"Range Filters": [],
 					"Secondary Fields": [
 						{
+							"Tag": "RH",
 							"Field": "Humidity PreScaled [Percent]",
-							"Slope": "",
-							"Offset": ""
+							"Scaling": []
 						},
 						{
+							"Tag": "T",
 							"Field": "Temperature PreScaled [Celsius]",
-							"Slope": "",
-							"Offset": ""
+							"Scaling": []
+						},
+						{
+							"Tag": "RH$^2$",
+							"Field": "Humidity PreScaled [Percent]",
+							"Scaling": [
+								{
+									"Start": "",
+									"End": "",
+									"Power": 2,
+									"Slope": 1,
+									"Offset": 0
+								}
+							]
+						},
+						{
+							"Tag": "T$^2$",
+							"Field": "Temperature PreScaled [Celsius]",
+							"Scaling": [
+								{
+									"Start": "",
+									"End": "",
+									"Power": 2,
+									"Slope": 1,
+									"Offset": 0
+								}
+							]
 						}
 					],
 					"Hour Beginning": true,
@@ -265,14 +345,40 @@
 					"Range Filters": [],
 					"Secondary Fields": [
 						{
+							"Tag": "RH",
 							"Field": "Humidity PreScaled [Percent]",
-							"Slope": "",
-							"Offset": ""
+							"Scaling": []
 						},
 						{
+							"Tag": "T",
 							"Field": "Temperature PreScaled [Celsius]",
-							"Slope": "",
-							"Offset": ""
+							"Scaling": []
+						},
+						{
+							"Tag": "RH$^2$",
+							"Field": "Humidity PreScaled [Percent]",
+							"Scaling": [
+								{
+									"Start": "",
+									"End": "",
+									"Power": 2,
+									"Slope": 1,
+									"Offset": 0
+								}
+							]
+						},
+						{
+							"Tag": "T$^2$",
+							"Field": "Temperature PreScaled [Celsius]",
+							"Scaling": [
+								{
+									"Start": "",
+									"End": "",
+									"Power": 2,
+									"Slope": 1,
+									"Offset": 0
+								}
+							]
 						}
 					],
 					"Hour Beginning": true,

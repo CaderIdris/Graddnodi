@@ -95,6 +95,17 @@ class InfluxQuery:
         else:
             return None
 
+    def clear_measurements(self):
+        """ Clears measurements downloaded from database
+
+        Returns:
+            None 
+        """
+        self._measurements = {
+                "Values": list(),
+                "Timestamps": list()
+                }
+
 
 class FluxQuery:
     """Generates flux query for InfluxDB 2.x database
@@ -169,10 +180,10 @@ class FluxQuery:
                 f"{self._query}  |> filter(fn: (r) => r[\"_field\"] == "
                 f"\"{fields[0]}\" or "
                 )
+        print(fields)
         if len(fields) > 2:
             for field in fields[1:-1]:
-                f"{self._query} r[\"_field\"] == \"{field}\" or "
-
+                self._query = f"{self._query} r[\"_field\"] == \"{field}\" or "
         self._query = f"{self._query} r[\"_field\"] == \"{fields[-1]}\")\n"
 
     def add_filter(self, key, value):
@@ -273,7 +284,7 @@ class FluxQuery:
                 f"{self._query}  |> drop(columns: [\"_start\", \"_stop\"])\n"
                 )
 
-    def scale_measurements(self, slope, offset, start="", end=""):
+    def scale_measurements(self, slope=1, offset=0, power=1, start="", end=""):
         """ Scales measurements. If start or stop is provided in RFC3339
         format, they are scaled within that range only.
 
@@ -290,6 +301,9 @@ class FluxQuery:
 
             offset (int/float): Number to offset scaled measurements by
 
+            power (int): Exponent to raise the value to before scaling with
+            slope and offset
+
             start (datetime): Start date to scale measurements from
             (Default: None, not added to query)
 
@@ -300,11 +314,25 @@ class FluxQuery:
             start = dt.datetime(1970, 1, 1)
         if not isinstance(end, dt.datetime):
             end = dt.datetime(2800, 1, 1)
+        if not isinstance(power, str):
+            power = 1
+        if slope != 1:
+            slope_str = f" * {float(slope)}"
+        else:
+            slope_str = ""
+        if offset != 0:
+            off_str = f" + {float(offset)}"
+        else:
+            off_str = ""
+        value_str = "(r[\"Value\"]"
+        if power != 1:
+            value_str = f"{value_str} ^ {power}"
+        value_str = f"{value_str})"
         self._query = (
                 f"{self._query}  |> map(fn: (r) => ({{ r with \"_value\": if "
                 f"r[\"_time\"] >= {dt_to_rfc3339(start)} and r[\"_time\"] <= "
-                f"{dt_to_rfc3339(end)} then (r[\"_value\"] * {float(slope)}) + "
-                f"{float(offset)} else r[\"_value\"]}}))\n"
+                f"{dt_to_rfc3339(end)} then ({value_str}{slope_str}){off_str}"
+                f" else r[\"_value\"]}}))\n"
                 )
 
     def add_yield(self, name):
@@ -322,8 +350,8 @@ class FluxQuery:
         Returns:
             String corresponding to a flux query
         """
+        print(self._query)
         return self._query
-
 
 def dt_to_rfc3339(input, use_time=True):
     """ Converts datetime to RFC3339 string
