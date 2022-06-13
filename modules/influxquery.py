@@ -328,7 +328,7 @@ class FluxQuery:
             off_str = ""
         value_str = "(r[\"_value\"]"
         if power != 1:
-            value_str = f"{value_str} ^ {power}"
+            value_str = f"{value_str} ^ {float(power)}"
         value_str = f"{value_str})"
         self._query = (
                 f"{self._query}  |> map(fn: (r) => ({{ r with \"_value\": if "
