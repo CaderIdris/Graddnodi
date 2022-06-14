@@ -182,7 +182,6 @@ class FluxQuery:
                 f"{self._query}  |> filter(fn: (r) => r[\"_field\"] == "
                 f"\"{fields[0]}\" or "
                 )
-        print(fields)
         if len(fields) > 2:
             for field in fields[1:-1]:
                 self._query = f"{self._query} r[\"_field\"] == \"{field}\" or "
@@ -352,7 +351,6 @@ class FluxQuery:
         Returns:
             String corresponding to a flux query
         """
-        print(self._query)
         return self._query
 
 def dt_to_rfc3339(input, use_time=True):

@@ -1,4 +1,5 @@
 import unittest
+import datetime as dt
 import modules.idristools as IdrisTools 
 import modules.calibration as Calibration
 
@@ -7,6 +8,49 @@ class TestIdrisTools(unittest.TestCase):
         test_list = ["A", "B", "C", "D", "E", "F", "G"]
         test_combos = IdrisTools.all_combinations(test_list)
         self.assertEqual(len(test_combos), 127)
+
+    # Test all date diff applications
+    def test_year_diff(self):
+        start = dt.datetime(2015, 1, 1)
+        end = dt.datetime(2018, 11, 3)
+        test = IdrisTools.DateDifference(start, end)
+        self.assertEqual(test.year_difference(), 3)
+
+    def test_month_diff(self):
+        start = dt.datetime(2015, 1, 1)
+        end = dt.datetime(2018, 11, 3)
+        test = IdrisTools.DateDifference(start, end)
+        self.assertEqual(test.month_difference(), 46)
+
+    def test_day_diff(self):
+        start = dt.datetime(2015, 1, 1)
+        end = dt.datetime(2018, 11, 3)
+        test = IdrisTools.DateDifference(start, end)
+        self.assertEqual(test.day_difference(), 1402)
+
+    def test_add_year(self):
+        start = dt.datetime(2015, 1, 1)
+        end = dt.datetime(2018, 11, 3)
+        test = IdrisTools.DateDifference(start, end)
+        self.assertEqual(test.add_year(10), dt.datetime(2025, 1, 1))
+
+    def test_add_month(self):
+        start = dt.datetime(2015, 1, 1)
+        end = dt.datetime(2018, 11, 3)
+        test = IdrisTools.DateDifference(start, end)
+        self.assertEqual(test.add_month(1), dt.datetime(2015, 2, 1))
+
+    def test_add_months(self):
+        start = dt.datetime(2015, 1, 1)
+        end = dt.datetime(2018, 11, 3)
+        test = IdrisTools.DateDifference(start, end)
+        self.assertEqual(test.add_month(38), dt.datetime(2018, 3, 1))
+
+    def test_add_day(self):
+        start = dt.datetime(2015, 1, 1)
+        end = dt.datetime(2018, 11, 3)
+        test = IdrisTools.DateDifference(start, end)
+        self.assertEqual(test.add_days(5), dt.datetime(2015, 1, 6))
 
 class TestCalibration(unittest.TestCase):
     def test_ols_ulr(self):

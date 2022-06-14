@@ -34,6 +34,51 @@ import json
 import datetime as dt
 from itertools import combinations
 
+class DateDifference:
+    """"""
+    def __init__(self, start, end):
+        self.start = start
+        self.start_dict = {
+                "Year": int(start.strftime("%Y")),
+                "Month": int(start.strftime("%m")),
+                "Day": int(start.strftime("%d"))
+                }
+        self.end = end 
+        self.end_dict = {
+                "Year": int(end.strftime("%Y")),
+                "Month": int(end.strftime("%m")),
+                "Day": int(end.strftime("%d"))
+                }
+
+    def year_difference(self):
+        return self.end_dict["Year"] - self.start_dict["Year"]
+
+    def month_difference(self):
+        return ((12 * self.year_difference()) + self.end_dict["Month"] -
+                self.start_dict["Month"])
+
+    def day_difference(self):
+        return (self.end - self.start).days
+
+    def add_year(self, years):
+        return dt.datetime(
+                (self.start_dict["Year"] + years), self.start_dict["Month"],
+                self.start_dict["Day"])
+
+    def add_month(self, months):
+        years = 0
+        while self.start_dict["Month"] + months > 12:
+            years = years + 1 
+            months = months - 12
+        return dt.datetime(
+                (self.start_dict["Year"] + years), 
+                (self.start_dict["Month"] + months),
+                self.start_dict["Day"])
+
+    def add_days(self, days):
+        return self.start + dt.timedelta(days=days)
+
+
 def fancy_print(
     str_to_print,
     length=120,
