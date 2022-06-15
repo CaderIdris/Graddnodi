@@ -12,6 +12,8 @@ __status__ = "Beta"
 
 import datetime as dt
 
+import numpy as np
+
 from influxdb_client import InfluxDBClient
 
 
@@ -79,8 +81,11 @@ class InfluxQuery:
                     ] = query_return[0].records[0].values['result']
             for record in query_return[0].records:
                 values = record.values
+                raw_measurement = values['_value']
+                if raw_measurement is None:
+                    raw_measurement = np.nan
                 self._measurements['Timestamps'].append(values['_time'])
-                self._measurements['Values'].append(values['_value'])
+                self._measurements['Values'].append(raw_measurement)
         else:
             self._measurements = None
 
