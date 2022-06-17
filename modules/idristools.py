@@ -284,7 +284,7 @@ def unread_files(path, read_list, return_stats=False):
     except FileNotFoundError:
         with open(read_list, "w") as read_files_txt:
                 read_files = list()
-    if len(read_files) == 0:
+    if not read_files:
         unread_files = file_list
     else:
         unread_files = [file for file in file_list if file not in read_files]

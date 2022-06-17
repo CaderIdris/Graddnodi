@@ -75,7 +75,7 @@ class InfluxQuery:
                 )
         # query_return should only have one table so this just selects the
         # first one
-        if len(query_return) > 0:
+        if query_return > 0:
             self._measurements[
                     'Name'
                     ] = query_return[0].records[0].values['result']

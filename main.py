@@ -20,7 +20,7 @@ from modules.influxquery import InfluxQuery, FluxQuery
 from modules.idristools import get_json, parse_date_string, all_combinations
 from modules.idristools import DateDifference 
 
-if __name__ == "__main__":
+def main():
     # Read command line arguments
     arg_parser = argparse.ArgumentParser(
         description="Imports measurements made as part of a collocation "
@@ -127,7 +127,7 @@ if __name__ == "__main__":
                             )
                     # Check if range filters are present. If yes, a modified
                     # query format needs to be used
-                    if len(dev_field["Range Filters"]) == 0:
+                    if not dev_field["Range Filters"]:
                         query.add_field(dev_field["Field"])
                     else:
                         all_fields = [dev_field["Field"]]
@@ -138,7 +138,7 @@ if __name__ == "__main__":
                     for key, value in dev_field["Boolean Filters"].items():
                         query.add_filter(key, value)
                     # Add in any range filters (e.g 0.2 > latitude > 0.1)
-                    if len(dev_field["Range Filters"]) > 0:
+                    if dev_field["Range Filters"]:
                             query.add_filter_range(
                                 dev_field["Field"],
                                 dev_field["Range Filters"]
@@ -204,7 +204,7 @@ if __name__ == "__main__":
                     # applied. This ~may~ be controversial and the decision
                     # may be reversed but it is what it is for now. Will 
                     # result in more data present but faster processing times
-                    if len(dev_field["Secondary Fields"]) == 0:
+                    if not dev_field["Secondary Fields"]:
                         continue
                     for sec_measurement in dev_field["Secondary Fields"]:
                         sec_query = FluxQuery(
@@ -268,4 +268,8 @@ if __name__ == "__main__":
                                 ][
                                         missed_measurement[2]
                                         ].extend(filler)
+
+
+if __name__ == "__main__":
+    main()
 
