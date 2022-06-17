@@ -278,6 +278,7 @@ def main():
             for subkey, subitem in item.items():
                 item[subkey] = dict(subitem)
             measurements[key] = dict(item)
+        measurements = dict(measurements)
         print(measurements)
         if cache_measurements:
             with open(
