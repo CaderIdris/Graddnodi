@@ -11,8 +11,9 @@ __email__ = "CaderIdrisGH@outlook.com"
 __status__ = "Indev"
 
 import argparse
-import datetime as dt
 from collections import defaultdict
+import datetime as dt
+import pickle
 
 import numpy as np 
 
@@ -23,6 +24,7 @@ from modules.idristools import DateDifference
 def main():
     # Read command line arguments
     arg_parser = argparse.ArgumentParser(
+        prog="Graddnodi",
         description="Imports measurements made as part of a collocation "
         "study from an InfluxDB 2.x database and calibrates them using a "
         "variety of techniques"
@@ -55,7 +57,7 @@ def main():
     arg_parser.add_argument(
         "-C",
         "--cache-path",
-        type="str",
+        type=str,
         help="Location of cache folder",
         default="cache/"
     )
@@ -76,11 +78,11 @@ def main():
         default="Settings/influx.json",
     )
     args = vars(arg_parser.parse_args())
-    cache_measurements = args["cache-measurements"]
-    use_measurements_cache = args["use-measurement-cache"]
-    cache_results = args["cache-results"]
-    use_results_cache = args["use-results-cache"]
-    cache_path = args["cache-path"]
+    cache_measurements = args["cache_measurements"]
+    use_measurements_cache = args["use_measurement_cache"]
+    cache_results = args["cache_results"]
+    use_results_cache = args["use_results_cache"]
+    cache_path = args["cache_path"]
     config_path = args["config"]
     influx_path = args["influx"]
 
@@ -98,6 +100,7 @@ def main():
     # Setup
     run_config = get_json(config_path)
     influx_config = get_json(influx_path)
+    run_name = run_config["Runtime"]["Name"]
     start_date = parse_date_string(run_config["Runtime"]["Start"])
     end_date = parse_date_string(run_config["Runtime"]["End"])
     date_calculations = DateDifference(start_date, end_date)
@@ -105,7 +108,10 @@ def main():
     months_to_cover = date_calculations.month_difference()
 
     # Download measurements from InfluxDB 2.x on a month by month basis
-    if not use_measurements_cache:
+    if use_measurements_cache:
+        with open(f"{cache_path}{run_name}/measurements.pickle, 'rb'") as cache:
+            measurements = pickle.load(cache)
+    else:
         measurements = defaultdict(
                 lambda: defaultdict(
                     lambda: defaultdict(list)
@@ -268,7 +274,16 @@ def main():
                                 ][
                                         missed_measurement[2]
                                         ].extend(filler)
-
+        for key, item in measurements.items():
+            for subkey, subitem in item.items():
+                item[subkey] = dict(subitem)
+            measurements[key] = dict(item)
+        print(measurements)
+        if cache_measurements:
+            with open(
+                    f"{cache_path}{run_name}/measurements.pickle, 'wb'"
+                    ) as cache:
+                measurements = pickle.dump(measurements, cache)
 
 if __name__ == "__main__":
     main()
