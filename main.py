@@ -29,26 +29,28 @@ def main():
         "study from an InfluxDB 2.x database and calibrates them using a "
         "variety of techniques"
     )
-    arg_parser.add_argument(
+    measurement_cache_args = arg_parser.add_mutually_exclusive_group()
+    measurement_cache_args .add_argument(
         "-m", 
         "--cache-measurements", 
         help="Caches measurements downloaded from InfluxDB 2.x database "
         "in cache folder", 
         action="store_true"
     )
-    arg_parser.add_argument(
+    measurement_cache_args .add_argument(
         "-M", 
         "--use-measurement-cache", 
         help="Uses cached measurements from cache folder", 
         action="store_true"
     )
-    arg_parser.add_argument(
+    results_cache_args = arg_parser.add_mutually_exclusive_group()
+    results_cache_args.add_argument(
         "-r", 
         "--cache-results", 
         help="Caches results of calibrations in cache folder", 
         action="store_true"
     )
-    arg_parser.add_argument(
+    results_cache_args.add_argument(
         "-R", 
         "--use-results-cache", 
         help="Uses cached results of calibrations from cache folder", 
@@ -86,17 +88,6 @@ def main():
     config_path = args["config"]
     influx_path = args["influx"]
 
-    mut_exc_meas_arg = (cache_measurements and use_measurements_cache)
-    mut_exc_res_arg = (cache_results and use_results_cache)
-    if mut_exc_meas_arg:
-        raise Exception(
-            "Both 'cache-measurements' and 'use-measurements-cache' cannot be used"
-            )
-    if mut_exc_res_arg:
-        raise Exception(
-            "Both 'cache-results' and 'use-results-cache' cannot be used"
-            )
-
     # Setup
     run_config = get_json(config_path)
     influx_config = get_json(influx_path)
@@ -109,7 +100,7 @@ def main():
 
     # Download measurements from InfluxDB 2.x on a month by month basis
     if use_measurements_cache:
-        with open(f"{cache_path}{run_name}/measurements.pickle, 'rb'") as cache:
+        with open(f"{cache_path}{run_name}/measurements.pickle", 'rb') as cache:
             measurements = pickle.load(cache)
     else:
         measurements = defaultdict(
@@ -259,7 +250,7 @@ def main():
                             continue
                         measurements[dev_field["Tag"]][name][
                                 sec_measurement["Tag"]
-                                ].extend(sec_measurements)
+                                ].extend(sec_measurements["Values"])
                     influx.clear_measurements()
             missed_measurements_length = len(date_list)
             for missed_measurement in no_measurements:
@@ -282,7 +273,7 @@ def main():
         print(measurements)
         if cache_measurements:
             with open(
-                    f"{cache_path}{run_name}/measurements.pickle, 'wb'"
+                    f"{cache_path}{run_name}/measurements.pickle", 'wb'
                     ) as cache:
                 measurements = pickle.dump(measurements, cache)
 
