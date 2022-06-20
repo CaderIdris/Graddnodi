@@ -234,6 +234,7 @@ def main():
                         inf_measurements[
                                 sec_measurement["Tag"]
                                 ] = sec_measurements["Values"]
+                        inf_measurements.set_index("Datetime")
                         influx.clear_measurements()
                     measurements[dev_field["Tag"]][name] = pd.concat(
                         [measurements[dev_field["Tag"]][name], inf_measurements]

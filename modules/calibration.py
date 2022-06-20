@@ -14,26 +14,25 @@ import numpy as np
 import pandas as pd
 from sklearn import linear_model as lm
 from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split as ttsplit
 
 
 class Calibration:
     """ Calibrates one set of measurements against another 
 
     Attributes:
-        - x (dict): Independent measurements. Keys include:
-            - 'Measurements' (dict): Contains two keys:
-                - 'Values' (list): Measurements 
-                - 'Timestamps' (list): Times measurements made
-            - 'Name' (str): Name of device
-            - 'Secondary Measurements' (dict): Contains keys representing
-            the different secondary variables. Can be empty:
-                - *variable* (list): Contains list of measurements
-        - y (dict): Dependent measurements. Keys include:
-            - 'Measurements' (dict): Contains two keys:
-                - 'Values' (list): Measurements 
-                - 'Timestamps' (list): Times measurements made
-            - 'Name' (str): Name of device
+        - x_train (DataFrame): Independent measurements to train calibration
+        on. Columns include:
+            TBA
+        - x_test (DataFrame): Independent measurements to test calibration on.
+        Columns include:
+            TBA
+        - y_train (DataFrame): Dependent measurements to train calibration on.
+        Columns include:
+            TBA
+        - y_test (DataFrame): Dependent measurements to test calibration on.
+        Columns include:
+            TBA
         - coefficients (dict): Results of the calibrations
 
     Methods:
@@ -60,39 +59,40 @@ class Calibration:
         secondary variables are provided.
 
         Keyword Arguments:
-        - x_data (dict): Independent measurements. Keys include:
-            - 'Measurements' (dict): Contains two keys:
-                - 'Values' (list): Measurements 
-                - 'Timestamps' (list): Times measurements made
-            - 'Name' (str): Name of device
-            - 'Secondary Measurements' (dict): Contains keys representing
-            the different secondary variables. Can be empty:
-                - *variable* (list): Contains list of measurements
-        - y_data (dict): Dependent measurements. Keys include:
-            - 'Measurements' (dict): Contains two keys:
-                - 'Values' (list): Measurements 
-                - 'Timestamps' (list): Times measurements made
-            - 'Name' (str): Name of device
+        - x_data (DataFrame): Independent measurements. Column include:
+            TBA
+        - y_data (DataFrame): Dependent measurements. Keys include:
+            TBA
         - split(bool): Split the dataset? Default: True
         - test_size (float): Proportion of the data to use for testing. Use value 
         greater than 0 but less than 1. Defaults to 0.4
         - seed (int): Seed to use when deciding how to split variables,
         ensures consistency between runs. Defaults to 72.
         """
-
+        if split:
+            self.x_train, self.x_test, self.y_train, self.y_test = ttsplit(
+                x_data, y_data, test_size=test_size, random_state=seed
+                    )
+        else:
+            self.x_train = x_data
+            self.y_train = y_data
+            self.x_test = x_data
+            self.y_test = y_data
         self.coefficients = dict()
 
     def ols(self, mv_keys=list()):
         """ Performs OLS linear regression on array X against y
         """
+        x_name = self.x_train.columns[1]
+        y_name = self.y_train.columns[1]
         mv_variations = list()
         combo_string = "x"
-        x_array = np.array(self.x["Measurements"]["Values"])[:, np.newaxis]
+        x_array = np.array(self.x_train[x_name])[:, np.newaxis]
         for key in mv_keys:
             combo_string = f"{combo_string} + {key}"
-            secondary = self.x["Secondary Measurements"][key]
+            secondary = self.x_train[key]
             x_array = np.hstack((x_array, np.array(secondary)[:, np.newaxis]))
-        y_array = np.array(self.y["Measurements"]["Values"])[:, np.newaxis]
+        y_array = np.array(self.y_train[y_name])[:, np.newaxis]
         ols_lr = lm.LinearRegression()
         ols_lr.fit(x_array, y_array)
         slopes_list, offset = list(ols_lr.coef_[0]), float(ols_lr.intercept_[0])
@@ -107,14 +107,16 @@ class Calibration:
     def ridge(self, mv_keys=list()):
         """ Performs ridge linear regression on array X against y
         """
+        x_name = self.x_train.columns[1]
+        y_name = self.y_train.columns[1]
         mv_variations = list()
         combo_string = "x"
-        x_array = np.array(self.x["Measurements"]["Values"])[:, np.newaxis]
+        x_array = np.array(self.x_train[x_name])[:, np.newaxis]
         for key in mv_keys:
             combo_string = f"{combo_string} + {key}"
-            secondary = self.x["Secondary Measurements"][key]
+            secondary = self.x_train[key]
             x_array = np.hstack((x_array, np.array(secondary)[:, np.newaxis]))
-        y_array = np.array(self.y["Measurements"]["Values"])[:, np.newaxis]
+        y_array = np.array(self.y_train[y_name])[:, np.newaxis]
         regr_cv = lm.RidgeCV(alphas=np.logspace(-5, 5, 11))
         regr_cv.fit(x_array, y_array)
         ridge_alpha = regr_cv.alpha_

@@ -1,5 +1,7 @@
-import unittest
 import datetime as dt
+import pandas as pd
+import unittest
+
 import modules.idristools as IdrisTools 
 import modules.calibration as Calibration
 
@@ -52,28 +54,32 @@ class TestIdrisTools(unittest.TestCase):
         test = IdrisTools.DateDifference(start, end)
         self.assertEqual(test.add_days(5), dt.datetime(2015, 1, 6))
 
+
+def test_data():
+    return (
+            pd.DataFrame(
+                {
+                    "Datetime": [0, 1, 2, 3, 4, 5],
+                    "X": [0,1,2,3,4,5],
+                    "A": [0, 1, 2, 3, 4, 5],
+                    "B": [0,1,2,3,4,5],
+                    "C": [0,1,2,3,4,5],
+                    "D": [0,1,2,3,4,5],
+                    "E": [0,1,2,3,4,5],
+                    "F": [0,1,2,3,4,5]
+                    }
+                ),
+            pd.DataFrame(
+                {
+                    "Datetime": [0, 1, 2, 3, 4, 5],
+                    "Y": [0,1,2,3,4,5],
+                    }
+                )
+            )
+
 class TestCalibration(unittest.TestCase):
     def test_ols_ulr(self):
-        test_data_x = {
-            "Measurements": {
-                "Values": [0, 1, 2, 3, 4, 5],
-                "Timestamps": []
-                },
-            "Name": "X",
-            "Secondary Measurements": {
-                "T": {
-                    "Values": [0, 1, 2, 3, 4, 5],
-                    "Timestamps": [0, 1, 2, 3, 4, 5]
-                    }
-                }
-            }
-        test_data_y = {
-            "Measurements": {
-                "Values": [0, 1, 2, 3, 4, 5],
-                "Timestamps": []
-                },
-            "Name": "Y"
-            }
+        test_data_x, test_data_y = test_data()
         test_ols = Calibration.Calibration(test_data_x, test_data_y)
         test_ols.ols()
         with self.subTest():
@@ -82,28 +88,7 @@ class TestCalibration(unittest.TestCase):
             self.assertEqual(round(test_ols.coefficients["OLS (x)"]["Offset"], 2), 0)
 
     def test_ols_mlr(self):
-        test_data_x = {
-            "Measurements": {
-                "Values": [0, 1, 2, 3, 4, 5],
-                "Timestamps": []
-                },
-            "Name": "X",
-            "Secondary Measurements": {
-                "A": [0, 1, 2, 3, 4, 5],
-                "B": [0,1,2,3,4,5],
-                "C": [0,1,2,3,4,5],
-                "D": [0,1,2,3,4,5],
-                "E": [0,1,2,3,4,5],
-                "F": [0,1,2,3,4,5]
-                }
-            }
-        test_data_y = {
-            "Measurements": {
-                "Values": [0, 1, 2, 3, 4, 5],
-                "Timestamps": []
-                },
-            "Name": "Y"
-            }
+        test_data_x, test_data_y = test_data()
         test_ols = Calibration.Calibration(test_data_x, test_data_y)
         test_ols.ols(["A"])
         with self.subTest(): # Test x slope 
@@ -114,26 +99,7 @@ class TestCalibration(unittest.TestCase):
             self.assertEqual(round(test_ols.coefficients["OLS (x + A)"]["Offset"], 2), 0)
 
     def test_ridge_ulr(self):
-        test_data_x = {
-            "Measurements": {
-                "Values": [0, 1, 2, 3, 4, 5],
-                "Timestamps": []
-                },
-            "Name": "X",
-            "Secondary Measurements": {
-                "T": {
-                    "Values": [0, 1, 2, 3, 4, 5],
-                    "Timestamps": [0, 1, 2, 3, 4, 5]
-                    }
-                }
-            }
-        test_data_y = {
-            "Measurements": {
-                "Values": [0, 1, 2, 3, 4, 5],
-                "Timestamps": []
-                },
-            "Name": "Y"
-            }
+        test_data_x, test_data_y = test_data()
         test_ridge = Calibration.Calibration(test_data_x, test_data_y)
         test_ridge.ridge()
         with self.subTest():
@@ -142,28 +108,7 @@ class TestCalibration(unittest.TestCase):
             self.assertEqual(round(test_ridge.coefficients["Ridge (x)"]["Offset"], 2), 0)
 
     def test_ridge_mlr(self):
-        test_data_x = {
-            "Measurements": {
-                "Values": [0, 1, 2, 3, 4, 5],
-                "Timestamps": []
-                },
-            "Name": "X",
-            "Secondary Measurements": {
-                "A": [0, 1, 2, 3, 4, 5],
-                "B": [0,1,2,3,4,5],
-                "C": [0,1,2,3,4,5],
-                "D": [0,1,2,3,4,5],
-                "E": [0,1,2,3,4,5],
-                "F": [0,1,2,3,4,5]
-                }
-            }
-        test_data_y = {
-            "Measurements": {
-                "Values": [0, 1, 2, 3, 4, 5],
-                "Timestamps": []
-                },
-            "Name": "Y"
-            }
+        test_data_x, test_data_y = test_data()
         test_ridge = Calibration.Calibration(test_data_x, test_data_y)
         test_ridge.ridge(["A"])
         with self.subTest(): # Test x slope 
