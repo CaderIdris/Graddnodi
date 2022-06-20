@@ -5,7 +5,7 @@ __author__ = "Idris Hayward"
 __copyright__ = "2021, Idris Hayward"
 __credits__ = ["Idris Hayward"]
 __license__ = "GNU General Public License v3.0"
-__version__ = "0.2"
+__version__ = "0.3"
 __maintainer__ = "Idris Hayward"
 __email__ = "CaderIdrisGH@outlook.com"
 __status__ = "Indev"
@@ -19,7 +19,7 @@ import numpy as np
 import pandas as pd
 
 from modules.idristools import get_json, parse_date_string, all_combinations
-from modules.idristools import DateDifference 
+from modules.idristools import DateDifference, make_path
 from modules.influxquery import InfluxQuery, FluxQuery
 
 def main():
@@ -70,7 +70,7 @@ def main():
         type=str,
         help="Alternate location for config json file (Defaults to "
         "./Settings/config.json)",
-        default="Settings/config.json",
+        default="Settings/config.json"
     )
     arg_parser.add_argument(
         "-i",
@@ -78,7 +78,7 @@ def main():
         type=str,
         help="Alternate location for influx config json file (Defaults to "
         "./Settings/influx.json)",
-        default="Settings/influx.json",
+        default="Settings/influx.json"
     )
     args = vars(arg_parser.parse_args())
     cache_measurements = args["cache_measurements"]
@@ -242,10 +242,11 @@ def main():
         # Save measurements to a pickle file to be used later. Useful if
         # working offline or using datasets with long query times
         if cache_measurements:
+            make_path(f"{cache_path}{run_name}")
             with open(
                     f"{cache_path}{run_name}/measurements.pickle", 'wb'
                     ) as cache:
-                measurements = pickle.dump(measurements, cache)
+                pickle.dump(measurements, cache, protocol=5)
 
         # Calibrating measurements against each other
 

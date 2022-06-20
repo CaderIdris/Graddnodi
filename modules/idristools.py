@@ -186,7 +186,6 @@ def get_json(path_to_json):
             f"format seen in README.md"
         )
 
-
 def save_to_file(write_data, path_to_file, filename):
     """Saves data to file in specified path
 
@@ -207,11 +206,21 @@ def save_to_file(write_data, path_to_file, filename):
     Returns:
         None
     """
-    while not os.path.isdir(path_to_file):
-        os.makedirs(path_to_file, exist_ok=True)
+    make_path(path_to_file)
     with open(f"{path_to_file}/{filename}", "w") as newfile:
         newfile.write(write_data)
 
+def make_path(path):
+    """ Creates directories if none are present. Useful when writing files
+
+    Keyword Arguments:
+        path (str): Path to be created
+
+    Returns:
+        None
+    """
+    while not os.path.isdir(path):
+        os.makedirs(path, exist_ok=True)
 
 def debug_stats(stats, line_length=120, level=1, max_level=3):
     """ Prints out a json file/dictionary nicely
