@@ -16,10 +16,11 @@ import datetime as dt
 import pickle
 
 import numpy as np 
+import pandas as pd
 
-from modules.influxquery import InfluxQuery, FluxQuery
 from modules.idristools import get_json, parse_date_string, all_combinations
 from modules.idristools import DateDifference 
+from modules.influxquery import InfluxQuery, FluxQuery
 
 def main():
     # Read command line arguments
@@ -104,15 +105,11 @@ def main():
             measurements = pickle.load(cache)
     else:
         measurements = defaultdict(
-                lambda: defaultdict(
-                    lambda: defaultdict(list)
-                    )
+                lambda: defaultdict(pd.DataFrame)
                     )
         for month_num in range(0, months_to_cover):
             start_of_month = date_calculations.add_month(month_num)
             end_of_month = date_calculations.add_month(month_num + 1)
-            date_list = None
-            no_measurements = list()
             for name, settings in query_config.items():
                 for dev_field in settings["Fields"]:
                     # Generate flux query
@@ -174,27 +171,10 @@ def main():
                     influx.data_query(query.return_query())
                     inf_measurements = influx.return_measurements()
                     if inf_measurements is None:
-                        influx.clear_measurements()
-                        no_measurements.append(
-                                [dev_field["Tag"], name, "Measurements"]
-                                )
-                        no_measurements.append(
-                                [dev_field["Tag"], name, "Timestamps"]
-                                )
                         continue 
-                    measurements[dev_field["Tag"]][name]["Measurements"].extend(
-                            inf_measurements["Values"]
-                            )
-                    measurements[dev_field["Tag"]][name]["Timestamps"].extend(
-                            inf_measurements["Timestamps"]
-                            )
-                    for meas in measurements[dev_field["Tag"]][name][
-                            "Measurements"
-                            ]:
-                        if not isinstance(meas, float):
-                            print(meas)
+                    inf_measurements.rename({"Values": name})
                     if date_list is None:
-                        date_list = inf_measurements["Timestamps"]
+                        date_list = list(inf_measurements["Datetime"])
                     influx.clear_measurements()
                     # Add in any secondary measurements such as T or RH
                     # Secondary measurements will only have bool filters 
@@ -204,15 +184,19 @@ def main():
                     if not dev_field["Secondary Fields"]:
                         continue
                     for sec_measurement in dev_field["Secondary Fields"]:
+                        # Generate secondary measurement query
                         sec_query = FluxQuery(
                                 start_of_month,
                                 end_of_month,
                                 settings["Bucket"],
                                 settings["Measurement"]
                                 )
+                        # Add in secondary measurement field
                         sec_query.add_field(sec_measurement["Field"])
+                        # Add in boolean filters
                         for key, value in dev_field["Boolean Filters"].items():
                             sec_query.add_filter(key, value)
+                        # Add in any scaling
                         for scale in sec_measurement["Scaling"]:
                             scale_start = ""
                             scale_end = ""
@@ -231,6 +215,7 @@ def main():
                                     scale_start,
                                     scale_end
                                     )
+                        # Set averaging window and remove irrelevant columns
                         sec_query.keep_measurements()
                         sec_query.add_window(
                                 run_config["Runtime"]["Averaging Period"],
@@ -238,44 +223,30 @@ def main():
                                 time_starting=dev_field["Hour Beginning"]
                                 )
                         query.add_yield(sec_measurement["Tag"])
+                        # Query data from database
                         influx.data_query(sec_query.return_query())
                         sec_measurements = influx.return_measurements()
+                        # If no measurements present, queue them up to be 
+                        # populated with nan
                         if sec_measurements is None:
                             influx.clear_measurements()
-                            no_measurements.append([
-                                dev_field["Tag"], 
-                                name,
-                                sec_measurement["Tag"]]
-                                )
                             continue
-                        measurements[dev_field["Tag"]][name][
+                        inf_measurements[
                                 sec_measurement["Tag"]
-                                ].extend(sec_measurements["Values"])
-                    influx.clear_measurements()
-            missed_measurements_length = len(date_list)
-            for missed_measurement in no_measurements:
-                if missed_measurement[2] == "Timestamps":
-                    filler = date_list
-                else:
-                    filler = [np.nan] * len(date_list)
-                measurements[
-                        missed_measurement[0]
-                        ][
-                                missed_measurement[1]
-                                ][
-                                        missed_measurement[2]
-                                        ].extend(filler)
-        for key, item in measurements.items():
-            for subkey, subitem in item.items():
-                item[subkey] = dict(subitem)
-            measurements[key] = dict(item)
-        measurements = dict(measurements)
-        print(measurements)
+                                ] = sec_measurements["Values"]
+                        influx.clear_measurements()
+                    measurements[dev_field["Tag"]][name] = pd.concat(
+                        [measurements[dev_field["Tag"]][name], inf_measurements]
+                            )
+        # Save measurements to a pickle file to be used later. Useful if
+        # working offline or using datasets with long query times
         if cache_measurements:
             with open(
                     f"{cache_path}{run_name}/measurements.pickle", 'wb'
                     ) as cache:
                 measurements = pickle.dump(measurements, cache)
+
+        # Calibrating measurements against each other
 
 if __name__ == "__main__":
     main()

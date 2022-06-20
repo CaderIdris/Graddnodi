@@ -11,8 +11,11 @@ __email__ = "CaderIdrisGH@outlook.com"
 __status__ = "Indev"
 
 import numpy as np
+import pandas as pd
 from sklearn import linear_model as lm
 from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+
 
 class Calibration:
     """ Calibrates one set of measurements against another 
@@ -31,6 +34,7 @@ class Calibration:
                 - 'Values' (list): Measurements 
                 - 'Timestamps' (list): Times measurements made
             - 'Name' (str): Name of device
+        - coefficients (dict): Results of the calibrations
 
     Methods:
         - ols_linear: Performs OLS linear regression 
@@ -48,7 +52,7 @@ class Calibration:
 
         - appended: Performs appended OLS
     """
-    def __init__(self, x_data, y_data):
+    def __init__(self, x_data, y_data, split=True, test_size=0.4, seed=72):
         """ Initialises the calibration class 
 
         This class is used to compare one set of measurements against another.
@@ -56,7 +60,7 @@ class Calibration:
         secondary variables are provided.
 
         Keyword Arguments:
-        - x (dict): Independent measurements. Keys include:
+        - x_data (dict): Independent measurements. Keys include:
             - 'Measurements' (dict): Contains two keys:
                 - 'Values' (list): Measurements 
                 - 'Timestamps' (list): Times measurements made
@@ -69,10 +73,13 @@ class Calibration:
                 - 'Values' (list): Measurements 
                 - 'Timestamps' (list): Times measurements made
             - 'Name' (str): Name of device
-        - coefficients (dict): Results of the calibrations
+        - split(bool): Split the dataset? Default: True
+        - test_size (float): Proportion of the data to use for testing. Use value 
+        greater than 0 but less than 1. Defaults to 0.4
+        - seed (int): Seed to use when deciding how to split variables,
+        ensures consistency between runs. Defaults to 72.
         """
-        self.x = x_data 
-        self.y = y_data
+
         self.coefficients = dict()
 
     def ols(self, mv_keys=list()):

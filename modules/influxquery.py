@@ -12,9 +12,10 @@ __status__ = "Beta"
 
 import datetime as dt
 
-import numpy as np
-
 from influxdb_client import InfluxDBClient
+import numpy as np
+import pandas as pd
+
 
 
 class InfluxQuery:
@@ -30,7 +31,7 @@ class InfluxQuery:
         _query_api (InfluxDBClient.query_api): Handles queries to InfluxDB 2.x
         database
 
-        _measurements (dict): Measurements and timestamps from query
+        _measurements (DataFrame): Measurements and timestamps from query
 
     Methods:
         data_query: Queries the InfluxDB database for the specified
@@ -57,10 +58,7 @@ class InfluxQuery:
                 timeout=15000000
                 )
         self._query_api = self._client.query_api()
-        self._measurements = {
-                "Values": list(),
-                "Timestamps": list()
-                }
+        self._measurements = pd.DataFrame(columns=["Datetime", "Values"])
 
     def data_query(self, query):
         """ Sends flux query, receives data and sorts it in to the measurement
@@ -76,16 +74,18 @@ class InfluxQuery:
         # query_return should only have one table so this just selects the
         # first one
         if query_return:
-            self._measurements[
-                    'Name'
-                    ] = query_return[0].records[0].values['result']
+            name = query_return[0].records[0].values['result']
             for record in query_return[0].records:
                 values = record.values
                 raw_measurement = values['_value']
                 if raw_measurement is None:
                     raw_measurement = np.nan
-                self._measurements['Timestamps'].append(values['_time'])
-                self._measurements['Values'].append(raw_measurement)
+                self._measurements = pd.DataFrame(
+                        data={
+                            "Datetime": values['_time'], 
+                            "Values": raw_measurement
+                            }
+                        )
         else:
             self._measurements = None
 
@@ -96,7 +96,7 @@ class InfluxQuery:
             Copy of self._measurements (dict)
         """
         if self._measurements is not None:
-            return self._measurements.copy()
+            return self._measurements
         else:
             return None
 
@@ -106,10 +106,7 @@ class InfluxQuery:
         Returns:
             None 
         """
-        self._measurements = {
-                "Values": list(),
-                "Timestamps": list()
-                }
+        self._measurements = pd.DataFrame()
 
 
 class FluxQuery:
@@ -119,7 +116,7 @@ class FluxQuery:
     class simplifies the query generation process.
 
     Attributes:
-        _query (str): Flux query
+        _query_list (list): List of components of a Flux query
 
     Methods:
         add_field: Adds a field (measurand) to the query
@@ -154,13 +151,13 @@ class FluxQuery:
 
             measurement (str): Measurement tag where data is stored
         """
-        self._query = (
-                f"from(bucket: \"{bucket}\")\n"
+        self._query_list = [
+                f"from(bucket: \"{bucket}\")",
                 f"  |> range(start: {dt_to_rfc3339(start)}, "
-                f"stop: {dt_to_rfc3339(end)})\n"
+                f"stop: {dt_to_rfc3339(end)})",
                 f"  |> filter(fn: (r) => r._measurement == "
-                f"\"{measurement}\")\n"
-                )
+                f"\"{measurement}\")"
+                ]
         self._start = start
         self._end = end
 
@@ -170,9 +167,9 @@ class FluxQuery:
         Keyword arguments:
             field (str): The field to query
         """
-        self._query = (
-                f"{self._query}  |> filter(fn: (r) => r[\"_field\"] == "
-                f"\"{field}\")\n"
+        self._query_list.append(
+                f"  |> filter(fn: (r) => r[\"_field\"] == "
+                f"\"{field}\")"
                 )
 
     def add_multiple_fields(self, fields):
@@ -183,14 +180,14 @@ class FluxQuery:
         Keyword Arguments:
             fields (list): All the fields to be queried 
         """
-        self._query = (
-                f"{self._query}  |> filter(fn: (r) => r[\"_field\"] == "
-                f"\"{fields[0]}\" or "
-                )
+        multi_field = [
+                f"  |> filter(fn: (r) => r[\"_field\"] == \"{fields[0]}\" or "
+                ]
         if len(fields) > 2:
             for field in fields[1:-1]:
-                self._query = f"{self._query} r[\"_field\"] == \"{field}\" or "
-        self._query = f"{self._query} r[\"_field\"] == \"{fields[-1]}\")\n"
+                multi_field.append(f"r[\"_field\"] == \"{field}\" or ")
+        multi_field.append(f"r[\"_field\"] == \"{fields[-1]}\")")
+        self._query_list.append("".join(multi_field))
 
     def add_filter(self, key, value):
         """ Adds a filter to the query
@@ -200,9 +197,8 @@ class FluxQuery:
 
             value (str): Tag you want to isolate
         """
-        self._query = (
-                f"{self._query}  |> filter(fn: (r) => r[\"{key}\"] == "
-                f"\"{value}\")\n"
+        self._query_list.append(
+                f"  |> filter(fn: (r) => r[\"{key}\"] == \"{value}\")"
                 )
 
     def add_filter_range(self, field, filter_fields):
@@ -216,11 +212,10 @@ class FluxQuery:
 
             filter_fields (list): Contains all fields used to filter field data
         """
-        self._query = (
-                f"{self._query}  |> keep(columns: [\"_time\", \"_field\", "
-                f"\"_value\"])\n"
+        self._query_list.append(
+                f"  |> keep(columns: [\"_time\", \"_field\", \"_value\"])\n"
                 f"  |> pivot(rowKey: [\"_time\"], columnKey: [\"_field\"], "
-                f"valueColumn: \"_value\")\n"
+                f"valueColumn: \"_value\")"
                 )
         for filter_field in filter_fields:
             name = filter_field["Field"]
@@ -228,14 +223,12 @@ class FluxQuery:
             max = filter_field["Max"]
             min_equals_sign = "=" if  filter_field["Min Equal"] else ""
             max_equals_sign = "=" if filter_field["Max Equal"] else ""
-            self._query = (
-                f"{self._query}"
+            self._query_list.append(
                 f"  |> filter(fn: (r) => r[\"{name}\"] >{min_equals_sign}"
-                f" {min} and r[\"{name}\"] <{max_equals_sign} {max})\n"
+                f" {min} and r[\"{name}\"] <{max_equals_sign} {max})"
                 )
-        self._query = (
-                f"{self._query}"
-                f"  |> rename(columns: {{\"{field}\": \"_value\"}})\n"
+        self._query_list.append(
+                f"  |> rename(columns: {{\"{field}\": \"_value\"}})"
                     )
 
     def add_group(self, group):
@@ -244,7 +237,7 @@ class FluxQuery:
         Keyword Arguments:
             group (str): Key to group measurements by
         """
-        self._query = f"{self._query}  |> group(columns: [\"{group}\"])\n"
+        self._query_list.append(f"  |> group(columns: [\"{group}\"])")
 
     def add_window(self, range, function, create_empty=True,
                    time_starting=False, column="_value"):
@@ -267,27 +260,27 @@ class FluxQuery:
         time_source = "_stop"
         if time_starting:
             time_source = "_start"
-        self._query = (
-                f"{self._query}  |> aggregateWindow(every: {range}, "
+        self._query_list.append(
+                f"  |> aggregateWindow(every: {range}, "
                 f"fn: {function}, column: \"{column}\", timeSrc: "
                 f"\"{time_source}\", timeDst: \"_time\", createEmpty: "
-                f"{str(create_empty).lower()})\n"
+                f"{str(create_empty).lower()})"
                 )
 
     def keep_measurements(self):
         """ Removes all columns except _time and _value, can help download
         time
         """
-        self._query = (
-                f"{self._query}  |> keep(columns: [\"_time\", \"_value\"])\n"
+        self._query_list.append(
+                f"  |> keep(columns: [\"_time\", \"_value\"])"
                 )
 
     def drop_start_stop(self):
         """ Adds drop function which removes superfluous start and stop
         columns
         """
-        self._query = (
-                f"{self._query}  |> drop(columns: [\"_start\", \"_stop\"])\n"
+        self._query_list.append(
+                f"  |> drop(columns: [\"_start\", \"_stop\"])"
                 )
 
     def scale_measurements(self, slope=1, offset=0, power=1, start="", end=""):
@@ -334,11 +327,11 @@ class FluxQuery:
         if power != 1:
             value_str = f"{value_str} ^ {float(power)}"
         value_str = f"{value_str})"
-        self._query = (
-                f"{self._query}  |> map(fn: (r) => ({{ r with \"_value\": if "
+        self._query_list.append(
+                f"  |> map(fn: (r) => ({{ r with \"_value\": if "
                 f"(r[\"_time\"] >= {dt_to_rfc3339(start)} and r[\"_time\"] <= "
                 f"{dt_to_rfc3339(end)}) then ({value_str}{slope_str}){off_str}"
-                f" else r[\"_value\"]}}))\n"
+                f" else r[\"_value\"]}}))"
                 )
 
     def add_yield(self, name):
@@ -348,7 +341,7 @@ class FluxQuery:
             name (str): Name for data, should be unique if multiple queries are
             made
         """
-        self._query = f"{self._query}  |> yield(name: \"{name}\")\n"
+        self._query_list.append(f"  |> yield(name: \"{name}\")")
 
     def return_query(self):
         """ Returns the query string, _query cannot be called outside of class
@@ -356,7 +349,8 @@ class FluxQuery:
         Returns:
             String corresponding to a flux query
         """
-        return self._query
+        return "\n".join(self._query_list)
+
 
 def dt_to_rfc3339(input, use_time=True):
     """ Converts datetime to RFC3339 string
