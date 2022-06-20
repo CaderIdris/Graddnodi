@@ -1,4 +1,13 @@
-"""
+""" Contains classes and methods used to perform different methods of linear 
+regression
+
+This module is used to perform different methods of linear regression on a
+dataset (or a training subset), determine all coefficients and then calculate
+a range of errors (using the testing subset if available). 
+
+Classes:
+    Calibration:
+        Calibrates one set of measurements against another
 """
 
 __author__ = "Idris Hayward"
@@ -81,6 +90,27 @@ class Calibration:
         self.coefficients = dict()
 
     def format_data(self, mv_keys=list()):
+        """ Formats the incoming data for the scikitlearn calibration
+        functions
+        
+        The scikitlearn regressors need the input data formatted in a specific
+        way. This function also standard scales the x data for better
+        performance of some regression techniques.
+
+        Keyword Arguments:
+            mv_keys (list): All multivariate variables to be used
+
+        Returns:
+            tuple representing:
+            x_array (np.array): Array representing all independent
+            measurements
+            y_array (np.array): Array representing all dependent
+            measurements
+            scaler_x (StandardScaler): StandardScaler object used to transform
+            x data
+            combo_string (str): String containing all x variables being
+            calibrated
+        """
         x_name = self.x_train.columns[1]
         y_name = self.y_train.columns[1]
         combo_string = "x"
@@ -97,6 +127,16 @@ class Calibration:
 
     def ols(self, mv_keys=list()):
         """ Performs OLS linear regression on array X against y
+
+        Performs ordinary least squares linear regression, both univariate and
+        multivariate, on X against y. More details can be found at:
+        https://scikit-learn.org/stable/modules/
+        linear_model.html#ordinary-least-squares
+
+        Coefficients are added to coefficients dict
+
+        Keyword Arguments:
+            mv_keys (list): All multivariate variables to be used
         """
         x_array, y_array, scaler, combo_string = self.format_data(mv_keys)
         ols_lr = lm.LinearRegression()
@@ -120,6 +160,16 @@ class Calibration:
 
     def ridge(self, mv_keys=list()):
         """ Performs ridge linear regression on array X against y
+
+        Performs ridge linear regression, both univariate and
+        multivariate, on X against y. More details can be found at:
+        https://scikit-learn.org/stable/modules/
+        linear_model.html#ridge-regression-and-classification
+
+        Coefficients are added to coefficients dict
+
+        Keyword Arguments:
+            mv_keys (list): All multivariate variables to be used
         """
         x_array, y_array, scaler, combo_string = self.format_data(mv_keys)
         regr_cv = lm.RidgeCV(alphas=np.logspace(-5, 5, 11))
@@ -145,6 +195,18 @@ class Calibration:
                 }
 
     def lasso(self, mv_keys=list()):
+        """ Performs lasso linear regression on array X against y
+
+        Performs lasso linear regression, both univariate and
+        multivariate, on X against y. More details can be found at:
+        https://scikit-learn.org/stable/modules/
+        linear_model.html#lasso
+
+        Coefficients are added to coefficients dict
+
+        Keyword Arguments:
+            mv_keys (list): All multivariate variables to be used
+        """
         x_array, y_array, scaler, combo_string = self.format_data(mv_keys)
         y_array = np.ravel(y_array)
         lasso_cv = lm.LassoCV(alphas=np.logspace(-5, 5, 11))
@@ -170,7 +232,17 @@ class Calibration:
                 }
 
     def elastic_net(self, mv_keys=list()):
-        """ Performs ridge linear regression on array X against y
+        """ Performs elastic net linear regression on array X against y
+
+        Performs elastic net linear regression, both univariate and
+        multivariate, on X against y. More details can be found at:
+        https://scikit-learn.org/stable/modules/
+        linear_model.html#elastic-net
+
+        Coefficients are added to coefficients dict
+
+        Keyword Arguments:
+            mv_keys (list): All multivariate variables to be used
         """
         x_array, y_array, scaler, combo_string = self.format_data(mv_keys)
         y_array = np.ravel(y_array)
@@ -198,6 +270,18 @@ class Calibration:
                 }
 
     def lars(self, mv_keys=list()):
+        """ Performs least angle regression on array X against y
+
+        Performs least angle regression, both univariate and
+        multivariate, on X against y. More details can be found at:
+        https://scikit-learn.org/stable/modules/
+        linear_model.html#least-angle-regression
+
+        Coefficients are added to coefficients dict
+
+        Keyword Arguments:
+            mv_keys (list): All multivariate variables to be used
+        """
         x_array, y_array, scaler, combo_string = self.format_data(mv_keys)
         lars_lr = lm.Lars(normalize=False)
         lars_lr.fit(x_array, y_array)
@@ -219,6 +303,18 @@ class Calibration:
                 }
 
     def lasso_lars(self, mv_keys=list()):
+        """ Performs lasso least angle regression on array X against y
+
+        Performs lasso least angle regression, both univariate and
+        multivariate, on X against y. More details can be found at:
+        https://scikit-learn.org/stable/modules/
+        linear_model.html#lars-lasso
+
+        Coefficients are added to coefficients dict
+
+        Keyword Arguments:
+            mv_keys (list): All multivariate variables to be used
+        """
         x_array, y_array, scaler, combo_string = self.format_data(mv_keys)
         y_array = np.ravel(y_array)
         lars_lr = lm.LassoLarsCV(normalize=False).fit(x_array, y_array)
@@ -240,6 +336,19 @@ class Calibration:
                 }
     
     def orthogonal_matching_pursuit(self, mv_keys=list()):
+        """ Performs orthogonal matching pursuit regression on array X 
+        against y
+
+        Performs orthogonal matching pursuit angle regression, only
+        multivariate, on X against y. More details can be found at:
+        https://scikit-learn.org/stable/modules/
+        linear_model.html#orthogonal-matching-pursuit-omp
+
+        Coefficients are added to coefficients dict
+
+        Keyword Arguments:
+            mv_keys (list): All multivariate variables to be used
+        """
         x_array, y_array, scaler, combo_string = self.format_data(mv_keys)
         y_array = np.ravel(y_array)
         omp_lr = lm.OrthogonalMatchingPursuitCV(normalize=False).fit(
@@ -263,6 +372,18 @@ class Calibration:
                 }
 
     def ransac(self, mv_keys=list()):
+        """ Performs ransac regression on array X against y
+
+        Performs ransac regression, both univariate and
+        multivariate, on X against y. More details can be found at:
+        https://scikit-learn.org/stable/modules/
+        linear_model.html#ransac-random-sample-consensus
+
+        Coefficients are added to coefficients dict
+
+        Keyword Arguments:
+            mv_keys (list): All multivariate variables to be used
+        """
         x_array, y_array, scaler, combo_string = self.format_data(mv_keys)
         y_array = np.ravel(y_array)
         ransac_lr = lm.RANSACRegressor()
@@ -286,6 +407,18 @@ class Calibration:
                 }
 
     def theil_sen(self, mv_keys=list()):
+        """ Performs theil sen regression on array X against y
+
+        Performs theil sen regression, both univariate and
+        multivariate, on X against y. More details can be found at:
+        https://scikit-learn.org/stable/modules/linear_model.html
+        #theil-sen-estimator-generalized-median-based-estimator
+
+        Coefficients are added to coefficients dict
+
+        Keyword Arguments:
+            mv_keys (list): All multivariate variables to be used
+        """
         x_array, y_array, scaler, combo_string = self.format_data(mv_keys)
         y_array = np.ravel(y_array)
         theil_sen_lr = lm.TheilSenRegressor()
