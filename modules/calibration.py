@@ -20,6 +20,7 @@ __status__ = "Indev"
 
 import numpy as np
 import pandas as pd
+import pymc as pm
 from sklearn import linear_model as lm
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split as ttsplit
