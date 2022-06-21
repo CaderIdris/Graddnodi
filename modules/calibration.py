@@ -5,9 +5,8 @@ This module is used to perform different methods of linear regression on a
 dataset (or a training subset), determine all coefficients and then calculate
 a range of errors (using the testing subset if available). 
 
-Classes:
-    Calibration:
-        Calibrates one set of measurements against another
+    Classes:
+        Calibration: Calibrates one set of measurements against another
 """
 
 __author__ = "Idris Hayward"
@@ -32,17 +31,25 @@ class Calibration:
     Attributes:
         - x_train (DataFrame): Independent measurements to train calibration
         on. Columns include:
-            TBA
+            "Datetime": Timestamps
+            "Values": Main independent measurement
+            Remaining columns are secondary measurements which can be used
         - x_test (DataFrame): Independent measurements to test calibration on.
         Columns include:
-            TBA
+            "Datetime": Timestamps
+            "Values": Main independent measurement
+            Remaining columns are secondary measurements which can be used
         - y_train (DataFrame): Dependent measurements to train calibration on.
         Columns include:
-            TBA
+            "Datetime": Timestamps
+            "Values": Dependent measurements
+            Remaining columns are secondary measurements which won't be used 
         - y_test (DataFrame): Dependent measurements to test calibration on.
         Columns include:
-            TBA
-        - coefficients (dict): Results of the calibrations
+            "Datetime": Timestamps
+            "Values": Dependent measurements
+            Remaining columns are secondary measurements which won't be used 
+        - _coefficients (dict): Results of the calibrations
 
     Methods:
         - ols_linear: Performs OLS linear regression 
@@ -87,7 +94,7 @@ class Calibration:
             self.y_train = y_data
             self.x_test = x_data
             self.y_test = y_data
-        self.coefficients = dict()
+        self._coefficients = dict()
 
     def format_data(self, mv_keys=list()):
         """ Formats the incoming data for the scikitlearn calibration
@@ -153,7 +160,7 @@ class Calibration:
         slopes = {"x": slopes_list[0]}
         for index, key in enumerate(mv_keys):
             slopes[key] = slopes_list[index + 1]
-        self.coefficients[f"OLS ({combo_string})"] = {
+        self._coefficients[f"OLS ({combo_string})"] = {
                 "Slope": slopes,
                 "Offset": offset 
                 }
@@ -189,7 +196,7 @@ class Calibration:
         slopes = {"x": slopes_list[0]}
         for index, key in enumerate(mv_keys):
             slopes[key] = slopes_list[index + 1]
-        self.coefficients[f"Ridge ({combo_string})"] = {
+        self._coefficients[f"Ridge ({combo_string})"] = {
                 "Slope": slopes,
                 "Offset": offset 
                 }
@@ -226,7 +233,7 @@ class Calibration:
         slopes = {"x": slopes_list[0]}
         for index, key in enumerate(mv_keys):
             slopes[key] = slopes_list[index + 1]
-        self.coefficients[f"Lasso ({combo_string})"] = {
+        self._coefficients[f"Lasso ({combo_string})"] = {
                 "Slope": slopes,
                 "Offset": offset 
                 }
@@ -264,7 +271,7 @@ class Calibration:
         slopes = {"x": slopes_list[0]}
         for index, key in enumerate(mv_keys):
             slopes[key] = slopes_list[index + 1]
-        self.coefficients[f"Elastic Net ({combo_string})"] = {
+        self._coefficients[f"Elastic Net ({combo_string})"] = {
                 "Slope": slopes,
                 "Offset": offset 
                 }
@@ -297,7 +304,7 @@ class Calibration:
         slopes = {"x": slopes_list[0]}
         for index, key in enumerate(mv_keys):
             slopes[key] = slopes_list[index + 1]
-        self.coefficients[f"Lars ({combo_string})"] = {
+        self._coefficients[f"Lars ({combo_string})"] = {
                 "Slope": slopes,
                 "Offset": offset 
                 }
@@ -330,7 +337,7 @@ class Calibration:
         slopes = {"x": slopes_list[0]}
         for index, key in enumerate(mv_keys):
             slopes[key] = slopes_list[index + 1]
-        self.coefficients[f"Lasso Lars ({combo_string})"] = {
+        self._coefficients[f"Lasso Lars ({combo_string})"] = {
                 "Slope": slopes,
                 "Offset": offset 
                 }
@@ -366,7 +373,7 @@ class Calibration:
         slopes = {"x": slopes_list[0]}
         for index, key in enumerate(mv_keys):
             slopes[key] = slopes_list[index + 1]
-        self.coefficients[f"Orthogonal Matching Pursuit ({combo_string})"] = {
+        self._coefficients[f"Orthogonal Matching Pursuit ({combo_string})"] = {
                 "Slope": slopes,
                 "Offset": offset 
                 }
@@ -401,7 +408,7 @@ class Calibration:
         slopes = {"x": slopes_list[0]}
         for index, key in enumerate(mv_keys):
             slopes[key] = slopes_list[index + 1]
-        self.coefficients[f"RANSAC ({combo_string})"] = {
+        self._coefficients[f"RANSAC ({combo_string})"] = {
                 "Slope": slopes,
                 "Offset": offset 
                 }
@@ -435,7 +442,7 @@ class Calibration:
         slopes = {"x": slopes_list[0]}
         for index, key in enumerate(mv_keys):
             slopes[key] = slopes_list[index + 1]
-        self.coefficients[f"Theil Sen ({combo_string})"] = {
+        self._coefficients[f"Theil Sen ({combo_string})"] = {
                 "Slope": slopes,
                 "Offset": offset 
                 }
@@ -467,5 +474,4 @@ class Calibration:
         """ Performs appended OLS
         """
         pass
-
 
