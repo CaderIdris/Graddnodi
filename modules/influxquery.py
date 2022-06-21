@@ -1,4 +1,14 @@
-"""
+""" Handles all communication to and from InfluxDB 2.x database when querying
+measurements
+
+Capable of generating both simple and complex queries in FluxQL format and 
+querying data from an InfluxDB 2.x database with them. 
+
+    Classes:
+        InfluxQuery: Queries and formats data from InfluxDB 2.x database
+
+        FluxQuery: Generates flux query for InfluxDB 2.x database
+
 """
 
 __author__ = "Idris Hayward"
@@ -289,11 +299,7 @@ class FluxQuery:
 
         This function uses the map function to scale the measurements, within a
         set range. If a start and/or end range is not provided they default to
-        1970-01-01 and 2800-01-01 respectively which should land outside of
-        any measurements passed through it for a while at least. This means
-        the function only has a limited lifespan, depracating after 2800 but
-        in all fairness, we should at least be on Python 4 by then. Feel free
-        to fix this future catastrophic bug, Python 4 genii.
+        the classes start and end attributes.
 
         Keyword Arguments:
             slope (int/float): Number to multiply measurements by
@@ -344,7 +350,7 @@ class FluxQuery:
         self._query_list.append(f"  |> yield(name: \"{name}\")")
 
     def return_query(self):
-        """ Returns the query string, _query cannot be called outside of class
+        """ Returns the query string
 
         Returns:
             String corresponding to a flux query
