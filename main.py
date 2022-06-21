@@ -1,4 +1,41 @@
-"""
+#!/bin/python3
+
+""" Downloads multiple measurements over a set period of time from an InfluxDB
+2.x database and compares them all in a large collocation study with a range
+of regression methods
+
+As part of my PhD, a large collocation study was undertaken at the Bushy Park
+air quality monitoring station in Teddington. This program is designed to
+import, standardise and compare all the measurements made over the course of
+this study and generate a report. It is designed in such a way that any
+collocation study can be generated from it if the measurements are stored in
+an InfluxDB 2.x database. If the measurements are stored in some other way,
+the calibration and report modules can still be used on their own if the data
+sent to them is in the correct format.
+
+    Command Line Arguments:
+        -m/--cache-measurements [OPTIONAL]: Caches measurements downloaded
+        from InfluxDB 2.x database to cache folder. Mutually exclusive with
+        -M/--use-measurement-cache
+
+        -M/--use-measurement-cache [OPTIONAL]: Uses cached measurements stored
+        in cache folder. Mutually exclusive with -m/--cache-measurements
+        
+        -r/--cache-results [OPTIONAL]: Caches results to cache folder. 
+        Mutually exclusive with -R/--use-results-cache
+
+        -R/--use-results-cache [OPTIONAL]: Uses cached results stored
+        in cache folder. Mutually exclusive with -r/--results
+
+        -C/--cache-path (str) [OPTIONAL]: Location of cache folder. Defaults
+        to "cache/"
+
+        -c/--config (str) [OPTIONAL]: Location of config json. Defaults to
+        "Settings/config.json"
+
+        -i/--influx (str) [OPTIONAL]: Location of influx condif json. Defaults
+        to "Settings/influx.json"
+
 """
 
 __author__ = "Idris Hayward"
