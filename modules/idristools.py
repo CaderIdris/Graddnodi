@@ -18,6 +18,14 @@ previously I was copy and pasting them in to each program separately.
         append_to_file: Appends a string to the end of a file
         
         parse_data_string: Parses date string in to datetime format
+
+        all_combinations: Generate all possible combinations of list of input
+        variables
+
+        make_path: If path is not present, make it
+
+    Classes:
+        DateDifference: Contains functions used when working with time windows
 """
 
 __author__ = "Idris Hayward"
@@ -35,8 +43,45 @@ import datetime as dt
 from itertools import combinations
 
 class DateDifference:
-    """"""
+    """ Contains functions used when working with time windows 
+    
+    Attributes:
+        start (datetime): Datetime representation of the start date
+
+        start_dict (dict): Dict containing int representations of the year,
+        month and day of start_date
+
+        end (datetime): Datetime representation of the end date
+
+        end_dict (dict): Dict containing int representations of the year,
+        month and day of end_date
+
+    Methods:
+        year_difference: Number of years between start and end, rounded down
+
+        month_difference: Number of months between start and end, rounded down
+
+        day_difference: Number of days between start and end
+
+        add_year: Add specified number of years on to copy of start and return
+        result
+
+        add_month: Add specified number of months on to copy of start and
+        return result
+
+        add day: Add specified number of days on to copy of start and return
+        result
+
+
+    """
     def __init__(self, start, end):
+        """ Initialises class 
+
+        Keyword arguments:
+            start (datetime): Start date
+
+            end (datetime): End date
+        """
         self.start = start
         self.start_dict = {
                 "Year": int(start.strftime("%Y")),
@@ -51,21 +96,49 @@ class DateDifference:
                 }
 
     def year_difference(self):
+        """ Number of years between start and end
+
+        Returns:
+            int representing number of years between start and end rounded 
+            down
+        """
         return self.end_dict["Year"] - self.start_dict["Year"]
 
     def month_difference(self):
+        """ Number of months between start and end 
+
+        Returns:
+            int representing number of years between start and end rounded
+            down
+        """
         return ((12 * self.year_difference()) + self.end_dict["Month"] -
                 self.start_dict["Month"])
 
     def day_difference(self):
+        """ Number of days between start and end 
+
+        Returns:
+            int representing number of days between start and end rounded
+            down 
+        """
         return (self.end - self.start).days
 
     def add_year(self, years):
+        """ Adds specified number of years on to copy of start
+
+        Returns:
+            datetime reprenting start plus years
+        """
         return dt.datetime(
                 (self.start_dict["Year"] + years), self.start_dict["Month"],
                 self.start_dict["Day"])
 
     def add_month(self, months):
+        """ Adds specified number of months on to copy of start
+
+        Returns:
+            datetime representing start plus months
+        """
         years = 0
         while self.start_dict["Month"] + months > 12:
             years = years + 1 
@@ -76,6 +149,11 @@ class DateDifference:
                 self.start_dict["Day"])
 
     def add_days(self, days):
+        """ Adds specified number of days on to copy of start
+
+        Returns:
+            Datetime representing start plus days
+        """
         return self.start + dt.timedelta(days=days)
 
 
