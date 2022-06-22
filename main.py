@@ -50,7 +50,7 @@ __status__ = "Indev"
 import argparse
 from collections import defaultdict
 import datetime as dt
-import pickle
+import sqlite3 as sql
 
 import numpy as np 
 import pandas as pd
@@ -145,6 +145,7 @@ def main():
                 lambda: defaultdict(pd.DataFrame)
                     )
         for month_num in range(0, months_to_cover):
+            date_list = None
             start_of_month = date_calculations.add_month(month_num)
             end_of_month = date_calculations.add_month(month_num + 1)
             for name, settings in query_config.items():
@@ -218,8 +219,6 @@ def main():
                     # applied. This ~may~ be controversial and the decision
                     # may be reversed but it is what it is for now. Will 
                     # result in more data present but faster processing times
-                    if not dev_field["Secondary Fields"]:
-                        continue
                     for sec_measurement in dev_field["Secondary Fields"]:
                         # Generate secondary measurement query
                         sec_query = FluxQuery(
@@ -276,14 +275,24 @@ def main():
                     measurements[dev_field["Tag"]][name] = pd.concat(
                         [measurements[dev_field["Tag"]][name], inf_measurements]
                             )
-        # Save measurements to a pickle file to be used later. Useful if
-        # working offline or using datasets with long query times
-        if cache_measurements:
-            make_path(f"{cache_path}{run_name}")
-            with open(
-                    f"{cache_path}{run_name}/measurements.pickle", 'wb'
-                    ) as cache:
-                pickle.dump(measurements, cache, protocol=5)
+    # Save measurements to a pickle file to be used later. Useful if
+    # working offline or using datasets with long query times
+    for tag in measurements.keys():
+        measurements[tag] = dict(measurements[tag])
+    measurements = dict(measurements)
+    if cache_measurements:
+        make_path(f"{cache_path}{run_name}")
+        for field, devices in measurements.items():
+            print(field)
+            con = sql.connect(f"{cache_path}{run_name}/{field}.db")
+            for table, dframe in devices.items():
+                print(table)
+                dframe.to_sql(
+                        name=table,
+                        con=con,
+                        if_exists="replace",
+                        )
+                
 
         # Calibrating measurements against each other
 

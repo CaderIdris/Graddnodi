@@ -85,17 +85,21 @@ class InfluxQuery:
         # first one
         if query_return:
             name = query_return[0].records[0].values['result']
+            measurements = list()
+            datetime = list()
             for record in query_return[0].records:
                 values = record.values
                 raw_measurement = values['_value']
                 if raw_measurement is None:
                     raw_measurement = np.nan
-                self._measurements = pd.DataFrame(
-                        data={
-                            "Datetime": values['_time'], 
-                            "Values": raw_measurement
-                            }
-                        )
+                measurements.append(raw_measurement)
+                datetime.append(values['_time'])
+            self._measurements = pd.DataFrame(
+                    data={
+                        "Datetime": datetime, 
+                        "Values": measurements
+                        }
+                    )
         else:
             self._measurements = None
 
