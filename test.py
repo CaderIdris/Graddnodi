@@ -1,4 +1,5 @@
 import datetime as dt
+import numpy as np
 import pandas as pd
 import unittest
 
@@ -56,7 +57,7 @@ class TestIdrisTools(unittest.TestCase):
 
 
 def test_data():
-    data = list(range(10))
+    data = np.array(range(0, 100000)) 
     return (
             pd.DataFrame(
                 {
@@ -73,7 +74,7 @@ def test_data():
             pd.DataFrame(
                 {
                     "Datetime": data.copy(),
-                    "Y": list(range(10)),
+                    "Y": data.copy(),
                     }
                 )
             )
@@ -250,6 +251,36 @@ class TestCalibration(unittest.TestCase):
             self.assertEqual(round(test_theil_sen._coefficients["Theil Sen (x + A)"]["Slope"]["A"], 2), 0.5)
         with self.subTest(): # Test intercept
             self.assertEqual(round(test_theil_sen._coefficients["Theil Sen (x + A)"]["Offset"], 2), 0)
+
+    def test_bayesian_ulr(self):
+        test_data_x, test_data_y = test_data()
+        test_bayesian = Calibration.Calibration(test_data_x, test_data_y)
+        test_bayesian.bayesian()
+        with self.subTest():
+            self.assertEqual(round(test_bayesian._coefficients["Bayesian (x)"]["Slope"]["x"]["Mean"], 2), 1)
+        with self.subTest():
+            self.assertEqual(round(test_bayesian._coefficients["Bayesian (x)"]["Slope"]["x"]["$\sigma$"], 2), 0)
+        with self.subTest():
+            self.assertEqual(round(test_bayesian._coefficients["Bayesian (x)"]["Offset"]["Mean"], 2), 0)
+        with self.subTest():
+            self.assertEqual(round(test_bayesian._coefficients["Bayesian (x)"]["Offset"]["$\sigma$"], 2), 0)
+
+    def test_bayesian_mlr(self):
+        test_data_x, test_data_y = test_data()
+        test_bayesian = Calibration.Calibration(test_data_x, test_data_y)
+        test_bayesian.bayesian(["A"])
+        with self.subTest():
+            self.assertTrue(0.6 >= round(test_bayesian._coefficients["Bayesian (x + A)"]["Slope"]["x"]["Mean"], 2) >= 0.4)
+        with self.subTest():
+            self.assertTrue(0.5 >= round(test_bayesian._coefficients["Bayesian (x + A)"]["Slope"]["x"]["$\sigma$"], 2))
+        with self.subTest():
+            self.assertTrue(0.6 >= round(test_bayesian._coefficients["Bayesian (x + A)"]["Slope"]["A"]["Mean"], 2) >= 0.4)
+        with self.subTest():
+            self.assertTrue(0.5 >= round(test_bayesian._coefficients["Bayesian (x + A)"]["Slope"]["A"]["$\sigma$"], 2))
+        with self.subTest():
+            self.assertEqual(round(test_bayesian._coefficients["Bayesian (x + A)"]["Offset"]["Mean"], 2), 0)
+        with self.subTest():
+            self.assertTrue(abs(round(test_bayesian._coefficients["Bayesian (x + A)"]["Offset"]["$\sigma$"], 2)) >= 5)
 
 if __name__ == '__main__':
     unittest.main()

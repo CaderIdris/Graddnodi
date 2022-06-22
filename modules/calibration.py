@@ -18,6 +18,8 @@ __maintainer__ = "Idris Hayward"
 __email__ = "CaderIdrisGH@outlook.com"
 __status__ = "Indev"
 
+import arviz as az
+import bambi as bmb
 import numpy as np
 import pandas as pd
 import pymc as pm
@@ -53,6 +55,10 @@ class Calibration:
         - _coefficients (dict): Results of the calibrations
 
     Methods:
+        - format_skl: Formats data for scikitlearn
+
+        - format_pymc: Formats data for pymc
+
         - ols_linear: Performs OLS linear regression 
 
         - maximum_a_posteriori: Performs MAP regression 
@@ -97,7 +103,7 @@ class Calibration:
             self.y_test = y_data
         self._coefficients = dict()
 
-    def format_data(self, mv_keys=list()):
+    def format_skl(self, mv_keys=list()):
         """ Formats the incoming data for the scikitlearn calibration
         functions
         
@@ -121,17 +127,39 @@ class Calibration:
         """
         x_name = self.x_train.columns[1]
         y_name = self.y_train.columns[1]
-        combo_string = "x"
+        combo_string = ["x"]
         x_array = np.array(self.x_train[x_name])[:, np.newaxis]
         for key in mv_keys:
-            combo_string = f"{combo_string} + {key}"
+            combo_string.append(f" + {key}")
             secondary = self.x_train[key]
             x_array = np.hstack((x_array, np.array(secondary)[:, np.newaxis]))
         y_array = np.array(self.y_train[y_name])[:, np.newaxis]
         scaler_x = StandardScaler()
         scaler_x.fit(x_array)
         x_array = scaler_x.transform(x_array)
-        return x_array, y_array, scaler_x, combo_string
+        return x_array, y_array, scaler_x, "".join(combo_string)
+
+    def format_pymc(self, mv_keys):
+        x_name = self.x_train.columns[1]
+        y_name = self.y_train.columns[1]
+        pymc_dataframe = pd.DataFrame()
+        pymc_dataframe["x"] = self.x_train[x_name]
+        key_string = ["x"]
+        bambi_string = ["x"]
+        for key in mv_keys:
+            key_string.append(f"{key}")
+            bambi_string.append(f"{key.replace(' ', '_')}")
+            pymc_dataframe[key.replace(' ', '_')] = self.x_train[key]
+        scaler_x = StandardScaler()
+        scaler_x.fit(pymc_dataframe.values)
+        x_array = scaler_x.transform(pymc_dataframe.values)
+        pymc_dataframe = pd.DataFrame(
+                x_array,
+                index=pymc_dataframe.index,
+                columns=pymc_dataframe.columns
+                )
+        pymc_dataframe["y"] = self.y_train[y_name]
+        return pymc_dataframe, scaler_x, bambi_string, key_string
 
     def ols(self, mv_keys=list()):
         """ Performs OLS linear regression on array X against y
@@ -146,7 +174,7 @@ class Calibration:
         Keyword Arguments:
             mv_keys (list): All multivariate variables to be used
         """
-        x_array, y_array, scaler, combo_string = self.format_data(mv_keys)
+        x_array, y_array, scaler, combo_string = self.format_skl(mv_keys)
         ols_lr = lm.LinearRegression()
         ols_lr.fit(x_array, y_array)
         slopes_list_scaled, offset_scaled = (
@@ -179,7 +207,7 @@ class Calibration:
         Keyword Arguments:
             mv_keys (list): All multivariate variables to be used
         """
-        x_array, y_array, scaler, combo_string = self.format_data(mv_keys)
+        x_array, y_array, scaler, combo_string = self.format_skl(mv_keys)
         regr_cv = lm.RidgeCV(alphas=np.logspace(-5, 5, 11))
         regr_cv.fit(x_array, y_array)
         ridge_alpha = regr_cv.alpha_
@@ -215,7 +243,7 @@ class Calibration:
         Keyword Arguments:
             mv_keys (list): All multivariate variables to be used
         """
-        x_array, y_array, scaler, combo_string = self.format_data(mv_keys)
+        x_array, y_array, scaler, combo_string = self.format_skl(mv_keys)
         y_array = np.ravel(y_array)
         lasso_cv = lm.LassoCV(alphas=np.logspace(-5, 5, 11))
         lasso_cv.fit(x_array, y_array)
@@ -252,7 +280,7 @@ class Calibration:
         Keyword Arguments:
             mv_keys (list): All multivariate variables to be used
         """
-        x_array, y_array, scaler, combo_string = self.format_data(mv_keys)
+        x_array, y_array, scaler, combo_string = self.format_skl(mv_keys)
         y_array = np.ravel(y_array)
         enet_cv = lm.ElasticNetCV(alphas=np.logspace(-5, 5, 11))
         enet_cv.fit(x_array, y_array)
@@ -290,7 +318,7 @@ class Calibration:
         Keyword Arguments:
             mv_keys (list): All multivariate variables to be used
         """
-        x_array, y_array, scaler, combo_string = self.format_data(mv_keys)
+        x_array, y_array, scaler, combo_string = self.format_skl(mv_keys)
         lars_lr = lm.Lars(normalize=False)
         lars_lr.fit(x_array, y_array)
         slopes_list_scaled, offset_scaled = (
@@ -323,7 +351,7 @@ class Calibration:
         Keyword Arguments:
             mv_keys (list): All multivariate variables to be used
         """
-        x_array, y_array, scaler, combo_string = self.format_data(mv_keys)
+        x_array, y_array, scaler, combo_string = self.format_skl(mv_keys)
         y_array = np.ravel(y_array)
         lars_lr = lm.LassoLarsCV(normalize=False).fit(x_array, y_array)
         slopes_list_scaled, offset_scaled = (
@@ -357,7 +385,7 @@ class Calibration:
         Keyword Arguments:
             mv_keys (list): All multivariate variables to be used
         """
-        x_array, y_array, scaler, combo_string = self.format_data(mv_keys)
+        x_array, y_array, scaler, combo_string = self.format_skl(mv_keys)
         y_array = np.ravel(y_array)
         omp_lr = lm.OrthogonalMatchingPursuitCV(normalize=False).fit(
                 x_array, y_array
@@ -392,7 +420,7 @@ class Calibration:
         Keyword Arguments:
             mv_keys (list): All multivariate variables to be used
         """
-        x_array, y_array, scaler, combo_string = self.format_data(mv_keys)
+        x_array, y_array, scaler, combo_string = self.format_skl(mv_keys)
         y_array = np.ravel(y_array)
         ransac_lr = lm.RANSACRegressor()
         ransac_lr.fit(x_array, y_array)
@@ -427,7 +455,7 @@ class Calibration:
         Keyword Arguments:
             mv_keys (list): All multivariate variables to be used
         """
-        x_array, y_array, scaler, combo_string = self.format_data(mv_keys)
+        x_array, y_array, scaler, combo_string = self.format_skl(mv_keys)
         y_array = np.ravel(y_array)
         theil_sen_lr = lm.TheilSenRegressor()
         theil_sen_lr.fit(x_array, y_array)
@@ -453,18 +481,81 @@ class Calibration:
         """
         pass
 
-    def bayesian(self):
+    def bayesian(self, mv_keys=list(), family="Gaussian"):
         """ Performs bayesian linear regression (either uni or multivariate)
         on y against x
-        """
-        pass
 
-    def robust_bayesian(self):
-        """ Performs robust bayesian linear regression (either uni or multi)
-        on y against x
+        Performs bayesian linear regression, both univariate and multivariate,
+        on X against y. More details can be found at:
+        https://pymc.io/projects/examples/en/latest/generalized_linear_models/
+        GLM-robust.html
         """
-        pass
-
+        # Define model families
+        model_families = {
+            "Gaussian": 'gaussian',
+            "Student T": "t",
+            "Bernoulli": 'bernoulli',
+            "Beta": "beta",
+            "Binomial": "binomial",
+            "Gamma": "gamma",
+            "Negative Binomial": "negativebinomial",
+            "Poisson": "poisson",
+            "Inverse Gaussian": "wald"
+            }
+        pymc_dataframe, scaler, bambi_list, combo_list = self.format_pymc(mv_keys)
+        # Set priors
+        priors = {
+                "x": bmb.Prior("Normal", mu=1)
+                }
+        if len(bambi_list) > 1:
+            for var in bambi_list[1:]:
+                priors[var] = bmb.Prior("Normal", mu=0)
+        model = bmb.Model(
+                formula=f"y ~ {' + '.join(bambi_list)}",
+                data=pymc_dataframe,
+                family=model_families[family],
+                priors=priors
+                )
+        fitted = model.fit(
+                draws=1000,
+                tune=1000,
+                init="adapt_diag"
+                )
+        slopes_list_scaled = list()
+        slopes_errors_scaled = list()
+        summary = az.summary(fitted)
+        for key in bambi_list:
+            slopes_list_scaled.append(summary.loc[key, 'mean'])
+            slopes_errors_scaled.append(summary.loc[key, 'sd'])
+        offset_scaled = summary.loc['Intercept', 'mean']
+        offset_error_scaled = summary.loc['Intercept', 'sd']
+        slopes_list = np.true_divide(
+                slopes_list_scaled,
+                scaler.scale_
+                )
+        slopes_errors = np.true_divide(
+                slopes_errors_scaled,
+                scaler.scale_
+                )
+        offset = offset_scaled - np.dot(slopes_list, scaler.mean_)
+        offset_error = offset_error_scaled - np.dot(
+                slopes_errors, scaler.mean_
+                )
+        self._coefficients[f"Bayesian ({' + '.join(combo_list)})"] = {
+                "Slope": dict(),
+                "Offset": dict()
+                }
+        for index, key in enumerate(combo_list):
+            self._coefficients[
+                    f"Bayesian ({' + '.join(combo_list)})"
+                    ]["Slope"][key] = {
+                            "Mean": slopes_list[index],
+                            "$\sigma$": slopes_errors[index]
+                            }
+        self._coefficients[f"Bayesian ({' + '.join(combo_list)})"]["Offset"] = {
+                "Mean": offset,
+                "$\sigma$": offset_error
+                }
 
     def rolling(self):
         """ Performs rolling OLS
