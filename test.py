@@ -57,7 +57,7 @@ class TestIdrisTools(unittest.TestCase):
 
 
 def test_data():
-    data = np.array(range(0, 100000)) 
+    data = np.array(range(0, 100000)) / 100
     return (
             pd.DataFrame(
                 {
@@ -278,9 +278,9 @@ class TestCalibration(unittest.TestCase):
         with self.subTest():
             self.assertTrue(0.5 >= round(test_bayesian._coefficients["Bayesian (x + A)"]["Slope"]["A"]["$\sigma$"], 2))
         with self.subTest():
-            self.assertEqual(round(test_bayesian._coefficients["Bayesian (x + A)"]["Offset"]["Mean"], 2), 0)
+            self.assertTrue(round(test_bayesian._coefficients["Bayesian (x + A)"]["Offset"]["Mean"], 2) < 0.1)
         with self.subTest():
-            self.assertTrue(abs(round(test_bayesian._coefficients["Bayesian (x + A)"]["Offset"]["$\sigma$"], 2)) >= 5)
+            self.assertTrue(0.5 >= abs(round(test_bayesian._coefficients["Bayesian (x + A)"]["Offset"]["$\sigma$"], 2)))
 
 if __name__ == '__main__':
     unittest.main()

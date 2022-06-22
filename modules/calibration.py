@@ -18,6 +18,8 @@ __maintainer__ = "Idris Hayward"
 __email__ = "CaderIdrisGH@outlook.com"
 __status__ = "Indev"
 
+import logging
+
 import arviz as az
 import bambi as bmb
 import numpy as np
@@ -27,6 +29,8 @@ from sklearn import linear_model as lm
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split as ttsplit
 
+logger = logging.getLogger('pymc')
+logger.setLevel(logging.ERROR)
 
 class Calibration:
     """ Calibrates one set of measurements against another 
@@ -150,16 +154,8 @@ class Calibration:
             key_string.append(f"{key}")
             bambi_string.append(f"{key.replace(' ', '_')}")
             pymc_dataframe[key.replace(' ', '_')] = self.x_train[key]
-        scaler_x = StandardScaler()
-        scaler_x.fit(pymc_dataframe.values)
-        x_array = scaler_x.transform(pymc_dataframe.values)
-        pymc_dataframe = pd.DataFrame(
-                x_array,
-                index=pymc_dataframe.index,
-                columns=pymc_dataframe.columns
-                )
         pymc_dataframe["y"] = self.y_train[y_name]
-        return pymc_dataframe, scaler_x, bambi_string, key_string
+        return pymc_dataframe, bambi_string, key_string
 
     def ols(self, mv_keys=list()):
         """ Performs OLS linear regression on array X against y
@@ -502,59 +498,35 @@ class Calibration:
             "Poisson": "poisson",
             "Inverse Gaussian": "wald"
             }
-        pymc_dataframe, scaler, bambi_list, combo_list = self.format_pymc(mv_keys)
+        pymc_dataframe, bambi_list, combo_list = self.format_pymc(mv_keys)
         # Set priors
-        priors = {
-                "x": bmb.Prior("Normal", mu=1)
-                }
-        if len(bambi_list) > 1:
-            for var in bambi_list[1:]:
-                priors[var] = bmb.Prior("Normal", mu=0)
         model = bmb.Model(
                 formula=f"y ~ {' + '.join(bambi_list)}",
                 data=pymc_dataframe,
                 family=model_families[family],
-                priors=priors
+                dropna=True,
                 )
         fitted = model.fit(
-                draws=1000,
-                tune=1000,
-                init="adapt_diag"
+                draws=600,
+                tune=600,
+                init="adapt_diag",
+                progressbar=False
                 )
-        slopes_list_scaled = list()
-        slopes_errors_scaled = list()
         summary = az.summary(fitted)
-        for key in bambi_list:
-            slopes_list_scaled.append(summary.loc[key, 'mean'])
-            slopes_errors_scaled.append(summary.loc[key, 'sd'])
-        offset_scaled = summary.loc['Intercept', 'mean']
-        offset_error_scaled = summary.loc['Intercept', 'sd']
-        slopes_list = np.true_divide(
-                slopes_list_scaled,
-                scaler.scale_
-                )
-        slopes_errors = np.true_divide(
-                slopes_errors_scaled,
-                scaler.scale_
-                )
-        offset = offset_scaled - np.dot(slopes_list, scaler.mean_)
-        offset_error = offset_error_scaled - np.dot(
-                slopes_errors, scaler.mean_
-                )
         self._coefficients[f"Bayesian ({' + '.join(combo_list)})"] = {
                 "Slope": dict(),
                 "Offset": dict()
                 }
-        for index, key in enumerate(combo_list):
+        for combo_key, bambi_key in zip(combo_list, bambi_list):
             self._coefficients[
                     f"Bayesian ({' + '.join(combo_list)})"
-                    ]["Slope"][key] = {
-                            "Mean": slopes_list[index],
-                            "$\sigma$": slopes_errors[index]
-                            }
+                    ]["Slope"][combo_key] = {
+                        "Mean": summary.loc[bambi_key, 'mean'],
+                        "$\sigma$": summary.loc[bambi_key, 'sd'],
+                    }
         self._coefficients[f"Bayesian ({' + '.join(combo_list)})"]["Offset"] = {
-                "Mean": offset,
-                "$\sigma$": offset_error
+                    "Mean": summary.loc['Intercept', 'mean'],
+                    "$\sigma$": summary.loc['Intercept', 'sd'],
                 }
 
     def rolling(self):
@@ -566,4 +538,5 @@ class Calibration:
         """ Performs appended OLS
         """
         pass
+
 
