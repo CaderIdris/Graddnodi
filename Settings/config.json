@@ -389,6 +389,36 @@
 			"Stop": ""
 		}
 	},
+	"Calibration": {
+		"Data": {
+			"Split": true,
+			"Test Size": 0.4,
+			"Seed": 72
+		},
+		"Techniques": {
+			"Ordinary Least Squares": true,
+			"Ridge": true,
+			"LASSO": true,
+			"Elastic Net": true,
+			"LARS": true,
+			"LASSO LARS": true,
+			"Orthogonal Matching Pursuit": true,
+			"RANSAC": true,
+			"Theil Sen": true,
+			"Bayesian": true
+		},
+		"Bayesian Families": {
+			"Gaussian": true,
+			"Student T": true,
+			"Bernoulli": true,
+			"Beta": true,
+			"Binomial": true,
+			"Gamma": true,
+			"Negative Binomial": true,
+			"Poisson": true,
+			"Inverse Gaussian": true
+		}
+	},
 	"Runtime": {
 		"Name": "Default",
 		"Start": "2018/10/01",

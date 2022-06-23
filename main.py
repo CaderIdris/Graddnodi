@@ -59,6 +59,7 @@ import pandas as pd
 from modules.idristools import get_json, parse_date_string, all_combinations
 from modules.idristools import DateDifference, make_path, file_list
 from modules.influxquery import InfluxQuery, FluxQuery
+from modules.calibration import Calibration
 
 def main():
     # Read command line arguments
@@ -161,7 +162,7 @@ def main():
                             )
                 cursor.close()
                 con.close()
-    print(measurements)
+
     if not isinstance(measurements, dict):
         # Download measurements from InfluxDB 2.x on a month by month basis
         measurements = defaultdict(
@@ -334,9 +335,64 @@ def main():
                             index=False
                             )
                 con.close()
-                
 
-        # Calibrating measurements against each other
+    # Begin calibration step
+    device_names = list(query_config.keys())
+    data_settings = run_config["Calibration"]["Data"]
+    techniques = run_config["Calibration"]["Techniques"]
+    bay_families = run_config["Calibration"]["Bayesian Families"]
+    # Loop over fields
+    for field, dframes in measurements.items():
+        # Loop over dependent measurements
+        for index, y_device in enumerate(device_names[:-1]):
+            y_dframe = dframes.get(y_device)
+            if isinstance(y_dframe, pd.DataFrame):
+                # Loop over independent measurements
+                for x_device in device_names[index+1:]:
+                    x_dframe = dframes.get(x_device)
+                    if isinstance(x_dframe, pd.DataFrame):
+                        comparison = Calibration(
+                                x_data = x_dframe,
+                                y_data = y_dframe,
+                                split=data_settings["Split"],
+                                test_size=data_settings["Test Size"],
+                                seed=data_settings["Seed"]
+                                )
+                        dframe_columns = list(x_dframe.columns)
+                        mv_combinations = [[]]
+                        if len(dframe_columns) > 2:
+                            mv_combinations.extend(
+                                    all_combinations(
+                                        dframe_columns[2:]
+                                        )
+                                    )
+                        for mv_combo in mv_combinations:
+                            if techniques["Ordinary Least Squares"]:
+                                comparison.ols(mv_combo)
+                            if techniques["Ridge"]:
+                                comparison.ridge(mv_combo)
+                            if techniques["LASSO"]:
+                                comparison.lasso(mv_combo)
+                            if techniques["Elastic Net"]:
+                                comparison.elastic_net(mv_combo)
+                            if techniques["LARS"]:
+                                comparison.lars(mv_combo)
+                            if techniques["LASSO LARS"]:
+                                comparison.lasso_lars(mv_combo)
+                            if techniques["Orthogonal Matching Pursuit"]:
+                                if mv_combo:
+                                    comparison.orthogonal_matching_pursuit(
+                                            mv_combo
+                                            )
+                            if techniques["RANSAC"]:
+                                comparison.ransac(mv_combo)
+                            if techniques["Theil Sen"]:
+                                comparison.theil_sen(mv_combo)
+                            if techniques["Bayesian"]:
+                                for family, use in bay_families.items():
+                                    if use:
+                                        comparison.bayesian(mv_combo, family)
+
 
 if __name__ == "__main__":
     main()

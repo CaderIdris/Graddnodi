@@ -458,7 +458,7 @@ def all_combinations(input_list):
     for combo_length in range(1, len(input_list) + 1):
         combos = list(combinations(input_list, combo_length))
         for combo in combos:
-            all_combos.append(combo)
+            all_combos.append(list(combo))
     return all_combos
 
 def file_list(path, extension=""):
