@@ -37,10 +37,11 @@ __maintainer__ = "Idris Hayward"
 __email__ = "CaderIdrisGH@outlook.com"
 __status__ = "Stable Release"
 
-import os
-import json
 import datetime as dt
+import glob
 from itertools import combinations
+import json
+import os
 
 class DateDifference:
     """ Contains functions used when working with time windows 
@@ -459,3 +460,10 @@ def all_combinations(input_list):
         for combo in combos:
             all_combos.append(combo)
     return all_combos
+
+def file_list(path, extension=""):
+    if os.path.isdir(path):
+        return glob.glob(f"{path}/*{extension}") 
+    else:
+        return list()
+

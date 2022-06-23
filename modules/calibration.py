@@ -18,6 +18,7 @@ __maintainer__ = "Idris Hayward"
 __email__ = "CaderIdrisGH@outlook.com"
 __status__ = "Indev"
 
+from collections import defaultdict
 import logging
 
 import arviz as az
@@ -105,7 +106,7 @@ class Calibration:
             self.y_train = y_data
             self.x_test = x_data
             self.y_test = y_data
-        self._coefficients = dict()
+        self._coefficients = defaultdict(pd.DataFrame)
 
     def format_skl(self, mv_keys=list()):
         """ Formats the incoming data for the scikitlearn calibration
@@ -134,14 +135,14 @@ class Calibration:
         combo_string = ["x"]
         x_array = np.array(self.x_train[x_name])[:, np.newaxis]
         for key in mv_keys:
-            combo_string.append(f" + {key}")
+            combo_string.append(f"{key}")
             secondary = self.x_train[key]
             x_array = np.hstack((x_array, np.array(secondary)[:, np.newaxis]))
         y_array = np.array(self.y_train[y_name])[:, np.newaxis]
         scaler_x = StandardScaler()
         scaler_x.fit(x_array)
         x_array = scaler_x.transform(x_array)
-        return x_array, y_array, scaler_x, "".join(combo_string)
+        return x_array, y_array, scaler_x, combo_string
 
     def format_pymc(self, mv_keys):
         x_name = self.x_train.columns[1]
@@ -156,6 +157,47 @@ class Calibration:
             pymc_dataframe[key.replace(' ', '_')] = self.x_train[key]
         pymc_dataframe["y"] = self.y_train[y_name]
         return pymc_dataframe, bambi_string, key_string
+
+    def store_coefficients_skl(self, coeffs_scaled, intercept_scaled, mv_keys, 
+            scaler, technique, vars_used):
+        coeffs = np.true_divide(
+                coeffs_scaled,
+                scaler.scale_
+                )
+        intercept = intercept_scaled - np.dot(coeffs, scaler.mean_)
+        results_dict = {
+                "coeff.x": coeffs[0]
+                }
+        for index, coeff in enumerate(mv_keys):
+            results_dict[f"coeff.{coeff}"] = coeffs[index+1]
+        results_dict["i.Intercept"] = intercept
+        results = pd.DataFrame(results_dict, index=[" + ".join(vars_used)])
+        # print(results)
+        self._coefficients[technique] = pd.concat(
+                [self._coefficients[technique], results]
+                ) 
+
+    def store_coefficients_pymc(self, summary, bambi_list, combo_list, 
+            technique):
+        results_dict = dict()
+        for combo_key, bambi_key in zip(combo_list, bambi_list):
+            results_dict[f"coeff.{combo_key}"] = summary.loc[
+                    bambi_key, 'mean'
+                    ]
+            results_dict[f"sd.{combo_key}"] = summary.loc[
+                    bambi_key, 'sd'
+                    ]
+        results_dict[f"i.Intercept"] = summary.loc[
+                'Intercept', 'mean'
+                ]
+        results_dict[f"sd.Intercept"] = summary.loc[
+                'Intercept', 'sd'
+                ]
+        results = pd.DataFrame(results_dict, index=[" + ".join(combo_list)])
+        # print(results)
+        self._coefficients[technique] = pd.concat(
+                [self._coefficients[technique], results]
+                ) 
 
     def ols(self, mv_keys=list()):
         """ Performs OLS linear regression on array X against y
@@ -173,22 +215,10 @@ class Calibration:
         x_array, y_array, scaler, combo_string = self.format_skl(mv_keys)
         ols_lr = lm.LinearRegression()
         ols_lr.fit(x_array, y_array)
-        slopes_list_scaled, offset_scaled = (
-                list(ols_lr.coef_[0]), float(ols_lr.intercept_[0])
-                        )
-        slopes_list = np.true_divide(
-                slopes_list_scaled,
-                scaler.scale_
+        self.store_coefficients_skl(
+                ols_lr.coef_[0], ols_lr.intercept_[0], mv_keys,
+                scaler, "OLS", combo_string
                 )
-        offset = offset_scaled - np.dot(slopes_list, scaler.mean_)
-        slopes_list = list(slopes_list)
-        slopes = {"x": slopes_list[0]}
-        for index, key in enumerate(mv_keys):
-            slopes[key] = slopes_list[index + 1]
-        self._coefficients[f"OLS ({combo_string})"] = {
-                "Slope": slopes,
-                "Offset": offset 
-                }
 
     def ridge(self, mv_keys=list()):
         """ Performs ridge linear regression on array X against y
@@ -209,22 +239,10 @@ class Calibration:
         ridge_alpha = regr_cv.alpha_
         ridge = lm.Ridge(alpha=ridge_alpha)
         ridge.fit(x_array, y_array)
-        slopes_list_scaled, offset_scaled = (
-                list(ridge.coef_[0]), float(ridge.intercept_[0])
-                        )
-        slopes_list = np.true_divide(
-                slopes_list_scaled,
-                scaler.scale_
+        self.store_coefficients_skl(
+                ridge.coef_[0], ridge.intercept_[0], mv_keys,
+                scaler, "Ridge", combo_string
                 )
-        offset = offset_scaled - np.dot(slopes_list, scaler.mean_)
-        slopes_list = list(slopes_list)
-        slopes = {"x": slopes_list[0]}
-        for index, key in enumerate(mv_keys):
-            slopes[key] = slopes_list[index + 1]
-        self._coefficients[f"Ridge ({combo_string})"] = {
-                "Slope": slopes,
-                "Offset": offset 
-                }
 
     def lasso(self, mv_keys=list()):
         """ Performs lasso linear regression on array X against y
@@ -246,22 +264,10 @@ class Calibration:
         lasso_alpha = lasso_cv.alpha_
         lasso = lm.Lasso(alpha=lasso_alpha)
         lasso.fit(x_array, y_array)
-        slopes_list_scaled, offset_scaled = (
-                list(lasso.coef_), float(lasso.intercept_)
-                        )
-        slopes_list = np.true_divide(
-                slopes_list_scaled,
-                scaler.scale_
+        self.store_coefficients_skl(
+                lasso.coef_, lasso.intercept_, mv_keys,
+                scaler, "LASSO", combo_string
                 )
-        offset = offset_scaled - np.dot(slopes_list, scaler.mean_)
-        slopes_list = list(slopes_list)
-        slopes = {"x": slopes_list[0]}
-        for index, key in enumerate(mv_keys):
-            slopes[key] = slopes_list[index + 1]
-        self._coefficients[f"Lasso ({combo_string})"] = {
-                "Slope": slopes,
-                "Offset": offset 
-                }
 
     def elastic_net(self, mv_keys=list()):
         """ Performs elastic net linear regression on array X against y
@@ -284,22 +290,10 @@ class Calibration:
         enet_l1 = enet_cv.l1_ratio_
         enet = lm.ElasticNet(alpha=enet_alpha, l1_ratio=enet_l1)
         enet.fit(x_array, y_array)
-        slopes_list_scaled, offset_scaled = (
-                list(enet.coef_), float(enet.intercept_)
-                        )
-        slopes_list = np.true_divide(
-                slopes_list_scaled,
-                scaler.scale_
+        self.store_coefficients_skl(
+                enet.coef_, enet.intercept_, mv_keys,
+                scaler, "Elastic Net", combo_string
                 )
-        offset = offset_scaled - np.dot(slopes_list, scaler.mean_)
-        slopes_list = list(slopes_list)
-        slopes = {"x": slopes_list[0]}
-        for index, key in enumerate(mv_keys):
-            slopes[key] = slopes_list[index + 1]
-        self._coefficients[f"Elastic Net ({combo_string})"] = {
-                "Slope": slopes,
-                "Offset": offset 
-                }
 
     def lars(self, mv_keys=list()):
         """ Performs least angle regression on array X against y
@@ -317,22 +311,10 @@ class Calibration:
         x_array, y_array, scaler, combo_string = self.format_skl(mv_keys)
         lars_lr = lm.Lars(normalize=False)
         lars_lr.fit(x_array, y_array)
-        slopes_list_scaled, offset_scaled = (
-                list(lars_lr.coef_), float(lars_lr.intercept_)
-                        )
-        slopes_list = np.true_divide(
-                slopes_list_scaled,
-                scaler.scale_
+        self.store_coefficients_skl(
+                lars_lr.coef_, lars_lr.intercept_, mv_keys,
+                scaler, "LARS", combo_string
                 )
-        offset = offset_scaled - np.dot(slopes_list, scaler.mean_)
-        slopes_list = list(slopes_list)
-        slopes = {"x": slopes_list[0]}
-        for index, key in enumerate(mv_keys):
-            slopes[key] = slopes_list[index + 1]
-        self._coefficients[f"Lars ({combo_string})"] = {
-                "Slope": slopes,
-                "Offset": offset 
-                }
 
     def lasso_lars(self, mv_keys=list()):
         """ Performs lasso least angle regression on array X against y
@@ -349,23 +331,11 @@ class Calibration:
         """
         x_array, y_array, scaler, combo_string = self.format_skl(mv_keys)
         y_array = np.ravel(y_array)
-        lars_lr = lm.LassoLarsCV(normalize=False).fit(x_array, y_array)
-        slopes_list_scaled, offset_scaled = (
-                list(lars_lr.coef_), float(lars_lr.intercept_)
-                        )
-        slopes_list = np.true_divide(
-                slopes_list_scaled,
-                scaler.scale_
+        lasso_lars = lm.LassoLarsCV(normalize=False).fit(x_array, y_array)
+        self.store_coefficients_skl(
+                lasso_lars.coef_, lasso_lars.intercept_, mv_keys,
+                scaler, "LASSO LARS", combo_string
                 )
-        offset = offset_scaled - np.dot(slopes_list, scaler.mean_)
-        slopes_list = list(slopes_list)
-        slopes = {"x": slopes_list[0]}
-        for index, key in enumerate(mv_keys):
-            slopes[key] = slopes_list[index + 1]
-        self._coefficients[f"Lasso Lars ({combo_string})"] = {
-                "Slope": slopes,
-                "Offset": offset 
-                }
     
     def orthogonal_matching_pursuit(self, mv_keys=list()):
         """ Performs orthogonal matching pursuit regression on array X 
@@ -386,22 +356,10 @@ class Calibration:
         omp_lr = lm.OrthogonalMatchingPursuitCV(normalize=False).fit(
                 x_array, y_array
                 )
-        slopes_list_scaled, offset_scaled = (
-                list(omp_lr.coef_), float(omp_lr.intercept_)
-                        )
-        slopes_list = np.true_divide(
-                slopes_list_scaled,
-                scaler.scale_
+        self.store_coefficients_skl(
+                omp_lr.coef_, omp_lr.intercept_, mv_keys,
+                scaler, "Orthogonal Matching Pursuit", combo_string
                 )
-        offset = offset_scaled - np.dot(slopes_list, scaler.mean_)
-        slopes_list = list(slopes_list)
-        slopes = {"x": slopes_list[0]}
-        for index, key in enumerate(mv_keys):
-            slopes[key] = slopes_list[index + 1]
-        self._coefficients[f"Orthogonal Matching Pursuit ({combo_string})"] = {
-                "Slope": slopes,
-                "Offset": offset 
-                }
 
     def ransac(self, mv_keys=list()):
         """ Performs ransac regression on array X against y
@@ -420,23 +378,10 @@ class Calibration:
         y_array = np.ravel(y_array)
         ransac_lr = lm.RANSACRegressor()
         ransac_lr.fit(x_array, y_array)
-        slopes_list_scaled, offset_scaled = (
-                list(ransac_lr.estimator_.coef_), 
-                float(ransac_lr.estimator_.intercept_)
-                        )
-        slopes_list = np.true_divide(
-                slopes_list_scaled,
-                scaler.scale_
+        self.store_coefficients_skl(
+                ransac_lr.estimator_.coef_, ransac_lr.estimator_.intercept_, 
+                mv_keys, scaler, "RANSAC", combo_string
                 )
-        offset = offset_scaled - np.dot(slopes_list, scaler.mean_)
-        slopes_list = list(slopes_list)
-        slopes = {"x": slopes_list[0]}
-        for index, key in enumerate(mv_keys):
-            slopes[key] = slopes_list[index + 1]
-        self._coefficients[f"RANSAC ({combo_string})"] = {
-                "Slope": slopes,
-                "Offset": offset 
-                }
 
     def theil_sen(self, mv_keys=list()):
         """ Performs theil sen regression on array X against y
@@ -455,27 +400,10 @@ class Calibration:
         y_array = np.ravel(y_array)
         theil_sen_lr = lm.TheilSenRegressor()
         theil_sen_lr.fit(x_array, y_array)
-        slopes_list_scaled, offset_scaled = (
-                list(theil_sen_lr.coef_), float(theil_sen_lr.intercept_)
-                        )
-        slopes_list = np.true_divide(
-                slopes_list_scaled,
-                scaler.scale_
+        self.store_coefficients_skl(
+                theil_sen_lr.coef_, theil_sen_lr.intercept_, 
+                mv_keys, scaler, "Theil Sen", combo_string
                 )
-        offset = offset_scaled - np.dot(slopes_list, scaler.mean_)
-        slopes_list = list(slopes_list)
-        slopes = {"x": slopes_list[0]}
-        for index, key in enumerate(mv_keys):
-            slopes[key] = slopes_list[index + 1]
-        self._coefficients[f"Theil Sen ({combo_string})"] = {
-                "Slope": slopes,
-                "Offset": offset 
-                }
-
-    def maximum_a_posteriori(self):
-        """ Performs MAP regression comparing y against x
-        """
-        pass
 
     def bayesian(self, mv_keys=list(), family="Gaussian"):
         """ Performs bayesian linear regression (either uni or multivariate)
@@ -513,21 +441,9 @@ class Calibration:
                 progressbar=False
                 )
         summary = az.summary(fitted)
-        self._coefficients[f"Bayesian ({' + '.join(combo_list)})"] = {
-                "Slope": dict(),
-                "Offset": dict()
-                }
-        for combo_key, bambi_key in zip(combo_list, bambi_list):
-            self._coefficients[
-                    f"Bayesian ({' + '.join(combo_list)})"
-                    ]["Slope"][combo_key] = {
-                        "Mean": summary.loc[bambi_key, 'mean'],
-                        "$\sigma$": summary.loc[bambi_key, 'sd'],
-                    }
-        self._coefficients[f"Bayesian ({' + '.join(combo_list)})"]["Offset"] = {
-                    "Mean": summary.loc['Intercept', 'mean'],
-                    "$\sigma$": summary.loc['Intercept', 'sd'],
-                }
+        self.store_coefficients_pymc(
+            summary, bambi_list, combo_list, f"Bayesian ({family})"
+                )
 
     def rolling(self):
         """ Performs rolling OLS
@@ -538,5 +454,4 @@ class Calibration:
         """ Performs appended OLS
         """
         pass
-
 

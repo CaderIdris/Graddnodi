@@ -50,13 +50,14 @@ __status__ = "Indev"
 import argparse
 from collections import defaultdict
 import datetime as dt
+import re
 import sqlite3 as sql
 
 import numpy as np 
 import pandas as pd
 
 from modules.idristools import get_json, parse_date_string, all_combinations
-from modules.idristools import DateDifference, make_path
+from modules.idristools import DateDifference, make_path, file_list
 from modules.influxquery import InfluxQuery, FluxQuery
 
 def main():
@@ -136,18 +137,41 @@ def main():
     query_config = run_config["Devices"]
     months_to_cover = date_calculations.month_difference()
 
-    # Download measurements from InfluxDB 2.x on a month by month basis
+    # Check measurements cache
+    measurements = None
     if use_measurements_cache:
-        with open(f"{cache_path}{run_name}/measurements.pickle", 'rb') as cache:
-            measurements = pickle.load(cache)
-    else:
+        cache_folder = f"{cache_path}{run_name}/"
+        cached_files = file_list(cache_folder, extension=".db") 
+        if cached_files:
+            measurements=dict()
+            for cached_file in cached_files:
+                field_name = re.sub(r'\w*/*/*/|\.\w*$', '', cached_file)
+                measurements[field_name] = dict()
+                con = sql.connect(cached_file)
+                cursor = con.cursor()
+                cursor.execute(
+                        "SELECT name FROM sqlite_master WHERE type='table';"
+                        )
+                tables = cursor.fetchall()
+                for table in tables:
+                    measurements[field_name][table[0]] = pd.read_sql(
+                            sql=f"SELECT * from '{table[0]}'",
+                            con=con,
+                            parse_dates={"Datetime": "%Y-%m-%d %H:%M:%S%z"}
+                            )
+                cursor.close()
+                con.close()
+    print(measurements)
+    if not isinstance(measurements, dict):
+        # Download measurements from InfluxDB 2.x on a month by month basis
         measurements = defaultdict(
                 lambda: defaultdict(pd.DataFrame)
-                    )
+                )
         for month_num in range(0, months_to_cover):
             date_list = None
             start_of_month = date_calculations.add_month(month_num)
             end_of_month = date_calculations.add_month(month_num + 1)
+            empty_data_list = list()
             for name, settings in query_config.items():
                 for dev_field in settings["Fields"]:
                     # Generate flux query
@@ -209,6 +233,7 @@ def main():
                     influx.data_query(query.return_query())
                     inf_measurements = influx.return_measurements()
                     if inf_measurements is None:
+                        empty_data_list.append((dev_field["Tag"], name))
                         continue 
                     inf_measurements.rename({"Values": name})
                     if date_list is None:
@@ -275,23 +300,40 @@ def main():
                     measurements[dev_field["Tag"]][name] = pd.concat(
                         [measurements[dev_field["Tag"]][name], inf_measurements]
                             )
-    # Save measurements to a pickle file to be used later. Useful if
-    # working offline or using datasets with long query times
-    for tag in measurements.keys():
-        measurements[tag] = dict(measurements[tag])
-    measurements = dict(measurements)
-    if cache_measurements:
-        make_path(f"{cache_path}{run_name}")
-        for field, devices in measurements.items():
-            print(field)
-            con = sql.connect(f"{cache_path}{run_name}/{field}.db")
-            for table, dframe in devices.items():
-                print(table)
-                dframe.to_sql(
-                        name=table,
-                        con=con,
-                        if_exists="replace",
+            if date_list is not None:
+                empty_df = pd.DataFrame(
+                    data={
+                        "Datetime": date_list,
+                        "Values": [np.nan] * len(date_list)
+                        }
                         )
+                for empty_data in empty_data_list:
+                    measurements[empty_data[0]][empty_data[1]] = (
+                                pd.concat(
+                                    [measurements[empty_data[0]][
+                                        empty_data[1]], 
+                                        empty_df
+                                        ]
+                                    )
+                                )
+
+        # Save measurements to a pickle file to be used later. Useful if
+        # working offline or using datasets with long query times
+        for tag in measurements.keys():
+            measurements[tag] = dict(measurements[tag])
+        measurements = dict(measurements)
+        if cache_measurements:
+            make_path(f"{cache_path}{run_name}")
+            for field, devices in measurements.items():
+                con = sql.connect(f"{cache_path}{run_name}/{field}.db")
+                for table, dframe in devices.items():
+                    dframe.to_sql(
+                            name=table,
+                            con=con,
+                            if_exists="replace",
+                            index=False
+                            )
+                con.close()
                 
 
         # Calibrating measurements against each other
