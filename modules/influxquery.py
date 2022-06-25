@@ -27,7 +27,6 @@ import numpy as np
 import pandas as pd
 
 
-
 class InfluxQuery:
     """ Queries and formats data from InfluxDB 2.x database
 

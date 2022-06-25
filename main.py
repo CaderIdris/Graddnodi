@@ -14,19 +14,6 @@ the calibration and report modules can still be used on their own if the data
 sent to them is in the correct format.
 
     Command Line Arguments:
-        -m/--cache-measurements [OPTIONAL]: Caches measurements downloaded
-        from InfluxDB 2.x database to cache folder. Mutually exclusive with
-        -M/--use-measurement-cache
-
-        -M/--use-measurement-cache [OPTIONAL]: Uses cached measurements stored
-        in cache folder. Mutually exclusive with -m/--cache-measurements
-        
-        -r/--cache-results [OPTIONAL]: Caches results to cache folder. 
-        Mutually exclusive with -R/--use-results-cache
-
-        -R/--use-results-cache [OPTIONAL]: Uses cached results stored
-        in cache folder. Mutually exclusive with -r/--results
-
         -C/--cache-path (str) [OPTIONAL]: Location of cache folder. Defaults
         to "cache/"
 
@@ -42,7 +29,7 @@ __author__ = "Idris Hayward"
 __copyright__ = "2021, Idris Hayward"
 __credits__ = ["Idris Hayward"]
 __license__ = "GNU General Public License v3.0"
-__version__ = "0.3"
+__version__ = "0.4"
 __maintainer__ = "Idris Hayward"
 __email__ = "CaderIdrisGH@outlook.com"
 __status__ = "Indev"
@@ -101,12 +88,12 @@ def main():
     run_config = get_json(config_path)
     influx_config = get_json(influx_path)
     run_name = run_config["Runtime"]["Name"]
+    query_config = run_config["Devices"]
+
     start_date = parse_date_string(run_config["Runtime"]["Start"])
     end_date = parse_date_string(run_config["Runtime"]["End"])
     date_calculations = DateDifference(start_date, end_date)
-    query_config = run_config["Devices"]
     months_to_cover = date_calculations.month_difference()
-    cache_measurements = False
 
     # Download measurements from cache
     measurements = defaultdict(
@@ -131,6 +118,9 @@ def main():
                         )
             cursor.close()
             con.close()
+
+    # Don't cache measurements unless new ones downloaded
+    cache_measurements = False 
 
     # Download measurements from InfluxDB 2.x on a month by month basis
     for month_num in range(0, months_to_cover):
@@ -272,7 +262,9 @@ def main():
                 measurements[dev_field["Tag"]][name] = pd.concat(
                     [measurements[dev_field["Tag"]][name], inf_measurements]
                         )
-        if date_list is not None:
+        # If some measurements were downloaded, populate measurements that
+        # weren't downloaded with nan
+        if date_list is not None and empty_data_list:
             empty_df = pd.DataFrame(
                 data={
                     "Datetime": date_list,
@@ -289,7 +281,7 @@ def main():
                                 )
                             )
 
-    # Save measurements to a pickle file to be used later. Useful if
+    # Save measurements to a sqlite3 database be used later. Useful if
     # working offline or using datasets with long query times
     if cache_measurements:
         for tag in measurements.keys():
@@ -362,7 +354,9 @@ def main():
                             if techniques["LASSO LARS"]:
                                 comparison.lasso_lars(mv_combo)
                             if techniques["Orthogonal Matching Pursuit"]:
-                                if mv_combo:
+                                if mv_combo: 
+                                    # OMP only works with 2 or more independent
+                                    # variables
                                     comparison.orthogonal_matching_pursuit(
                                             mv_combo
                                             )
@@ -372,12 +366,16 @@ def main():
                                 comparison.theil_sen(mv_combo)
                             if techniques["Bayesian"]:
                                 for family, use in bay_families.items():
+                                    # Loop over all bayesian families in config
+                                    # and run comparison if value is true
                                     if use:
                                         comparison.bayesian(mv_combo, family)
 
                         coefficients[field][comparison_name
                                 ] = comparison.return_coefficients()
                         make_path(f"{cache_path}{run_name}/Coefficients")
+                        # After comparison is ocmplete, save all coefficients
+                        # and test/train data to sqlite3 database
                         con = sql.connect(
                                 f"{cache_path}{run_name}/Coefficients/"
                                 f"{comparison_name}.db"

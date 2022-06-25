@@ -24,6 +24,8 @@ previously I was copy and pasting them in to each program separately.
 
         make_path: If path is not present, make it
 
+        file_list: List all files in a directory
+
     Classes:
         DateDifference: Contains functions used when working with time windows
 """
@@ -462,6 +464,18 @@ def all_combinations(input_list):
     return all_combos
 
 def file_list(path, extension=""):
+    """ Lists all files in a dir
+
+    Keyword Arguments:
+        path (str): Directory to scan
+
+        extension (str): File extensions to search for, scans for all files 
+        if blank (Defaults to "")
+
+    Returns:
+        List of files in directory matching extension, empty list if no
+        matching files or directory does not exist
+    """
     if os.path.isdir(path):
         return glob.glob(f"{path}/*{extension}") 
     else:

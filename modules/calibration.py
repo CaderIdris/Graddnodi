@@ -65,20 +65,39 @@ class Calibration:
 
         - format_pymc: Formats data for pymc
 
-        - ols_linear: Performs OLS linear regression 
+        - store_coefficients_skl: Stores scikitlearn coefficients 
 
-        - maximum_a_posteriori: Performs MAP regression 
+        - store_coefficients_pymc: Stores pymc coefficients
 
-        - bayesian: Performs bayesian linear regression (uni or multi)
+        - ols: Performs OLS linear regression 
 
-        - robust_bayesian: Performs robust bayesian linear regression (uni or
-        multi)
+        - ridge: Performs ridge regression 
 
-        - multivariate: Performs multivariate OLS linear regression
+        - lasso: Performs lasso regression
+
+        - elastic_net: Performs elastic net regression
+
+        - lars: Performs lars regression
+
+        - lasso_lars: Performs lasso lars regression
+
+        - orthogonal_matching_pursuit: Performs OMP regression
+
+        - ransac: Performs ransac regression 
+
+        - theil_sen: Performs theil sen regression
+
+        - bayesian: Performs bayesian linear regression
 
         - rolling: Performs rolling OLS 
 
         - appended: Performs appended OLS
+
+        - return_coefficients: Returns all coefficients as a dict of 
+        DataFrames
+
+        - return_measurements: Returns all measurements as a dict of
+        DataFrames
     """
     def __init__(
             self, x_data, y_data, 
@@ -153,8 +172,8 @@ class Calibration:
             measurements
             scaler_x (StandardScaler): StandardScaler object used to transform
             x data
-            combo_string (str): String containing all x variables being
-            calibrated
+            combo_string (list): List containing all x variables being
+            used
         """
         x_name = self.x_train.columns[1]
         y_name = self.y_train.columns[1]
@@ -171,6 +190,23 @@ class Calibration:
         return x_dataframe, y_dataframe, scaler_x, combo_string
 
     def format_pymc(self, mv_keys):
+        """ Formats the incoming data for the pymc calibration
+        functions
+        
+        The pymc regressors need the input data formatted in a specific
+        way. 
+
+        Keyword Arguments:
+            mv_keys (list): All multivariate variables to be used
+
+        Returns:
+            tuple representing:
+            pymc_dataframe (DataFrame): All measurements to be used
+            bambi_string (list): List containing all x variables being
+            used formatted for input in to the model
+            combo_string (list): List containing all x variables being
+            used
+        """
         x_name = self.x_train.columns[1]
         y_name = self.y_train.columns[1]
         pymc_dataframe = pd.DataFrame()
@@ -187,6 +223,26 @@ class Calibration:
 
     def store_coefficients_skl(self, coeffs_scaled, intercept_scaled, mv_keys, 
             scaler, technique, vars_used):
+        """ Stores skl coefficients in a DataFrame and stores it in the 
+        _coefficients attribute
+
+        Keyword arguments:
+            coeffs_scaled (list): Coefficients that need to be scaled back
+            to original scaling
+
+            intercept_scaled (float): Coefficients that need to be scaled back
+            to original scaling
+
+            mv_keys (list): List of multivariate variables used
+            
+            scaler (StandardScaler): Contains scaling information to scale
+            coefficients to their original values
+
+            technique (stR): Which calibration technique was used?
+
+            vars_used (list): Which variables were used
+
+        """
         coeffs = np.true_divide(
                 coeffs_scaled,
                 scaler.scale_
@@ -199,13 +255,23 @@ class Calibration:
             results_dict[f"coeff.{coeff}"] = coeffs[index+1]
         results_dict["i.Intercept"] = intercept
         results = pd.DataFrame(results_dict, index=[" + ".join(vars_used)])
-        # print(results)
         self._coefficients[technique] = pd.concat(
                 [self._coefficients[technique], results]
                 ) 
 
     def store_coefficients_pymc(self, summary, bambi_list, combo_list, 
             technique):
+        """ Stores pymc coefficients in a DataFrame and stores it in the 
+        _coefficients attribute
+
+        Keyword arguments:
+            summary (DataFrame): Output of pymc calibration
+
+            bambi_list (list): All keys representing variables in summary
+
+            combo_list (list): All variable sused in calibration
+
+        """
         results_dict = dict()
         for combo_key, bambi_key in zip(combo_list, bambi_list):
             results_dict[f"coeff.{combo_key}"] = summary.loc[
@@ -221,7 +287,6 @@ class Calibration:
                 'Intercept', 'sd'
                 ]
         results = pd.DataFrame(results_dict, index=[" + ".join(combo_list)])
-        # print(results)
         self._coefficients[technique] = pd.concat(
                 [self._coefficients[technique], results]
                 ) 
@@ -473,9 +538,13 @@ class Calibration:
                 )
 
     def return_coefficients(self):
+        """ Return all coefficients stored in _coefficients attribute
+        """
         return dict(self._coefficients)
 
     def return_measurements(self): 
+        """ Return all test and training measurements
+        """
         train_measurements = pd.concat(
                 [
                     self.y_train.rename(columns={"Values": "y"}),
