@@ -189,13 +189,6 @@
 					"Secondary Fields": [],
 					"Hour Beginning": true,
 					"Scaling": [
-						{
-							"Start": "2019/04/12 15:53:44",
-							"End": "",
-							"Power": 1,
-							"Slope": 1000,
-							"Offset": 0
-						}
 					]
 				}
 			],
@@ -231,13 +224,6 @@
 					"Secondary Fields": [],
 					"Hour Beginning": true,
 					"Scaling": [
-						{
-							"Start": "2019/04/12 14:58:20",
-							"End": "",
-							"Power": 1,
-							"Slope": 1000,
-							"Offset": 0
-						}
 					]
 				}
 			],

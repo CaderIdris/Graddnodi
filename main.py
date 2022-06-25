@@ -106,6 +106,7 @@ def main():
     date_calculations = DateDifference(start_date, end_date)
     query_config = run_config["Devices"]
     months_to_cover = date_calculations.month_difference()
+    cache_measurements = False
 
     # Download measurements from cache
     measurements = defaultdict(
@@ -136,14 +137,15 @@ def main():
         date_list = None
         start_of_month = date_calculations.add_month(month_num)
         end_of_month = date_calculations.add_month(month_num + 1)
-        cache_measurements = False
         empty_data_list = list()
         for name, settings in query_config.items():
             for dev_field in settings["Fields"]:
-                if isinstance(measurements[dev_field["Tag"]][name], 
-                        pd.DataFrame):
+                if (month_num) == 0 and (
+                        not measurements[dev_field["Tag"]][name].empty
+                        ):
                     # If measurements were in cache, skip
                     continue
+                cache_measurements = True
                 # Generate flux query
                 query = FluxQuery(
                         start_of_month,
@@ -287,27 +289,27 @@ def main():
                                 )
                             )
 
-        # Save measurements to a pickle file to be used later. Useful if
-        # working offline or using datasets with long query times
+    # Save measurements to a pickle file to be used later. Useful if
+    # working offline or using datasets with long query times
+    if cache_measurements:
+        for tag in measurements.keys():
+            measurements[tag] = dict(measurements[tag])
+        measurements = dict(measurements)
         if cache_measurements:
-            for tag in measurements.keys():
-                measurements[tag] = dict(measurements[tag])
-            measurements = dict(measurements)
-            if cache_measurements:
-                make_path(f"{cache_path}{run_name}/Measurements")
-                for field, devices in measurements.items():
-                    con = sql.connect(
-                            f"{cache_path}{run_name}/"
-                            f"Measurements/{field}.db"
-                        )
-                    for table, dframe in devices.items():
-                        dframe.to_sql(
-                                name=table,
-                                con=con,
-                                if_exists="replace",
-                                index=False
-                                )
-                    con.close()
+            make_path(f"{cache_path}{run_name}/Measurements")
+            for field, devices in measurements.items():
+                con = sql.connect(
+                        f"{cache_path}{run_name}/"
+                        f"Measurements/{field}.db"
+                    )
+                for table, dframe in devices.items():
+                    dframe.to_sql(
+                            name=table,
+                            con=con,
+                            if_exists="replace",
+                            index=False
+                            )
+                con.close()
 
     # Begin calibration step
     device_names = list(query_config.keys())
