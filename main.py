@@ -69,33 +69,6 @@ def main():
         "study from an InfluxDB 2.x database and calibrates them using a "
         "variety of techniques"
     )
-    measurement_cache_args = arg_parser.add_mutually_exclusive_group()
-    measurement_cache_args .add_argument(
-        "-m", 
-        "--cache-measurements", 
-        help="Caches measurements downloaded from InfluxDB 2.x database "
-        "in cache folder", 
-        action="store_true"
-    )
-    measurement_cache_args .add_argument(
-        "-M", 
-        "--use-measurement-cache", 
-        help="Uses cached measurements from cache folder", 
-        action="store_true"
-    )
-    results_cache_args = arg_parser.add_mutually_exclusive_group()
-    results_cache_args.add_argument(
-        "-r", 
-        "--cache-results", 
-        help="Caches results of calibrations in cache folder", 
-        action="store_true"
-    )
-    results_cache_args.add_argument(
-        "-R", 
-        "--use-results-cache", 
-        help="Uses cached results of calibrations from cache folder", 
-        action="store_true"
-    )
     arg_parser.add_argument(
         "-C",
         "--cache-path",
@@ -120,10 +93,6 @@ def main():
         default="Settings/influx.json"
     )
     args = vars(arg_parser.parse_args())
-    cache_measurements = args["cache_measurements"]
-    use_measurements_cache = args["use_measurement_cache"]
-    cache_results = args["cache_results"]
-    use_results_cache = args["use_results_cache"]
     cache_path = args["cache_path"]
     config_path = args["config"]
     influx_path = args["influx"]
@@ -138,72 +107,128 @@ def main():
     query_config = run_config["Devices"]
     months_to_cover = date_calculations.month_difference()
 
-    # Check measurements cache
-    measurements = None
-    if use_measurements_cache:
-        cache_folder = f"{cache_path}{run_name}/"
-        cached_files = file_list(cache_folder, extension=".db") 
-        if cached_files:
-            measurements=dict()
-            for cached_file in cached_files:
-                field_name = re.sub(r'\w*/*/*/|\.\w*$', '', cached_file)
-                measurements[field_name] = dict()
-                con = sql.connect(cached_file)
-                cursor = con.cursor()
-                cursor.execute(
-                        "SELECT name FROM sqlite_master WHERE type='table';"
+    # Download measurements from cache
+    measurements = defaultdict(
+            lambda: defaultdict(pd.DataFrame)
+            )
+    cache_folder = f"{cache_path}{run_name}/Measurements/"
+    cached_files = file_list(cache_folder, extension=".db") 
+    if cached_files:
+        for cached_file in cached_files:
+            field_name = re.sub(r'\w*/*/*/|\.\w*$', '', cached_file)
+            con = sql.connect(cached_file)
+            cursor = con.cursor()
+            cursor.execute(
+                    "SELECT name FROM sqlite_master WHERE type='table';"
+                    )
+            tables = cursor.fetchall()
+            for table in tables:
+                measurements[field_name][table[0]] = pd.read_sql(
+                        sql=f"SELECT * from '{table[0]}'",
+                        con=con,
+                        parse_dates={"Datetime": "%Y-%m-%d %H:%M:%S%z"}
                         )
-                tables = cursor.fetchall()
-                for table in tables:
-                    measurements[field_name][table[0]] = pd.read_sql(
-                            sql=f"SELECT * from '{table[0]}'",
-                            con=con,
-                            parse_dates={"Datetime": "%Y-%m-%d %H:%M:%S%z"}
-                            )
-                cursor.close()
-                con.close()
+            cursor.close()
+            con.close()
 
-    if not isinstance(measurements, dict):
-        # Download measurements from InfluxDB 2.x on a month by month basis
-        measurements = defaultdict(
-                lambda: defaultdict(pd.DataFrame)
-                )
-        for month_num in range(0, months_to_cover):
-            date_list = None
-            start_of_month = date_calculations.add_month(month_num)
-            end_of_month = date_calculations.add_month(month_num + 1)
-            empty_data_list = list()
-            for name, settings in query_config.items():
-                for dev_field in settings["Fields"]:
-                    # Generate flux query
-                    query = FluxQuery(
+    # Download measurements from InfluxDB 2.x on a month by month basis
+    for month_num in range(0, months_to_cover):
+        date_list = None
+        start_of_month = date_calculations.add_month(month_num)
+        end_of_month = date_calculations.add_month(month_num + 1)
+        cache_measurements = False
+        empty_data_list = list()
+        for name, settings in query_config.items():
+            for dev_field in settings["Fields"]:
+                if isinstance(measurements[dev_field["Tag"]][name], 
+                        pd.DataFrame):
+                    # If measurements were in cache, skip
+                    continue
+                # Generate flux query
+                query = FluxQuery(
+                        start_of_month,
+                        end_of_month,
+                        settings["Bucket"],
+                        settings["Measurement"]
+                        )
+                # Check if range filters are present. If yes, a modified
+                # query format needs to be used
+                if not dev_field["Range Filters"]:
+                    query.add_field(dev_field["Field"])
+                else:
+                    all_fields = [dev_field["Field"]]
+                    for value in dev_field["Range Filters"]:
+                        all_fields.append(value["Field"])
+                    query.add_multiple_fields(all_fields)
+                # Adds in any boolean filters (eg Sensor name = X)
+                for key, value in dev_field["Boolean Filters"].items():
+                    query.add_filter(key, value)
+                # Add in any range filters (e.g 0.2 > latitude > 0.1)
+                if dev_field["Range Filters"]:
+                        query.add_filter_range(
+                            dev_field["Field"],
+                            dev_field["Range Filters"]
+                            )
+                # Remove superfluous columns
+                query.keep_measurements()
+                # Add in scaling
+                for scale in dev_field["Scaling"]:
+                    scale_start = ""
+                    scale_end = ""
+                    if scale["Start"] != "":
+                        scale_start = parse_date_string(scale["Start"])
+                        if scale_start > end_of_month:
+                            continue
+                    if scale["End"] != "":
+                        scale_end = parse_date_string(scale["End"])                        
+                        if scale_end < start_of_month:
+                            continue
+                    query.scale_measurements(
+                            scale["Slope"],
+                            scale["Offset"],
+                            scale["Power"],
+                            scale_start,
+                            scale_end
+                            )
+                # Add in window to average measurements over
+                query.add_window(
+                        run_config["Runtime"]["Averaging Period"],
+                        run_config["Runtime"]["Average Operator"],
+                        time_starting=dev_field["Hour Beginning"]
+                        )
+                # Add yield line to return measurements
+                query.add_yield(run_config["Runtime"]["Average Operator"])
+                # Download from Influx
+                influx = InfluxQuery(influx_config)
+                influx.data_query(query.return_query())
+                inf_measurements = influx.return_measurements()
+                if inf_measurements is None:
+                    empty_data_list.append((dev_field["Tag"], name))
+                    continue 
+                inf_measurements.rename({"Values": name})
+                if date_list is None:
+                    date_list = list(inf_measurements["Datetime"])
+                influx.clear_measurements()
+                # Add in any secondary measurements such as T or RH
+                # Secondary measurements will only have bool filters 
+                # applied. This ~may~ be controversial and the decision
+                # may be reversed but it is what it is for now. Will 
+                # result in more data present but faster processing times
+                for sec_measurement in dev_field["Secondary Fields"]:
+                    # Generate secondary measurement query
+                    sec_query = FluxQuery(
                             start_of_month,
                             end_of_month,
                             settings["Bucket"],
                             settings["Measurement"]
                             )
-                    # Check if range filters are present. If yes, a modified
-                    # query format needs to be used
-                    if not dev_field["Range Filters"]:
-                        query.add_field(dev_field["Field"])
-                    else:
-                        all_fields = [dev_field["Field"]]
-                        for value in dev_field["Range Filters"]:
-                            all_fields.append(value["Field"])
-                        query.add_multiple_fields(all_fields)
-                    # Adds in any boolean filters (eg Sensor name = X)
+                    # Add in secondary measurement field
+                    sec_query.add_field(sec_measurement["Field"])
+                    # Add in boolean filters
                     for key, value in dev_field["Boolean Filters"].items():
-                        query.add_filter(key, value)
-                    # Add in any range filters (e.g 0.2 > latitude > 0.1)
-                    if dev_field["Range Filters"]:
-                            query.add_filter_range(
-                                dev_field["Field"],
-                                dev_field["Range Filters"]
-                                )
-                    # Remove superfluous columns
-                    query.keep_measurements()
-                    # Add in scaling
-                    for scale in dev_field["Scaling"]:
+                        sec_query.add_filter(key, value)
+                    # Add in any scaling
+                    for scale in sec_measurement["Scaling"]:
                         scale_start = ""
                         scale_end = ""
                         if scale["Start"] != "":
@@ -211,144 +236,97 @@ def main():
                             if scale_start > end_of_month:
                                 continue
                         if scale["End"] != "":
-                            scale_end = parse_date_string(scale["End"])                        
+                            scale_end = parse_date_string(scale["End"])
                             if scale_end < start_of_month:
                                 continue
-                        query.scale_measurements(
+                        sec_query.scale_measurements(
                                 scale["Slope"],
                                 scale["Offset"],
                                 scale["Power"],
                                 scale_start,
                                 scale_end
                                 )
-                    # Add in window to average measurements over
-                    query.add_window(
+                    # Set averaging window and remove irrelevant columns
+                    sec_query.keep_measurements()
+                    sec_query.add_window(
                             run_config["Runtime"]["Averaging Period"],
                             run_config["Runtime"]["Average Operator"],
                             time_starting=dev_field["Hour Beginning"]
                             )
-                    # Add yield line to return measurements
-                    query.add_yield(run_config["Runtime"]["Average Operator"])
-                    # Download from Influx
-                    influx = InfluxQuery(influx_config)
-                    influx.data_query(query.return_query())
-                    inf_measurements = influx.return_measurements()
-                    if inf_measurements is None:
-                        empty_data_list.append((dev_field["Tag"], name))
-                        continue 
-                    inf_measurements.rename({"Values": name})
-                    if date_list is None:
-                        date_list = list(inf_measurements["Datetime"])
-                    influx.clear_measurements()
-                    # Add in any secondary measurements such as T or RH
-                    # Secondary measurements will only have bool filters 
-                    # applied. This ~may~ be controversial and the decision
-                    # may be reversed but it is what it is for now. Will 
-                    # result in more data present but faster processing times
-                    for sec_measurement in dev_field["Secondary Fields"]:
-                        # Generate secondary measurement query
-                        sec_query = FluxQuery(
-                                start_of_month,
-                                end_of_month,
-                                settings["Bucket"],
-                                settings["Measurement"]
-                                )
-                        # Add in secondary measurement field
-                        sec_query.add_field(sec_measurement["Field"])
-                        # Add in boolean filters
-                        for key, value in dev_field["Boolean Filters"].items():
-                            sec_query.add_filter(key, value)
-                        # Add in any scaling
-                        for scale in sec_measurement["Scaling"]:
-                            scale_start = ""
-                            scale_end = ""
-                            if scale["Start"] != "":
-                                scale_start = parse_date_string(scale["Start"])
-                                if scale_start > end_of_month:
-                                    continue
-                            if scale["End"] != "":
-                                scale_end = parse_date_string(scale["End"])
-                                if scale_end < start_of_month:
-                                    continue
-                            sec_query.scale_measurements(
-                                    scale["Slope"],
-                                    scale["Offset"],
-                                    scale["Power"],
-                                    scale_start,
-                                    scale_end
-                                    )
-                        # Set averaging window and remove irrelevant columns
-                        sec_query.keep_measurements()
-                        sec_query.add_window(
-                                run_config["Runtime"]["Averaging Period"],
-                                run_config["Runtime"]["Average Operator"],
-                                time_starting=dev_field["Hour Beginning"]
-                                )
-                        query.add_yield(sec_measurement["Tag"])
-                        # Query data from database
-                        influx.data_query(sec_query.return_query())
-                        sec_measurements = influx.return_measurements()
-                        # If no measurements present, queue them up to be 
-                        # populated with nan
-                        if sec_measurements is None:
-                            influx.clear_measurements()
-                            continue
-                        inf_measurements[
-                                sec_measurement["Tag"]
-                                ] = sec_measurements["Values"]
-                        inf_measurements.set_index("Datetime")
+                    query.add_yield(sec_measurement["Tag"])
+                    # Query data from database
+                    influx.data_query(sec_query.return_query())
+                    sec_measurements = influx.return_measurements()
+                    # If no measurements present, skip. They will be
+                    # populated with nan when dataframe is concatenated
+                    if sec_measurements is None:
                         influx.clear_measurements()
-                    measurements[dev_field["Tag"]][name] = pd.concat(
-                        [measurements[dev_field["Tag"]][name], inf_measurements]
-                            )
-            if date_list is not None:
-                empty_df = pd.DataFrame(
-                    data={
-                        "Datetime": date_list,
-                        "Values": [np.nan] * len(date_list)
-                        }
+                        continue
+                    inf_measurements[
+                            sec_measurement["Tag"]
+                            ] = sec_measurements["Values"]
+                    inf_measurements.set_index("Datetime")
+                    influx.clear_measurements()
+                measurements[dev_field["Tag"]][name] = pd.concat(
+                    [measurements[dev_field["Tag"]][name], inf_measurements]
                         )
-                for empty_data in empty_data_list:
-                    measurements[empty_data[0]][empty_data[1]] = (
-                                pd.concat(
-                                    [measurements[empty_data[0]][
-                                        empty_data[1]], 
-                                        empty_df
-                                        ]
-                                    )
+        if date_list is not None:
+            empty_df = pd.DataFrame(
+                data={
+                    "Datetime": date_list,
+                    "Values": [np.nan] * len(date_list)
+                    }
+                    )
+            for empty_data in empty_data_list:
+                measurements[empty_data[0]][empty_data[1]] = (
+                            pd.concat(
+                                [measurements[empty_data[0]][
+                                    empty_data[1]], 
+                                    empty_df
+                                    ]
                                 )
+                            )
 
         # Save measurements to a pickle file to be used later. Useful if
         # working offline or using datasets with long query times
-        for tag in measurements.keys():
-            measurements[tag] = dict(measurements[tag])
-        measurements = dict(measurements)
         if cache_measurements:
-            make_path(f"{cache_path}{run_name}")
-            for field, devices in measurements.items():
-                con = sql.connect(f"{cache_path}{run_name}/{field}.db")
-                for table, dframe in devices.items():
-                    dframe.to_sql(
-                            name=table,
-                            con=con,
-                            if_exists="replace",
-                            index=False
-                            )
-                con.close()
+            for tag in measurements.keys():
+                measurements[tag] = dict(measurements[tag])
+            measurements = dict(measurements)
+            if cache_measurements:
+                make_path(f"{cache_path}{run_name}/Measurements")
+                for field, devices in measurements.items():
+                    con = sql.connect(
+                            f"{cache_path}{run_name}/"
+                            f"Measurements/{field}.db"
+                        )
+                    for table, dframe in devices.items():
+                        dframe.to_sql(
+                                name=table,
+                                con=con,
+                                if_exists="replace",
+                                index=False
+                                )
+                    con.close()
 
     # Begin calibration step
     device_names = list(query_config.keys())
     data_settings = run_config["Calibration"]["Data"]
     techniques = run_config["Calibration"]["Techniques"]
     bay_families = run_config["Calibration"]["Bayesian Families"]
+    coefficients = dict()
+    measurements_used = dict()
     # Loop over fields
     for field, dframes in measurements.items():
+        coefficients[field] = dict()
+        measurements_used[field] = dict()
         # Loop over dependent measurements
         for index, y_device in enumerate(device_names[:-1]):
             y_dframe = dframes.get(y_device)
             if isinstance(y_dframe, pd.DataFrame):
                 # Loop over independent measurements
                 for x_device in device_names[index+1:]:
+                    comparison_name = f"{x_device} vs {y_device}"
                     x_dframe = dframes.get(x_device)
                     if isinstance(x_dframe, pd.DataFrame):
                         comparison = Calibration(
@@ -360,6 +338,8 @@ def main():
                                 )
                         dframe_columns = list(x_dframe.columns)
                         mv_combinations = [[]]
+                        if not comparison.valid_comparison:
+                            continue
                         if len(dframe_columns) > 2:
                             mv_combinations.extend(
                                     all_combinations(
@@ -392,6 +372,31 @@ def main():
                                 for family, use in bay_families.items():
                                     if use:
                                         comparison.bayesian(mv_combo, family)
+
+                        coefficients[field][comparison_name
+                                ] = comparison.return_coefficients()
+                        make_path(f"{cache_path}{run_name}/Coefficients")
+                        con = sql.connect(
+                                f"{cache_path}{run_name}/Coefficients/"
+                                f"{comparison_name}.db"
+                                )
+                        for dset, dframe in comparison.return_measurements(
+                                ).items():
+                            dframe.to_sql(
+                                    name=dset,
+                                    con=con,
+                                    if_exists="replace",
+                                    index=False
+                                    )
+                        for comp_technique, dframe in coefficients[field][
+                                comparison_name].items():
+                            dframe.to_sql(
+                                    name=comp_technique,
+                                    con=con,
+                                    if_exists="replace",
+                                    )
+                        con.close()
+
 
 
 if __name__ == "__main__":

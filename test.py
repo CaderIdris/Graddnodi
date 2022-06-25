@@ -62,7 +62,7 @@ def test_data():
             pd.DataFrame(
                 {
                     "Datetime": data.copy(),
-                    "X": data.copy(),
+                    "Values": data.copy(),
                     "A": data.copy(),
                     "B": data.copy(),
                     "C": data.copy(),
@@ -74,7 +74,7 @@ def test_data():
             pd.DataFrame(
                 {
                     "Datetime": data.copy(),
-                    "Y": data.copy(),
+                    "Values": data.copy(),
                     }
                 )
             )

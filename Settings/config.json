@@ -160,6 +160,90 @@
 			"Start": "",
 			"Stop": ""
 		},	
+		"AirView Low-Cost A": {
+			"Bucket": "AirView",
+			"Measurement": "AirView",
+			"Fields": [
+				{
+					"Tag": "PM2.5",
+					"Field": "ThermoScientific PDR1500 pm ug/m^3",
+					"Boolean Filters": {
+						"Car": "27522"
+					},
+					"Range Filters": [
+						{
+							"Field": "GlobalSat G-Star IV latitude degrees N",
+							"Min": 51.22,
+							"Max": 51.44,
+							"Min Equal": false,
+							"Max Equal": false
+						},
+						{
+							"Field": "GlobalSat G-Star IV longitude degrees E",
+							"Min": -0.36,
+							"Max": -0.34,
+							"Min Equal": false,
+							"Max Equal": true
+						}
+					],
+					"Secondary Fields": [],
+					"Hour Beginning": true,
+					"Scaling": [
+						{
+							"Start": "2019/04/12 15:53:44",
+							"End": "",
+							"Power": 1,
+							"Slope": 1000,
+							"Offset": 0
+						}
+					]
+				}
+			],
+			"Start": "",
+			"Stop": ""
+		},
+		"AirView Low-Cost B": {
+			"Bucket": "AirView",
+			"Measurement": "AirView",
+			"Fields": [
+				{
+					"Tag": "PM2.5",
+					"Field": "ThermoScientific PDR1500 pm ug/m^3",
+					"Boolean Filters": {
+						"Car": "27533"
+					},
+					"Range Filters": [
+						{
+							"Field": "GlobalSat G-Star IV latitude degrees N",
+							"Min": 51.22,
+							"Max": 51.44,
+							"Min Equal": false,
+							"Max Equal": false
+						},
+						{
+							"Field": "GlobalSat G-Star IV longitude degrees E",
+							"Min": -0.36,
+							"Max": -0.34,
+							"Min Equal": false,
+							"Max Equal": true
+						}
+					],
+					"Secondary Fields": [],
+					"Hour Beginning": true,
+					"Scaling": [
+						{
+							"Start": "2019/04/12 14:58:20",
+							"End": "",
+							"Power": 1,
+							"Slope": 1000,
+							"Offset": 0
+						}
+					]
+				}
+			],
+			"Start": "",
+			"Stop": ""
+		},
 		"NPL AQMesh A": {
 			"Bucket": "ACOEM Data",
 			"Measurement": "ACOEM UK Systems",
@@ -410,13 +494,13 @@
 		"Bayesian Families": {
 			"Gaussian": true,
 			"Student T": true,
-			"Bernoulli": true,
-			"Beta": true,
-			"Binomial": true,
-			"Gamma": true,
-			"Negative Binomial": true,
-			"Poisson": true,
-			"Inverse Gaussian": true
+			"Bernoulli": false,
+			"Beta": false,
+			"Binomial": false,
+			"Gamma": false,
+			"Negative Binomial": false,
+			"Poisson": false,
+			"Inverse Gaussian": false
 		}
 	},
 	"Runtime": {

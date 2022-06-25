@@ -26,6 +26,7 @@ import bambi as bmb
 import numpy as np
 import pandas as pd
 import pymc as pm
+import re
 from sklearn import linear_model as lm
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split as ttsplit
@@ -79,7 +80,10 @@ class Calibration:
 
         - appended: Performs appended OLS
     """
-    def __init__(self, x_data, y_data, split=True, test_size=0.4, seed=72):
+    def __init__(
+            self, x_data, y_data, 
+            split=True, test_size=0.4, seed=72
+            ):
         """ Initialises the calibration class 
 
         This class is used to compare one set of measurements against another.
@@ -97,16 +101,38 @@ class Calibration:
         - seed (int): Seed to use when deciding how to split variables,
         ensures consistency between runs. Defaults to 72.
         """
-        if split:
+        combined_data = pd.concat(
+                [
+                    x_data,
+                    y_data[["Values", "Datetime"]].rename(
+                        columns={
+                            "Values": "y", 
+                            "Datetime": "y_dt"
+                            }
+                        )
+                    ],
+                axis=1
+                ).dropna()
+        x_data_clean = combined_data.drop(labels=["y", "y_dt"], axis=1)
+        y_data_clean = combined_data[["y_dt", "y"]].rename(
+                columns={
+                    "y": "Values",
+                    "y_dt": "Datetime"
+                    }
+                )
+        if split and x_data_clean.shape[0] > 0:
             self.x_train, self.x_test, self.y_train, self.y_test = ttsplit(
-                x_data, y_data, test_size=test_size, random_state=seed
+                x_data_clean, y_data_clean, test_size=test_size,
+                random_state=seed, shuffle=False
                     )
         else:
-            self.x_train = x_data
-            self.y_train = y_data
-            self.x_test = x_data
-            self.y_test = y_data
+            self.x_train = x_data_clean
+            self.y_train = y_data_clean
+            self.x_test = x_data_clean
+            self.y_test = y_data_clean
         self._coefficients = defaultdict(pd.DataFrame)
+
+        self.valid_comparison = (self.x_train.shape[0] > 0)
 
     def format_skl(self, mv_keys=list()):
         """ Formats the incoming data for the scikitlearn calibration
@@ -133,16 +159,16 @@ class Calibration:
         x_name = self.x_train.columns[1]
         y_name = self.y_train.columns[1]
         combo_string = ["x"]
-        x_array = np.array(self.x_train[x_name])[:, np.newaxis]
+        x_data = {x_name: list(self.x_train[x_name])}
         for key in mv_keys:
             combo_string.append(f"{key}")
-            secondary = self.x_train[key]
-            x_array = np.hstack((x_array, np.array(secondary)[:, np.newaxis]))
-        y_array = np.array(self.y_train[y_name])[:, np.newaxis]
+            x_data[key] = self.x_train[key]
+        y_dataframe = pd.DataFrame(self.y_train[y_name])
+        x_dataframe = pd.DataFrame(x_data)
         scaler_x = StandardScaler()
-        scaler_x.fit(x_array)
-        x_array = scaler_x.transform(x_array)
-        return x_array, y_array, scaler_x, combo_string
+        scaler_x.fit(x_dataframe)
+        x_dataframe = scaler_x.transform(x_dataframe)
+        return x_dataframe, y_dataframe, scaler_x, combo_string
 
     def format_pymc(self, mv_keys):
         x_name = self.x_train.columns[1]
@@ -153,9 +179,10 @@ class Calibration:
         bambi_string = ["x"]
         for key in mv_keys:
             key_string.append(f"{key}")
-            bambi_string.append(f"{key.replace(' ', '_')}")
-            pymc_dataframe[key.replace(' ', '_')] = self.x_train[key]
+            bambi_string.append(re.sub(r'\W*', 'o', key))
+            pymc_dataframe[re.sub(r'\W*', 'o', key)] = self.x_train[key]
         pymc_dataframe["y"] = self.y_train[y_name]
+        pymc_dataframe = pymc_dataframe.dropna()
         return pymc_dataframe, bambi_string, key_string
 
     def store_coefficients_skl(self, coeffs_scaled, intercept_scaled, mv_keys, 
@@ -444,6 +471,33 @@ class Calibration:
         self.store_coefficients_pymc(
             summary, bambi_list, combo_list, f"Bayesian ({family})"
                 )
+
+    def return_coefficients(self):
+        return dict(self._coefficients)
+
+    def return_measurements(self): 
+        train_measurements = pd.concat(
+                [
+                    self.y_train.rename(columns={"Values": "y"}),
+                    self.x_train.drop(columns=["Datetime"]).rename(
+                        columns={"Values": "x"}
+                        )
+                    ],
+                axis=1
+                )
+        test_measurements = pd.concat(
+                [
+                    self.y_test.rename(columns={"Values": "y"}),
+                    self.x_test.drop(columns=["Datetime"]).rename(
+                        columns={"Values": "x"}
+                        )
+                    ],
+                axis=1
+                )
+        return {
+                    "Train": train_measurements,
+                    "Test": test_measurements
+                }
 
     def rolling(self):
         """ Performs rolling OLS
