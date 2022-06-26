@@ -377,7 +377,7 @@ def main():
                         # After comparison is ocmplete, save all coefficients
                         # and test/train data to sqlite3 database
                         con = sql.connect(
-                                f"{cache_path}{run_name}/Coefficients/"
+                                f"{cache_path}{run_name}/Coefficients/{field}/"
                                 f"{comparison_name}.db"
                                 )
                         for dset, dframe in comparison.return_measurements(
