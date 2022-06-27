@@ -1,12 +1,14 @@
+import re
+
 from sklearn import metrics as met
 
 class Errors:
     """ Calculates errors between "true" and "predicted" measurements
 
     Attributes:
-        train (DataFrame): Training data
+        train_raw (DataFrame): Training data
 
-        test (DataFrame): Testing data
+        test_raw (DataFrame): Testing data
 
         coefficients (DataFrame): Calibration coefficients
 
@@ -20,9 +22,9 @@ class Errors:
 
         mean_absolute:
 
-        mean_squared:
+        root_mean_squared:
 
-        mean_squared_log:
+        root_mean_squared_log:
 
         median_absolute:
 
@@ -49,7 +51,51 @@ class Errors:
 
             coefficients (DataFrame): Calibration coefficients
         """
-        self.train = train
-        self.test = test
+        self.train_raw = train
+        self.test_raw = test
         self.coefficients = coefficients
         self.errors = dict()
+        self.y_pred = self.calibrate()
+
+    def calibrate(self):
+        for coefficient_set in self.coefficients.itertuples():
+            if bool(re.search("\'sd\.", str(coefficient_set._fields))):
+                y_pred = self._pymc_calibrate(coefficient_set)
+            else:
+                y_pred = self._skl_calibrate(coefficient_set)
+
+    def explained_variance_score(self):
+        pass
+
+    def max(self):
+        pass
+
+    def mean_absolute(self):
+        pass  
+
+    def root_mean_squared(self):
+        pass
+
+    def root_mean_squared_log(self):
+        pass
+
+    def median_absolute(self):
+        pass
+
+    def mean_absolute_percentage(self):
+        pass
+
+    def r2(self):
+        pass
+
+    def mean_poisson_deviance(self):
+        pass
+
+    def mean_gamma_deviance(self):
+        pass
+
+    def mean_tweedie_deviance(self):
+        pass
+
+    def mean_pinball_loss(self):
+        pass
