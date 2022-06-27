@@ -463,21 +463,22 @@ def all_combinations(input_list):
             all_combos.append(list(combo))
     return all_combos
 
-def file_list(path, extension=""):
+def file_list(path, extension="", recursive=False):
     """ Lists all files in a dir
 
     Keyword Arguments:
         path (str): Directory to scan
 
-        extension (str): File extensions to search for, scans for all files 
-        if blank (Defaults to "")
+        extension (str): File extensions to search for, scans for all
+        files if blank (Defaults to "")
 
     Returns:
         List of files in directory matching extension, empty list if no
         matching files or directory does not exist
     """
     if os.path.isdir(path):
-        return glob.glob(f"{path}/*{extension}") 
+        rec = "**" if recursive else ""
+        return glob.glob(f"{path}{rec}/*{extension}", recursive=recursive) 
     else:
         return list()
 

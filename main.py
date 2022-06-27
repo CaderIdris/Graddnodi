@@ -310,6 +310,8 @@ def main():
     bay_families = run_config["Calibration"]["Bayesian Families"]
     coefficients = dict()
     measurements_used = dict()
+
+
     # Loop over fields
     for field, dframes in measurements.items():
         coefficients[field] = dict()
@@ -396,6 +398,38 @@ def main():
                                     if_exists="replace",
                                     )
                         con.close()
+
+    # Begin error calculation step
+    coeffs_folder = f"{cache_path}{run_name}/Coefficients/"
+    coeff_files = file_list(coeffs_folder, extension=".db", recursive=True) 
+    coeffs = defaultdict(dict)
+    fields = list(set([
+        re.sub(f'{coeffs_folder}|/[^/]*\\.db', '', field)
+        for field in coeff_files
+        ]))
+    for coeff_file in coeff_files:
+        con = sql.connect(coeff_file)
+        cursor = con.cursor()
+        cursor.execute(
+                "SELECT name FROM sqlite_master WHERE type='table';"
+                )
+        tables = cursor.fetchall()
+        # coeffs[field][comparison]
+        coeffs[re.sub(f'{coeffs_folder}|/[^/]*\\.db', '', coeff_file)][
+            re.sub(r'.*/|\.\w*$', '', coeff_file)] = dict()
+        for table in tables:
+            coeffs[re.sub(f'{coeffs_folder}|/[^/]*\\.db', '', coeff_file)][
+                re.sub(r'.*/|\.\w*$', '', coeff_file)][table[0]] = pd.read_sql(
+                    sql=f"SELECT * from '{table[0]}'",
+                    con=con,
+                    parse_dates={"Datetime": "%Y-%m-%d %H:%M:%S%z"}
+                    )
+        cursor.close()
+        con.close()
+    coeffs = dict(coeffs)
+    print(coeffs)
+
+
 
 
 
