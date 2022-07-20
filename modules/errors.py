@@ -1,3 +1,4 @@
+from collections import defaultdict
 import re
 
 import pandas as pd
@@ -61,10 +62,11 @@ class Errors:
         self.train_raw = train
         self.test_raw = test
         self.coefficients = coefficients
-        self.errors = dict()
-        self.y_pred = self.calibrate()
+        self._errors = defaultdict(list)
+        self.y_pred = self._calibrate()
+        self.combos = self._get_all_combos()
 
-    def calibrate(self):
+    def _calibrate(self):
         y_pred_dict = dict()
         for coefficient_set in self.coefficients.itertuples():
             if bool(re.search("\'sd\.", str(coefficient_set._fields))):
@@ -164,38 +166,165 @@ class Errors:
         y_pred["Train"] = y_pred["Train"] + to_add
         return y_pred
 
+    def _get_all_combos(self):
+        for method, y_pred in self.y_pred.items():
+            self.combos[method] = self._all_combos(y_pred)
+
+    def _all_combos(self, pred):
+        if re.search("mean.", str(pred.keys())):
+                yield ("Calibrated Test Data (Mean)", 
+                    pred["mean.Test"], 
+                    list(self.test_raw["y"]))
+                yield ("Calibrated Test Data (Min)", 
+                    pred["min.Test"], 
+                    list(self.test_raw["y"]))
+                yield ("Calibrated Test Data (Max)", 
+                    pred["max.Test"], 
+                    list(self.test_raw["y"]))
+                yield ("Uncalibrated Test Data", 
+                    list(self.test_raw["x"]), 
+                    list(self.test_raw["y"]))
+                yield ("Calibrated Train Data (Mean)", 
+                    pred["mean.Train"], 
+                    list(self.test_raw["y"]))
+                yield ("Calibrated Train Data (Min)", 
+                    pred["min.Train"], 
+                    list(self.test_raw["y"]))
+                yield ("Calibrated Train Data (Max)", 
+                    pred["max.Train"], 
+                    list(self.test_raw["y"]))
+                yield ("Uncalibrated Train Data", 
+                    list(self.test_raw["x"]), 
+                    list(self.test_raw["y"]))
+                yield ("Calibrated Full Data (Mean)", 
+                    pred["mean.Train"] + pred["mean.Test"], 
+                    list(self.train_raw["y"]) + list(self.test_raw["y"]))
+                yield ("Calibrated Full Data (Min)", 
+                    pred["min.Train"] + pred["min.Test"], 
+                    list(self.train_raw["y"]) + list(self.test_raw["y"]))
+                yield ("Calibrated Full Data (Max)", 
+                    pred["max.Train"] + pred["max.Test"], 
+                    list(self.train_raw["y"]) + list(self.test_raw["y"]))
+                yield ("Uncalibrated Full Data", 
+                    list(self.train_raw["x"]) + list(self.test_raw["x"]), 
+                    list(self.train_raw["y"]) + list(self.test_raw["y"]))
+        else:
+            yield ("Calibrated Test Data",
+                    pred["Test"],
+                    list(self.test_raw["y"]))
+            yield ("Calibrated Train Data",
+                    pred["Train"],
+                    list(self.train_raw["y"]))
+            yield ("Calibrated Full Data",
+                    pred["Train"] + pred["Test"],
+                    list(self.train_raw["y"]) + list(self.test_raw["y"]))
+            yield ("Uncalibrated Test Data",
+                    list(self.test_raw["x"]),
+                    list(self.test_raw["y"]))
+            yield ("Uncalibrated Train Data",
+                    list(self.train_raw["x"]),
+                    list(self.train_raw["y"]))
+            yield ("Uncalibrated Full Data",
+                    list(self.train_raw["x"]) + list(self.test_raw["x"]),
+                    list(self.train_raw["y"]) + list(self.test_raw["y"]))
+
     def explained_variance_score(self):
-        pass
+        for method, combo in self.combos.items():
+            self._errors[method]["Error"].append("Explained Variance Score")
+            for name, pred, true in combo:
+                self._errors[method][name].append(
+                        met.explained_variance_score(true, pred)
+                        )
 
     def max(self):
-        pass
+        for method, combo in self.combos.items():
+            self._errors[method]["Error"].append("Max Error")
+            for name, pred, true in combo:
+                self._errors[method][name].append(
+                        met.max_error(true, pred)
+                        )
 
     def mean_absolute(self):
-        pass  
+        for method, combo in self.combos.items():
+            self._errors[method]["Error"].append("Mean Absolute Error")
+            for name, pred, true in combo:
+                self._errors[method][name].append(
+                        met.mean_absolute_error(true, pred)
+                        )
 
     def root_mean_squared(self):
-        pass
+        for method, combo in self.combos.items():
+            self._errors[method]["Error"].append("Root Mean Squared Error")
+            for name, pred, true in combo:
+                self._errors[method][name].append(
+                        met.mean_squared_error(true, pred, squared=False)
+                        )
 
     def root_mean_squared_log(self):
-        pass
+        for method, combo in self.combos.items():
+            self._errors[method]["Error"].append("Root Mean Squared Log Error")
+            for name, pred, true in combo:
+                self._errors[method][name].append(
+                        met.mean_squared_log_error(true, pred, squared=False)
+                        )
 
     def median_absolute(self):
-        pass
+        for method, combo in self.combos.items():
+            self._errors[method]["Error"].append("Median Absolute Error")
+            for name, pred, true in combo:
+                self._errors[method][name].append(
+                        met.median_absolute_error(true, pred)
+                        )
 
     def mean_absolute_percentage(self):
-        pass
+        for method, combo in self.combos.items():
+            self._errors[method]["Error"].append("Mean Absolute Percentage Error")
+            for name, pred, true in combo:
+                self._errors[method][name].append(
+                        met.mean_absolute_percentage_error(true, pred)
+                        )
 
     def r2(self):
-        pass
+        for method, combo in self.combos.items():
+            self._errors[method]["Error"].append("R^2")
+            for name, pred, true in combo:
+                self._errors[method][name].append(
+                        met.r2_score(true, pred)
+                        )
 
     def mean_poisson_deviance(self):
-        pass
+        for method, combo in self.combos.items():
+            self._errors[method]["Error"].append("Mean Poisson Deviance")
+            for name, pred, true in combo:
+                self._errors[method][name].append(
+                        met.mean_poisson_deviance(true, pred)
+                        )
 
     def mean_gamma_deviance(self):
-        pass
+        for method, combo in self.combos.items():
+            self._errors[method]["Error"].append("Mean Gamme Deviance")
+            for name, pred, true in combo:
+                self._errors[method][name].append(
+                        met.mean_gamma_deviance(true, pred)
+                        )
 
     def mean_tweedie_deviance(self):
-        pass
+        for method, combo in self.combos.items():
+            self._errors[method]["Error"].append("Mean Tweedie Deviance")
+            for name, pred, true in combo:
+                self._errors[method][name].append(
+                        met.mean_tweedie_deviance(true, pred)
+                        )
 
     def mean_pinball_loss(self):
-        pass
+        for method, combo in self.combos.items():
+            self._errors[method]["Error"].append("Mean Pinball Loss")
+            for name, pred, true in combo:
+                self._errors[method][name].append(
+                        met.mean_pinball_loss(true, pred)
+                        )
+    
+    def get_errors(self):
+        for key, item in self._errors.items():
+            self._errors[key] = dict(item)
+        return self._errors
