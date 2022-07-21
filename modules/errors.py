@@ -172,42 +172,42 @@ class Errors:
 
     def _all_combos(self, pred):
         if re.search("mean.", str(pred.keys())):
-                yield ("Calibrated Test Data (Mean)", 
-                    pred["mean.Test"], 
-                    list(self.test_raw["y"]))
-                yield ("Calibrated Test Data (Min)", 
-                    pred["min.Test"], 
-                    list(self.test_raw["y"]))
-                yield ("Calibrated Test Data (Max)", 
-                    pred["max.Test"], 
-                    list(self.test_raw["y"]))
-                yield ("Uncalibrated Test Data", 
-                    list(self.test_raw["x"]), 
-                    list(self.test_raw["y"]))
-                yield ("Calibrated Train Data (Mean)", 
-                    pred["mean.Train"], 
-                    list(self.test_raw["y"]))
-                yield ("Calibrated Train Data (Min)", 
-                    pred["min.Train"], 
-                    list(self.test_raw["y"]))
-                yield ("Calibrated Train Data (Max)", 
-                    pred["max.Train"], 
-                    list(self.test_raw["y"]))
-                yield ("Uncalibrated Train Data", 
-                    list(self.test_raw["x"]), 
-                    list(self.test_raw["y"]))
-                yield ("Calibrated Full Data (Mean)", 
-                    pred["mean.Train"] + pred["mean.Test"], 
-                    list(self.train_raw["y"]) + list(self.test_raw["y"]))
-                yield ("Calibrated Full Data (Min)", 
-                    pred["min.Train"] + pred["min.Test"], 
-                    list(self.train_raw["y"]) + list(self.test_raw["y"]))
-                yield ("Calibrated Full Data (Max)", 
-                    pred["max.Train"] + pred["max.Test"], 
-                    list(self.train_raw["y"]) + list(self.test_raw["y"]))
-                yield ("Uncalibrated Full Data", 
-                    list(self.train_raw["x"]) + list(self.test_raw["x"]), 
-                    list(self.train_raw["y"]) + list(self.test_raw["y"]))
+            yield ("Calibrated Test Data (Mean)", 
+                pred["mean.Test"], 
+                list(self.test_raw["y"]))
+            yield ("Calibrated Test Data (Min)", 
+                pred["min.Test"], 
+                list(self.test_raw["y"]))
+            yield ("Calibrated Test Data (Max)", 
+                pred["max.Test"], 
+                list(self.test_raw["y"]))
+            yield ("Uncalibrated Test Data", 
+                list(self.test_raw["x"]), 
+                list(self.test_raw["y"]))
+            yield ("Calibrated Train Data (Mean)", 
+                pred["mean.Train"], 
+                list(self.test_raw["y"]))
+            yield ("Calibrated Train Data (Min)", 
+                pred["min.Train"], 
+                list(self.test_raw["y"]))
+            yield ("Calibrated Train Data (Max)", 
+                pred["max.Train"], 
+                list(self.test_raw["y"]))
+            yield ("Uncalibrated Train Data", 
+                list(self.test_raw["x"]), 
+                list(self.test_raw["y"]))
+            yield ("Calibrated Full Data (Mean)", 
+                pred["mean.Train"] + pred["mean.Test"], 
+                list(self.train_raw["y"]) + list(self.test_raw["y"]))
+            yield ("Calibrated Full Data (Min)", 
+                pred["min.Train"] + pred["min.Test"], 
+                list(self.train_raw["y"]) + list(self.test_raw["y"]))
+            yield ("Calibrated Full Data (Max)", 
+                pred["max.Train"] + pred["max.Test"], 
+                list(self.train_raw["y"]) + list(self.test_raw["y"]))
+            yield ("Uncalibrated Full Data", 
+                list(self.train_raw["x"]) + list(self.test_raw["x"]), 
+                list(self.train_raw["y"]) + list(self.test_raw["y"]))
         else:
             yield ("Calibrated Test Data",
                     pred["Test"],
@@ -326,5 +326,5 @@ class Errors:
     
     def get_errors(self):
         for key, item in self._errors.items():
-            self._errors[key] = dict(item)
+            self._errors[key] = pd.DataFrame(data=dict(item))
         return self._errors
