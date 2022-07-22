@@ -48,6 +48,7 @@ from modules.idristools import DateDifference, make_path, file_list
 from modules.idristools import folder_list
 from modules.influxquery import InfluxQuery, FluxQuery
 from modules.calibration import Calibration
+from modules.errors import Errors 
 
 def main():
     # Read command line arguments
@@ -425,6 +426,22 @@ def main():
                                     if_exists="replace",
                                     )
                         con.close()
+
+    # Get errors
+
+    for field, comparisons in coefficients.items():
+        for comparison, coefficients in comparisons.items():
+            techniques = list(coefficients.keys())
+            techniques.remove("Test")
+            techniques.remove("Train")
+            for technique in techniques:
+                error_calculations = Errors(
+                    coefficients["Train"], 
+                    coefficients["Test"], 
+                    coefficients[technique]
+                    ) 
+                error_calculations.explained_variance_score()
+
 
 
 if __name__ == "__main__":

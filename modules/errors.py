@@ -8,9 +8,9 @@ class Errors:
     """ Calculates errors between "true" and "predicted" measurements
 
     Attributes:
-        train_raw (DataFrame): Training data
+        train (DataFrame): Training data
 
-        test_raw (DataFrame): Testing data
+        test (DataFrame): Testing data
 
         coefficients (DataFrame): Calibration coefficients
 
@@ -59,25 +59,26 @@ class Errors:
 
             coefficients (DataFrame): Calibration coefficients
         """
-        self.train_raw = train
-        self.test_raw = test
+        self.train = train
+        self.test = test
         self.coefficients = coefficients
-        self._errors = defaultdict(list)
+        self._errors = defaultdict(lambda: defaultdict(list))
         self.y_pred = self._calibrate()
         self.combos = self._get_all_combos()
 
     def _calibrate(self):
         y_pred_dict = dict()
-        for coefficient_set in self.coefficients.itertuples():
-            if bool(re.search("\'sd\.", str(coefficient_set._fields))):
-                y_pred = self._pymc_calibrate(coefficient_set)
+        column_names = self.coefficients.columns
+        for coefficient_set in self.coefficients.iterrows():
+            if bool(re.search("\'sd\.", str(column_names))):
+                y_pred = self._pymc_calibrate(coefficient_set[1])
             else:
-                y_pred = self._skl_calibrate(coefficient_set)
-            y_pred_dict[coefficient_set.index] = y_pred
+                y_pred = self._skl_calibrate(coefficient_set[1])
+            y_pred_dict[coefficient_set[1]["index"]] = y_pred
         return y_pred_dict
 
     def _pymc_calibrate(self, coeffs):
-        coefficient_keys_raw = list(coeffs._fields)
+        coefficient_keys_raw = list(coeffs.dropna().index)
         coefficient_keys_raw = [
                 element for element in coefficient_keys_raw if element not
                 in ["coeff.x", "sd.x", "sd.Intercept", "i.Intercept", "index"]
@@ -86,28 +87,24 @@ class Errors:
         for key in coefficient_keys_raw:
             if re.match("coeff\.", key):
                 coefficient_keys.append(re.sub("coeff\.", "", key))
-        y_pred_train = self.train["x"] * getattr(coeffs, "coeff.x")
-        y_pred_test = self.test["x"] * getattr(coeffs, "coeff.x")
-        y_pred = pd.DataFrame(data={
-            "mean.Train": y_pred_train.copy(),
-            "min.Train": y_pred_train.copy(),
-            "max.Train": y_pred_train.copy(),
-            "mean.Test": y_pred_test.copy(),
-            "min.Test": y_pred_test.copy(),
-            "max.Test": y_pred_test.copy(),
-            })
+        y_pred_train = self.train["x"] * coeffs.get("coeff.x")
+        y_pred_test = self.test["x"] * coeffs.get("coeff.x")
+        y_pred = {
+            "mean.Train": pd.Series(y_pred_train),
+            "min.Train": pd.Series(y_pred_train),
+            "max.Train": pd.Series(y_pred_train),
+            "mean.Test": pd.Series(y_pred_test),
+            "min.Test": pd.Series(y_pred_test),
+            "max.Test": pd.Series(y_pred_test),
+            }
         for coeff in coefficient_keys:
-            to_add_train = self.train[coeff] * getattr(
-                    coeffs, f"coeff.{coeff}"
-                    )
-            to_add_test = self.test[coeff] * getattr(
-                    coeffs, f"coeff.{coeff}"
-                    )
+            to_add_train = self.train[coeff] * coeffs.get(f"coeff.{coeff}")
+            to_add_test = self.test[coeff] * coeffs.get(f"coeff.{coeff}")
             coeff_error_train = self.train[coeff] * (
-                    2 * getattr(coeffs, f"sd.{coeff}")
-                    )
+                    2 * coeffs.get(f"sd.{coeff}")
+                        )
             coeff_error_test = self.test[coeff] * (
-                    2 * getattr(coeffs, f"sd.{coeff}")
+                    2 * coeffs.get(f"sd.{coeff}")
                     )
             y_pred["mean.Train"] = y_pred["mean.Train"] + to_add_train
             y_pred["min.Train"] = y_pred["min.Train"] + (
@@ -123,27 +120,28 @@ class Errors:
             y_pred["max.Test"] = y_pred["max.Test"] + (
                     to_add_test + coeff_error_test
                     )
-        to_add = getattr(coeffs, f"i.Intercept")
-        coeff_error = 2 * getattr(coeffs, f"sd.Intercept")
+        to_add_int = coeffs.get(f"i.Intercept")
+        int_error = 2 * coeffs.get(f"sd.Intercept")
 
-        y_pred["mean.Train"] = y_pred["mean.Train"] + to_add_train
+        y_pred["mean.Train"] = y_pred["mean.Train"] + to_add_int
         y_pred["min.Train"] = y_pred["min.Train"] + (
-                to_add_train - coeff_error_train
+                to_add_int - int_error
                 )
         y_pred["max.Train"] = y_pred["max.Train"] + (
-                to_add_train + coeff_error_train
+                to_add_int + int_error
                 )
-        y_pred["mean.Test"] = y_pred["mean.Test"] + to_add_test
+        y_pred["mean.Test"] = y_pred["mean.Test"] + to_add_int
         y_pred["min.Test"] = y_pred["min.Test"] + (
-                to_add_test - coeff_error_test
+                to_add_int - int_error
                 )
         y_pred["max.Test"] = y_pred["max.Test"] + (
-                to_add_test + coeff_error_test
+                to_add_int + int_error
                 )
         return y_pred
 
     def _skl_calibrate(self, coeffs):
-        coefficient_keys_raw = list(coeffs._fields)
+        
+        coefficient_keys_raw = list(coeffs.dropna().index)
         coefficient_keys_raw = [
                 element for element in coefficient_keys_raw if element not
                 in ["coeff.x", "i.Intercept", "index"]
@@ -152,81 +150,85 @@ class Errors:
         for key in coefficient_keys_raw:
             if re.match("coeff\.", key):
                 coefficient_keys.append(re.sub("coeff\.", "", key))
-        y_pred = pd.DataFrame(data={
-            "Train": self.train["x"] * getattr(coeffs, "coeff.x"),
-            "Test": self.test["x"] * getattr(coeffs, "coeff.x")
-            }
-            )
+        y_pred = {
+                "Train": pd.Series(self.train["x"]) * coeffs.get("coeff.x"),
+                "Test": pd.Series(self.test["x"]) * coeffs.get("coeff.x")
+                }
         for coeff in coefficient_keys:
-            to_add = self.train[coeff] * getattr(coeffs, f"coeff.{coeff}")
-            y_pred["Test"] = y_pred["Test"] + to_add
-            y_pred["Train"] = y_pred["Train"] + to_add
-        to_add = 2 * getattr(coeffs, "i.Intercept")
+            to_add_test = self.test[coeff] * coeffs.get(f"coeff.{coeff}")
+            to_add_train = self.train[coeff] * coeffs.get(f"coeff.{coeff}")
+            y_pred["Test"] = y_pred["Test"] + to_add_test
+            y_pred["Train"] = y_pred["Train"] + to_add_train
+        to_add = coeffs.get("i.Intercept")
         y_pred["Test"] = y_pred["Test"] + to_add
         y_pred["Train"] = y_pred["Train"] + to_add
         return y_pred
 
     def _get_all_combos(self):
+        combos = dict()
         for method, y_pred in self.y_pred.items():
-            self.combos[method] = self._all_combos(y_pred)
+            combos[method] = self._all_combos(y_pred)
+        return combos
 
     def _all_combos(self, pred):
+        combos = list()
         if re.search("mean.", str(pred.keys())):
-            yield ("Calibrated Test Data (Mean)", 
+            combos.append(("Calibrated Test Data (Mean)", 
                 pred["mean.Test"], 
-                list(self.test_raw["y"]))
-            yield ("Calibrated Test Data (Min)", 
+                self.test["y"]))
+            combos.append(("Calibrated Test Data (Min)", 
                 pred["min.Test"], 
-                list(self.test_raw["y"]))
-            yield ("Calibrated Test Data (Max)", 
+                self.test["y"]))
+            combos.append(("Calibrated Test Data (Max)", 
                 pred["max.Test"], 
-                list(self.test_raw["y"]))
-            yield ("Uncalibrated Test Data", 
-                list(self.test_raw["x"]), 
-                list(self.test_raw["y"]))
-            yield ("Calibrated Train Data (Mean)", 
+                self.test["y"]))
+            combos.append(("Uncalibrated Test Data", 
+                self.test["x"], 
+                self.test["y"]))
+            combos.append(("Calibrated Train Data (Mean)", 
                 pred["mean.Train"], 
-                list(self.test_raw["y"]))
-            yield ("Calibrated Train Data (Min)", 
+                self.train["y"]))
+            combos.append(("Calibrated Train Data (Min)", 
                 pred["min.Train"], 
-                list(self.test_raw["y"]))
-            yield ("Calibrated Train Data (Max)", 
+                self.train["y"]))
+            combos.append(("Calibrated Train Data (Max)", 
                 pred["max.Train"], 
-                list(self.test_raw["y"]))
-            yield ("Uncalibrated Train Data", 
-                list(self.test_raw["x"]), 
-                list(self.test_raw["y"]))
-            yield ("Calibrated Full Data (Mean)", 
-                pred["mean.Train"] + pred["mean.Test"], 
-                list(self.train_raw["y"]) + list(self.test_raw["y"]))
-            yield ("Calibrated Full Data (Min)", 
-                pred["min.Train"] + pred["min.Test"], 
-                list(self.train_raw["y"]) + list(self.test_raw["y"]))
-            yield ("Calibrated Full Data (Max)", 
-                pred["max.Train"] + pred["max.Test"], 
-                list(self.train_raw["y"]) + list(self.test_raw["y"]))
-            yield ("Uncalibrated Full Data", 
-                list(self.train_raw["x"]) + list(self.test_raw["x"]), 
-                list(self.train_raw["y"]) + list(self.test_raw["y"]))
+                self.train["y"]))
+            combos.append(("Uncalibrated Train Data", 
+                self.train["x"], 
+                self.train["y"]))
+            combos.append(("Calibrated Full Data (Mean)", 
+                pd.concat([pred["mean.Train"], pred["mean.Test"]]), 
+                pd.concat([self.train["y"], self.test["y"]])))
+            combos.append(("Calibrated Full Data (Min)", 
+                pd.concat([pred["min.Train"], pred["min.Test"]]), 
+                pd.concat([self.train["y"], self.test["y"]])))
+            combos.append(("Calibrated Full Data (Max)", 
+                pd.concat([pred["max.Train"], pred["max.Test"]]), 
+                pd.concat([self.train["y"], self.test["y"]])))
+            combos.append(("Uncalibrated Full Data", 
+                pd.concat([self.train["x"], self.test["x"]]), 
+                pd.concat([self.train["y"], self.test["y"]])))
         else:
-            yield ("Calibrated Test Data",
+            combos.append(("Calibrated Test Data",
                     pred["Test"],
-                    list(self.test_raw["y"]))
-            yield ("Calibrated Train Data",
+                    self.test["y"]))
+            combos.append(("Calibrated Train Data",
                     pred["Train"],
-                    list(self.train_raw["y"]))
-            yield ("Calibrated Full Data",
-                    pred["Train"] + pred["Test"],
-                    list(self.train_raw["y"]) + list(self.test_raw["y"]))
-            yield ("Uncalibrated Test Data",
-                    list(self.test_raw["x"]),
-                    list(self.test_raw["y"]))
-            yield ("Uncalibrated Train Data",
-                    list(self.train_raw["x"]),
-                    list(self.train_raw["y"]))
-            yield ("Uncalibrated Full Data",
-                    list(self.train_raw["x"]) + list(self.test_raw["x"]),
-                    list(self.train_raw["y"]) + list(self.test_raw["y"]))
+                    self.train["y"]))
+            combos.append(("Calibrated Full Data",
+                    pd.concat([pred["Train"], pred["Test"]]),
+                    pd.concat([self.train["y"],self.test["y"]])))
+            combos.append(("Uncalibrated Test Data",
+                    self.test["x"],
+                    self.test["y"]))
+            combos.append(("Uncalibrated Train Data",
+                    self.train["x"],
+                    self.train["y"]))
+            combos.append(("Uncalibrated Full Data",
+                    pd.concat([self.train["x"], self.test["x"]]),
+                    pd.concat([self.train["y"], self.test["y"]])))
+        return combos
 
     def explained_variance_score(self):
         for method, combo in self.combos.items():
@@ -327,4 +329,5 @@ class Errors:
     def get_errors(self):
         for key, item in self._errors.items():
             self._errors[key] = pd.DataFrame(data=dict(item))
+        self._errors = dict(self._errors)
         return self._errors
