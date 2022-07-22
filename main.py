@@ -45,6 +45,7 @@ import pandas as pd
 
 from modules.idristools import get_json, parse_date_string, all_combinations
 from modules.idristools import DateDifference, make_path, file_list
+from modules.idristools import folder_list
 from modules.influxquery import InfluxQuery, FluxQuery
 from modules.calibration import Calibration
 
@@ -101,23 +102,22 @@ def main():
             )
     cache_folder = f"{cache_path}{run_name}/Measurements/"
     cached_files = file_list(cache_folder, extension=".db") 
-    if cached_files:
-        for cached_file in cached_files:
-            field_name = re.sub(r'\w*/*/*/|\.\w*$', '', cached_file)
-            con = sql.connect(cached_file)
-            cursor = con.cursor()
-            cursor.execute(
-                    "SELECT name FROM sqlite_master WHERE type='table';"
+    for cached_file in cached_files:
+        field_name = re.sub(r'(.*?)/|\.\w*$', '', cached_file)
+        con = sql.connect(cached_file)
+        cursor = con.cursor()
+        cursor.execute(
+                "SELECT name FROM sqlite_master WHERE type='table';"
+                )
+        tables = cursor.fetchall()
+        for table in tables:
+            measurements[field_name][table[0]] = pd.read_sql(
+                    sql=f"SELECT * from '{table[0]}'",
+                    con=con,
+                    parse_dates={"Datetime": "%Y-%m-%d %H:%M:%S%z"}
                     )
-            tables = cursor.fetchall()
-            for table in tables:
-                measurements[field_name][table[0]] = pd.read_sql(
-                        sql=f"SELECT * from '{table[0]}'",
-                        con=con,
-                        parse_dates={"Datetime": "%Y-%m-%d %H:%M:%S%z"}
-                        )
-            cursor.close()
-            con.close()
+        cursor.close()
+        con.close()
 
     # Don't cache measurements unless new ones downloaded
     cache_measurements = False 
@@ -128,6 +128,8 @@ def main():
         start_of_month = date_calculations.add_month(month_num)
         end_of_month = date_calculations.add_month(month_num + 1)
         empty_data_list = list()
+        if month_num > 0 and cache_measurements is False:
+            break
         for name, settings in query_config.items():
             for dev_field in settings["Fields"]:
                 if (month_num) == 0 and (
@@ -309,13 +311,35 @@ def main():
     techniques = run_config["Calibration"]["Techniques"]
     bay_families = run_config["Calibration"]["Bayesian Families"]
     coefficients = dict()
-    measurements_used = dict()
 
+    coeffs_folder = f"{cache_path}{run_name}/Coefficients"
+    coeff_dirs = folder_list(coeffs_folder)
+    for field_name in coeff_dirs:
+        coefficients[field_name] = dict()
+        coeff_files = file_list(f"{coeffs_folder}/{field_name}", extension=".db")
+        for coeff_file in coeff_files:
+            comparison_name = re.sub(r'(.*?)/|\.\w*$', '', coeff_file)
+            coefficients[field_name][comparison_name] = dict()
+            con = sql.connect(coeff_file)
+            cursor = con.cursor()
+            cursor.execute(
+                    "SELECT name FROM sqlite_master WHERE type='table';"
+                    )
+            tables = cursor.fetchall()
+            for table in tables:
+                coefficients[field_name][comparison_name][table[0]] = pd.read_sql(
+                        sql=f"SELECT * from '{table[0]}'",
+                        con=con,
+                        parse_dates={"Datetime": "%Y-%m-%d %H:%M:%S%z"}
+                        )
+            cursor.close()
+            con.close()
+    cache_coeffs = False
 
     # Loop over fields
     for field, dframes in measurements.items():
-        coefficients[field] = dict()
-        measurements_used[field] = dict()
+        if coefficients.get(field) is None:
+            coefficients[field] = dict() 
         # Loop over dependent measurements
         for index, y_device in enumerate(device_names[:-1]):
             y_dframe = dframes.get(y_device)
@@ -323,6 +347,9 @@ def main():
                 # Loop over independent measurements
                 for x_device in device_names[index+1:]:
                     comparison_name = f"{x_device} vs {y_device}"
+                    if coefficients[field].get(comparison_name) is not None:
+                        continue
+                    cache_coeffs = True
                     x_dframe = dframes.get(x_device)
                     if isinstance(x_dframe, pd.DataFrame):
                         comparison = Calibration(
@@ -398,39 +425,6 @@ def main():
                                     if_exists="replace",
                                     )
                         con.close()
-
-    # Begin error calculation step
-    coeffs_folder = f"{cache_path}{run_name}/Coefficients/"
-    coeff_files = file_list(coeffs_folder, extension=".db", recursive=True) 
-    coeffs = defaultdict(dict)
-    fields = list(set([
-        re.sub(f'{coeffs_folder}|/[^/]*\\.db', '', field)
-        for field in coeff_files
-        ]))
-    for coeff_file in coeff_files:
-        con = sql.connect(coeff_file)
-        cursor = con.cursor()
-        cursor.execute(
-                "SELECT name FROM sqlite_master WHERE type='table';"
-                )
-        tables = cursor.fetchall()
-        # coeffs[field][comparison]
-        coeffs[re.sub(f'{coeffs_folder}|/[^/]*\\.db', '', coeff_file)][
-            re.sub(r'.*/|\.\w*$', '', coeff_file)] = dict()
-        for table in tables:
-            coeffs[re.sub(f'{coeffs_folder}|/[^/]*\\.db', '', coeff_file)][
-                re.sub(r'.*/|\.\w*$', '', coeff_file)][table[0]] = pd.read_sql(
-                    sql=f"SELECT * from '{table[0]}'",
-                    con=con,
-                    parse_dates={"Datetime": "%Y-%m-%d %H:%M:%S%z"}
-                    )
-        cursor.close()
-        con.close()
-    coeffs = dict(coeffs)
-    print(coeffs)
-
-
-
 
 
 if __name__ == "__main__":

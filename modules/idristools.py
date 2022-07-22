@@ -482,3 +482,14 @@ def file_list(path, extension="", recursive=False):
     else:
         return list()
 
+def folder_list(path):
+    """ Lists all subdirectories in a dir
+
+    Keyword Arguments:
+        path (str): Directory to scan
+
+    Returns:
+        List of subdirs in dir
+    """
+    return os.listdir(path)
+
