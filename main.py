@@ -403,21 +403,13 @@ def main():
 
                         coefficients[field][comparison_name
                                 ] = comparison.return_coefficients()
-                        make_path(f"{cache_path}{run_name}/Coefficients")
-                        # After comparison is ocmplete, save all coefficients
+                        # After comparison is complete, save all coefficients
                         # and test/train data to sqlite3 database
+                        make_path(f"{cache_path}{run_name}/Coefficients/{field}")
                         con = sql.connect(
                                 f"{cache_path}{run_name}/Coefficients/{field}/"
                                 f"{comparison_name}.db"
                                 )
-                        for dset, dframe in comparison.return_measurements(
-                                ).items():
-                            dframe.to_sql(
-                                    name=dset,
-                                    con=con,
-                                    if_exists="replace",
-                                    index=False
-                                    )
                         for comp_technique, dframe in coefficients[field][
                                 comparison_name].items():
                             dframe.to_sql(
@@ -428,9 +420,12 @@ def main():
                         con.close()
 
     # Get errors
-
+    errors = dict()
+    error_techniques = run_config["Errors"]
     for field, comparisons in coefficients.items():
+        errors[field] = dict()
         for comparison, coefficients in comparisons.items():
+            errors[field][comparison] = dict()
             techniques = list(coefficients.keys())
             techniques.remove("Test")
             techniques.remove("Train")
@@ -440,7 +435,46 @@ def main():
                     coefficients["Test"], 
                     coefficients[technique]
                     ) 
-                error_calculations.explained_variance_score()
+                if error_techniques["Explained Variance Score"]:
+                    error_calculations.explained_variance_score()
+                if error_techniques["Max Error"]:
+                    error_calculations.max()
+                if error_techniques["Mean Absolute Error"]:
+                    error_calculations.mean_absolute()
+                if error_techniques["Root Mean Squared Error"]:
+                    error_calculations.root_mean_squared()
+                if error_techniques["Root Mean Squared Log Error"]:
+                    error_calculations.root_mean_squared_log()
+                if error_techniques["Median Absolute Error"]:
+                    error_calculations.median_absolute()
+                if error_techniques["Mean Absolute Percentage Error"]:
+                    error_calculations.mean_absolute_percentage()
+                if error_techniques["r2"]:
+                    error_calculations.r2()
+                if error_techniques["Mean Poisson Deviance"]:
+                    error_calculations.mean_poisson_deviance()
+                if error_techniques["Mean Gamma Deviance"]:
+                    error_calculations.mean_gamma_deviance()
+                if error_techniques["Mean Tweedie Deviance"]:
+                    error_calculations.mean_tweedie_deviance()
+                if error_techniques["Mean Pinball Loss"]:
+                    error_calculations.mean_pinball_loss()
+                errors[field][comparison][technique] = error_calculations.get_errors()
+                # After error calculation is complete, save all coefficients
+                # and test/train data to sqlite3 database
+                make_path(f"{cache_path}{run_name}/Errors/{field}/{comparison}")
+                con = sql.connect(
+                        f"{cache_path}{run_name}/Errors/{field}/{comparison}/"
+                        f"{technique}.db"
+                        )
+                for dset, dframe in errors[field][comparison
+                        ][technique].items():
+                    dframe.to_sql(
+                            name=dset,
+                            con=con,
+                            if_exists="replace",
+                            )
+                con.close()
 
 
 

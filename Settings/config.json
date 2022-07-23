@@ -489,6 +489,20 @@
 			"Inverse Gaussian": false
 		}
 	},
+	"Errors": {
+		"Explained Variance Score": true,
+		"Max Error": true,
+		"Mean Absolute Error": true,
+		"Root Mean Squared Error": true,
+		"Root Mean Squared Log Error": false,
+		"Median Absolute Error": true,
+		"Mean Absolute Percentage Error": true,
+		"r2": true,
+		"Mean Poisson Deviance": false,
+		"Mean Gamma Deviance": false,
+		"Mean Tweedie Deviance": false,
+		"Mean Pinball Loss": true
+	},
 	"Runtime": {
 		"Name": "Default",
 		"Start": "2018/10/01",
