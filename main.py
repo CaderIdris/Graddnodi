@@ -405,31 +405,64 @@ def main():
                                 ] = comparison.return_coefficients()
                         # After comparison is complete, save all coefficients
                         # and test/train data to sqlite3 database
-                        make_path(f"{cache_path}{run_name}/Coefficients/{field}")
-                        con = sql.connect(
-                                f"{cache_path}{run_name}/Coefficients/{field}/"
-                                f"{comparison_name}.db"
-                                )
-                        for comp_technique, dframe in coefficients[field][
-                                comparison_name].items():
-                            dframe.to_sql(
-                                    name=comp_technique,
-                                    con=con,
-                                    if_exists="replace",
+                        if cache_coeffs:
+                            make_path(f"{cache_path}{run_name}/Coefficients/{field}")
+                            con = sql.connect(
+                                    f"{cache_path}{run_name}/Coefficients/{field}/"
+                                    f"{comparison_name}.db"
                                     )
-                        con.close()
+                            for comp_technique, dframe in coefficients[field][
+                                    comparison_name].items():
+                                dframe.to_sql(
+                                        name=comp_technique,
+                                        con=con,
+                                        if_exists="replace",
+                                        )
+                            con.close()
 
     # Get errors
     errors = dict()
+    errors_folder = f"{cache_path}{run_name}/Errors"
+    errors_fields = folder_list(errors_folder)
+    for field_name in errors_fields:
+        errors[field_name] = dict()
+        comp_files = folder_list(f"{errors_folder}/{field_name}")
+        for comp in comp_files:
+            techniques = file_list(f"{errors_folder}/{field_name}/{comp}", extension=".db")
+            errors[field_name][comp] = dict()
+            for tech in techniques:
+                tech_name = re.sub(r'(.*?)/|\.\w*$', '', tech)
+                errors[field_name][comp][tech_name] = dict()
+                con = sql.connect(tech)
+                cursor = con.cursor()
+                cursor.execute(
+                        "SELECT name FROM sqlite_master WHERE type='table';"
+                        )
+                tables = cursor.fetchall()
+                for table in tables:
+                    errors[field_name][comp][tech_name][table[0]] = pd.read_sql(
+                            sql=f"SELECT * from '{table[0]}'",
+                            con=con,
+                            parse_dates={"Datetime": "%Y-%m-%d %H:%M:%S%z"}
+                            )
+                cursor.close()
+                con.close()
+    cache_errors = False
+
     error_techniques = run_config["Errors"]
     for field, comparisons in coefficients.items():
-        errors[field] = dict()
+        if errors.get(field) is None:
+            errors[field] = dict()
         for comparison, coefficients in comparisons.items():
-            errors[field][comparison] = dict()
+            if errors[field].get(comparison) is None:
+                errors[field][comparison] = dict()
             techniques = list(coefficients.keys())
             techniques.remove("Test")
             techniques.remove("Train")
             for technique in techniques:
+                if errors[field][comparison].get(technique) is not None:
+                    continue
+                cache_errors = True
                 error_calculations = Errors(
                     coefficients["Train"], 
                     coefficients["Test"], 
