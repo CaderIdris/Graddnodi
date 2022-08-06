@@ -45,10 +45,11 @@ import pandas as pd
 
 from modules.idristools import get_json, parse_date_string, all_combinations
 from modules.idristools import DateDifference, make_path, file_list
-from modules.idristools import folder_list
+from modules.idristools import folder_list, debug_stats
 from modules.influxquery import InfluxQuery, FluxQuery
 from modules.calibration import Calibration
 from modules.errors import Errors 
+from modules.figures import Figures
 
 def main():
     # Read command line arguments
@@ -447,7 +448,6 @@ def main():
                             )
                 cursor.close()
                 con.close()
-    cache_errors = False
 
     error_techniques = run_config["Errors"]
     for field, comparisons in coefficients.items():
@@ -462,7 +462,6 @@ def main():
             for technique in techniques:
                 if errors[field][comparison].get(technique) is not None:
                     continue
-                cache_errors = True
                 error_calculations = Errors(
                     coefficients["Train"], 
                     coefficients["Test"], 
@@ -509,8 +508,35 @@ def main():
                             )
                 con.close()
 
+    report_structure = dict()
+    report_structure_folder = f"{cache_path}{run_name}/Report Structure"
+    for field, comparisons in coefficients.items():
+        if errors.get(field) is None:
+            continue # Skip if errors aren't present
+        if report_structure.get(field) is None:
+            report_structure[field] = dict()
+        for comparison, coefficients in coefficients.items():
+            if errors[field].get(comparison) is None:
+                continue # Skip if errors aren't present
+            if report_structure[field].get(comparison) is None:
+                report_structure[field][comparison] = dict()
+            techniques = list(coefficients.keys())
+            techniques.remove("Test")
+            techniques.remove("Train")
+            for technique in techniques:
+                figs = Figures(
+                    coefficients["Train"],
+                    coefficients["Test"],
+                    coefficients[technique],
+                    errors[field][comparison][technique]
+                        )
+                
+
+
+    
 
 
 if __name__ == "__main__":
     main()
+    
 

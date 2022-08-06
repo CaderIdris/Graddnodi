@@ -15,11 +15,13 @@ filelock==3.7.1
 fonttools==4.33.3
 formulae==0.3.4
 influxdb-client==1.29.1
+intel-openmp==2022.1.0
 joblib==1.1.0
 kiwisolver==1.4.3
 logical-unification==0.4.5
 matplotlib==3.5.2
 miniKanren==1.0.3
+mkl==2022.1.0
 multipledispatch==0.6.0
 netCDF4==1.5.8
 numpy==1.21.6
@@ -33,7 +35,9 @@ pytz==2022.1
 Rx==3.2.0
 scikit-learn==1.1.1
 scipy==1.8.1
+seaborn==0.11.2
 six==1.16.0
+tbb==2021.6.0
 threadpoolctl==3.1.0
 toolz==0.11.2
 typing_extensions==4.2.0

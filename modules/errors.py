@@ -232,7 +232,7 @@ class Errors:
 
     def explained_variance_score(self):
         error_name = "Explained Variance Score"
-        for index, (method, combo) in enumerate(self.combos.items()):
+        for method, combo in self.combos.items():
             for name, pred, true in combo:
                 if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
                     self._errors[name]["Error"].append(error_name)
@@ -242,7 +242,7 @@ class Errors:
 
     def max(self):
         error_name = "Max Error"
-        for index, (method, combo) in enumerate(self.combos.items()):
+        for method, combo in self.combos.items():
             for name, pred, true in combo:
                 if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
                     self._errors[name]["Error"].append(error_name)
@@ -252,7 +252,7 @@ class Errors:
 
     def mean_absolute(self):
         error_name = "Mean Absolute Error"
-        for index, (method, combo) in enumerate(self.combos.items()):
+        for method, combo in self.combos.items():
             for name, pred, true in combo:
                 if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
                     self._errors[name]["Error"].append(error_name)
@@ -262,7 +262,7 @@ class Errors:
 
     def root_mean_squared(self):
         error_name = "Root Mean Squared Error"
-        for index, (method, combo) in enumerate(self.combos.items()):
+        for method, combo in self.combos.items():
             for name, pred, true in combo:
                 if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
                     self._errors[name]["Error"].append(error_name)
@@ -272,7 +272,7 @@ class Errors:
 
     def root_mean_squared_log(self):
         error_name = "Root Mean Squared Log Error"
-        for index, (method, combo) in enumerate(self.combos.items()):
+        for method, combo in self.combos.items():
             for name, pred, true in combo:
                 if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
                     self._errors[name]["Error"].append(error_name)
@@ -282,7 +282,7 @@ class Errors:
 
     def median_absolute(self):
         error_name = "Median Absolute Error"
-        for index, (method, combo) in enumerate(self.combos.items()):
+        for method, combo in self.combos.items():
             for name, pred, true in combo:
                 if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
                     self._errors[name]["Error"].append(error_name)
@@ -292,7 +292,7 @@ class Errors:
 
     def mean_absolute_percentage(self):
         error_name = "Mean Absolute Percentage Error"
-        for index, (method, combo) in enumerate(self.combos.items()):
+        for method, combo in self.combos.items():
             for name, pred, true in combo:
                 if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
                     self._errors[name]["Error"].append(error_name)
@@ -302,7 +302,7 @@ class Errors:
 
     def r2(self):
         error_name = "r2"
-        for index, (method, combo) in enumerate(self.combos.items()):
+        for method, combo in self.combos.items():
             for name, pred, true in combo:
                 if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
                     self._errors[name]["Error"].append(error_name)
@@ -312,7 +312,7 @@ class Errors:
 
     def mean_poisson_deviance(self):
         error_name = "Mean Poisson Deviance"
-        for index, (method, combo) in enumerate(self.combos.items()):
+        for method, combo in self.combos.items():
             for name, pred, true in combo:
                 if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
                     self._errors[name]["Error"].append(error_name)
@@ -322,7 +322,7 @@ class Errors:
 
     def mean_gamma_deviance(self):
         error_name = "Mean Gamma Deviance"
-        for index, (method, combo) in enumerate(self.combos.items()):
+        for method, combo in self.combos.items():
             for name, pred, true in combo:
                 if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
                     self._errors[name]["Error"].append(error_name)
@@ -332,7 +332,8 @@ class Errors:
 
     def mean_tweedie_deviance(self):
         error_name = "Mean Tweedie Deviance"
-        for index, (method, combo) in enumerate(self.combos.items()):
+        for method, combo in self.combos.items():
+
             for name, pred, true in combo:
                 if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
                     self._errors[name]["Error"].append(error_name)
@@ -342,7 +343,7 @@ class Errors:
 
     def mean_pinball_loss(self):
         error_name = "Mean Pinball Deviance"
-        for index, (method, combo) in enumerate(self.combos.items()):
+        for method, combo in self.combos.items():
             for name, pred, true in combo:
                 if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
                     self._errors[name]["Error"].append(error_name)
