@@ -453,19 +453,19 @@ def main():
     for field, comparisons in coefficients.items():
         if errors.get(field) is None:
             errors[field] = dict()
-        for comparison, coefficients in comparisons.items():
+        for comparison, coeffs in comparisons.items():
             if errors[field].get(comparison) is None:
                 errors[field][comparison] = dict()
-            techniques = list(coefficients.keys())
+            techniques = list(coeffs.keys())
             techniques.remove("Test")
             techniques.remove("Train")
             for technique in techniques:
                 if errors[field][comparison].get(technique) is not None:
                     continue
                 error_calculations = Errors(
-                    coefficients["Train"], 
-                    coefficients["Test"], 
-                    coefficients[technique]
+                    coeffs["Train"], 
+                    coeffs["Test"], 
+                    coeffs[technique]
                     ) 
                 if error_techniques["Explained Variance Score"]:
                     error_calculations.explained_variance_score()
@@ -511,23 +511,25 @@ def main():
     report_structure = dict()
     report_structure_folder = f"{cache_path}{run_name}/Report Structure"
     for field, comparisons in coefficients.items():
+        print(field)
         if errors.get(field) is None:
             continue # Skip if errors aren't present
         if report_structure.get(field) is None:
             report_structure[field] = dict()
-        for comparison, coefficients in coefficients.items():
+        for comparison, coeffs in comparisons.items():
             if errors[field].get(comparison) is None:
                 continue # Skip if errors aren't present
+            print(comparison)
             if report_structure[field].get(comparison) is None:
                 report_structure[field][comparison] = dict()
-            techniques = list(coefficients.keys())
+            techniques = list(coeffs.keys())
             techniques.remove("Test")
             techniques.remove("Train")
             for technique in techniques:
                 figs = Figures(
-                    coefficients["Train"],
-                    coefficients["Test"],
-                    coefficients[technique],
+                    coeffs["Train"],
+                    coeffs["Test"],
+                    coeffs[technique],
                     errors[field][comparison][technique]
                         )
                 
