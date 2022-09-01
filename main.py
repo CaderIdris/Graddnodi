@@ -461,11 +461,12 @@ def main():
             techniques.remove("Train")
             for technique in techniques:
                 if errors[field][comparison].get(technique) is not None:
-                    continue
+                    pass#continue
                 error_calculations = Errors(
                     coeffs["Train"], 
                     coeffs["Test"], 
-                    coeffs[technique]
+                    coeffs[technique],
+                    comparison
                     ) 
                 if error_techniques["Explained Variance Score"]:
                     error_calculations.explained_variance_score()
@@ -491,6 +492,9 @@ def main():
                     error_calculations.mean_tweedie_deviance()
                 if error_techniques["Mean Pinball Loss"]:
                     error_calculations.mean_pinball_loss()
+                error_calculations.linear_reg_plot()
+                error_calculations.get_plots('A')
+                break
                 errors[field][comparison][technique] = error_calculations.get_errors()
                 # After error calculation is complete, save all coefficients
                 # and test/train data to sqlite3 database
@@ -508,30 +512,6 @@ def main():
                             )
                 con.close()
 
-    report_structure = dict()
-    report_structure_folder = f"{cache_path}{run_name}/Report Structure"
-    for field, comparisons in coefficients.items():
-        print(field)
-        if errors.get(field) is None:
-            continue # Skip if errors aren't present
-        if report_structure.get(field) is None:
-            report_structure[field] = dict()
-        for comparison, coeffs in comparisons.items():
-            if errors[field].get(comparison) is None:
-                continue # Skip if errors aren't present
-            print(comparison)
-            if report_structure[field].get(comparison) is None:
-                report_structure[field][comparison] = dict()
-            techniques = list(coeffs.keys())
-            techniques.remove("Test")
-            techniques.remove("Train")
-            for technique in techniques:
-                figs = Figures(
-                    coeffs["Train"],
-                    coeffs["Test"],
-                    coeffs[technique],
-                    errors[field][comparison][technique]
-                        )
                 
 
 

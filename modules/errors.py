@@ -1,6 +1,10 @@
 from collections import defaultdict
 import re
 
+import matplotlib as mpl 
+mpl.use("pgf") # Used to make pgf files for latex
+import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 from sklearn import metrics as met
 
@@ -49,7 +53,7 @@ class Errors:
         mean_pinball_loss:
 
     """
-    def __init__(self, train, test, coefficients):
+    def __init__(self, train, test, coefficients, comparison_name):
         """ Initialise the class
 
         Keyword Arguments:
@@ -58,6 +62,8 @@ class Errors:
             test (DataFrame): Testing data
 
             coefficients (DataFrame): Calibration coefficients
+
+            comparison_name (String): Name of the comparison
         """
         self.train = train
         self.test = test
@@ -65,6 +71,9 @@ class Errors:
         self._errors = defaultdict(lambda: defaultdict(list))
         self.y_pred = self._calibrate()
         self.combos = self._get_all_combos()
+        self.x_name = re.match(r".*(?= vs )", comparison_name)[0]
+        self.y_name = re.sub(r".*(?<= vs )", "", comparison_name)
+        self._plots = defaultdict(lambda: defaultdict(list))
 
     def _calibrate(self):
         y_pred_dict = dict()
@@ -358,3 +367,55 @@ class Errors:
                 self._errors[key] = self._errors[key].set_index("Error")
         self._errors = dict(self._errors)
         return self._errors
+
+    def linear_reg_plot(self):
+        plot_name = "Linear Regression"
+        for method, combo in self.combos.items():
+            for name, pred, true in combo:
+                if len(self._plots[name]["Plot"]) == len(self._plots[name][method]):
+                    self._plots[name]["Plot"].append(plot_name)
+                fig = plt.figure(figsize=(8,8))
+                plt.style.use('Settings/style.mplstyle')
+                fig_gs = fig.add_gridspec(
+                        2, 2, width_ratios=(7,2), height_ratios=(2,7), 
+                        left=0.1, right=0.9, bottom=0.1, top=0.9,
+                        wspace=0.0, hspace=0.0
+                        )
+
+                scatter_ax = fig.add_subplot(fig_gs[1, 0])
+                histx_ax = fig.add_subplot(fig_gs[0, 0], sharex=scatter_ax)
+                histx_ax.axis('off')
+                histy_ax = fig.add_subplot(fig_gs[1, 1], sharey=scatter_ax)
+                histy_ax.axis('off')
+
+                max_value = max(max(true), max(pred))
+                scatter_ax.set_xlim(0, max_value)
+                scatter_ax.set_ylim(0, max_value)
+                scatter_ax.set_xlabel(f"{self.x_name} ({method})")
+                scatter_ax.set_ylabel(f"{self.y_name}")
+                scatter_ax.scatter(pred, true)
+
+                binwidth = 2.5
+                xymax = max(np.max(np.abs(pred)), np.max(np.abs(true)))
+                lim = (int(xymax/binwidth) + 1) * binwidth
+
+                bins = np.arange(-lim, lim + binwidth, binwidth)
+                histx_ax.hist(pred, bins=bins)
+                histy_ax.hist(true, bins=bins, orientation='horizontal')
+
+                self._plots[name][method].append(fig)
+
+    def get_plots(self, path):
+        for key, item in self._plots.items():
+            self._plots[key] = pd.DataFrame(data=dict(item))
+            if "Plot" in self._plots[key].columns:
+                self._plots[key] = self._plots[key].set_index("Plot")
+            graph_types = self._plots[key].index.to_numpy()
+            for graph_type in graph_types:
+                for vars, plot in self._plots[key].loc[graph_type].to_dict().items():
+                    # key: Data set e.g uncalibrated full data
+                    # graph_type: Type of graph e.g Linear Regression 
+                    # vars: Variables used e.g x + rh
+                    # plot: The figure to be saved 
+                    print(f"{key} {graph_type} {vars} {plot}")
+

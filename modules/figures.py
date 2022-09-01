@@ -1,5 +1,6 @@
 import re
 
+import matplotlib.pyplot as plt
 import pandas as pd
 
 __author__ = "Idris Hayward"
@@ -119,4 +120,18 @@ class Figures:
         return y_pred
 
     def linear_reg_plot(self):
-        pass
+        plt.style.use('seaborn-paper')
+        fig = plt.figure(figsize=(8,8))
+        fig_gs = fig.add_gridspec(
+                2, 2, width_ratios=(7,2), height_ratios=(2,7), 
+                left=0.1, right=0.9, bottom=0.1, top=0.9,
+                wspace=0.05, hspace=0.05
+                )
+
+        scatter_ax = fig.add_subplot(fig_gs[1, 0])
+        histx_ax = fig.add_subplot(fig_gs[0, 0], sharex=scatter_ax)
+        histx_ax.tick_params(axis="x", labelbottom=False)
+        histy_ax = fig.add_subplot(fig_gs[1, 1], sharey=scatter_ax)
+        histy_ax.tick_params(axis="y", labelleft=False)
+
+

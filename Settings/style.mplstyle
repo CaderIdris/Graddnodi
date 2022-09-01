@@ -1,0 +1,39 @@
+axes.axisbelow: True
+axes.edgecolor: white
+axes.facecolor: eaeaf2
+axes.grid: True
+axes.labelcolor: .15
+axes.linewidth: 0.0
+
+figure.facecolor: white
+
+font.family: [sans-serif]
+
+grid.color: white
+grid.linestyle: -
+
+image.cmap: Greys
+
+legend.frameon: False
+legend.numpoints: 1
+legend.scatterpoints: 1
+
+lines.solid_capstyle: round
+
+pgf.rcfonts: False
+pgf.texsystem: lualatex
+
+scatter.marker: x
+
+text.color: .15
+text.usetex: true
+
+xtick.color: .15
+xtick.direction: out
+xtick.major.size: 0.0
+xtick.minor.size: 0.0
+
+ytick.color: .15
+ytick.direction: out
+ytick.major.size: 0.0
+ytick.minor.size: 0.0
