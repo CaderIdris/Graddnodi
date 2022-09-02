@@ -329,11 +329,20 @@ def main():
                     )
             tables = cursor.fetchall()
             for table in tables:
-                coefficients[field_name][comparison_name][table[0]] = pd.read_sql(
-                        sql=f"SELECT * from '{table[0]}'",
-                        con=con,
-                        parse_dates={"Datetime": "%Y-%m-%d %H:%M:%S%z"}
-                        )
+                if re.search("Test|Train", table[0]):
+                    coefficients[field_name][comparison_name][table[0]] = pd.read_sql(
+                            sql=f"SELECT * from '{table[0]}'",
+                            con=con,
+                            parse_dates={"Datetime": "%Y-%m-%d %H:%M:%S%z"},
+                            index_col="Datetime"
+                            )
+                else:
+                    coefficients[field_name][comparison_name][table[0]] = pd.read_sql(
+                            sql=f"SELECT * from '{table[0]}'",
+                            con=con,
+                            parse_dates={"Datetime": "%Y-%m-%d %H:%M:%S%z"},
+                            index_col="index"
+                            )
             cursor.close()
             con.close()
     cache_coeffs = False
@@ -454,12 +463,14 @@ def main():
         if errors.get(field) is None:
             errors[field] = dict()
         for comparison, coeffs in comparisons.items():
+            print(comparison)
             if errors[field].get(comparison) is None:
                 errors[field][comparison] = dict()
             techniques = list(coeffs.keys())
             techniques.remove("Test")
             techniques.remove("Train")
             for technique in techniques:
+                print(technique)
                 if errors[field][comparison].get(technique) is not None:
                     pass#continue
                 error_calculations = Errors(
@@ -493,8 +504,9 @@ def main():
                 if error_techniques["Mean Pinball Loss"]:
                     error_calculations.mean_pinball_loss()
                 error_calculations.linear_reg_plot()
-                error_calculations.get_plots('A')
-                break
+                error_calculations.bland_altman_plot()
+                error_calculations.get_plots(f"Report/Results/{field}/{comparison}/{technique}")
+                """
                 errors[field][comparison][technique] = error_calculations.get_errors()
                 # After error calculation is complete, save all coefficients
                 # and test/train data to sqlite3 database
@@ -511,6 +523,7 @@ def main():
                             if_exists="replace",
                             )
                 con.close()
+                """
 
                 
 

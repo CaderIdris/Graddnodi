@@ -7,7 +7,7 @@ axes.linewidth: 0.0
 
 figure.facecolor: white
 
-font.family: [sans-serif]
+font.family: Linux Biolinum
 
 grid.color: white
 grid.linestyle: -

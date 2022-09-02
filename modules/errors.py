@@ -1,9 +1,11 @@
 from collections import defaultdict
+from pathlib import Path
 import re
 
 import matplotlib as mpl 
 mpl.use("pgf") # Used to make pgf files for latex
 import matplotlib.pyplot as plt
+plt.rcParams.update({'figure.max_open_warning': 0})
 import numpy as np
 import pandas as pd
 from sklearn import metrics as met
@@ -83,7 +85,7 @@ class Errors:
                 y_pred = self._pymc_calibrate(coefficient_set[1])
             else:
                 y_pred = self._skl_calibrate(coefficient_set[1])
-            y_pred_dict[coefficient_set[1]["index"]] = y_pred
+            y_pred_dict[coefficient_set[0]] = y_pred
         return y_pred_dict
 
     def _pymc_calibrate(self, coeffs):
@@ -374,8 +376,8 @@ class Errors:
             for name, pred, true in combo:
                 if len(self._plots[name]["Plot"]) == len(self._plots[name][method]):
                     self._plots[name]["Plot"].append(plot_name)
-                fig = plt.figure(figsize=(8,8))
                 plt.style.use('Settings/style.mplstyle')
+                fig = plt.figure(figsize=(8,8))
                 fig_gs = fig.add_gridspec(
                         2, 2, width_ratios=(7,2), height_ratios=(2,7), 
                         left=0.1, right=0.9, bottom=0.1, top=0.9,
@@ -394,6 +396,12 @@ class Errors:
                 scatter_ax.set_xlabel(f"{self.x_name} ({method})")
                 scatter_ax.set_ylabel(f"{self.y_name}")
                 scatter_ax.scatter(pred, true)
+                if bool(re.search("Mean", name)):
+                    scatter_ax.axline((0, self.coefficients.loc[method]["i.Intercept"]), slope=self.coefficients.loc[method]["coeff.x"], color='red')
+                    scatter_ax.axline((0, self.coefficients.loc[method]["i.Intercept"] + 2*self.coefficients.loc[method]["sd.Intercept"]), slope=(self.coefficients.loc[method]["coeff.x"] + 2*self.coefficients.loc[method]["sd.x"]), color='green')
+                    scatter_ax.axline((0, self.coefficients.loc[method]["i.Intercept"] - 2*self.coefficients.loc[method]["sd.Intercept"]), slope=(self.coefficients.loc[method]["coeff.x"] - 2*self.coefficients.loc[method]["sd.x"]), color='green')
+                else:
+                    scatter_ax.axline((0, int(self.coefficients.loc[method]["i.Intercept"])), slope=self.coefficients.loc[method]["coeff.x"], color='red')
 
                 binwidth = 2.5
                 xymax = max(np.max(np.abs(pred)), np.max(np.abs(true)))
@@ -405,17 +413,52 @@ class Errors:
 
                 self._plots[name][method].append(fig)
 
-    def get_plots(self, path):
+    def bland_altman_plot(self):
+        plot_name = "Bland-Altman"
+        for method, combo in self.combos.items():
+            for name, pred, true in combo:
+                if len(self._plots[name]["Plot"]) == len(self._plots[name][method]):
+                    self._plots[name]["Plot"].append(plot_name)
+                plt.style.use('Settings/style.mplstyle')
+                fig, ax = plt.subplots(figsize=(8,8))
+                x_data = np.mean(np.vstack((pred, true)).T, axis=1)
+                y_data = np.array(pred) - np.array(true)
+                y_mean = np.mean(y_data)
+                y_sd = 1.96*np.std(y_data)
+                max_diff_from_mean = max((y_data - y_mean).min(), (y_data - y_mean).max(), key=abs)
+                ax.set_ylim(y_mean + max_diff_from_mean, y_mean - max_diff_from_mean)
+                ax.set_xlabel("Average of Measured and Reference")
+                ax.set_ylabel("Difference Between Measured and Reference")
+                ax.scatter(x_data, y_data)
+                ax.axline((0, y_mean), (1, y_mean), color='red')
+                ax.text(max(x_data), y_mean + 1, f"Mean: {y_mean:.2f}", verticalalignment='bottom', horizontalalignment='right')
+                ax.axline((0, y_mean + y_sd), (1, y_mean + y_sd), color='blue')
+                ax.text(max(x_data), y_mean + y_sd + 1, f"1.96$\\sigma$: {y_mean + y_sd:.2f}", verticalalignment='bottom', horizontalalignment='right')
+                ax.axline((0, y_mean - y_sd), (1, y_mean - y_sd), color='blue')
+                ax.text(max(x_data), y_mean - y_sd + 1, f"1.96$\\sigma$: -{y_sd:.2f}", verticalalignment='bottom', horizontalalignment='right')
+
+                self._plots[name][method].append(fig)
+
+    def get_plots(self, path='Graphs/'):
         for key, item in self._plots.items():
+            print(key)
             self._plots[key] = pd.DataFrame(data=dict(item))
             if "Plot" in self._plots[key].columns:
                 self._plots[key] = self._plots[key].set_index("Plot")
             graph_types = self._plots[key].index.to_numpy()
             for graph_type in graph_types:
+                graph_paths = dict()
                 for vars, plot in self._plots[key].loc[graph_type].to_dict().items():
+                    directory = Path(f"{path}/{vars}/{key}")
+                    directory.mkdir(parents=True, exist_ok=True)
+                    plot.savefig(f"{directory.as_posix()}/{graph_type}.pgf")
+                    plot.savefig(f"{directory.as_posix()}/{graph_type}.png")
+                    graph_paths[vars] = f"{directory.as_posix()}/{graph_type}.pgf"
+                    plt.close(plot)
+                graph_paths = pd.Series(graph_paths)
+                self._plots[key].loc[graph_type] = graph_paths
                     # key: Data set e.g uncalibrated full data
                     # graph_type: Type of graph e.g Linear Regression 
                     # vars: Variables used e.g x + rh
                     # plot: The figure to be saved 
-                    print(f"{key} {graph_type} {vars} {plot}")
 
