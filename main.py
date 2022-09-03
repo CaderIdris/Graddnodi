@@ -48,8 +48,7 @@ from modules.idristools import DateDifference, make_path, file_list
 from modules.idristools import folder_list, debug_stats
 from modules.influxquery import InfluxQuery, FluxQuery
 from modules.calibration import Calibration
-from modules.errors import Errors 
-from modules.figures import Figures
+from modules.results import Results 
 
 def main():
     # Read command line arguments
@@ -473,39 +472,40 @@ def main():
                 print(technique)
                 if errors[field][comparison].get(technique) is not None:
                     pass#continue
-                error_calculations = Errors(
+                result_calculations = Results(
                     coeffs["Train"], 
                     coeffs["Test"], 
                     coeffs[technique],
                     comparison
                     ) 
                 if error_techniques["Explained Variance Score"]:
-                    error_calculations.explained_variance_score()
+                    result_calculations.explained_variance_score()
                 if error_techniques["Max Error"]:
-                    error_calculations.max()
+                    result_calculations.max()
                 if error_techniques["Mean Absolute Error"]:
-                    error_calculations.mean_absolute()
+                    result_calculations.mean_absolute()
                 if error_techniques["Root Mean Squared Error"]:
-                    error_calculations.root_mean_squared()
+                    result_calculations.root_mean_squared()
                 if error_techniques["Root Mean Squared Log Error"]:
-                    error_calculations.root_mean_squared_log()
+                    result_calculations.root_mean_squared_log()
                 if error_techniques["Median Absolute Error"]:
-                    error_calculations.median_absolute()
+                    result_calculations.median_absolute()
                 if error_techniques["Mean Absolute Percentage Error"]:
-                    error_calculations.mean_absolute_percentage()
+                    result_calculations.mean_absolute_percentage()
                 if error_techniques["r2"]:
-                    error_calculations.r2()
+                    result_calculations.r2()
                 if error_techniques["Mean Poisson Deviance"]:
-                    error_calculations.mean_poisson_deviance()
+                    result_calculations.mean_poisson_deviance()
                 if error_techniques["Mean Gamma Deviance"]:
-                    error_calculations.mean_gamma_deviance()
+                    result_calculations.mean_gamma_deviance()
                 if error_techniques["Mean Tweedie Deviance"]:
-                    error_calculations.mean_tweedie_deviance()
+                    result_calculations.mean_tweedie_deviance()
                 if error_techniques["Mean Pinball Loss"]:
-                    error_calculations.mean_pinball_loss()
-                error_calculations.linear_reg_plot()
-                error_calculations.bland_altman_plot()
-                error_calculations.get_plots(f"Report/Results/{field}/{comparison}/{technique}")
+                    result_calculations.mean_pinball_loss()
+                #result_calculations.linear_reg_plot()
+                #result_calculations.bland_altman_plot()
+                #result_calculations.get_plots(f"Report/Results/{field}/{comparison}/{technique}")
+                result_calculations.get_results(f"Report/Results/{field}/{comparison}/{technique}")
                 """
                 errors[field][comparison][technique] = error_calculations.get_errors()
                 # After error calculation is complete, save all coefficients

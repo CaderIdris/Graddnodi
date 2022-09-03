@@ -10,8 +10,9 @@ import numpy as np
 import pandas as pd
 from sklearn import metrics as met
 
-class Errors:
-    """ Calculates errors between "true" and "predicted" measurements
+class Results:
+    """ Calculates errors between "true" and "predicted" measurements, plots
+    graphs and returns all results
 
     Attributes:
         train (DataFrame): Training data
@@ -441,7 +442,6 @@ class Errors:
 
     def get_plots(self, path='Graphs/'):
         for key, item in self._plots.items():
-            print(key)
             self._plots[key] = pd.DataFrame(data=dict(item))
             if "Plot" in self._plots[key].columns:
                 self._plots[key] = self._plots[key].set_index("Plot")
@@ -461,4 +461,29 @@ class Errors:
                     # graph_type: Type of graph e.g Linear Regression 
                     # vars: Variables used e.g x + rh
                     # plot: The figure to be saved 
+
+    def get_results(self, path='Results/'):
+        for key, item in self._errors.items():
+            self._errors[key] = pd.DataFrame(data=dict(item))
+            if "Error" in self._errors[key].columns:
+                self._errors[key] = self._errors[key].set_index("Error")
+                print(self._errors[key])
+                break
+                for vars, plot in self._errors[key].to_dict().items():
+                    directory = Path(f"{path}/{vars}/{key}")
+                    directory.mkdir(parents=True, exist_ok=True)
+        self._errors = dict(self._errors)
+        return self._errors
+
+        for key, item in self._plots.items():
+                for vars, plot in self._plots[key].loc[graph_type].to_dict().items():
+                    directory = Path(f"{path}/{vars}/{key}")
+                    directory.mkdir(parents=True, exist_ok=True)
+                    plot.savefig(f"{directory.as_posix()}/{graph_type}.pgf")
+                    plot.savefig(f"{directory.as_posix()}/{graph_type}.png")
+                    graph_paths[vars] = f"{directory.as_posix()}/{graph_type}.pgf"
+                    plt.close(plot)
+                graph_paths = pd.Series(graph_paths)
+                self._plots[key].loc[graph_type] = graph_paths
+
 
