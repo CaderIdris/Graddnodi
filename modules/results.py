@@ -1,6 +1,7 @@
 from collections import defaultdict
 from pathlib import Path
 import re
+import sqlite3 as sql
 
 import matplotlib as mpl 
 mpl.use("pgf") # Used to make pgf files for latex
@@ -365,13 +366,14 @@ class Results:
     
     def get_errors(self):
         for key, item in self._errors.items():
-            self._errors[key] = pd.DataFrame(data=dict(item))
+            if not isinstance(self._errors[key], pd.DataFrame):
+                self._errors[key] = pd.DataFrame(data=dict(item))
             if "Error" in self._errors[key].columns:
                 self._errors[key] = self._errors[key].set_index("Error")
         self._errors = dict(self._errors)
         return self._errors
 
-    def linear_reg_plot(self):
+    def linear_reg_plot(self, title=None):
         plot_name = "Linear Regression"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
@@ -397,11 +399,16 @@ class Results:
                 scatter_ax.set_xlabel(f"{self.x_name} ({method})")
                 scatter_ax.set_ylabel(f"{self.y_name}")
                 scatter_ax.scatter(pred, true)
-                if bool(re.search("Mean", name)):
+                number_of_coeffs = np.count_nonzero(~np.isnan(self.coefficients.loc[method].values))
+                if bool(re.search("Mean", name)) and not bool(re.search("Uncalibrated", name)) and number_of_coeffs == 4:
                     scatter_ax.axline((0, self.coefficients.loc[method]["i.Intercept"]), slope=self.coefficients.loc[method]["coeff.x"], color='red')
                     scatter_ax.axline((0, self.coefficients.loc[method]["i.Intercept"] + 2*self.coefficients.loc[method]["sd.Intercept"]), slope=(self.coefficients.loc[method]["coeff.x"] + 2*self.coefficients.loc[method]["sd.x"]), color='green')
                     scatter_ax.axline((0, self.coefficients.loc[method]["i.Intercept"] - 2*self.coefficients.loc[method]["sd.Intercept"]), slope=(self.coefficients.loc[method]["coeff.x"] - 2*self.coefficients.loc[method]["sd.x"]), color='green')
-                else:
+                elif bool(re.search("Min", name)) and not bool(re.search("Uncalibrated", name)) and number_of_coeffs == 4:
+                    scatter_ax.axline((0, self.coefficients.loc[method]["i.Intercept"] - 2*self.coefficients.loc[method]["sd.Intercept"]), slope=(self.coefficients.loc[method]["coeff.x"] - 2*self.coefficients.loc[method]["sd.x"]), color='red')
+                elif bool(re.search("Max", name)) and not bool(re.search("Uncalibrated", name)) and number_of_coeffs == 4:
+                    scatter_ax.axline((0, self.coefficients.loc[method]["i.Intercept"] + 2*self.coefficients.loc[method]["sd.Intercept"]), slope=(self.coefficients.loc[method]["coeff.x"] + 2*self.coefficients.loc[method]["sd.x"]), color='red')
+                elif not bool(re.search("Uncalibrated", name)) and number_of_coeffs == 2:
                     scatter_ax.axline((0, int(self.coefficients.loc[method]["i.Intercept"])), slope=self.coefficients.loc[method]["coeff.x"], color='red')
 
                 binwidth = 2.5
@@ -411,10 +418,12 @@ class Results:
                 bins = np.arange(-lim, lim + binwidth, binwidth)
                 histx_ax.hist(pred, bins=bins)
                 histy_ax.hist(true, bins=bins, orientation='horizontal')
+                if isinstance(title, str):
+                    fig.suptitle(f"{title}\n{name} ({method})")
 
                 self._plots[name][method].append(fig)
 
-    def bland_altman_plot(self):
+    def bland_altman_plot(self, title=None):
         plot_name = "Bland-Altman"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
@@ -437,10 +446,12 @@ class Results:
                 ax.text(max(x_data), y_mean + y_sd + 1, f"1.96$\\sigma$: {y_mean + y_sd:.2f}", verticalalignment='bottom', horizontalalignment='right')
                 ax.axline((0, y_mean - y_sd), (1, y_mean - y_sd), color='blue')
                 ax.text(max(x_data), y_mean - y_sd + 1, f"1.96$\\sigma$: -{y_sd:.2f}", verticalalignment='bottom', horizontalalignment='right')
+                if isinstance(title, str):
+                    fig.suptitle(f"{title}\n{name} ({method})")
 
                 self._plots[name][method].append(fig)
 
-    def get_plots(self, path='Graphs/'):
+    def save_plots(self, path):
         for key, item in self._plots.items():
             self._plots[key] = pd.DataFrame(data=dict(item))
             if "Plot" in self._plots[key].columns:
@@ -462,28 +473,29 @@ class Results:
                     # vars: Variables used e.g x + rh
                     # plot: The figure to be saved 
 
-    def get_results(self, path='Results/'):
+    def save_results(self, path):
         for key, item in self._errors.items():
             self._errors[key] = pd.DataFrame(data=dict(item))
             if "Error" in self._errors[key].columns:
                 self._errors[key] = self._errors[key].set_index("Error")
-                print(self._errors[key])
-                break
-                for vars, plot in self._errors[key].to_dict().items():
+                vars_list = self._errors[key].columns.to_list()
+                for vars in vars_list:
+                    error_results = pd.DataFrame(self._errors[key][vars])
+                    coefficients = pd.DataFrame(self.coefficients.loc[vars].T) 
                     directory = Path(f"{path}/{vars}/{key}")
                     directory.mkdir(parents=True, exist_ok=True)
-        self._errors = dict(self._errors)
-        return self._errors
-
-        for key, item in self._plots.items():
-                for vars, plot in self._plots[key].loc[graph_type].to_dict().items():
-                    directory = Path(f"{path}/{vars}/{key}")
-                    directory.mkdir(parents=True, exist_ok=True)
-                    plot.savefig(f"{directory.as_posix()}/{graph_type}.pgf")
-                    plot.savefig(f"{directory.as_posix()}/{graph_type}.png")
-                    graph_paths[vars] = f"{directory.as_posix()}/{graph_type}.pgf"
-                    plt.close(plot)
-                graph_paths = pd.Series(graph_paths)
-                self._plots[key].loc[graph_type] = graph_paths
-
+                    con = sql.connect(f"{directory.as_posix()}/Results.db")
+                    error_results.to_sql(
+                            name="Errors",
+                            con=con,
+                            if_exists="replace",
+                            index=True
+                            )
+                    coefficients.to_sql(
+                            name="Coefficients",
+                            con=con,
+                            if_exists="replace",
+                            index=True
+                            ) 
+                    con.close()
 

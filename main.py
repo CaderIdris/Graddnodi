@@ -37,6 +37,7 @@ __status__ = "Indev"
 import argparse
 from collections import defaultdict
 import datetime as dt
+from pathlib import Path
 import re
 import sqlite3 as sql
 
@@ -63,7 +64,7 @@ def main():
         "--cache-path",
         type=str,
         help="Location of cache folder",
-        default="cache/"
+        default="Output/"
     )
     arg_parser.add_argument(
         "-c",
@@ -471,7 +472,7 @@ def main():
             for technique in techniques:
                 print(technique)
                 if errors[field][comparison].get(technique) is not None:
-                    pass#continue
+                    continue
                 result_calculations = Results(
                     coeffs["Train"], 
                     coeffs["Test"], 
@@ -502,12 +503,11 @@ def main():
                     result_calculations.mean_tweedie_deviance()
                 if error_techniques["Mean Pinball Loss"]:
                     result_calculations.mean_pinball_loss()
-                #result_calculations.linear_reg_plot()
-                #result_calculations.bland_altman_plot()
-                #result_calculations.get_plots(f"Report/Results/{field}/{comparison}/{technique}")
-                result_calculations.get_results(f"Report/Results/{field}/{comparison}/{technique}")
-                """
-                errors[field][comparison][technique] = error_calculations.get_errors()
+                result_calculations.linear_reg_plot(f"[{field}] {comparison} ({technique})")
+                result_calculations.bland_altman_plot(f"[{field}] {comparison} ({technique})")
+                result_calculations.save_plots(f"{cache_path}{run_name}/Results/{field}/{comparison}/{technique}")
+                result_calculations.save_results(f"{cache_path}{run_name}/Results/{field}/{comparison}/{technique}")
+                errors[field][comparison][technique] = result_calculations.get_errors()
                 # After error calculation is complete, save all coefficients
                 # and test/train data to sqlite3 database
                 make_path(f"{cache_path}{run_name}/Errors/{field}/{comparison}")
@@ -522,8 +522,40 @@ def main():
                             con=con,
                             if_exists="replace",
                             )
-                con.close()
-                """
+
+    report_folder = Path(f"{cache_path}{run_name}/Results/")
+    report_fields = [subdir for subdir in report_folder.iterdir() if subdir.is_dir()]
+    # Report
+    for field in report_fields:
+        # Part
+        comparisons = [subdir for subdir in field.iterdir() if subdir.is_dir()] 
+        for comparison in comparisons:
+            # Chapter
+            techniques = [subdir for subdir in comparison.iterdir() if subdir.is_dir()]
+            for technique in techniques:
+                # Section
+                variables = [subdir for subdir in technique.iterdir() if subdir.is_dir()]
+                for variable in variables: 
+                    # Subsection
+                    datasets = [subdir for subdir in variable.iterdir() if subdir.is_dir()]
+                    for dataset in datasets:
+                        # Subsubsection
+                        con = sql.connect(f"{dataset.as_posix()}/Results.db")
+                        coefficients = pd.read_sql(
+                            sql="SELECT * FROM 'Coefficients'",
+                            con=con
+                                )
+                        errors = pd.read_sql(
+                            sql="SELECT * FROM 'Errors'",
+                            con=con
+                                )
+                        con.close()
+                        pgf_files = dataset.glob('*.pgf')
+                        for pgf_file in pgf_files:
+                            rel_file_path_parts = ("..",) + pgf_file.parts[2:]
+                            rel_file_path = '/'.join(rel_file_path_parts)
+                            print(rel_file_path)
+                        
 
                 
 

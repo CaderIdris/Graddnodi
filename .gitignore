@@ -1,5 +1,4 @@
 modules/__pycache__/
 __pycache__/
 .env/
-cache/
-Results/
+Output/
