@@ -183,64 +183,79 @@ class Results:
             combos[method] = self._all_combos(y_pred)
         return combos
 
-    def _all_combos(self, pred):
+    def _all_combos(self, pred, to_use={"Calibrated Test": True, "Uncalibrated Test": True}):
         combos = list()
         if re.search("mean.", str(pred.keys())):
-            combos.append(("Calibrated Test Data (Mean)", 
-                pred["mean.Test"], 
-                self.test["y"]))
-            combos.append(("Calibrated Test Data (Min)", 
-                pred["min.Test"], 
-                self.test["y"]))
-            combos.append(("Calibrated Test Data (Max)", 
-                pred["max.Test"], 
-                self.test["y"]))
-            combos.append(("Uncalibrated Test Data", 
-                self.test["x"], 
-                self.test["y"]))
-            combos.append(("Calibrated Train Data (Mean)", 
-                pred["mean.Train"], 
-                self.train["y"]))
-            combos.append(("Calibrated Train Data (Min)", 
-                pred["min.Train"], 
-                self.train["y"]))
-            combos.append(("Calibrated Train Data (Max)", 
-                pred["max.Train"], 
-                self.train["y"]))
-            combos.append(("Uncalibrated Train Data", 
-                self.train["x"], 
-                self.train["y"]))
-            combos.append(("Calibrated Full Data (Mean)", 
-                pd.concat([pred["mean.Train"], pred["mean.Test"]]), 
-                pd.concat([self.train["y"], self.test["y"]])))
-            combos.append(("Calibrated Full Data (Min)", 
-                pd.concat([pred["min.Train"], pred["min.Test"]]), 
-                pd.concat([self.train["y"], self.test["y"]])))
-            combos.append(("Calibrated Full Data (Max)", 
-                pd.concat([pred["max.Train"], pred["max.Test"]]), 
-                pd.concat([self.train["y"], self.test["y"]])))
-            combos.append(("Uncalibrated Full Data", 
-                pd.concat([self.train["x"], self.test["x"]]), 
-                pd.concat([self.train["y"], self.test["y"]])))
-        else:
-            combos.append(("Calibrated Test Data",
-                    pred["Test"],
+            if to_use.get("Calibrated Test", False):
+                combos.append(("Calibrated Test Data (Mean)", 
+                    pred["mean.Test"], 
                     self.test["y"]))
-            combos.append(("Calibrated Train Data",
-                    pred["Train"],
-                    self.train["y"]))
-            combos.append(("Calibrated Full Data",
-                    pd.concat([pred["Train"], pred["Test"]]),
-                    pd.concat([self.train["y"],self.test["y"]])))
-            combos.append(("Uncalibrated Test Data",
-                    self.test["x"],
+            if to_use.get("Calibrated Test", False) and to_use.get("MinMax", False):
+                combos.append(("Calibrated Test Data (Min)", 
+                    pred["min.Test"], 
                     self.test["y"]))
-            combos.append(("Uncalibrated Train Data",
-                    self.train["x"],
+                combos.append(("Calibrated Test Data (Max)", 
+                    pred["max.Test"], 
+                    self.test["y"]))
+            if to_use.get("Uncalibrated Test", False):
+                combos.append(("Uncalibrated Test Data", 
+                    self.test["x"], 
+                    self.test["y"]))
+            if to_use.get("Calibrated Train", False):
+                combos.append(("Calibrated Train Data (Mean)", 
+                    pred["mean.Train"], 
                     self.train["y"]))
-            combos.append(("Uncalibrated Full Data",
-                    pd.concat([self.train["x"], self.test["x"]]),
+            if to_use.get("Calibrated Train", False) and to_use.get("MinMax", False):
+                combos.append(("Calibrated Train Data (Min)", 
+                    pred["min.Train"], 
+                    self.train["y"]))
+                combos.append(("Calibrated Train Data (Max)", 
+                    pred["max.Train"], 
+                    self.train["y"]))
+            if to_use.get("Uncalibrated Train", False):
+                combos.append(("Uncalibrated Train Data", 
+                    self.train["x"], 
+                    self.train["y"]))
+            if to_use.get("Calibrated Full", False):
+                combos.append(("Calibrated Full Data (Mean)", 
+                    pd.concat([pred["mean.Train"], pred["mean.Test"]]), 
                     pd.concat([self.train["y"], self.test["y"]])))
+            if to_use.get("Calibrated Full", False) and to_use.get("MinMax", False):
+                combos.append(("Calibrated Full Data (Min)", 
+                    pd.concat([pred["min.Train"], pred["min.Test"]]), 
+                    pd.concat([self.train["y"], self.test["y"]])))
+                combos.append(("Calibrated Full Data (Max)", 
+                    pd.concat([pred["max.Train"], pred["max.Test"]]), 
+                    pd.concat([self.train["y"], self.test["y"]])))
+            if to_use.get("Uncalibrated Full", False):
+                combos.append(("Uncalibrated Full Data", 
+                    pd.concat([self.train["x"], self.test["x"]]), 
+                    pd.concat([self.train["y"], self.test["y"]])))
+        else:
+            if to_use.get("Calibrated Test", False):
+                combos.append(("Calibrated Test Data",
+                        pred["Test"],
+                        self.test["y"]))
+            if to_use.get("Calibrated Train", False):
+                combos.append(("Calibrated Train Data",
+                        pred["Train"],
+                        self.train["y"]))
+            if to_use.get("Calibrated Full", False):
+                combos.append(("Calibrated Full Data",
+                        pd.concat([pred["Train"], pred["Test"]]),
+                        pd.concat([self.train["y"],self.test["y"]])))
+            if to_use.get("Uncalibrated Test", False):
+                combos.append(("Uncalibrated Test Data",
+                        self.test["x"],
+                        self.test["y"]))
+            if to_use.get("Uncalibrated Train", False):
+                combos.append(("Uncalibrated Train Data",
+                        self.train["x"],
+                        self.train["y"]))
+            if to_use.get("Uncalibrated Full", False):
+                combos.append(("Uncalibrated Full Data",
+                        pd.concat([self.train["x"], self.test["x"]]),
+                        pd.concat([self.train["y"], self.test["y"]])))
         return combos
 
     def explained_variance_score(self):
@@ -376,6 +391,8 @@ class Results:
     def linear_reg_plot(self, title=None):
         plot_name = "Linear Regression"
         for method, combo in self.combos.items():
+            if method != "x":
+                continue
             for name, pred, true in combo:
                 if len(self._plots[name]["Plot"]) == len(self._plots[name][method]):
                     self._plots[name]["Plot"].append(plot_name)
@@ -426,6 +443,8 @@ class Results:
     def bland_altman_plot(self, title=None):
         plot_name = "Bland-Altman"
         for method, combo in self.combos.items():
+            if method != "x":
+                continue
             for name, pred, true in combo:
                 if len(self._plots[name]["Plot"]) == len(self._plots[name][method]):
                     self._plots[name]["Plot"].append(plot_name)
@@ -463,7 +482,7 @@ class Results:
                     directory = Path(f"{path}/{vars}/{key}")
                     directory.mkdir(parents=True, exist_ok=True)
                     plot.savefig(f"{directory.as_posix()}/{graph_type}.pgf")
-                    plot.savefig(f"{directory.as_posix()}/{graph_type}.png")
+                    # plot.savefig(f"{directory.as_posix()}/{graph_type}.png")
                     graph_paths[vars] = f"{directory.as_posix()}/{graph_type}.pgf"
                     plt.close(plot)
                 graph_paths = pd.Series(graph_paths)

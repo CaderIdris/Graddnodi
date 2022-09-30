@@ -50,6 +50,7 @@ from modules.idristools import folder_list, debug_stats
 from modules.influxquery import InfluxQuery, FluxQuery
 from modules.calibration import Calibration
 from modules.results import Results 
+from modules.report import Report
 
 def main():
     # Read command line arguments
@@ -431,33 +432,31 @@ def main():
                             con.close()
 
     # Get errors
-    errors = dict()
-    errors_folder = f"{cache_path}{run_name}/Errors"
-    errors_fields = folder_list(errors_folder)
-    for field_name in errors_fields:
-        errors[field_name] = dict()
-        comp_files = folder_list(f"{errors_folder}/{field_name}")
-        for comp in comp_files:
-            techniques = file_list(f"{errors_folder}/{field_name}/{comp}", extension=".db")
-            errors[field_name][comp] = dict()
-            for tech in techniques:
-                tech_name = re.sub(r'(.*?)/|\.\w*$', '', tech)
-                errors[field_name][comp][tech_name] = dict()
-                con = sql.connect(tech)
-                cursor = con.cursor()
-                cursor.execute(
-                        "SELECT name FROM sqlite_master WHERE type='table';"
-                        )
-                tables = cursor.fetchall()
-                for table in tables:
-                    errors[field_name][comp][tech_name][table[0]] = pd.read_sql(
-                            sql=f"SELECT * from '{table[0]}'",
-                            con=con,
-                            parse_dates={"Datetime": "%Y-%m-%d %H:%M:%S%z"}
-                            )
-                cursor.close()
-                con.close()
+#    for field_name in errors_fields:
+#        errors[field_name] = dict()
+#        comp_files = folder_list(f"{errors_folder}/{field_name}")
+#        for comp in comp_files:
+#            techniques = file_list(f"{errors_folder}/{field_name}/{comp}", extension=".db")
+#            errors[field_name][comp] = dict()
+#            for tech in techniques:
+#                tech_name = re.sub(r'(.*?)/|\.\w*$', '', tech)
+#                errors[field_name][comp][tech_name] = dict()
+#                con = sql.connect(tech)
+#                cursor = con.cursor()
+#                cursor.execute(
+#                        "SELECT name FROM sqlite_master WHERE type='table';"
+#                        )
+#                tables = cursor.fetchall()
+#                for table in tables:
+#                    errors[field_name][comp][tech_name][table[0]] = pd.read_sql(
+#                            sql=f"SELECT * from '{table[0]}'",
+#                            con=con,
+#                            parse_dates={"Datetime": "%Y-%m-%d %H:%M:%S%z"}
+#                            )
+#                cursor.close()
+#                con.close()
 
+    errors = dict()
     error_techniques = run_config["Errors"]
     for field, comparisons in coefficients.items():
         if errors.get(field) is None:
@@ -470,6 +469,8 @@ def main():
             techniques.remove("Test")
             techniques.remove("Train")
             for technique in techniques:
+                if Path(f"{cache_path}{run_name}/Results/{field}/{comparison}/{technique}/Results.db").is_file():
+                    continue
                 print(technique)
                 if errors[field][comparison].get(technique) is not None:
                     continue
@@ -506,14 +507,13 @@ def main():
                 result_calculations.linear_reg_plot(f"[{field}] {comparison} ({technique})")
                 result_calculations.bland_altman_plot(f"[{field}] {comparison} ({technique})")
                 result_calculations.save_plots(f"{cache_path}{run_name}/Results/{field}/{comparison}/{technique}")
-                result_calculations.save_results(f"{cache_path}{run_name}/Results/{field}/{comparison}/{technique}")
                 errors[field][comparison][technique] = result_calculations.get_errors()
                 # After error calculation is complete, save all coefficients
                 # and test/train data to sqlite3 database
-                make_path(f"{cache_path}{run_name}/Errors/{field}/{comparison}")
+                make_path(f"{cache_path}{run_name}/Results/{field}/{comparison}/{technique}")
                 con = sql.connect(
-                        f"{cache_path}{run_name}/Errors/{field}/{comparison}/"
-                        f"{technique}.db"
+                        f"{cache_path}{run_name}/Results/{field}/{comparison}/"
+                        f"{technique}/Results.db"
                         )
                 for dset, dframe in errors[field][comparison
                         ][technique].items():
@@ -523,38 +523,67 @@ def main():
                             if_exists="replace",
                             )
 
-    report_folder = Path(f"{cache_path}{run_name}/Results/")
+    report_folder = Path(f"{cache_path}{run_name}/Results")
     report_fields = [subdir for subdir in report_folder.iterdir() if subdir.is_dir()]
+    report = Report(title="Graddnodi Analysis", subtitle=run_name)
     # Report
     for field in report_fields:
         # Part
+        report.add_part(field.parts[-1])
         comparisons = [subdir for subdir in field.iterdir() if subdir.is_dir()] 
         for comparison in comparisons:
             # Chapter
+            report.add_chapter(comparison.parts[-1])
             techniques = [subdir for subdir in comparison.iterdir() if subdir.is_dir()]
             for technique in techniques:
                 # Section
+                report.add_section(technique.parts[-1])
+                con = sql.connect(f"{technique.as_posix()}/Results.db")
+                cursor = con.cursor()
+                cursor.execute(
+                        "SELECT name FROM sqlite_master WHERE type='table';"
+                        )
+                tables = cursor.fetchall()
+                for dat in tables:
+                    errors = pd.read_sql(
+                        sql=f"SELECT * From '{dat[0]}'",
+                        con=con
+                            )
+                    report.add_sideways_table(errors, dat[0])
+                cursor.close()
+                con.close()
+                report.clear_page()
                 variables = [subdir for subdir in technique.iterdir() if subdir.is_dir()]
                 for variable in variables: 
                     # Subsection
+                    report.add_subsection(variable.parts[-1])
                     datasets = [subdir for subdir in variable.iterdir() if subdir.is_dir()]
                     for dataset in datasets:
                         # Subsubsection
+                        report.add_subsubsection(dataset.parts[-1])
                         con = sql.connect(f"{dataset.as_posix()}/Results.db")
-                        coefficients = pd.read_sql(
-                            sql="SELECT * FROM 'Coefficients'",
-                            con=con
-                                )
-                        errors = pd.read_sql(
-                            sql="SELECT * FROM 'Errors'",
-                            con=con
-                                )
+#                        coefficients = pd.read_sql(
+#                            sql="SELECT * FROM 'Coefficients'",
+#                            con=con
+#                                )
+#                        errors = pd.read_sql(
+#                            sql="SELECT * FROM 'Errors'",
+#                            con=con
+#                                )
                         con.close()
-                        pgf_files = dataset.glob('*.pgf')
-                        for pgf_file in pgf_files:
+                        #report.add_tables_sbs([coefficients, errors], "Coefficients and Errors")
+                        pgf_files = list()
+                        pgf_files_raw = dataset.glob('*.pgf')
+                        for pgf_file in pgf_files_raw:
                             rel_file_path_parts = ("..",) + pgf_file.parts[2:]
                             rel_file_path = '/'.join(rel_file_path_parts)
-                            print(rel_file_path)
+                            pgf_files.append(rel_file_path)
+                        report.add_pgf_figures_sbs(pgf_files, "")
+                    report.clear_page()
+    path_to_save = Path(f"{cache_path}{run_name}/Report")
+    path_to_save.mkdir(parents=True, exist_ok=True)
+    report.save_tex(f"{path_to_save.as_posix()}")
+
                         
 
                 
