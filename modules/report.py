@@ -32,6 +32,9 @@ class Report:
     def add_subsubsection(self, title=""):
         self.report_text.append(f"\\subsubsection{{{title}}}")
 
+    def add_table(self, table, caption):
+        pass
+
     def add_sideways_table(self, table, caption):
         self.report_text.append(r"\begin{sidewaystable}")
         self.report_text.append(table.style.to_latex())

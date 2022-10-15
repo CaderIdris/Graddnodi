@@ -391,11 +391,12 @@ class Results:
     def linear_reg_plot(self, title=None):
         plot_name = "Linear Regression"
         for method, combo in self.combos.items():
-            if method != "x":
-                continue
             for name, pred, true in combo:
                 if len(self._plots[name]["Plot"]) == len(self._plots[name][method]):
                     self._plots[name]["Plot"].append(plot_name)
+                if method != "x":
+                    self._plots[name][method].append(None)
+                    continue
                 plt.style.use('Settings/style.mplstyle')
                 fig = plt.figure(figsize=(8,8))
                 fig_gs = fig.add_gridspec(
@@ -443,11 +444,12 @@ class Results:
     def bland_altman_plot(self, title=None):
         plot_name = "Bland-Altman"
         for method, combo in self.combos.items():
-            if method != "x":
-                continue
             for name, pred, true in combo:
                 if len(self._plots[name]["Plot"]) == len(self._plots[name][method]):
                     self._plots[name]["Plot"].append(plot_name)
+                if method != "x":
+                    self._plots[name][method].append(None)
+                    continue
                 plt.style.use('Settings/style.mplstyle')
                 fig, ax = plt.subplots(figsize=(8,8))
                 x_data = np.mean(np.vstack((pred, true)).T, axis=1)
@@ -470,6 +472,25 @@ class Results:
 
                 self._plots[name][method].append(fig)
 
+    def ecdf_plot(self, title=None): 
+        plot_name = "eCDF" 
+        for method, combo in self.combos.items():
+            for name, pred, true in combo:
+                if len(self._plots[name]["Plot"]) == len(self._plots[name][method]):
+                    self._plots[name]["Plot"].append(plot_name)
+                plt.style.use('Settings/style.mplstyle')
+                fig, ax = plt.subplots(figsize=(8,8))
+                true_x, true_y = ecdf(true)
+                pred_x, pred_y = ecdf(pred)
+                ax.set_ylim(0, 1)
+                ax.set_xlabel(f"Measurement")
+                ax.set_ylabel("Cumulative Total")
+                ax.plot(true_x, true_y, linewidth=3, alpha=0.8)
+                ax.plot(pred_x, pred_y, linestyle='none', marker='.')
+                if isinstance(title, str):
+                    fig.suptitle(f"{title}\n{name} ({method})")
+                self._plots[name][method].append(fig)
+
     def save_plots(self, path):
         for key, item in self._plots.items():
             self._plots[key] = pd.DataFrame(data=dict(item))
@@ -479,7 +500,9 @@ class Results:
             for graph_type in graph_types:
                 graph_paths = dict()
                 for vars, plot in self._plots[key].loc[graph_type].to_dict().items():
-                    directory = Path(f"{path}/{vars}/{key}")
+                    if plot is None:
+                        continue
+                    directory = Path(f"{path}/{key}/{vars}")
                     directory.mkdir(parents=True, exist_ok=True)
                     plot.savefig(f"{directory.as_posix()}/{graph_type}.pgf")
                     # plot.savefig(f"{directory.as_posix()}/{graph_type}.png")
@@ -501,7 +524,7 @@ class Results:
                 for vars in vars_list:
                     error_results = pd.DataFrame(self._errors[key][vars])
                     coefficients = pd.DataFrame(self.coefficients.loc[vars].T) 
-                    directory = Path(f"{path}/{vars}/{key}")
+                    directory = Path(f"{path}/{key}/{vars}")
                     directory.mkdir(parents=True, exist_ok=True)
                     con = sql.connect(f"{directory.as_posix()}/Results.db")
                     error_results.to_sql(
@@ -518,3 +541,7 @@ class Results:
                             ) 
                     con.close()
 
+def ecdf(data):
+    x = np.sort(data)
+    y = np.arange(1, len(data) + 1) / len(data)
+    return x, y 

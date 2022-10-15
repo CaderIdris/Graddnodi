@@ -506,6 +506,7 @@ def main():
                     result_calculations.mean_pinball_loss()
                 result_calculations.linear_reg_plot(f"[{field}] {comparison} ({technique})")
                 result_calculations.bland_altman_plot(f"[{field}] {comparison} ({technique})")
+                result_calculations.ecdf_plot(f"[{field}] {comparison} ({technique})")
                 result_calculations.save_plots(f"{cache_path}{run_name}/Results/{field}/{comparison}/{technique}")
                 errors[field][comparison][technique] = result_calculations.get_errors()
                 # After error calculation is complete, save all coefficients
@@ -522,6 +523,17 @@ def main():
                             con=con,
                             if_exists="replace",
                             )
+                con.close()
+                con = sql.connect(
+                        f"{cache_path}{run_name}/Results/{field}/{comparison}/"
+                        f"{technique}/Coefficients.db"
+                        )
+                coeffs[technique].to_sql(
+                        name="Coefficients",
+                        con=con,
+                        if_exists="replace"
+                        )
+                con.close()
 
     report_folder = Path(f"{cache_path}{run_name}/Results")
     report_fields = [subdir for subdir in report_folder.iterdir() if subdir.is_dir()]
@@ -538,6 +550,18 @@ def main():
             for technique in techniques:
                 # Section
                 report.add_section(technique.parts[-1])
+                # Add coefficients 
+                report.add_subsection("Coefficients")
+                con = sql.connect(f"{technique.as_posix()}/Coefficients.db")
+                coefficients = pd.read_sql(
+                    sql="SELECT * FROM 'Coefficients'",
+                    con=con
+                        )
+                report.add_table(coefficients, "Coefficients"])
+                con.close()
+                report.clear_page()
+                # Add results
+                report.add_subsection("Results")
                 con = sql.connect(f"{technique.as_posix()}/Results.db")
                 cursor = con.cursor()
                 cursor.execute(
@@ -546,40 +570,28 @@ def main():
                 tables = cursor.fetchall()
                 for dat in tables:
                     errors = pd.read_sql(
-                        sql=f"SELECT * From '{dat[0]}'",
+                        sql=f"SELECT * FROM '{dat[0]}'",
                         con=con
                             )
-                    report.add_sideways_table(errors, dat[0])
+                    report.add_subsubsection(dat[0])
+                    report.add_table(errors, dat[0])
                 cursor.close()
                 con.close()
                 report.clear_page()
-                variables = [subdir for subdir in technique.iterdir() if subdir.is_dir()]
-                for variable in variables: 
-                    # Subsection
-                    report.add_subsection(variable.parts[-1])
-                    datasets = [subdir for subdir in variable.iterdir() if subdir.is_dir()]
-                    for dataset in datasets:
-                        # Subsubsection
-                        report.add_subsubsection(dataset.parts[-1])
-                        con = sql.connect(f"{dataset.as_posix()}/Results.db")
-#                        coefficients = pd.read_sql(
-#                            sql="SELECT * FROM 'Coefficients'",
-#                            con=con
-#                                )
-#                        errors = pd.read_sql(
-#                            sql="SELECT * FROM 'Errors'",
-#                            con=con
-#                                )
-                        con.close()
-                        #report.add_tables_sbs([coefficients, errors], "Coefficients and Errors")
-                        pgf_files = list()
-                        pgf_files_raw = dataset.glob('*.pgf')
-                        for pgf_file in pgf_files_raw:
-                            rel_file_path_parts = ("..",) + pgf_file.parts[2:]
-                            rel_file_path = '/'.join(rel_file_path_parts)
-                            pgf_files.append(rel_file_path)
-                        report.add_pgf_figures_sbs(pgf_files, "")
+                # x variable linear regression, Bland-Altman and time series
+                x_dir = Path(f"{technique.as_posix()}/x")
+                if x_dir.is_dir():
+                    report.add_subsection("Base Calibration")
+                    pgf_files = [f"{x_dir.as_posix()}/Linear Regression.pgf", f"{x_dir.as_posix()}/Bland-Altman.pgf"]
+                    report.add_pgf_figures_sbs(pgf_files, "")
                     report.clear_page()
+                techniques = [subdir for subdir in technique.iterdir() if subdir.is_dir()]
+                # eCDFs 
+                if len(techniques) > 1:
+                    report.add_subsection("eCDF Variable Comparison")
+                else:
+                    report.add_subsection("eCDF")
+                # TODO eCDF code
     path_to_save = Path(f"{cache_path}{run_name}/Report")
     path_to_save.mkdir(parents=True, exist_ok=True)
     report.save_tex(f"{path_to_save.as_posix()}")
