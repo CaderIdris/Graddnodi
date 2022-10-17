@@ -468,17 +468,25 @@ def main():
             techniques = list(coeffs.keys())
             techniques.remove("Test")
             techniques.remove("Train")
-            for technique in techniques:
+            for index_tech, technique in enumerate(techniques):
                 if Path(f"{cache_path}{run_name}/Results/{field}/{comparison}/{technique}/Results.db").is_file():
                     continue
                 print(technique)
                 if errors[field][comparison].get(technique) is not None:
                     continue
+                x_name = re.match(r".*(?= vs )", comparison)[0]
+                y_name = re.sub(r".*(?<= vs )", "", comparison)
+                x_measurements = measurements[field][x_name]
+                y_measurements = measurements[field][y_name]
                 result_calculations = Results(
                     coeffs["Train"], 
                     coeffs["Test"], 
                     coeffs[technique],
-                    comparison
+                    comparison,
+                    x_name = x_name,
+                    y_name = y_name,
+                    x_measurements = x_measurements,
+                    y_measurements = y_measurements
                     ) 
                 if error_techniques["Explained Variance Score"]:
                     result_calculations.explained_variance_score()
@@ -508,6 +516,8 @@ def main():
                 result_calculations.bland_altman_plot(f"[{field}] {comparison} ({technique})")
                 result_calculations.ecdf_plot(f"[{field}] {comparison} ({technique})")
                 result_calculations.save_plots(f"{cache_path}{run_name}/Results/{field}/{comparison}/{technique}")
+                if index_tech == 0:
+                    result_calculations.temp_time_series_plot(f"{cache_path}{run_name}/Results/{field}/{comparison}")
                 errors[field][comparison][technique] = result_calculations.get_errors()
                 # After error calculation is complete, save all coefficients
                 # and test/train data to sqlite3 database
@@ -557,7 +567,7 @@ def main():
                     sql="SELECT * FROM 'Coefficients'",
                     con=con
                         )
-                report.add_table(coefficients, "Coefficients"])
+                report.add_table(coefficients, "Coefficients")
                 con.close()
                 report.clear_page()
                 # Add results

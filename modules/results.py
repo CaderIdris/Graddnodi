@@ -57,7 +57,7 @@ class Results:
         mean_pinball_loss:
 
     """
-    def __init__(self, train, test, coefficients, comparison_name):
+    def __init__(self, train, test, coefficients, comparison_name, x_name=None, y_name=None, x_measurements=None, y_measurements=None):
         """ Initialise the class
 
         Keyword Arguments:
@@ -75,9 +75,11 @@ class Results:
         self._errors = defaultdict(lambda: defaultdict(list))
         self.y_pred = self._calibrate()
         self.combos = self._get_all_combos()
-        self.x_name = re.match(r".*(?= vs )", comparison_name)[0]
-        self.y_name = re.sub(r".*(?<= vs )", "", comparison_name)
         self._plots = defaultdict(lambda: defaultdict(list))
+        self.x_name = x_name 
+        self.y_name = y_name
+        self.x_measurements = x_measurements 
+        self.y_measurements = y_measurements
 
     def _calibrate(self):
         y_pred_dict = dict()
@@ -483,13 +485,24 @@ class Results:
                 true_x, true_y = ecdf(true)
                 pred_x, pred_y = ecdf(pred)
                 ax.set_ylim(0, 1)
-                ax.set_xlabel(f"Measurement")
+                ax.set_xlabel("Measurement")
                 ax.set_ylabel("Cumulative Total")
                 ax.plot(true_x, true_y, linewidth=3, alpha=0.8)
                 ax.plot(pred_x, pred_y, linestyle='none', marker='.')
                 if isinstance(title, str):
                     fig.suptitle(f"{title}\n{name} ({method})")
                 self._plots[name][method].append(fig)
+
+    def temp_time_series_plot(self, path, title=None): # This is not a good way to do this
+        plt.style.use('Settings/style.mplstyle')
+        fig, ax = plt.subplots(figsize=(24, 8))
+        ax.plot(self.x_measurements["Datetime"], self.x_measurements["Values"], label=self.y_name)
+        ax.plot(self.y_measurements["Datetime"], self.y_measurements["Values"], label=self.x_name)
+        ax.legend()
+        ax.set_xlabel("Datetime")
+        ax.set_ylabel("Concentration")
+        fig.savefig(f"{path}/Time Series.pgf")
+        plt.close(fig)
 
     def save_plots(self, path):
         for key, item in self._plots.items():
@@ -508,8 +521,6 @@ class Results:
                     # plot.savefig(f"{directory.as_posix()}/{graph_type}.png")
                     graph_paths[vars] = f"{directory.as_posix()}/{graph_type}.pgf"
                     plt.close(plot)
-                graph_paths = pd.Series(graph_paths)
-                self._plots[key].loc[graph_type] = graph_paths
                     # key: Data set e.g uncalibrated full data
                     # graph_type: Type of graph e.g Linear Regression 
                     # vars: Variables used e.g x + rh
