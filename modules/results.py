@@ -449,9 +449,6 @@ class Results:
             for name, pred, true in combo:
                 if len(self._plots[name]["Plot"]) == len(self._plots[name][method]):
                     self._plots[name]["Plot"].append(plot_name)
-                if method != "x":
-                    self._plots[name][method].append(None)
-                    continue
                 plt.style.use('Settings/style.mplstyle')
                 fig, ax = plt.subplots(figsize=(8,8))
                 x_data = np.mean(np.vstack((pred, true)).T, axis=1)
@@ -487,21 +484,32 @@ class Results:
                 ax.set_ylim(0, 1)
                 ax.set_xlabel("Measurement")
                 ax.set_ylabel("Cumulative Total")
-                ax.plot(true_x, true_y, linewidth=3, alpha=0.8)
-                ax.plot(pred_x, pred_y, linestyle='none', marker='.')
+                ax.plot(true_x, true_y, linewidth=3, alpha=0.8, label=self.y_name)
+                ax.plot(pred_x, pred_y, linestyle='none', marker='.', label=self.x_name)
+                ax.legend()
                 if isinstance(title, str):
                     fig.suptitle(f"{title}\n{name} ({method})")
                 self._plots[name][method].append(fig)
 
     def temp_time_series_plot(self, path, title=None): # This is not a good way to do this
         plt.style.use('Settings/style.mplstyle')
-        fig, ax = plt.subplots(figsize=(24, 8))
-        ax.plot(self.x_measurements["Datetime"], self.x_measurements["Values"], label=self.y_name)
-        ax.plot(self.y_measurements["Datetime"], self.y_measurements["Values"], label=self.x_name)
+        x_vals = self.x_measurements["Values"]
+        y_vals = self.y_measurements["Values"]
+        dates = self.x_measurements["Datetime"]
+        fig, ax = plt.subplots(figsize=(16, 8))
+        ax.plot(self.x_measurements["Datetime"], x_vals, label=self.y_name)
+        ax.plot(self.y_measurements["Datetime"], y_vals, label=self.x_name)
+        x_null = x_vals.isnull() 
+        y_null = y_vals.isnull() 
+        x_or_y_null = np.logical_or(x_null, y_null)
+        first_datetime = dates[x_null.loc[~x_or_y_null].index[0]]
+        last_datetime = dates[x_null.loc[~x_or_y_null].index[-1]]
         ax.legend()
+        ax.set_xlim(first_datetime, last_datetime)
         ax.set_xlabel("Datetime")
         ax.set_ylabel("Concentration")
         fig.savefig(f"{path}/Time Series.pgf")
+        fig.savefig(f"{path}/Time Series.png")
         plt.close(fig)
 
     def save_plots(self, path):
@@ -518,7 +526,7 @@ class Results:
                     directory = Path(f"{path}/{key}/{vars}")
                     directory.mkdir(parents=True, exist_ok=True)
                     plot.savefig(f"{directory.as_posix()}/{graph_type}.pgf")
-                    # plot.savefig(f"{directory.as_posix()}/{graph_type}.png")
+                    plot.savefig(f"{directory.as_posix()}/{graph_type}.png")
                     graph_paths[vars] = f"{directory.as_posix()}/{graph_type}.pgf"
                     plt.close(plot)
                     # key: Data set e.g uncalibrated full data

@@ -1,5 +1,6 @@
 #!/bin/python3
 
+
 """ Downloads multiple measurements over a set period of time from an InfluxDB
 2.x database and compares them all in a large collocation study with a range
 of regression methods
@@ -51,6 +52,13 @@ from modules.influxquery import InfluxQuery, FluxQuery
 from modules.calibration import Calibration
 from modules.results import Results 
 from modules.report import Report
+
+def relpath(path: Path):
+    # Quick and easy way to get relative paths for pgf files
+    shortened = list(path.parts[2:])
+    shortened.insert(0, "..")
+    return "/".join(shortened)
+
 
 def main():
     # Read command line arguments
@@ -556,52 +564,77 @@ def main():
         for comparison in comparisons:
             # Chapter
             report.add_chapter(comparison.parts[-1])
+            report.add_sideways_pgf(f"{relpath(comparison)}/Time Series.pgf", "Time Series Comparison")
+            report.clear_page()
             techniques = [subdir for subdir in comparison.iterdir() if subdir.is_dir()]
             for technique in techniques:
                 # Section
                 report.add_section(technique.parts[-1])
-                # Add coefficients 
-                report.add_subsection("Coefficients")
-                con = sql.connect(f"{technique.as_posix()}/Coefficients.db")
-                coefficients = pd.read_sql(
-                    sql="SELECT * FROM 'Coefficients'",
-                    con=con
-                        )
-                report.add_table(coefficients, "Coefficients")
-                con.close()
-                report.clear_page()
-                # Add results
-                report.add_subsection("Results")
-                con = sql.connect(f"{technique.as_posix()}/Results.db")
-                cursor = con.cursor()
-                cursor.execute(
-                        "SELECT name FROM sqlite_master WHERE type='table';"
-                        )
-                tables = cursor.fetchall()
-                for dat in tables:
-                    errors = pd.read_sql(
-                        sql=f"SELECT * FROM '{dat[0]}'",
-                        con=con
+                datasets = [subdir for subdir in technique.iterdir() if subdir.is_dir()]
+                for dataset in datasets:
+                    report.add_subsection(dataset.parts[-1])
+                    # Add coefficients 
+                    report.add_subsubsection("Coefficients")
+                    con = sql.connect(f"{technique.as_posix()}/Coefficients.db")
+                    coefficients = pd.read_sql(
+                        sql="SELECT * FROM 'Coefficients'",
+                        con=con,
+                        index_col="index"
                             )
-                    report.add_subsubsection(dat[0])
-                    report.add_table(errors, dat[0])
-                cursor.close()
-                con.close()
-                report.clear_page()
-                # x variable linear regression, Bland-Altman and time series
-                x_dir = Path(f"{technique.as_posix()}/x")
-                if x_dir.is_dir():
-                    report.add_subsection("Base Calibration")
-                    pgf_files = [f"{x_dir.as_posix()}/Linear Regression.pgf", f"{x_dir.as_posix()}/Bland-Altman.pgf"]
-                    report.add_pgf_figures_sbs(pgf_files, "")
+                    report.add_table(coefficients, "Coefficients", column_split=4, table_split=2)
+                    con.close()
                     report.clear_page()
-                techniques = [subdir for subdir in technique.iterdir() if subdir.is_dir()]
-                # eCDFs 
-                if len(techniques) > 1:
-                    report.add_subsection("eCDF Variable Comparison")
-                else:
-                    report.add_subsection("eCDF")
-                # TODO eCDF code
+                    # Add results
+                    report.add_subsubsection("Results")
+                    con = sql.connect(f"{technique.as_posix()}/Results.db")
+                    cursor = con.cursor()
+                    cursor.execute(
+                            "SELECT name FROM sqlite_master WHERE type='table';"
+                            )
+                    tables = cursor.fetchall()
+                    for dat in tables:
+                        errors = pd.read_sql(
+                            sql=f"SELECT * FROM '{dat[0]}'",
+                            con=con,
+                            index_col="Error"
+                                )
+                        report.add_subsubsection(dat[0])
+                        report.add_table(errors, dat[0], column_split=4, table_split=2)
+                    cursor.close()
+                    con.close()
+                    report.clear_page()
+                    if "Uncalibrated" in dataset.parts[-1]:
+                        continue
+                    
+                    # x variable linear regression, Bland-Altman and time series
+                    x_dir = Path(f"{dataset.as_posix()}/x")
+                    if x_dir.is_dir():
+                        report.add_subsection("Calibration")
+                        report.add_pgf_figure(f"{relpath(x_dir)}/Linear Regression.pgf", "Linear Regression")
+                        report.clear_page()
+                    techniques = [subdir for subdir in technique.iterdir() if subdir.is_dir()]
+                    # BAs 
+                    if len(techniques) > 1:
+                        report.add_subsection("Bland-Altman Comparisons")
+                    else:
+                        report.add_subsection("Bland-Altman")
+                    ba_graphs = list()
+                    ba_glob = dataset.glob("**/Bland-Altman.pgf")
+                    for graph in ba_glob:
+                        ba_graphs.append(relpath(graph))
+                    report.add_multiple_pgf(ba_graphs, "Bland-Altman Graphs", column_split=2, row_split=2)
+                    report.clear_page()
+                    # eCDFs 
+                    if len(techniques) > 1:
+                        report.add_subsection("eCDF Variable Comparison")
+                    else:
+                        report.add_subsection("eCDF")
+                    ecdf_graphs = list()
+                    ecdf_glob = dataset.glob("**/eCDF.pgf")
+                    for graph in ecdf_glob:
+                        ecdf_graphs.append(relpath(graph))
+                    report.add_multiple_pgf(ecdf_graphs, "eCDF Graphs", column_split=2, row_split=2)
+                    report.clear_page()
     path_to_save = Path(f"{cache_path}{run_name}/Report")
     path_to_save.mkdir(parents=True, exist_ok=True)
     report.save_tex(f"{path_to_save.as_posix()}")
