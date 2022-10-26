@@ -22,41 +22,90 @@ class Results:
 
         coefficients (DataFrame): Calibration coefficients
 
-        errors (dict): Dictionary of dataframes, each key representing a
-        different calibration methods
+        _errors (dict): Dictionary of dataframes, each key representing a
+        different calibration method
+
+        y_pred (dict): Calibrated x measurements
+
+        combos (list): List of all possible variable and dataset combos
+
+        _plots (dict): All result plots made
+
+        x_name (str): Name of x device 
+
+        y_name (str): Name of y device
+
+        x_measurements (pd.DataFrame): x_measurements with associated
+        timestamps
+
+        y_measurements (pd.DataFrame): y_measurements with associated
+        timestamps
 
     Methods:
-        calibrate:
+        _calibrate: Calibrate all x measurements with provided coefficients. 
+        This function splits calibrations depending on whether the coefficients
+        were derived using skl or pymc
 
-        _pymc_calibrate:
+        _pymc_calibrate: Calibrates x measurements with provided pymc 
+        coefficients. Returns mean, max and min calibrations.
 
-        _skl_calibrate:
+        _skl_calibrate: Calibrates x measurements with provided skl 
+        coefficients.
 
-        explained_variance_score: 
+        _get_all_combos: Return all possible combinations of datasets (e.g 
+        calibrated test, uncalibrated train) for every method
 
-        max:
+        _all_combos: Return all possible combinations of datasets (e.g 
+        calibrated test, uncalibrated train) for single method
 
-        mean_absolute:
+        explained_variance_score: Calculate the explained variance score
+        between the true (y) measurements and all predicted (x) measurements
 
-        root_mean_squared:
+        max: Calculate the max error between the true (y) measurements and all
+        predicted (x) measurements
 
-        root_mean_squared_log:
+        mean_absolute: Calculate the mean absolute error between the true (y)
+        measurements and all predicted (x) measurements
 
-        median_absolute:
+        root_mean_squared: Calculate the root mean squared error between the true (y) measurements and all predicted (x) measurements
 
-        mean_absolute_percentage:
+        root_mean_squared_log: Calculate the root_mean_squared_log error between the true (y) measurements and all predicted (x) measurements
 
-        r2:
+        median_absolute: Calculate the median absolute error between the true (y) measurements and all predicted (x) measurements
 
-        mean_poisson_deviance:
+        mean_absolute_percentage: Calculate the mean absolute percentage error between the true (y) measurements and all predicted (x) measurements
 
-        mean_gamma_deviance:
+        r2: Calculate the r2 score between the true (y) measurements and all predicted (x) measurements
 
-        mean_tweedie_deviance:
+        mean_poisson_deviance: Calculate the mean poisson deviance between the true (y) measurements and all predicted (x) measurements
 
-        mean_pinball_loss:
+        mean_gamma_deviance: Calculate the mean gamma deviance between the true (y) measurements and all predicted (x) measurements
 
+        mean_tweedie_deviance: Calculate the mean tweedie deviance between the true (y) measurements and all predicted (x) measurements
+
+        mean_pinball_loss: Calculate the mean pinball loss between the true (y) measurements and all predicted (x) measurements
+
+        return_errors: Returns dictionary of all recorded errors
+
+        bland_altman_plot: Plots a bland altman graph for all variable 
+        combinations for all specified datasets using predicted (calibrated x)
+        and true (y) data
+
+        linear_reg_plot: Plots a linear regression graph for calibrations that
+        only have an x coefficients for all specified datasets using predited 
+        (calibrated x) and true (y) data
+
+        ecdf_plot: Plots an eCDF graph for all variable combinations for all
+        specified dataset using predicted (calibrated x) and true (y) data
+
+        temp_time_series_plot: Temporary way to plot time series, not great
+
+        save_results: Saves errors and coefficients for specific variable and
+        dataset to local sqlite3 file
+
+        save_plots: Saves all plots in pgf format
     """
+
     def __init__(self, train, test, coefficients, comparison_name, x_name=None, y_name=None, x_measurements=None, y_measurements=None):
         """ Initialise the class
 
@@ -381,7 +430,7 @@ class Results:
                         met.mean_pinball_loss(true, pred)
                         )
     
-    def get_errors(self):
+    def return_errors(self):
         for key, item in self._errors.items():
             if not isinstance(self._errors[key], pd.DataFrame):
                 self._errors[key] = pd.DataFrame(data=dict(item))

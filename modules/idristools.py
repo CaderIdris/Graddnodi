@@ -17,7 +17,7 @@ previously I was copy and pasting them in to each program separately.
 
         append_to_file: Appends a string to the end of a file
         
-        parse_data_string: Parses date string in to datetime format
+        parse_date_string: Parses date string in to datetime format
 
         all_combinations: Generate all possible combinations of list of input
         variables
@@ -25,6 +25,8 @@ previously I was copy and pasting them in to each program separately.
         make_path: If path is not present, make it
 
         file_list: List all files in a directory
+
+        folder_list: Get list of subdirectories in a directory
 
     Classes:
         DateDifference: Contains functions used when working with time windows

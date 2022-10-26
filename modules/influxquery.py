@@ -9,6 +9,10 @@ querying data from an InfluxDB 2.x database with them.
 
         FluxQuery: Generates flux query for InfluxDB 2.x database
 
+    Methods:
+        dt_to_rfc3339: Converts datetime object to RFC3339 string used in 
+        queries to InfluxDB database
+
 """
 
 __author__ = "Idris Hayward"
@@ -45,6 +49,12 @@ class InfluxQuery:
     Methods:
         data_query: Queries the InfluxDB database for the specified
         measurements and stores them in the measurements instance
+
+        return_measurements: Returns measurements downloaded from InfluxDB
+        database as a dictionary
+
+        clear_measurements: Clears all measurements from the _measurements
+        instance
     """
     def __init__(self, config):
         """Initialises class 
@@ -134,8 +144,13 @@ class FluxQuery:
     Methods:
         add_field: Adds a field (measurand) to the query
 
+        add_multiple_fields: Adds multiple fields to the query
+
         add_filter: Adds a key and value to the query, all other values that
         the key has are filtered out
+
+        add_filter_range: Filters the measurements by tags within a specified
+        range
 
         add_group: Adds a group to the query, all measurements are grouped by
         the specified key
@@ -146,6 +161,12 @@ class FluxQuery:
 
         add_yield: Adds an output function, measurements are output with the
         specified name
+
+        drop_start_stop: Drops the start and stops columns from the data returned
+        from InfluxDB. Reduces data returned from database.
+
+        scale_measurements: Scales measurements within a specified date range
+        by a specified slope and offset
 
         return_query: Returns the query as a string, the query can't be
         accessed outside of the class
