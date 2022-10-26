@@ -67,23 +67,32 @@ class Results:
         mean_absolute: Calculate the mean absolute error between the true (y)
         measurements and all predicted (x) measurements
 
-        root_mean_squared: Calculate the root mean squared error between the true (y) measurements and all predicted (x) measurements
+        root_mean_squared: Calculate the root mean squared error between the 
+        true (y) measurements and all predicted (x) measurements
 
-        root_mean_squared_log: Calculate the root_mean_squared_log error between the true (y) measurements and all predicted (x) measurements
+        root_mean_squared_log: Calculate the root_mean_squared_log error
+        between the true (y) measurements and all predicted (x) measurements
 
-        median_absolute: Calculate the median absolute error between the true (y) measurements and all predicted (x) measurements
+        median_absolute: Calculate the median absolute error between the true
+        (y) measurements and all predicted (x) measurements
 
-        mean_absolute_percentage: Calculate the mean absolute percentage error between the true (y) measurements and all predicted (x) measurements
+        mean_absolute_percentage: Calculate the mean absolute percentage error
+        between the true (y) measurements and all predicted (x) measurements
 
-        r2: Calculate the r2 score between the true (y) measurements and all predicted (x) measurements
+        r2: Calculate the r2 score between the true (y) measurements and all 
+        predicted (x) measurements
 
-        mean_poisson_deviance: Calculate the mean poisson deviance between the true (y) measurements and all predicted (x) measurements
+        mean_poisson_deviance: Calculate the mean poisson deviance between the
+        true (y) measurements and all predicted (x) measurements
 
-        mean_gamma_deviance: Calculate the mean gamma deviance between the true (y) measurements and all predicted (x) measurements
+        mean_gamma_deviance: Calculate the mean gamma deviance between the true
+        (y) measurements and all predicted (x) measurements
 
-        mean_tweedie_deviance: Calculate the mean tweedie deviance between the true (y) measurements and all predicted (x) measurements
+        mean_tweedie_deviance: Calculate the mean tweedie deviance between the
+        true (y) measurements and all predicted (x) measurements
 
-        mean_pinball_loss: Calculate the mean pinball loss between the true (y) measurements and all predicted (x) measurements
+        mean_pinball_loss: Calculate the mean pinball loss between the true
+        (y) measurements and all predicted (x) measurements
 
         return_errors: Returns dictionary of all recorded errors
 
@@ -106,7 +115,9 @@ class Results:
         save_plots: Saves all plots in pgf format
     """
 
-    def __init__(self, train, test, coefficients, comparison_name, x_name=None, y_name=None, x_measurements=None, y_measurements=None):
+    def __init__(self, train, test, coefficients, comparison_name, 
+                 x_name=None, y_name=None, x_measurements=None, 
+                 y_measurements=None):
         """ Initialise the class
 
         Keyword Arguments:
@@ -131,6 +142,15 @@ class Results:
         self.y_measurements = y_measurements
 
     def _calibrate(self):
+        """ Calibrate all x measurements with provided coefficients.
+
+        All x measurements in both the training and testing dataset need to be
+        calibrated with the corresponding coefficients. This function loops 
+        through all coefficients sets (e.g, calibration using x, calibration
+        using x + RH etc) and determines whether the coefficients were obtained
+        using scikitlearn or pymc. It then sends them off to the corresponding 
+        function to be calibrated.
+        """
         y_pred_dict = dict()
         column_names = self.coefficients.columns
         for coefficient_set in self.coefficients.iterrows():
@@ -142,6 +162,20 @@ class Results:
         return y_pred_dict
 
     def _pymc_calibrate(self, coeffs):
+        """ Calibrates x measurements with provided pymc coefficients. Returns
+        mean, max and min calibrations, where max and min are +-2*sd.
+
+        Pymc calibrations don't just provide a coefficient for each variable
+        in the form of a mean but also provide a standard deviation on that 
+        mean. By taking the mean coefficients, mean + 2*sd (max) and mean - 
+        2*sd (min) we get 3 potential values for the predicted y value. 
+
+        Keyword Arguments:
+            coeffs (pd.Series): All coefficients to be calibrated with, the
+            mean.coeff and sd.coeff correspond to the coefficient mean and 
+            associated standard deviation. Intercept mean and sd is given with
+            i.Intercept and sd.Intercept.
+        """
         coefficient_keys_raw = list(coeffs.dropna().index)
         coefficient_keys_raw = [
                 element for element in coefficient_keys_raw if element not
@@ -149,8 +183,8 @@ class Results:
                 ]
         coefficient_keys = list()
         for key in coefficient_keys_raw:
-            if re.match("coeff\.", key):
-                coefficient_keys.append(re.sub("coeff\.", "", key))
+            if re.match(r"coeff\.", key):
+                coefficient_keys.append(re.sub(r"coeff\.", "", key))
         y_pred_train = self.train["x"] * coeffs.get("coeff.x")
         y_pred_test = self.test["x"] * coeffs.get("coeff.x")
         y_pred = {
@@ -204,7 +238,18 @@ class Results:
         return y_pred
 
     def _skl_calibrate(self, coeffs):
-        
+        """ Calibrate x measurements with provided skl coefficients. Returns
+        skl calibration.
+
+        Scikitlearn calibrations provide one coefficient for each variable, 
+        unlike pymc, so only one predicted signal is returned. 
+
+        Keyword Arguments:
+            coeffs (pd.Series): All coefficients to be calibrated with, the
+            mean.coeff and sd.coeff correspond to the coefficient mean and 
+            associated standard deviation. Intercept mean and sd is given with
+            i.Intercept and sd.Intercept.
+        """        
         coefficient_keys_raw = list(coeffs.dropna().index)
         coefficient_keys_raw = [
                 element for element in coefficient_keys_raw if element not
@@ -229,12 +274,44 @@ class Results:
         return y_pred
 
     def _get_all_combos(self):
+        """ Return all possible combinations of datasets.
+
+        This module has the capacity to test the errors of 6 datasets,
+        comprised of (un)calibrated test/train/both measurements. There are
+        also extra available for pymc calibrations as there is a mean, min and
+        max predicted signal. This function generates all the combinations
+        and puts them in a dict of lists. This allows for much easier looping
+        over the different combinations when calculating errors.
+
+        Keyword Arguments:
+            None
+        """
         combos = dict()
         for method, y_pred in self.y_pred.items():
             combos[method] = self._all_combos(y_pred)
         return combos
 
-    def _all_combos(self, pred, to_use={"Calibrated Test": True, "Uncalibrated Test": True}):
+    def _all_combos(self, pred, to_use={
+            "Calibrated Test": True,
+            "Uncalibrated Test": True
+        }):
+        """ Addition to _get_all_combos to get cleaner code 
+
+        Keyword arguments:
+            pred (dict): Dictionary containing all calibrated signals for a
+            single variable combination (e.g x, RH, T)
+
+            to_use (dict): Dict containing all different combos to be used. If
+            key is present and corresponding value is True, combo is added to list.
+            Keys can be:
+                - Calibrated Test: The calibrated test data
+                - Uncalibrated Test: The uncalibrated test data 
+                - Calibrated Train: The calibrated training data 
+                - Uncalibrated Train: The uncalibrated training data
+                - Calibrated Full: The calibrated test + training data
+                - Uncalibrated Full: The uncalibrated test + training data 
+                - MinMax: Use the minimum and maximum values generated by pymc 
+        """
         combos = list()
         if re.search("mean.", str(pred.keys())):
             if to_use.get("Calibrated Test", False):
@@ -310,6 +387,13 @@ class Results:
         return combos
 
     def explained_variance_score(self):
+        """ Calculate the explained variance score between the true values (y)
+        and predicted y (x)
+
+        This technique is explained in further detail at:
+        https://scikit-learn.org/stable/modules/generated/
+        sklearn.metrics.explained_variance_score
+        """
         error_name = "Explained Variance Score"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
@@ -320,6 +404,13 @@ class Results:
                         )
 
     def max(self):
+        """ Calculate the max error between the true values (y)
+        and predicted y (x)
+
+        This technique is explained in further detail at:
+        https://scikit-learn.org/stable/modules/generated/
+        sklearn.metrics.max_error
+        """
         error_name = "Max Error"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
@@ -330,6 +421,13 @@ class Results:
                         )
 
     def mean_absolute(self):
+        """ Calculate the mean absolute error between the true values (y)
+        and predicted y (x)
+
+        This technique is explained in further detail at:
+        https://scikit-learn.org/stable/modules/generated/
+        sklearn.metrics.mean_absolute_error
+        """
         error_name = "Mean Absolute Error"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
@@ -340,6 +438,13 @@ class Results:
                         )
 
     def root_mean_squared(self):
+        """ Calculate the root mean squared error between the true values (y)
+        and predicted y (x)
+
+        This technique is explained in further detail at:
+        https://scikit-learn.org/stable/modules/generated/
+        sklearn.metrics.mean_squared_error
+        """
         error_name = "Root Mean Squared Error"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
@@ -350,6 +455,13 @@ class Results:
                         )
 
     def root_mean_squared_log(self):
+        """ Calculate the root mean squared log error between the true values (y)
+        and predicted y (x)
+
+        This technique is explained in further detail at:
+        https://scikit-learn.org/stable/modules/generated/
+        sklearn.metrics.mean_squared_log_error
+        """
         error_name = "Root Mean Squared Log Error"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
@@ -360,6 +472,13 @@ class Results:
                         )
 
     def median_absolute(self):
+        """ Calculate the median absolute error between the true values (y)
+        and predicted y (x)
+
+        This technique is explained in further detail at:
+        https://scikit-learn.org/stable/modules/generated/
+        sklearn.metrics.median_absolute_error
+        """
         error_name = "Median Absolute Error"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
@@ -370,6 +489,13 @@ class Results:
                         )
 
     def mean_absolute_percentage(self):
+        """ Calculate the mean absolute percentage error between the true 
+        values (y) and predicted y (x)
+
+        This technique is explained in further detail at:
+        https://scikit-learn.org/stable/modules/generated/
+        sklearn.metrics.mean_absolute_percentage_error
+        """
         error_name = "Mean Absolute Percentage Error"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
@@ -380,6 +506,13 @@ class Results:
                         )
 
     def r2(self):
+        """ Calculate the r2 between the true values (y)
+        and predicted y (x)
+
+        This technique is explained in further detail at:
+        https://scikit-learn.org/stable/modules/generated/
+        sklearn.metrics.r2_score
+        """
         error_name = "r2"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
@@ -390,6 +523,13 @@ class Results:
                         )
 
     def mean_poisson_deviance(self):
+        """ Calculate the mean poisson deviance between the true values (y)
+        and predicted y (x)
+
+        This technique is explained in further detail at:
+        https://scikit-learn.org/stable/modules/generated/
+        sklearn.metrics.mean_poisson_deviance
+        """
         error_name = "Mean Poisson Deviance"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
@@ -400,6 +540,13 @@ class Results:
                         )
 
     def mean_gamma_deviance(self):
+        """ Calculate the mean gamma deviance between the true values (y)
+        and predicted y (x)
+
+        This technique is explained in further detail at:
+        https://scikit-learn.org/stable/modules/generated/
+        sklearn.metrics.mean_gamma_deviance
+        """
         error_name = "Mean Gamma Deviance"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
@@ -410,6 +557,13 @@ class Results:
                         )
 
     def mean_tweedie_deviance(self):
+        """ Calculate the mean tweedie deviance between the true values (y)
+        and predicted y (x)
+
+        This technique is explained in further detail at:
+        https://scikit-learn.org/stable/modules/generated/
+        sklearn.metrics.mean_tweedie_deviance
+        """
         error_name = "Mean Tweedie Deviance"
         for method, combo in self.combos.items():
 
@@ -421,6 +575,13 @@ class Results:
                         )
 
     def mean_pinball_loss(self):
+        """ Calculate the mean pinball loss between the true values (y)
+        and predicted y (x)
+
+        This technique is explained in further detail at:
+        https://scikit-learn.org/stable/modules/generated/
+        sklearn.metrics.mean_pinball_loss
+        """
         error_name = "Mean Pinball Deviance"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
@@ -431,6 +592,8 @@ class Results:
                         )
     
     def return_errors(self):
+        """ Returns all calculated errors in dataframe format
+        """
         for key, item in self._errors.items():
             if not isinstance(self._errors[key], pd.DataFrame):
                 self._errors[key] = pd.DataFrame(data=dict(item))
