@@ -630,26 +630,26 @@ class Results:
                 scatter_ax.set_ylim(0, max_value)
                 scatter_ax.set_xlabel(f"{self.x_name} ({method})")
                 scatter_ax.set_ylabel(f"{self.y_name}")
-                scatter_ax.scatter(pred, true)
+                scatter_ax.scatter(pred, true, color='C0', alpha=0.75)
                 number_of_coeffs = np.count_nonzero(~np.isnan(self.coefficients.loc[method].values))
                 if bool(re.search("Mean", name)) and not bool(re.search("Uncalibrated", name)) and number_of_coeffs == 4:
-                    scatter_ax.axline((0, self.coefficients.loc[method]["i.Intercept"]), slope=self.coefficients.loc[method]["coeff.x"], color='red')
-                    scatter_ax.axline((0, self.coefficients.loc[method]["i.Intercept"] + 2*self.coefficients.loc[method]["sd.Intercept"]), slope=(self.coefficients.loc[method]["coeff.x"] + 2*self.coefficients.loc[method]["sd.x"]), color='green')
-                    scatter_ax.axline((0, self.coefficients.loc[method]["i.Intercept"] - 2*self.coefficients.loc[method]["sd.Intercept"]), slope=(self.coefficients.loc[method]["coeff.x"] - 2*self.coefficients.loc[method]["sd.x"]), color='green')
+                    scatter_ax.axline((0, self.coefficients.loc[method]["i.Intercept"]), slope=self.coefficients.loc[method]["coeff.x"], color='C3')
+                    scatter_ax.axline((0, self.coefficients.loc[method]["i.Intercept"] + 2*self.coefficients.loc[method]["sd.Intercept"]), slope=(self.coefficients.loc[method]["coeff.x"] + 2*self.coefficients.loc[method]["sd.x"]), color='C4')
+                    scatter_ax.axline((0, self.coefficients.loc[method]["i.Intercept"] - 2*self.coefficients.loc[method]["sd.Intercept"]), slope=(self.coefficients.loc[method]["coeff.x"] - 2*self.coefficients.loc[method]["sd.x"]), color='C4')
                 elif bool(re.search("Min", name)) and not bool(re.search("Uncalibrated", name)) and number_of_coeffs == 4:
-                    scatter_ax.axline((0, self.coefficients.loc[method]["i.Intercept"] - 2*self.coefficients.loc[method]["sd.Intercept"]), slope=(self.coefficients.loc[method]["coeff.x"] - 2*self.coefficients.loc[method]["sd.x"]), color='red')
+                    scatter_ax.axline((0, self.coefficients.loc[method]["i.Intercept"] - 2*self.coefficients.loc[method]["sd.Intercept"]), slope=(self.coefficients.loc[method]["coeff.x"] - 2*self.coefficients.loc[method]["sd.x"]), color='C3')
                 elif bool(re.search("Max", name)) and not bool(re.search("Uncalibrated", name)) and number_of_coeffs == 4:
-                    scatter_ax.axline((0, self.coefficients.loc[method]["i.Intercept"] + 2*self.coefficients.loc[method]["sd.Intercept"]), slope=(self.coefficients.loc[method]["coeff.x"] + 2*self.coefficients.loc[method]["sd.x"]), color='red')
+                    scatter_ax.axline((0, self.coefficients.loc[method]["i.Intercept"] + 2*self.coefficients.loc[method]["sd.Intercept"]), slope=(self.coefficients.loc[method]["coeff.x"] + 2*self.coefficients.loc[method]["sd.x"]), color='C3')
                 elif not bool(re.search("Uncalibrated", name)) and number_of_coeffs == 2:
-                    scatter_ax.axline((0, int(self.coefficients.loc[method]["i.Intercept"])), slope=self.coefficients.loc[method]["coeff.x"], color='red')
+                    scatter_ax.axline((0, int(self.coefficients.loc[method]["i.Intercept"])), slope=self.coefficients.loc[method]["coeff.x"], color='C3')
 
                 binwidth = 2.5
                 xymax = max(np.max(np.abs(pred)), np.max(np.abs(true)))
                 lim = (int(xymax/binwidth) + 1) * binwidth
 
                 bins = np.arange(-lim, lim + binwidth, binwidth)
-                histx_ax.hist(pred, bins=bins)
-                histy_ax.hist(true, bins=bins, orientation='horizontal')
+                histx_ax.hist(pred, bins=bins, color='C0')
+                histy_ax.hist(true, bins=bins, orientation='horizontal', color='C0')
                 if isinstance(title, str):
                     fig.suptitle(f"{title}\n{name} ({method})")
 
@@ -668,16 +668,17 @@ class Results:
                 y_mean = np.mean(y_data)
                 y_sd = 1.96*np.std(y_data)
                 max_diff_from_mean = max((y_data - y_mean).min(), (y_data - y_mean).max(), key=abs)
-                ax.set_ylim(y_mean + max_diff_from_mean, y_mean - max_diff_from_mean)
+                text_adjust = (12 * max_diff_from_mean) / 300
+                ax.set_ylim(y_mean - max_diff_from_mean, y_mean + max_diff_from_mean)
                 ax.set_xlabel("Average of Measured and Reference")
                 ax.set_ylabel("Difference Between Measured and Reference")
-                ax.scatter(x_data, y_data)
-                ax.axline((0, y_mean), (1, y_mean), color='red')
-                ax.text(max(x_data), y_mean + 1, f"Mean: {y_mean:.2f}", verticalalignment='bottom', horizontalalignment='right')
-                ax.axline((0, y_mean + y_sd), (1, y_mean + y_sd), color='blue')
-                ax.text(max(x_data), y_mean + y_sd + 1, f"1.96$\\sigma$: {y_mean + y_sd:.2f}", verticalalignment='bottom', horizontalalignment='right')
-                ax.axline((0, y_mean - y_sd), (1, y_mean - y_sd), color='blue')
-                ax.text(max(x_data), y_mean - y_sd + 1, f"1.96$\\sigma$: -{y_sd:.2f}", verticalalignment='bottom', horizontalalignment='right')
+                ax.scatter(x_data, y_data, alpha=0.75)
+                ax.axline((0, y_mean), (1, y_mean), color='C3')
+                ax.text(max(x_data), y_mean + text_adjust, f"Mean: {y_mean:.2f}", verticalalignment='bottom', horizontalalignment='right')
+                ax.axline((0, y_mean + y_sd), (1, y_mean + y_sd), color='C4')
+                ax.text(max(x_data), y_mean + y_sd + text_adjust, f"1.96$\\sigma$: {y_mean + y_sd:.2f}", verticalalignment='bottom', horizontalalignment='right')
+                ax.axline((0, y_mean - y_sd), (1, y_mean - y_sd), color='C4')
+                ax.text(max(x_data), y_mean - y_sd + text_adjust, f"1.96$\\sigma$: -{y_sd:.2f}", verticalalignment='bottom', horizontalalignment='right')
                 if isinstance(title, str):
                     fig.suptitle(f"{title}\n{name} ({method})")
 
@@ -696,8 +697,8 @@ class Results:
                 ax.set_ylim(0, 1)
                 ax.set_xlabel("Measurement")
                 ax.set_ylabel("Cumulative Total")
-                ax.plot(true_x, true_y, linewidth=3, alpha=0.8, label=self.y_name)
-                ax.plot(pred_x, pred_y, linestyle='none', marker='.', label=self.x_name)
+                ax.plot(true_x, true_y, linestyle='none', marker='.', label=self.y_name)
+                ax.plot(pred_x, pred_y, linestyle='none', marker='.', alpha=0.8, label=self.x_name)
                 ax.legend()
                 if isinstance(title, str):
                     fig.suptitle(f"{title}\n{name} ({method})")

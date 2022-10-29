@@ -526,7 +526,7 @@ def main():
                 result_calculations.save_plots(f"{cache_path}{run_name}/Results/{field}/{comparison}/{technique}")
                 if index_tech == 0:
                     result_calculations.temp_time_series_plot(f"{cache_path}{run_name}/Results/{field}/{comparison}")
-                errors[field][comparison][technique] = result_calculations.get_errors()
+                errors[field][comparison][technique] = result_calculations.return_errors()
                 # After error calculation is complete, save all coefficients
                 # and test/train data to sqlite3 database
                 make_path(f"{cache_path}{run_name}/Results/{field}/{comparison}/{technique}")
@@ -552,6 +552,7 @@ def main():
                         if_exists="replace"
                         )
                 con.close()
+            break
 
     report_folder = Path(f"{cache_path}{run_name}/Results")
     report_fields = [subdir for subdir in report_folder.iterdir() if subdir.is_dir()]
