@@ -39,4 +39,4 @@ ytick.direction: out
 ytick.major.size: 0.0
 ytick.minor.size: 0.0
 
-axes.prop_cycle: cycler(color=['xkcd:cerulean blue', 'xkcd:viridian', 'xkcd:goldenrod', 'xkcd:vermillion', 'xkcd:fresh green', 'xkcd:bright aqua', 'xkcd:pumpkin orange'])
+axes.prop_cycle: cycler('color', ['40004b', '762a83', '9970ab', 'c2a5cf', 'e7d4e8', 'd9f0d3', 'a6dba0', '5aae61', '1b7837', '00441b'])
