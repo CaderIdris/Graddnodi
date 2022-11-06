@@ -739,7 +739,6 @@ class Results:
                     directory = Path(f"{path}/{key}/{vars}")
                     directory.mkdir(parents=True, exist_ok=True)
                     plot.savefig(f"{directory.as_posix()}/{graph_type}.pgf")
-                    plot.savefig(f"{directory.as_posix()}/{graph_type}.png")
                     graph_paths[vars] = f"{directory.as_posix()}/{graph_type}.pgf"
                     plt.close(plot)
                     # key: Data set e.g uncalibrated full data

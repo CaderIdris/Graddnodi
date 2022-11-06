@@ -51,6 +51,7 @@ from modules.idristools import folder_list, debug_stats
 from modules.influxquery import InfluxQuery, FluxQuery
 from modules.calibration import Calibration
 from modules.results import Results 
+from modules.summary import Summary
 from modules.report import Report
 
 def relpath(path: Path):
@@ -439,49 +440,34 @@ def main():
                                         )
                             con.close()
 
-    # Get errors
-#    for field_name in errors_fields:
-#        errors[field_name] = dict()
-#        comp_files = folder_list(f"{errors_folder}/{field_name}")
-#        for comp in comp_files:
-#            techniques = file_list(f"{errors_folder}/{field_name}/{comp}", extension=".db")
-#            errors[field_name][comp] = dict()
-#            for tech in techniques:
-#                tech_name = re.sub(r'(.*?)/|\.\w*$', '', tech)
-#                errors[field_name][comp][tech_name] = dict()
-#                con = sql.connect(tech)
-#                cursor = con.cursor()
-#                cursor.execute(
-#                        "SELECT name FROM sqlite_master WHERE type='table';"
-#                        )
-#                tables = cursor.fetchall()
-#                for table in tables:
-#                    errors[field_name][comp][tech_name][table[0]] = pd.read_sql(
-#                            sql=f"SELECT * from '{table[0]}'",
-#                            con=con,
-#                            parse_dates={"Datetime": "%Y-%m-%d %H:%M:%S%z"}
-#                            )
-#                cursor.close()
-#                con.close()
-
     errors = dict()
     error_techniques = run_config["Errors"]
     for field, comparisons in coefficients.items():
-        if errors.get(field) is None:
-            errors[field] = dict()
+        errors[field] = dict()
         for comparison, coeffs in comparisons.items():
             print(comparison)
-            if errors[field].get(comparison) is None:
-                errors[field][comparison] = dict()
+            errors[field][comparison] = dict()
             techniques = list(coeffs.keys())
             techniques.remove("Test")
             techniques.remove("Train")
             for index_tech, technique in enumerate(techniques):
-                if Path(f"{cache_path}{run_name}/Results/{field}/{comparison}/{technique}/Results.db").is_file():
+                errors[field][comparison][technique] = dict()
+                results_path = f"{cache_path}{run_name}/Results/{field}/{comparison}/{technique}/Results.db"
+                if Path(results_path).is_file():
+                    con = sql.connect(results_path)
+                    cursor = con.cursor()
+                    cursor.execute(
+                            "SELECT name FROM sqlite_master WHERE type='table';"
+                            )
+                    tables = cursor.fetchall()
+                    for table in tables:
+                        errors[field][comparison][technique][table[0]] = pd.read_sql(
+                                    sql=f"SELECT * from '{table[0]}'",
+                                    con=con,
+                                    index_col="Error"
+                                    )
                     continue
                 print(technique)
-                if errors[field][comparison].get(technique) is not None:
-                    continue
                 x_name = re.match(r".*(?= vs )", comparison)[0]
                 y_name = re.sub(r".*(?<= vs )", "", comparison)
                 x_measurements = measurements[field][x_name]
@@ -553,6 +539,20 @@ def main():
                         )
                 con.close()
             break
+
+    # SUMMARY STATS
+    for field, comparisons in errors.items():
+        for comparison, techniques in comparisons.items():
+            comparison_dict = dict()
+            for technique, datasets in techniques.items():
+                if "Calibrated Test Data" in list(datasets.keys()):
+                    comparison_dict[technique] = datasets.get("Calibrated Test Data")
+                else:
+                    comparison_dict[technique] = datasets.get("Calibrated Test Data (Mean)")
+            summary_data = Summary(comparison_dict)
+            print(summary_data.best_performing())
+            print(summary_data.best_performing(summate='col'))
+
 
     report_folder = Path(f"{cache_path}{run_name}/Results")
     report_fields = [subdir for subdir in report_folder.iterdir() if subdir.is_dir()]

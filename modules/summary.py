@@ -23,7 +23,7 @@ class Summary:
                     " or a dictionary with dataframes as values"
                     )
         self.group = pd.concat(dfs).groupby(
-                by=self._dataframes[0].index.name,
+                by=dfs[0].index.name,
                 level=0
                 )
 
@@ -64,14 +64,22 @@ class Summary:
             count_dict = dict()
             min_df = self.min()
             if summate == 'key':
+                print("now")
                 for key, df in self._dataframes.items():
-                    count_dict[key] = (df == min_df).sum(axis=1).to_dict()
+                    count_dict[key] = (df.eq(min_df)).sum().to_dict()
                 return count_dict
             elif summate == 'col':
-                count_series = pd.Series(dtype=int)
+                count_dict = dict()
                 for key, df in self._dataframes.items():
-                    count_series.add((df == min_df).sum(), fill_value=0)
-                return count_series.to_dict()
+                    column_eq_min = df.eq(min_df).sum()
+                    if column_eq_min.max() != 0:
+                        best_columns = column_eq_min[column_eq_min == column_eq_min.max()]
+                        for col in best_columns.index:
+                            if count_dict.get(col) is None:
+                                count_dict[col] = 1
+                            else:
+                                count_dict[col] = count_dict[col] + 1
+                return count_dict
             else:
                 warnings.warn("summate keyword argument should be key or col",
                               ArgumentWarning)
