@@ -3,6 +3,7 @@ import shutil
 import numpy as np
 import pandas as pd
 
+
 class Report:
     def __init__(self, title="", subtitle="", author=""):
         self.report_text = list()
@@ -43,12 +44,14 @@ class Report:
         else:
             page = list()
             for split in range(num_of_splits):
-                page.append(table.iloc[:, (split*column_split):((split+1)*column_split)])
+                page.append(
+                    table.iloc[:, (split * column_split) : ((split + 1) * column_split)]
+                )
                 if table_split and len(page) >= table_split:
                     table_pages.append(page.copy())
                     page = list()
             if not (len(table.columns) / column_split).is_integer():
-                page.append(table.iloc[:, (num_of_splits*column_split):])
+                page.append(table.iloc[:, (num_of_splits * column_split) :])
             if page:
                 table_pages.append(page.copy())
         for index, t_page in enumerate(table_pages):
@@ -58,7 +61,9 @@ class Report:
                 self.report_text.append(tab.style.to_latex())
                 self.report_text.append(" ")
             if len(table_pages) > 1:
-                self.report_text.append(f"\\caption{{{caption} ({index+1}/{len(table_pages)})}}")
+                self.report_text.append(
+                    f"\\caption{{{caption} ({index+1}/{len(table_pages)})}}"
+                )
             else:
                 self.report_text.append(f"\\caption{{{caption}}}")
             self.report_text.append(r"\end{table}")
@@ -66,37 +71,43 @@ class Report:
                 self.report_text.append(r"\clearpage")
 
     def add_multiple_pgf(self, images, caption, column_split=0, row_split=0):
-        fig_pages = list() 
+        fig_pages = list()
         num_of_rows = 1
         if column_split:
             num_of_rows = int(np.floor(len(images) / column_split))
-        else: 
+        else:
             column_split = len(images)
         page = list()
         for row in range(num_of_rows):
-            page.append(images[row*column_split:(row+1)*column_split])
+            page.append(images[row * column_split : (row + 1) * column_split])
             if len(page) >= row_split:
                 fig_pages.append(page.copy())
                 page = list()
         if not (len(images) / column_split).is_integer():
-            page.append(images[(num_of_rows+1)*column_split:])
+            page.append(images[(num_of_rows + 1) * column_split :])
         if page:
             fig_pages.append(page.copy())
         if column_split:
-            fig_sizing = str(np.floor(10 / column_split)/ 10)
+            fig_sizing = str(np.floor(10 / column_split) / 10)
         else:
-            fig_sizing = str(np.floor(10 / len(images))/ 10)
+            fig_sizing = str(np.floor(10 / len(images)) / 10)
         for index, f_page in enumerate(fig_pages):
             self.report_text.append(r"\begin{figure}[H]")
             self.report_text.append(r"\centering")
             for row in f_page:
                 for fig in row:
-                    self.report_text.append(f"\\begin{{subfigure}}{{{fig_sizing}\\textwidth}}")
-                    self.report_text.append(f"\\resizebox{{\\linewidth}}{{!}}{{\\input{{\"{fig}\"}}}}")
+                    self.report_text.append(
+                        f"\\begin{{subfigure}}{{{fig_sizing}\\textwidth}}"
+                    )
+                    self.report_text.append(
+                        f'\\resizebox{{\\linewidth}}{{!}}{{\\input{{"{fig}"}}}}'
+                    )
                     self.report_text.append(r"\end{subfigure}%")
                 self.report_text.append(" ")
             if len(fig_pages) > 1:
-                self.report_text.append(f"\\caption{{{caption} ({index+1}/{len(fig_pages)})}}")
+                self.report_text.append(
+                    f"\\caption{{{caption} ({index+1}/{len(fig_pages)})}}"
+                )
             else:
                 self.report_text.append(f"\\caption{{{caption}}}")
             self.report_text.append(r"\end{figure}")
@@ -112,7 +123,9 @@ class Report:
     def add_sideways_pgf(self, fig, caption):
         self.report_text.append(r"\begin{sidewaysfigure}")
         self.report_text.append(r"\centering")
-        self.report_text.append(f"\\resizebox{{\\pagewidth}}{{!}}{{\\input{{\"{fig}\"}}}}")
+        self.report_text.append(
+            f'\\resizebox{{\\pagewidth}}{{!}}{{\\input{{"{fig}"}}}}'
+        )
         self.report_text.append(f"\\caption{{{caption}}}")
         self.report_text.append(r"\end{sidewaysfigure}")
 
@@ -129,7 +142,9 @@ class Report:
     def add_pgf_figure(self, figure, caption):
         self.report_text.append(r"\begin{figure}[H]")
         self.report_text.append(r"\centering")
-        self.report_text.append(f"\\resizebox{{\\linewidth}}{{!}}{{\\input{{\"{figure}\"}}}}")
+        self.report_text.append(
+            f'\\resizebox{{\\linewidth}}{{!}}{{\\input{{"{figure}"}}}}'
+        )
         self.report_text.append(f"\\caption{{{caption}}}")
         self.report_text.append(r"\end{figure}")
 
@@ -138,7 +153,9 @@ class Report:
         self.report_text.append(r"\centering")
         for fig in figures:
             self.report_text.append(r"\begin{subfigure}{0.5\textwidth}")
-            self.report_text.append(f"\\resizebox{{0.9\\linewidth}}{{!}}{{\\input{{\"{fig}\"}}}}")
+            self.report_text.append(
+                f'\\resizebox{{0.9\\linewidth}}{{!}}{{\\input{{"{fig}"}}}}'
+            )
             self.report_text.append(r"\end{subfigure}%")
         self.report_text.append(f"\\caption{{{caption}}}")
         self.report_text.append(r"\end{figure}")

@@ -47,9 +47,10 @@ from itertools import combinations
 import json
 import os
 
+
 class DateDifference:
-    """ Contains functions used when working with time windows 
-    
+    """Contains functions used when working with time windows
+
     Attributes:
         start (datetime): Datetime representation of the start date
 
@@ -79,8 +80,9 @@ class DateDifference:
 
 
     """
+
     def __init__(self, start, end):
-        """ Initialises class 
+        """Initialises class
 
         Keyword arguments:
             start (datetime): Start date
@@ -89,72 +91,78 @@ class DateDifference:
         """
         self.start = start
         self.start_dict = {
-                "Year": int(start.strftime("%Y")),
-                "Month": int(start.strftime("%m")),
-                "Day": int(start.strftime("%d"))
-                }
-        self.end = end 
+            "Year": int(start.strftime("%Y")),
+            "Month": int(start.strftime("%m")),
+            "Day": int(start.strftime("%d")),
+        }
+        self.end = end
         self.end_dict = {
-                "Year": int(end.strftime("%Y")),
-                "Month": int(end.strftime("%m")),
-                "Day": int(end.strftime("%d"))
-                }
+            "Year": int(end.strftime("%Y")),
+            "Month": int(end.strftime("%m")),
+            "Day": int(end.strftime("%d")),
+        }
 
     def year_difference(self):
-        """ Number of years between start and end
-
-        Returns:
-            int representing number of years between start and end rounded 
-            down
-        """
-        return self.end_dict["Year"] - self.start_dict["Year"]
-
-    def month_difference(self):
-        """ Number of months between start and end 
+        """Number of years between start and end
 
         Returns:
             int representing number of years between start and end rounded
             down
         """
-        return ((12 * self.year_difference()) + self.end_dict["Month"] -
-                self.start_dict["Month"])
+        return self.end_dict["Year"] - self.start_dict["Year"]
+
+    def month_difference(self):
+        """Number of months between start and end
+
+        Returns:
+            int representing number of years between start and end rounded
+            down
+        """
+        return (
+            (12 * self.year_difference())
+            + self.end_dict["Month"]
+            - self.start_dict["Month"]
+        )
 
     def day_difference(self):
-        """ Number of days between start and end 
+        """Number of days between start and end
 
         Returns:
             int representing number of days between start and end rounded
-            down 
+            down
         """
         return (self.end - self.start).days
 
     def add_year(self, years):
-        """ Adds specified number of years on to copy of start
+        """Adds specified number of years on to copy of start
 
         Returns:
             datetime reprenting start plus years
         """
         return dt.datetime(
-                (self.start_dict["Year"] + years), self.start_dict["Month"],
-                self.start_dict["Day"])
+            (self.start_dict["Year"] + years),
+            self.start_dict["Month"],
+            self.start_dict["Day"],
+        )
 
     def add_month(self, months):
-        """ Adds specified number of months on to copy of start
+        """Adds specified number of months on to copy of start
 
         Returns:
             datetime representing start plus months
         """
         years = 0
         while self.start_dict["Month"] + months > 12:
-            years = years + 1 
+            years = years + 1
             months = months - 12
         return dt.datetime(
-                (self.start_dict["Year"] + years), 
-                (self.start_dict["Month"] + months),
-                self.start_dict["Day"])
+            (self.start_dict["Year"] + years),
+            (self.start_dict["Month"] + months),
+            self.start_dict["Day"],
+        )
 
     def add_days(self, days):
-        """ Adds specified number of days on to copy of start
+        """Adds specified number of days on to copy of start
 
         Returns:
             Datetime representing start plus days
@@ -269,6 +277,7 @@ def get_json(path_to_json):
             f"format seen in README.md"
         )
 
+
 def save_to_file(write_data, path_to_file, filename):
     """Saves data to file in specified path
 
@@ -293,8 +302,9 @@ def save_to_file(write_data, path_to_file, filename):
     with open(f"{path_to_file}/{filename}", "w") as newfile:
         newfile.write(write_data)
 
+
 def make_path(path):
-    """ Creates directories if none are present. Useful when writing files
+    """Creates directories if none are present. Useful when writing files
 
     Keyword Arguments:
         path (str): Path to be created
@@ -305,11 +315,12 @@ def make_path(path):
     while not os.path.isdir(path):
         os.makedirs(path, exist_ok=True)
 
+
 def debug_stats(stats, line_length=120, level=1, max_level=3):
-    """ Prints out a json file/dictionary nicely
+    """Prints out a json file/dictionary nicely
 
     Used to print out config files in an easily readable way, can also be used
-    for other dictionary type formats. Will print nested dictionaries up to a 
+    for other dictionary type formats. Will print nested dictionaries up to a
     depth of max_level.
 
     Keyword arguments:
@@ -329,7 +340,7 @@ def debug_stats(stats, line_length=120, level=1, max_level=3):
     for key, item in stats.items():
         if type(item) == dict and level <= max_level:
             fancy_print(f"{base_string}{key}:", length=line_length)
-            debug_stats(item, level=level+1)
+            debug_stats(item, level=level + 1)
         elif type(item) == dict:
             fancy_print(f"{base_string}{key}: {...}", length=line_length)
         else:
@@ -340,7 +351,7 @@ def debug_stats(stats, line_length=120, level=1, max_level=3):
 
 
 def unread_files(path, read_list, return_stats=False):
-    """ Scans a directory for files and determines how many of them have been
+    """Scans a directory for files and determines how many of them have been
     read by the program previously
 
     Scans a directory for a list of files and then removes them from the list
@@ -375,7 +386,7 @@ def unread_files(path, read_list, return_stats=False):
             read_files = [line[:-1] for line in read_files]
     except FileNotFoundError:
         with open(read_list, "w") as read_files_txt:
-                read_files = list()
+            read_files = list()
     if not read_files:
         unread_files = file_list
     else:
@@ -384,14 +395,14 @@ def unread_files(path, read_list, return_stats=False):
         return {
             "Unread File List": unread_files,
             "Total Files": len(file_list),
-            "Read Files": len(read_files)
-            }
+            "Read Files": len(read_files),
+        }
     else:
         return unread_files
 
 
 def append_to_file(line, file):
-    """ Appends a line to a file
+    """Appends a line to a file
 
     Keyword arguments:
         line (str): What to append to the file
@@ -403,6 +414,7 @@ def append_to_file(line, file):
     """
     with open(file, "a") as read_files_txt:
         read_files_txt.write(f"{line}\n")
+
 
 def parse_date_string(date_string):
     """Parses input strings in to date objects
@@ -423,20 +435,20 @@ def parse_date_string(date_string):
 
     """
     parsable_formats = [
-            "%Y-%m-%d %H:%M:%S",
-            "%Y/%m/%d %H:%M:%S",
-            "%Y\\%m\\%d %H:%M:%S",
-            "%Y.%m.%d %H:%M:%S",
-            "%Y-%m-%d %H.%M.%S",
-            "%Y/%m/%d %H.%M.%S",
-            "%Y\\%m\\%d %H.%M.%S",
-            "%Y.%m.%d %H.%M.%S",
-            "%Y-%m-%dT%H:%M:%SZ",
-            "%Y-%m-%d",
-            "%Y/%m/%d",
-            "%Y\\%m\\%d",
-            "%Y.%m.%d"
-            ]
+        "%Y-%m-%d %H:%M:%S",
+        "%Y/%m/%d %H:%M:%S",
+        "%Y\\%m\\%d %H:%M:%S",
+        "%Y.%m.%d %H:%M:%S",
+        "%Y-%m-%d %H.%M.%S",
+        "%Y/%m/%d %H.%M.%S",
+        "%Y\\%m\\%d %H.%M.%S",
+        "%Y.%m.%d %H.%M.%S",
+        "%Y-%m-%dT%H:%M:%SZ",
+        "%Y-%m-%d",
+        "%Y/%m/%d",
+        "%Y\\%m\\%d",
+        "%Y.%m.%d",
+    ]
 
     for fmt in parsable_formats:
         try:
@@ -448,9 +460,10 @@ def parse_date_string(date_string):
         f" use one of the following:\n{parsable_formats}"
     )
 
+
 def all_combinations(input_list):
-    """ Returns all possible combinations of input_list with all possible
-    variables included or not included 
+    """Returns all possible combinations of input_list with all possible
+    variables included or not included
 
     Keyword Arguments:
         input_list (list): List containing all variables to be combined
@@ -465,8 +478,9 @@ def all_combinations(input_list):
             all_combos.append(list(combo))
     return all_combos
 
+
 def file_list(path, extension="", recursive=False):
-    """ Lists all files in a dir
+    """Lists all files in a dir
 
     Keyword Arguments:
         path (str): Directory to scan
@@ -480,12 +494,13 @@ def file_list(path, extension="", recursive=False):
     """
     if os.path.isdir(path):
         rec = "**" if recursive else ""
-        return glob.glob(f"{path}{rec}/*{extension}", recursive=recursive) 
+        return glob.glob(f"{path}{rec}/*{extension}", recursive=recursive)
     else:
         return list()
 
+
 def folder_list(path):
-    """ Lists all subdirectories in a dir
+    """Lists all subdirectories in a dir
 
     Keyword Arguments:
         path (str): Directory to scan
@@ -494,4 +509,3 @@ def folder_list(path):
         List of subdirs in dir
     """
     return os.listdir(path)
-
