@@ -147,12 +147,64 @@ Calibration contains all configurations used for the calibration step.
 |Techniques|dict|See [Technique](#####technique)|---|---|
 |Bayesian Families|dict|See [Bayesian Families](#####bayesian-families)|---|---|
 
+##### Data
+
+|Key|Type|Description|Options|Example|
+|---|---|---|---|---|
+|Split|boolean|Split the data in to a training and testing set?|true/false|true|
+|Test Size|float|Proportion of data to use for testing|float between 0 and 1.0, not inclusive|0.4|
+|Seed|int|Seed used when randomly splitting data into train/test. Allows repeatability|Any int|
+
+##### Technique
+
+This section determines which calibration techniques should be used when calibrating one device against another.
+
+|Key|Type|Description|Options|Example|
+|---|---|---|---|---|
+|Ordinary Least Squares|boolean|Use [OLS](https://scikit-learn.org/stable/modules/linear_model.html#ordinary-least-squares) to calibrate?|true/false|true|
+|Ridge|boolean|Use [Ridge Regression](https://scikit-learn.org/stable/modules/linear_model.html#ridge-regression-and-classification) to calibrate?|true/false|true|
+|LASSO|boolean|Use [LASSO](https://scikit-learn.org/stable/modules/linear_model.html#lasso) to calibrate?|true/false|true|
+|Elastic Net|boolean|Use [Elastic Net](https://scikit-learn.org/stable/modules/linear_model.html#elastic-net) to calibrate?|true/false|true|
+|LARS|boolean|Use [Least Angle Regression](https://scikit-learn.org/stable/modules/linear_model.html#least-angle-regression) to calibrate?|true/false|true|
+|LASSO LARS|boolean|Use [Lasso path using LARS](https://scikit-learn.org/stable/modules/linear_model.html#lars-lasso) to calibrate?|true/false|true|
+|Orthogonal Matching Pursuit|boolean|Use [Orthogonal Matching Pursuit](https://scikit-learn.org/stable/modules/linear_model.html#orthogonal-matching-pursuit-omp) to calibrate?|true/false|true|
+|RANSAC|boolean|Use [Random Sample Consensus](https://scikit-learn.org/stable/modules/linear_model.html#ransac-regression) to calibrate?|true/false|true|
+|Theil Sen|boolean|Use [Theil Sen](https://scikit-learn.org/stable/modules/linear_model.html#theil-sen-regression) to calibrate?|true/false|true|
+|Bayesian|boolean|Use [Bayesian](https://www.pymc.io/projects/docs/en/stable/api.html) to calibrate?|true/false|true|
+
+##### Bayesian Families
+
+|Key|Type|Description|Options|Example|
+|---|---|---|---|---|
+|Gaussian|boolean|Use a gaussian distribution when doing a bayesian calibration via PyMC|true/false|true|
+|Student T|boolean|Use a student t distribution when doing a bayesian calibration via PyMC|true/false|true|
+|Bernoulli|boolean|Use a Bernoulli distribution when doing a bayesian calibration via PyMC|true/false|false|
+|Beta|boolean|Use a Beta distribution when doing a bayesian calibration via PyMC|true/false|false|
+|Binomial|boolean|Use a Binomial distribution when doing a bayesian calibration via PyMC|true/false|false|
+|Gamma|boolean|Use a Gamma distribution when doing a bayesian calibration via PyMC|true/false|false|
+|Negative Binomial|boolean|Use a Negative Binomial distribution when doing a bayesian calibration via PyMC|true/false|false|
+|Poisson|boolean|Use a Poisson distribution when doing a bayesian calibration via PyMC|true/false|false|
+|Inverse Gaussian|boolean|Use a Inverse Gaussian distribution when doing a bayesian calibration via PyMC|true/false|false|
+
+
 #### Errors
 
 Errors selects which error calculations to use
 
 |Key|Type|Description|Options|Example|
 |---|---|---|---|---|
+|Explained Variance Score|boolean|Calculate the [explained variance score](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.explained_variance_score.html) for the predicted measurement vs the reference measurement in the test set|true/false|true|
+|Max Error|boolean|Calculate the [max error](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.max_error.html) for the predicted measurement vs the reference measurement in the test set|true/false|true|
+|Mean Absolute Error|boolean|Calculate the [mean absolute error](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_absolute_error.html) for the predicted measurement vs the reference measurement in the test set|true/false|true|
+|Root Mean Squared Error|boolean|Calculate the [root mean squared error](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_error.html) for the predicted measurement vs the reference measurement in the test set|true/false|true|
+|Root Mean Squared Log Error|boolean|Calculate the [root mean squared log error](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_log_error.html) for the predicted measurement vs the reference measurement in the test set|true/false|true|
+|Median Absolute Error|boolean|Calculate the [median absolute error](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.median_absolute_error.html) for the predicted measurement vs the reference measurement in the test set|true/false|true|
+|Mean Absolute Percentage Error|boolean|Calculate the [mean absolute percentage error](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_absolute_percentage_error.html) for the predicted measurement vs the reference measurement in the test set|true/false|true|
+|r2|boolean|Calculate the [r2](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html) for the predicted measurement vs the reference measurement in the test set|true/false|true|
+|Mean Poisson Deviance|boolean|Calculate the [mean poisson deviance](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_poisson_deviance.html) for the predicted measurement vs the reference measurement in the test set|true/false|true|
+|Mean Gamma Deviance|boolean|Calculate the [mean gamma deviance](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_gamma_deviance.html) for the predicted measurement vs the reference measurement in the test set|true/false|true|
+|Mean Tweedie Deviance|boolean|Calculate the [mean tweedie deviance](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_tweedie_deviance.html) for the predicted measurement vs the reference measurement in the test set|true/false|true|
+|Mean Pinball Loss|boolean|Calculate the [mean pinbal loss](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_pinball_loss.html) for the predicted measurement vs the reference measurement in the test set|true/false|true|
 
 
 #### Runtime
@@ -161,6 +213,213 @@ Runtime includes all information needed at runtime
 
 |Key|Type|Description|Options|Example|
 |---|---|---|---|---|
+|Name|String|Name of the run. Runs are split in the output folder based on name|Any valid folder name|2022 Collocation|
+|Start|String|Date to download measurements from. Devices that didn't start measuring until after that date will have gaps filled with NaN|String representing date in YYYY/MM/DD format|2018/10/01|
+|End|String|Date to stop downloading measurements at|String representing date in YYYY/MM/DD format|2020/10/01|
+|Average Operator|String|Average operator that InfluxDB will use to average measurement windows|Any valid aggregator function listed [here](https://docs.influxdata.com/flux/v0.x/tags/aggregates/)|mean|
+|Averaging Period|String|Period to average data over|Any valid aggregation time period used by InfluxDB 2.x (More info [here](https://docs.influxdata.com/flux/v0.x/stdlib/universe/stateduration/#unit))|1h|
+
+#### Example config.json file
+
+```json
+{
+	"Devices": {
+		"Bushy Park OPC": {
+			"Bucket": "AURN",
+			"Measurement": "Automatic Urban Rural Network",
+			"Fields": [
+				{
+					"Tag": "PM2.5",
+					"Field": "PM2.5 particulate matter",
+					"Boolean Filters": {
+						"Site Name": "London Teddington Bushy Park",
+						"PM2.5 particulate matter unit": "ugm-3 (Ref.eq)"
+					},
+					"Range Filters": [],
+					"Secondary Fields": [],
+					"Hour Beginning": true,
+					"Scaling": []
+				}
+			],
+			"Start": "",
+			"Stop": ""
+		},
+		"AirView Reference A": {
+			"Bucket": "AirView",
+			"Measurement": "AirView",
+			"Fields": [
+				{
+					"Tag": "PM2.5",
+					"Field": "Palas Fidas100 pm2.5 ug/m^3",
+					"Boolean Filters": {
+						"Car": "27522",
+						"Palas Fidas100 Status": "5x5"
+					},
+					"Range Filters": [
+						{
+							"Field": "GlobalSat G-Star IV latitude degrees N",
+							"Min": 51.22,
+							"Max": 51.44,
+							"Min Equal": false,
+							"Max Equal": false
+						},
+						{
+							"Field": "GlobalSat G-Star IV longitude degrees E",
+							"Min": -0.36,
+							"Max": -0.34,
+							"Min Equal": false,
+							"Max Equal": true
+						}
+					],
+					"Secondary Fields": [],
+					"Hour Beginning": true,
+					"Scaling": [
+						{
+							"Start": "2019/04/12 15:53:44",
+							"End": "",
+							"Power": 1,
+							"Slope": 1000,
+							"Offset": 0
+						}
+					]
+				}
+			],
+			"Start": "",
+			"Stop": ""
+		},
+		"NPL AQMesh A": {
+			"Bucket": "ACOEM Data",
+			"Measurement": "ACOEM UK Systems",
+			"Fields": [
+				{
+					"Tag": "PM2.5",
+					"Field": "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]",
+					"Boolean Filters": {
+						"SerialNumber": "1505150",
+						"Particulate Matter (PM 2.5) Flag": "Valid"
+					},
+					"Range Filters": [],
+					"Secondary Fields": [
+						{
+							"Tag": "RH",
+							"Field": "Humidity PreScaled [Percent]",
+							"Scaling": []
+						},
+						{
+							"Tag": "T",
+							"Field": "Temperature PreScaled [Celsius]",
+							"Scaling": []
+						},
+						{
+							"Tag": "RH$^2$",
+							"Field": "Humidity PreScaled [Percent]",
+							"Scaling": [
+								{
+									"Start": "",
+									"End": "",
+									"Power": 2,
+									"Slope": 1,
+									"Offset": 0
+								}
+							]
+						},
+						{
+							"Tag": "T$^2$",
+							"Field": "Temperature PreScaled [Celsius]",
+							"Scaling": [
+								{
+									"Start": "",
+									"End": "",
+									"Power": 2,
+									"Slope": 1,
+									"Offset": 0
+								}
+							]
+						}
+					],
+					"Hour Beginning": true,
+					"Scaling": []
+				}
+			],
+			"Start": "",
+			"Stop": ""
+		},
+	},
+	"Calibration": {
+		"Data": {
+			"Split": true,
+			"Test Size": 0.4,
+			"Seed": 72
+		},
+		"Techniques": {
+			"Ordinary Least Squares": true,
+			"Ridge": true,
+			"LASSO": true,
+			"Elastic Net": true,
+			"LARS": true,
+			"LASSO LARS": true,
+			"Orthogonal Matching Pursuit": true,
+			"RANSAC": true,
+			"Theil Sen": true,
+			"Bayesian": true
+		},
+		"Bayesian Families": {
+			"Gaussian": true,
+			"Student T": true,
+			"Bernoulli": false,
+			"Beta": false,
+			"Binomial": false,
+			"Gamma": false,
+			"Negative Binomial": false,
+			"Poisson": false,
+			"Inverse Gaussian": false
+		}
+	},
+	"Errors": {
+		"Explained Variance Score": true,
+		"Max Error": true,
+		"Mean Absolute Error": true,
+		"Root Mean Squared Error": true,
+		"Root Mean Squared Log Error": false,
+		"Median Absolute Error": true,
+		"Mean Absolute Percentage Error": true,
+		"r2": true,
+		"Mean Poisson Deviance": false,
+		"Mean Gamma Deviance": false,
+		"Mean Tweedie Deviance": false,
+		"Mean Pinball Loss": true
+	},
+	"Runtime": {
+		"Name": "Default",
+		"Start": "2018/10/01",
+		"End": "2020/10/01",
+		"Average Operator": "mean",
+		"Averaging Period": "1h"
+	},
+	"Debug Stats": true
+}
+
+```
+
+### influx.json
+
+|Key|Type|Description|Options|Example|
+|---|---|---|---|---|
+|IP|String|IP address where InfluxDB 2.x database is hosted|IP Address (localhost if hosted on same machine program is being run)|194.60.38.230|
+|Port|String|Port InfluxDB communicates on|Valid port (default is 8086)|8086|
+|Token|String|Authentication token used by user to upload/download data|Valid authentication token|thisisnotarealtoken|
+|Organisation|String|Organisation the user belongs to|Valid organisation|The Government|
+
+#### Example influx.json file
+
+```json
+{
+	"IP": "194.60.38.230",
+	"Port": "8086",
+	"Token": "thisisnotarealtoken",
+	"Organisation": "The Government"
+}
+```
 
 ---
 
