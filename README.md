@@ -76,14 +76,13 @@ bash setup.sh
 ### Rendering the report
 
 ```bash
-cd Output/{run_name}/Report 
+cd Output/*run_name*/Report 
 # Where {run_name} is the name of the run you want to generate the report for
 lualatex Report.tex && lualatex Report.tex
 # lualatex is run twice to ensure the table of contents is correct
 ```
 
 ---
-
 
 ## Settings
 
@@ -465,6 +464,39 @@ Runtime includes all information needed at runtime
 
 ---
 
-
 ## Data Dictionary
 
+Graddnodi saves all information it needs to SQLite3 databases.
+
+### Measurements 
+
+The measurements downloaded from InfluxDB 2.x are saved in Output/*run name*/*field*.db.
+They are separated into different fields.
+Each table in the field represents a device.
+Each row in the table corresponds to a single measurement made by a device.
+
+|Name|Definition|Data type|Possible values|Required?|
+|---|---|---|---|---|
+|Datetime|Timestamp for measurement in YYYY-MM-DD HH:MM:SS+Z|Text|2018-10-01 00:00:00+00:00, 2020-09-30 23:00:00+00:00, etc|Yes|
+|Values|Primary measurement values recorded by device|Real|4.636, 5.0198, NULL|No|
+|*Secondary Measurement*|Secondary measurements recorded by device|Real|63.66, 22.10, NULL|No|
+
+### Coefficients
+
+The coefficients obtained from the different calibrations are saved in Output/*run name*/*field*/*A vs B*.db.
+Each table in the field represents a different calibration technique. 
+Rows correspond to different combinations of secondary measurements (e.g x, x + RH, x + T$^2$)
+
+|Name|Definition|Data type|Possible values|Required?|
+|---|---|---|---|---|
+|index|The combination of variables used in the calibration|Text|x, x + RH, x + T$^2$ etc|Yes|
+|coeff.x|The coefficients to scale x measurements by|Real|0.667|Yes|
+|sd.x|Standard deviation on coeff.x, only calculated when using gaussian methods|Real|0.040, NULL|No|
+|i.Intercept|The intercept to offset the calibrated measurement by|Real|2.067|Yes|
+|sd.Intercept|Standard deviation on i.Intercept, only calculated when using gaussian methods|Real|0.079, NULL|No|
+|coeff.*secondary measurement*|Coefficient used to scale *secondary measurement* e.g. coeff.T|Real|0.095, NULL|No|
+|sd.*secondary measurement*|Standard deviation on coeff.*secondary measurement*, only calculated when using gaussian methods e.g. sd.T|Real|0.013, NULL|No|
+
+### Results 
+
+The results of the error calculations performed on the calibrated test set are saved in Output/*run name*/*field*/*comparison*/*Technique*/Results.db
