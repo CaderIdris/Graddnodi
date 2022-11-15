@@ -15,14 +15,18 @@ the calibration and report modules can still be used on their own if the data
 sent to them is in the correct format.
 
     Command Line Arguments:
-        -C/--cache-path (str) [OPTIONAL]: Location of cache folder. Defaults
-        to "cache/"
+        -c/--config-path (str) [OPTIONAL]: Location of config json. Defaults
+        to "Settings/config.json"
 
-        -c/--config (str) [OPTIONAL]: Location of config json. Defaults to
-        "Settings/config.json"
+        -i/--influx-path (str) [OPTIONAL]: Location of influx condif json. 
+        Defaults to "Settings/influx.json"
 
-        -i/--influx (str) [OPTIONAL]: Location of influx condif json. Defaults
-        to "Settings/influx.json"
+        -o/--output-path (str) [OPTIONAL]: Where output is saves to. Defaults
+        to "Output/"
+
+        -f/--full-output (str) [OPTIONAL]: Generate a full report with scatter,
+        eCDF and Bland-Altman plots
+
 
 """
 
@@ -100,17 +104,10 @@ def main():
             action="store_true",
             help="Generate full output"
     )
-    arg_parser.add_argument(
-            "-s",
-            "--summary",
-            action="store_false",
-            help="Generate full output"
-    )
     args = vars(arg_parser.parse_args())
     cache_path = args["cache_path"]
     config_path = args["config_path"]
     influx_path = args["influx_path"]
-    use_summary = args["summary"]
     use_full = args["full_output"]
 
     # Setup
@@ -539,8 +536,6 @@ def main():
     # SUMMARY STATS
     graphs = Graphs()
     for field, comparisons in errors.items():
-        if not use_summary: # Exit loop if not using summary stats in report
-            break
         for comparison, techniques in comparisons.items():
             comparison_dict = dict()
             graph_path = Path(f"{cache_path}{run_name}/Results/{field}/{comparison}")
@@ -586,21 +581,20 @@ def main():
                 sideways=True
             )
             report.clear_page()
-            if use_summary:
-                con = sql.connect(f"{comparison.as_posix()}/Summary.db")
-                technique_tab = pd.read_sql(
-                    sql=f"SELECT * FROM 'Techniques'", con=con, index_col="Technique"
-                )
-                variable_tab = pd.read_sql(
-                    sql=f"SELECT * FROM 'Variables'", con=con, index_col="Variable"
-                )
-                con.close()
-                report.add_pgf(f"{relpath(comparison)}/Techniques.pgf", "Times techniques achieved the lowest error")
-                report.add_table(technique_tab, "Techniques")
-                report.clear_page()
-                report.add_pgf(f"{relpath(comparison)}/Variables.pgf", "Times variable combinations achieved the lowest error")
-                report.add_table(variable_tab, "Variables")
-                report.clear_page()
+            con = sql.connect(f"{comparison.as_posix()}/Summary.db")
+            technique_tab = pd.read_sql(
+                sql=f"SELECT * FROM 'Techniques'", con=con, index_col="Technique"
+            )
+            variable_tab = pd.read_sql(
+                sql=f"SELECT * FROM 'Variables'", con=con, index_col="Variable"
+            )
+            con.close()
+            report.add_pgf(f"{relpath(comparison)}/Techniques.pgf", "Times techniques achieved the lowest error")
+            report.add_table(technique_tab, "Techniques")
+            report.clear_page()
+            report.add_pgf(f"{relpath(comparison)}/Variables.pgf", "Times variable combinations achieved the lowest error")
+            report.add_table(variable_tab, "Variables")
+            report.clear_page()
             techniques = [subdir for subdir in comparison.iterdir() if subdir.is_dir()]
             for technique in techniques:
                 # Section
