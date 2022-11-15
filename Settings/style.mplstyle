@@ -24,6 +24,8 @@ lines.solid_capstyle: round
 pgf.rcfonts: False
 pgf.texsystem: lualatex
 
+savefig.bbox: tight
+
 scatter.marker: x
 
 text.color: .15
@@ -39,4 +41,5 @@ ytick.direction: out
 ytick.major.size: 0.0
 ytick.minor.size: 0.0
 
-axes.prop_cycle: cycler('color', ['40004b', '762a83', '9970ab', 'c2a5cf', 'e7d4e8', 'd9f0d3', 'a6dba0', '5aae61', '1b7837', '00441b'])
+axes.prop_cycle: cycler('color', ['e60049', '0bb4ff', '50e991', 'e6d800', '9b19f5', 'ffa300', 'dc0ab4', 'b3d4ff', '00bfa0'])
+# Dutch Field

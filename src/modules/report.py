@@ -120,14 +120,23 @@ class Report:
         self.report_text.append(f"\\caption{{{caption}}}")
         self.report_text.append(r"\end{sidewaystable}")
 
-    def add_sideways_pgf(self, fig, caption):
-        self.report_text.append(r"\begin{sidewaysfigure}")
-        self.report_text.append(r"\centering")
-        self.report_text.append(
-            f'\\resizebox{{\\pagewidth}}{{!}}{{\\input{{"{fig}"}}}}'
-        )
-        self.report_text.append(f"\\caption{{{caption}}}")
-        self.report_text.append(r"\end{sidewaysfigure}")
+    def add_pgf(self, fig, caption, sideways=False):
+        if sideways:
+            self.report_text.append(r"\begin{sidewaysfigure}")
+            self.report_text.append(r"\centering")
+            self.report_text.append(
+                f'\\resizebox{{\\pagewidth}}{{!}}{{\\input{{"{fig}"}}}}'
+            )
+            self.report_text.append(f"\\caption{{{caption}}}")
+            self.report_text.append(r"\end{sidewaysfigure}")
+        else:
+            self.report_text.append(r"\begin{figure}[H]")
+            self.report_text.append(r"\centering")
+            self.report_text.append(
+                f'\\resizebox{{\\textwidth}}{{!}}{{\\input{{"{fig}"}}}}'
+            )
+            self.report_text.append(f"\\caption{{{caption}}}")
+            self.report_text.append(r"\end{figure}")
 
     def add_tables_sbs(self, tables, caption):
         self.report_text.append(r"\begin{table}[H]")
@@ -167,4 +176,4 @@ class Report:
         self.report_text.append(r"\end{document}")
         with open(f"{path}/Report.tex", "w+") as tex_file:
             tex_file.write("\n".join(self.report_text))
-        shutil.copy("Style.sty", f"{path}/Style.sty")
+        shutil.copy("Settings/Style.sty", f"{path}/Style.sty")

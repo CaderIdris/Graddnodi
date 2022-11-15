@@ -1,6 +1,6 @@
-from collections import defaultdict
 import warnings
 
+import matplotlib.pyplot as plt
 import pandas as pd
 
 
@@ -65,13 +65,20 @@ class Summary:
         if self._check_valid():
             count_dict = dict()
             min_df = self.min()
-            if summate == "key":
-                print("now")
+            if summate == "all":
                 for key, df in self._dataframes.items():
-                    count_dict[key] = (df.eq(min_df)).sum().to_dict()
+                    count_dict_temp = (df.eq(min_df)).sum().to_dict()
+                    keys = list(count_dict_temp.keys())
+                    keys.sort(key=lambda a: a.count("+"))
+                    count_dict[key] = {key: count_dict_temp[key] for key in keys}
                 return count_dict
+            elif summate == "key":
+                for key, df in self._dataframes.items():
+                    count_dict[key] = (df.eq(min_df)).sum().sum()
+                keys = list(count_dict.keys())
+                keys.sort(key=lambda a: a.count("+"))
+                return {key: count_dict[key] for key in keys}
             elif summate == "col":
-                count_dict = dict()
                 for key, df in self._dataframes.items():
                     column_eq_min = df.eq(min_df).sum()
                     if column_eq_min.max() != 0:
@@ -83,7 +90,9 @@ class Summary:
                                 count_dict[col] = 1
                             else:
                                 count_dict[col] = count_dict[col] + 1
-                return count_dict
+                keys = list(count_dict.keys())
+                keys.sort(key=lambda a: a.count("+"))
+                return {key: count_dict[key] for key in keys}
             else:
                 warnings.warn(
                     "summate keyword argument should be key or col", ArgumentWarning
@@ -97,3 +106,4 @@ class Summary:
                 ArgumentWarning,
             )
             return None
+

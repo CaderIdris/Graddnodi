@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -6,44 +8,27 @@ class Graphs:
     def __init__(self):
         self.graphs = dict()
 
-    def bar_chart(self, data: dict):
+    def bar_chart(self, data: dict, name: str = ""):
         plt.style.use("Settings/style.mplstyle")
         fig, ax = plt.subplots(figsize=(12, 8))
         bar_labels = list(data.keys())
         bar_cords = np.arange(len(bar_labels))
         bar_heights = list(data.values())
-        print(bar_cords, bar_labels, bar_heights)
-        ax.bar(x=bar_cords, height=bar_heights, label=bar_labels)
-        plt.show(fig)
+        ax.bar(x=bar_cords, height=bar_heights)
+        ax.set_xticks(bar_cords, labels=bar_labels, rotation=45)
+        self.graphs[name] = fig
 
-    def grouped_bar_chart(self, data: dict):
-        # what's going on?
-        plt.style.use("Settings/style.mplstyle")
-        fig, ax = plt.subplots(figsize=(12, 8))
-        bar_labels = list(data.keys())
-        bar_cords = np.arange(len(bar_labels))
-        sub_bars_len = len(list(list(data.values())[0].keys()))
-        for col_name, col_values in data.items():
-
-            print(
-                bar_cords + (index / sub_bars_len),
-                sub_cols.values(),
-                1 / sub_bars_len,
-                sub_name,
-            )
-            ax.bar(
-                x=bar_cords + (index / sub_bars_len),
-                height=sub_cols.values(),
-                width=1 / sub_bars_len,
-                label=sub_name,
-            )
-        plt.show(fig)
+    def save_plots(self, path: str):
+        for key, plot in self.graphs.items():
+            plot_path = f"{path}/{key}.pgf"
+            Path("/".join(Path(plot_path).parts[:-1])).mkdir(parents=True, exist_ok=True)
+            plot.savefig(plot_path)
+            plt.close(plot)
 
 
 class AQGraphs(Graphs):
     def __init__(self):
         Graphs.__init__(self)
-        self.graphs = dict()
 
     def time_series_comparison_plot(self, x, y, x_name="", y_name=""):
         plt.style.use("Settings/style.mplstyle")
@@ -62,3 +47,4 @@ class AQGraphs(Graphs):
         ax.set_xlim(first_datetime, last_datetime)
         ax.set_xlabel("Datetime")
         ax.set_ylabel("Concentration")
+        self.graphs["Time Series"] = fig

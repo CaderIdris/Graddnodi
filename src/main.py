@@ -72,15 +72,8 @@ def main():
         "variety of techniques",
     )
     arg_parser.add_argument(
-        "-C",
-        "--cache-path",
-        type=str,
-        help="Location of cache folder",
-        default="Output/",
-    )
-    arg_parser.add_argument(
         "-c",
-        "--config",
+        "--config-path",
         type=str,
         help="Alternate location for config json file (Defaults to "
         "./Settings/config.json)",
@@ -88,16 +81,37 @@ def main():
     )
     arg_parser.add_argument(
         "-i",
-        "--influx",
+        "--influx-path",
         type=str,
         help="Alternate location for influx config json file (Defaults to "
         "./Settings/influx.json)",
         default="Settings/influx.json",
     )
+    arg_parser.add_argument(
+        "-o",
+        "--output-path",
+        type=str,
+        help="Where output will be saved",
+        default="Output/",
+    )
+    arg_parser.add_argument(
+            "-f",
+            "--full-output",
+            action="store_true",
+            help="Generate full output"
+    )
+    arg_parser.add_argument(
+            "-s",
+            "--summary",
+            action="store_false",
+            help="Generate full output"
+    )
     args = vars(arg_parser.parse_args())
     cache_path = args["cache_path"]
-    config_path = args["config"]
-    influx_path = args["influx"]
+    config_path = args["config_path"]
+    influx_path = args["influx_path"]
+    use_summary = args["summary"]
+    use_full = args["full_output"]
 
     # Setup
     run_config = get_json(config_path)
@@ -479,16 +493,20 @@ def main():
                     result_calculations.mean_tweedie_deviance()
                 if error_techniques["Mean Pinball Loss"]:
                     result_calculations.mean_pinball_loss()
-                result_calculations.linear_reg_plot(
-                    f"[{field}] {comparison} ({technique})"
-                )
-                result_calculations.bland_altman_plot(
-                    f"[{field}] {comparison} ({technique})"
-                )
-                result_calculations.ecdf_plot(f"[{field}] {comparison} ({technique})")
-                result_calculations.save_plots(
+                make_path(
                     f"{cache_path}{run_name}/Results/{field}/{comparison}/{technique}"
                 )
+                if use_full:
+                    result_calculations.linear_reg_plot(
+                        f"[{field}] {comparison} ({technique})"
+                    )
+                    result_calculations.bland_altman_plot(
+                        f"[{field}] {comparison} ({technique})"
+                    )
+                    result_calculations.ecdf_plot(f"[{field}] {comparison} ({technique})")
+                    result_calculations.save_plots(
+                        f"{cache_path}{run_name}/Results/{field}/{comparison}/{technique}"
+                    )
                 if index_tech == 0:
                     result_calculations.temp_time_series_plot(
                         f"{cache_path}{run_name}/Results/{field}/{comparison}"
@@ -498,9 +516,6 @@ def main():
                 ] = result_calculations.return_errors()
                 # After error calculation is complete, save all coefficients
                 # and test/train data to sqlite3 database
-                make_path(
-                    f"{cache_path}{run_name}/Results/{field}/{comparison}/{technique}"
-                )
                 con = sql.connect(
                     f"{cache_path}{run_name}/Results/{field}/{comparison}/"
                     f"{technique}/Results.db"
@@ -520,13 +535,15 @@ def main():
                     name="Coefficients", con=con, if_exists="replace"
                 )
                 con.close()
-            break
 
     # SUMMARY STATS
     graphs = Graphs()
     for field, comparisons in errors.items():
+        if not use_summary: # Exit loop if not using summary stats in report
+            break
         for comparison, techniques in comparisons.items():
             comparison_dict = dict()
+            graph_path = Path(f"{cache_path}{run_name}/Results/{field}/{comparison}")
             for technique, datasets in techniques.items():
                 if "Calibrated Test Data" in list(datasets.keys()):
                     comparison_dict[technique] = datasets.get("Calibrated Test Data")
@@ -535,8 +552,23 @@ def main():
                         "Calibrated Test Data (Mean)"
                     )
             summary_data = Summary(comparison_dict)
-            graphs.grouped_bar_chart(summary_data.best_performing())
-            graphs.bar_chart(summary_data.best_performing(summate="col"))
+            best_techniques = summary_data.best_performing(summate="key")
+            best_variables = summary_data.best_performing(summate="col")
+            graphs.bar_chart(best_techniques, name="Techniques")
+            graphs.bar_chart(best_variables, name="Variables")
+            best_techniques_tab = pd.DataFrame(data={"Technique": list(best_techniques.keys()), "Total": list(best_techniques.values())}).set_index("Technique")
+            best_variables_tab = pd.DataFrame(data={"Variable": list(best_variables.keys()), "Total": list(best_variables.values())}).set_index("Variable")
+            con = sql.connect(f"{graph_path.as_posix()}/Summary.db")
+            best_techniques_tab.to_sql(name="Techniques", con=con, if_exists="replace")
+            best_variables_tab.to_sql(name="Variables", con=con, if_exists="replace")
+            con.close()
+            for tech, data in summary_data.best_performing(summate='all').items():
+                graphs.bar_chart(data, name=f"{tech}/Variables")
+                best_variables_tech_tab = pd.DataFrame(data={"Variable": list(data.keys()), "Total": list(data.values())}).set_index("Variable")
+                con = sql.connect(f"{graph_path.as_posix()}/{tech}/Summary.db")
+                best_variables_tech_tab.to_sql(name="Variables", con=con, if_exists="replace")
+                con.close()
+            graphs.save_plots(graph_path.as_posix())
 
     report_folder = Path(f"{cache_path}{run_name}/Results")
     report_fields = [subdir for subdir in report_folder.iterdir() if subdir.is_dir()]
@@ -549,10 +581,26 @@ def main():
         for comparison in comparisons:
             # Chapter
             report.add_chapter(comparison.parts[-1])
-            report.add_sideways_pgf(
-                f"{relpath(comparison)}/Time Series.pgf", "Time Series Comparison"
+            report.add_pgf(
+                f"{relpath(comparison)}/Time Series.pgf", "Time Series Comparison",
+                sideways=True
             )
             report.clear_page()
+            if use_summary:
+                con = sql.connect(f"{comparison.as_posix()}/Summary.db")
+                technique_tab = pd.read_sql(
+                    sql=f"SELECT * FROM 'Techniques'", con=con, index_col="Technique"
+                )
+                variable_tab = pd.read_sql(
+                    sql=f"SELECT * FROM 'Variables'", con=con, index_col="Variable"
+                )
+                con.close()
+                report.add_pgf(f"{relpath(comparison)}/Techniques.pgf", "Times techniques achieved the lowest error")
+                report.add_table(technique_tab, "Techniques")
+                report.clear_page()
+                report.add_pgf(f"{relpath(comparison)}/Variables.pgf", "Times variable combinations achieved the lowest error")
+                report.add_table(variable_tab, "Variables")
+                report.clear_page()
             techniques = [subdir for subdir in comparison.iterdir() if subdir.is_dir()]
             for technique in techniques:
                 # Section
@@ -582,51 +630,52 @@ def main():
                             sql=f"SELECT * FROM '{dat[0]}'", con=con, index_col="Error"
                         )
                         report.add_subsubsection(dat[0])
-                        report.add_table(errors, dat[0], column_split=4, table_split=2)
+                        report.add_table(errors, dat[0], column_split=3, table_split=2)
                     cursor.close()
                     con.close()
                     report.clear_page()
-                    if "Uncalibrated" in dataset.parts[-1]:
-                        continue
+                    if use_full:
+                        if "Uncalibrated" in dataset.parts[-1]:
+                            continue
 
-                    # x variable linear regression, Bland-Altman and time series
-                    x_dir = Path(f"{dataset.as_posix()}/x")
-                    if x_dir.is_dir():
-                        report.add_subsection("Calibration")
-                        report.add_pgf_figure(
-                            f"{relpath(x_dir)}/Linear Regression.pgf",
-                            "Linear Regression",
+                        # x variable linear regression, Bland-Altman and time series
+                        x_dir = Path(f"{dataset.as_posix()}/x")
+                        if x_dir.is_dir():
+                            report.add_subsection("Calibration")
+                            report.add_pgf_figure(
+                                f"{relpath(x_dir)}/Linear Regression.pgf",
+                                "Linear Regression",
+                            )
+                            report.clear_page()
+                        techniques = [
+                            subdir for subdir in technique.iterdir() if subdir.is_dir()
+                        ]
+                        # BAs
+                        if len(techniques) > 1:
+                            report.add_subsection("Bland-Altman Comparisons")
+                        else:
+                            report.add_subsection("Bland-Altman")
+                        ba_graphs = list()
+                        ba_glob = dataset.glob("**/Bland-Altman.pgf")
+                        for graph in ba_glob:
+                            ba_graphs.append(relpath(graph))
+                        report.add_multiple_pgf(
+                            ba_graphs, "Bland-Altman Graphs", column_split=2, row_split=2
                         )
                         report.clear_page()
-                    techniques = [
-                        subdir for subdir in technique.iterdir() if subdir.is_dir()
-                    ]
-                    # BAs
-                    if len(techniques) > 1:
-                        report.add_subsection("Bland-Altman Comparisons")
-                    else:
-                        report.add_subsection("Bland-Altman")
-                    ba_graphs = list()
-                    ba_glob = dataset.glob("**/Bland-Altman.pgf")
-                    for graph in ba_glob:
-                        ba_graphs.append(relpath(graph))
-                    report.add_multiple_pgf(
-                        ba_graphs, "Bland-Altman Graphs", column_split=2, row_split=2
-                    )
-                    report.clear_page()
-                    # eCDFs
-                    if len(techniques) > 1:
-                        report.add_subsection("eCDF Variable Comparison")
-                    else:
-                        report.add_subsection("eCDF")
-                    ecdf_graphs = list()
-                    ecdf_glob = dataset.glob("**/eCDF.pgf")
-                    for graph in ecdf_glob:
-                        ecdf_graphs.append(relpath(graph))
-                    report.add_multiple_pgf(
-                        ecdf_graphs, "eCDF Graphs", column_split=2, row_split=2
-                    )
-                    report.clear_page()
+                        # eCDFs
+                        if len(techniques) > 1:
+                            report.add_subsection("eCDF Variable Comparison")
+                        else:
+                            report.add_subsection("eCDF")
+                        ecdf_graphs = list()
+                        ecdf_glob = dataset.glob("**/eCDF.pgf")
+                        for graph in ecdf_glob:
+                            ecdf_graphs.append(relpath(graph))
+                        report.add_multiple_pgf(
+                            ecdf_graphs, "eCDF Graphs", column_split=2, row_split=2
+                        )
+                        report.clear_page()
     path_to_save = Path(f"{cache_path}{run_name}/Report")
     path_to_save.mkdir(parents=True, exist_ok=True)
     report.save_tex(f"{path_to_save.as_posix()}")
