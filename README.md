@@ -54,30 +54,100 @@ All python requirements can be found in [requirements.txt](./requirements.txt) a
 
 This program was designed, tested and run on a Linux machine using Python 3.10. Earlier versions of Python and other operating systems have not been tested.
 
+---
+
+## How to Use 
+
+If you are utilising a POSIX compliant shell, you can use the provided source file. By running ```source graddnodi``` or ```. graddnodi``` from your shell in the root of this git repository, you will have access to the following commands:
+
+**run**:
+
+Runs the program
+
+|Flag|Flag|Description|Default|
+|---|---|---|---|
+|-c|--config-path|Path to the config file|Settings/config.json|
+|-i|--influx-path|Path to the influx config|Settings/influx.json|
+|-o|--output-path|Where the output is saved to|Output/|
+|-f|--full-output|Include full output in saved report (eCDFs, scatter plots, Bland-Altman plots etc)|False, True if called|
+
+**setup**:
+
+Sets up the virtual environment used by Graddnodi.
+The virtual environment is optional and you can use your own solution, provided the python interpreter you are using meets all the requirements listed in [Requirements](##requirements).
+Setup will not install Python 3.x, the virtual environment pip package or any latex distribution as these require root access.
+
+**help**:
+
+Prints out each command, what they do and the arguments they take.
 
 ---
 
 ## Setup
 
+You can use the provided source file to setup the Python virtual environment.
+Alternatively, you can set up a Python 3 virtual environment yourself using the provided [requirements.txt](./requirements.txt) file to install the required packages.
+The Graddnodi source file expects the virtual environment *.env* to be present in the Graddnodi directory, if you name the virtual environment something else or use your systems interpreter then you will have to modify the source file or run the program directly.
+
+The setup command performs the following steps:
 ```bash
-./setup.sh
+command -v python3 &> /dev/null || (printf 'Python3 cannot be found in PATH\n' && return)
 ```
 
-OR
+This command checks to see if Python 3 is installed.
+If it isn't, the user is informed that python3 isn't present in their PATH and the setup is exited.
+If python3 is not installed, the user will have to do it themselves. 
+The steps required for this very by operating system, version and distribution.
+Please consult [the Python website](https://www.python.org) for more information.
 
-```bash 
-bash setup.sh 
+```bash
+python3 -c 'import venv' &> /dev/null || (printf 'python3 venv is not installed. To set up a virtual environment, please install the python3 venv package\n' && return)
 ```
+
+This command checks to see if the venv package is installed in the systems interpreter.
+If it isn't, a virtual environment cannot be set up. The user is informed of this and the setup exits.
+This package can be installed by using Pythons package manager, pip.
+(pip install venv or pip3 install venv).
+
+```bash
+python3 -m venv .env
+```
+
+This command sets up the Python virtual environment in the Graddnodi directory
+
+```bash
+.env/bin/pip install -r requirements.txt
+```
+
+This command installs all the packages listed in [requirements.txt](./requirements.txt)
+
 
 ---
 
-## Standard Operating Procedure
+## Running without the source file
+
+If you are not using the source file for any number of reasons (Using Windows, the fish shell etc) then the following commands can be run to use the program.
+Please note that the following commands assume you are using a virtual environment called .env stored in the Graddnodi directory.
+If your virtual environment has a different name, has a different path or you are using the system interpreter then you will have to modify the command to point to that instead.
+
+### Running the program
+
+```bash
+.env/bin/python3 src/main.py *arguments*
+```
+
+|Flag|Flag|Description|Default|
+|---|---|---|---|
+|-c|--config-path|Path to the config file|Settings/config.json|
+|-i|--influx-path|Path to the influx config|Settings/influx.json|
+|-o|--output-path|Where the output is saved to|Output/|
+|-f|--full-output|Include full output in saved report (eCDFs, scatter plots, Bland-Altman plots etc)|False, True if called|
 
 ### Rendering the report
 
 ```bash
-cd Output/*run_name*/Report 
-# Where {run_name} is the name of the run you want to generate the report for
+cd *output folder*/*run name*/Report 
+# Where {run name} is the name of the run you want to generate the report for
 lualatex Report.tex && lualatex Report.tex
 # lualatex is run twice to ensure the table of contents is correct
 ```
@@ -105,7 +175,6 @@ This halves the amount of calculations performed as there's little point in cali
 |Key|Type|Description|Options|Example|
 |---|---|---|---|---|
 |*device name*|dict|See [Device](#####device)|---|---|
-
 
 ##### Device 
 
@@ -499,4 +568,7 @@ Rows correspond to different combinations of secondary measurements (e.g x, x + 
 
 ### Results 
 
-The results of the error calculations performed on the calibrated test set are saved in Output/*run name*/*field*/*comparison*/*Technique*/Results.db
+The results of the error calculations performed on the calibrated test set are saved in Output/_run name_/_field_/_comparison_/_Technique_/Results.db
+
+### Summary Stats
+
