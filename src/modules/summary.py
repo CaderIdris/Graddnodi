@@ -1,3 +1,14 @@
+""" Takes a collection of DataFrames and performs summary statistics on them.
+
+Classes:
+    ArgumentWarning:
+        Inherits from warning. Used to warn when methods used on dictionary of
+        DataFrames called when list/tuple of dataframes given.
+
+    Summary:
+        Performs summary statistics on provided dataframes
+
+"""
 import warnings
 
 import matplotlib.pyplot as plt
@@ -5,6 +16,9 @@ import pandas as pd
 
 
 class ArgumentWarning(Warning):
+    """ Used to warn when methods requiring specific argument type receive
+    another
+    """
     def __init__(self, message):
         self.message = message
 
@@ -13,6 +27,14 @@ class ArgumentWarning(Warning):
 
 
 class Summary:
+    """ Generates summary statistics for provided dataframes
+
+    Attributes:
+        - _dataframes (list,tuple,dict): Dataframes to perform summary stats on
+
+        - group (pd.DataFrame.group): 
+
+    """
     def __init__(self, dataframes):
         self._dataframes = dataframes
         if isinstance(self._dataframes, dict):
