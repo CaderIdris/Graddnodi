@@ -23,8 +23,8 @@ help() {
 }
 
 setup() {
-	command -v python3 &> /dev/null || (printf 'Python3 cannot be found in PATH\n' && return)
-	python3 -c 'import venv' &> /dev/null || (printf 'python3 venv is not installed. To set up a virtual environment, please install the python3 venv package\n' && return)
+	command -v python3 &> /dev/null || (printf 'python3 cannot be found in PATH\n' && return)
+	python3 -c 'import venv' &> /dev/null || (printf 'python3 venv package is not installed. To set up a virtual environment, please install the python3 virtualenv package\n' && return)
 
 	python3 -m venv .env
 	.env/bin/pip install -r requirements.txt
