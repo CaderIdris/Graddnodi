@@ -31,12 +31,6 @@ class Errors:
 
         combos (list): List of all possible variable and dataset combos
 
-        _plots (dict): All result plots made
-
-        x_name (str): Name of x device
-
-        y_name (str): Name of y device
-
     Methods:
         _calibrate: Calibrate all x measurements with provided coefficients.
         This function splits calibrations depending on whether the coefficients
@@ -98,11 +92,9 @@ class Errors:
         train,
         test,
         coefficients,
-        comparison_name,
+        to_use={"Calibrated Test": True, "Uncalibrated Test": True},
         x_name=None,
-        y_name=None,
-        x_measurements=None,
-        y_measurements=None,
+        y_name=None
     ):
         """Initialise the class
 
@@ -118,14 +110,13 @@ class Errors:
         self.train = train
         self.test = test
         self.coefficients = coefficients
-        self._errors = defaultdict(lambda: defaultdict(list))
-        self.y_pred = self._calibrate()
-        self.combos = self._get_all_combos()
-        self._plots = defaultdict(lambda: defaultdict(list))
-        self.x_name = x_name
-        self.y_name = y_name
+        self._errors = dict()
+        self.y_pred = self._calibrate(to_use)
 
-    def _calibrate(self):
+# Split calibrations by dataset (test, train, combo) to reduce number of calculations
+# Put these into y_pred with different datasets as top keys
+
+    def _calibrate(self, to_use):
         """Calibrate all x measurements with provided coefficients.
 
         All x measurements in both the training and testing dataset need to be
@@ -135,77 +126,72 @@ class Errors:
         using scikitlearn or pymc. It then sends them off to the corresponding
         function to be calibrated.
         """
-        y_pred_dict = dict()
+        y_pred = dict()
         column_names = self.coefficients.columns
-        for coefficient_set in self.coefficients.iterrows():
-            if bool(re.search("'sd\.", str(column_names))):
-                y_pred = self._pymc_calibrate(coefficient_set[1])
+        skl_coeffs = True
+        if bool(re.search(r"'sd\.", str(column_names))):
+            skl_coeffs = False
+        if to_use.get("Calibrated Test"):
+            if skl_coeffs:
+                y_pred["Test (Calibrated)"] = self._skl_calibrate(self.test)
             else:
-                y_pred = self._skl_calibrate(coefficient_set[1])
-            y_pred_dict[coefficient_set[0]] = y_pred
-        return y_pred_dict
+                y_pred["Test (Mean Calibrated)"] = self._pymc_calibrate(self.test)
+                if to_use.get("MinMax"):
+                    y_pred["Test (Max Calibrated)"] = self._pymc_calibrate(self.test, minmax="max")
+                    y_pred["Test (Min Calibrated)"] = self._pymc_calibrate(self.test, minmax="min")
+        if to_use.get("Calibrated Train"):
+            if skl_coeffs:
+                y_pred["Train (Calibrated)"] = self._skl_calibrate(self.train)
+            else:
+                y_pred["Train (Mean Calibrated)"] = self._pymc_calibrate(self.train)
+                if to_use.get("MinMax"):
+                    y_pred["Train (Max Calibrated)"] = self._pymc_calibrate(self.train, minmax="max")
+                    y_pred["Train (Min Calibrated)"] = self._pymc_calibrate(self.train, minmax="min")
+        if to_use.get("Calibrated Full"):
+            if skl_coeffs:
+                y_pred["Full (Calibrated)"] = self._skl_calibrate(pd.concat(self.test, self.train))
+            else:
+                y_pred["Full (Mean Calibrated)"] = self._pymc_calibrate(pd.concat(self.test, self.train))
+                if to_use.get("MinMax"):
+                    y_pred["Full (Max Calibrated)"] = self._pymc_calibrate(pd.concat(self.test, self.train), minmax="max")
+                    y_pred["Full (Min Calibrated)"] = self._pymc_calibrate(pd.concat(self.test, self.train), minmax="min")
+        if to_use.get("Uncalibrated Train"):
+            y_pred["Train (Uncalibrated)"] = self.train["x"]
+        if to_use.get("Uncalibrated Test"):
+            y_pred["Test (Uncalibrated)"] = self.test["x"]
+        if to_use.get("Uncalibrated Full"):
+            y_pred["Full (Uncalibrated)"] = pd.concat(self.test["x"], self.train["x"])
 
-    def _pymc_calibrate(self, coeffs):
-        """Calibrates x measurements with provided pymc coefficients. Returns
-        mean, max and min calibrations, where max and min are +-2*sd.
-
-        Pymc calibrations don't just provide a coefficient for each variable
-        in the form of a mean but also provide a standard deviation on that
-        mean. By taking the mean coefficients, mean + 2*sd (max) and mean -
-        2*sd (min) we get 3 potential values for the predicted y value.
-
-        Keyword Arguments:
-            coeffs (pd.Series): All coefficients to be calibrated with, the
-            mean.coeff and sd.coeff correspond to the coefficient mean and
-            associated standard deviation. Intercept mean and sd is given with
-            i.Intercept and sd.Intercept.
+    def _pymc_calibrate(self, data, minmax=None):
         """
-        coefficient_keys_raw = list(coeffs.dropna().index)
-        coefficient_keys_raw = [
-            element
-            for element in coefficient_keys_raw
-            if element
-            not in ["coeff.x", "sd.x", "sd.Intercept", "i.Intercept", "index"]
-        ]
-        coefficient_keys = list()
-        for key in coefficient_keys_raw:
-            if re.match(r"coeff\.", key):
-                coefficient_keys.append(re.sub(r"coeff\.", "", key))
-        y_pred_train = self.train["x"] * coeffs.get("coeff.x")
-        y_pred_test = self.test["x"] * coeffs.get("coeff.x")
-        y_pred = {
-            "mean.Train": pd.Series(y_pred_train),
-            "min.Train": pd.Series(y_pred_train),
-            "max.Train": pd.Series(y_pred_train),
-            "mean.Test": pd.Series(y_pred_test),
-            "min.Test": pd.Series(y_pred_test),
-            "max.Test": pd.Series(y_pred_test),
-        }
-        for coeff in coefficient_keys:
-            to_add_train = self.train[coeff] * coeffs.get(f"coeff.{coeff}")
-            to_add_test = self.test[coeff] * coeffs.get(f"coeff.{coeff}")
-            coeff_error_train = self.train[coeff] * (2 * coeffs.get(f"sd.{coeff}"))
-            coeff_error_test = self.test[coeff] * (2 * coeffs.get(f"sd.{coeff}"))
-            y_pred["mean.Train"] = y_pred["mean.Train"] + to_add_train
-            y_pred["min.Train"] = y_pred["min.Train"] + (
-                to_add_train - coeff_error_train
-            )
-            y_pred["max.Train"] = y_pred["max.Train"] + (
-                to_add_train + coeff_error_train
-            )
-            y_pred["mean.Test"] = y_pred["mean.Test"] + to_add_test
-            y_pred["min.Test"] = y_pred["min.Test"] + (to_add_test - coeff_error_test)
-            y_pred["max.Test"] = y_pred["max.Test"] + (to_add_test + coeff_error_test)
-        to_add_int = coeffs.get(f"i.Intercept")
-        int_error = 2 * coeffs.get(f"sd.Intercept")
-
-        y_pred["mean.Train"] = y_pred["mean.Train"] + to_add_int
-        y_pred["min.Train"] = y_pred["min.Train"] + (to_add_int - int_error)
-        y_pred["max.Train"] = y_pred["max.Train"] + (to_add_int + int_error)
-        y_pred["mean.Test"] = y_pred["mean.Test"] + to_add_int
-        y_pred["min.Test"] = y_pred["min.Test"] + (to_add_int - int_error)
-        y_pred["max.Test"] = y_pred["max.Test"] + (to_add_int + int_error)
-        return y_pred
+        """
+        y_pred_dict = dict()
+        for index, coeffs in self.coefficients.itterrows():
+            # Figure out which coefficients are present, which ones to use and 
+            coefficient_keys_raw = list(coeffs.dropna().index)
+            coeff_regex = re.compile(r"coeff\.")
+            coefficient_keys = list(filter(coeff_regex.match, coefficient_keys_raw))
+            coefficient_keys.remove("x") # Remove x and add it on separately
+            y_pred: pd.Series = data["x"] * coeffs.get("coeff.x")
+            for coeff in coefficient_keys:
+                to_add: pd.Series = data[coeff] * coeffs.get(f"coeff.{coeff}")
+                y_pred = y_pred + to_add
+            y_pred = y_pred + coeffs.get(f"i.Intercept")
+            if minmax in ["min", "max"]:
+                # Just ignore it when minmax isn't called properly.
+                # Ideally would warn, TODO?
+                mult = 2
+                if minmax == "min":
+                    mult = -2
+                # Quick way to determine +-2*sd
+                y_pred = y_pred + (data["x"] * (mult * coeffs.get("sd.x")))
+                for coeff in coefficient_keys:
+                    to_add: pd.Series = data[coeff] * (mult * coeffs.get(f"sd.{coeff}"))
+                    y_pred = y_pred + to_add
+                y_pred = y_pred + (mult * coeffs.get("sd.Intercept"))
+                # Add standard deviations of all coefficients to y_pred to get min or max measurement
+            y_pred_dict[index] = y_pred 
+        return y_pred_dict
 
     def _skl_calibrate(self, coeffs):
         """Calibrate x measurements with provided skl coefficients. Returns
@@ -263,7 +249,7 @@ class Errors:
         return combos
 
     def _all_combos(
-        self, pred, to_use={"Calibrated Test": True, "Uncalibrated Test": True}
+        self, pred, to_use={}
     ):
         """Addition to _get_all_combos to get cleaner code
 
@@ -391,11 +377,7 @@ class Errors:
         error_name = "Explained Variance Score"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
-                if len(self._errors[name]["Variable"]) == len(self._errors[name][method]):
-                    self._errors[name]["Variable"].append(error_name)
-                self._errors[name][method].append(
-                    met.explained_variance_score(true, pred)
-                )
+                self._errors[name][method][error_name] = met.explained_variance_score(true, pred)
 
     def max(self):
         """Calculate the max error between the true values (y)
@@ -408,9 +390,7 @@ class Errors:
         error_name = "Max Error"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
-                if len(self._errors[name]["Variable"]) == len(self._errors[name][method]):
-                    self._errors[name]["Variable"].append(error_name)
-                self._errors[name][method].append(met.max_error(true, pred))
+                self._errors[method][error_name] = met.max_error(true, pred)
 
     def mean_absolute(self):
         """Calculate the mean absolute error between the true values (y)
@@ -423,9 +403,7 @@ class Errors:
         error_name = "Mean Absolute Error"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
-                if len(self._errors[name]["Variable"]) == len(self._errors[name][method]):
-                    self._errors[name]["Variable"].append(error_name)
-                self._errors[name][method].append(met.mean_absolute_error(true, pred))
+                self._errors[method][error_name] = met.mean_absolute_error(true, pred)
 
     def root_mean_squared(self):
         """Calculate the root mean squared error between the true values (y)
@@ -623,9 +601,11 @@ class Results(Errors):
 
         save_plots: Saves all plots in pgf format
     """
-    def __init__(self, train, test, coefficients, comparison_name, style="default"):
-        Errors.__init__(self, train, test, coefficients, comparison_name)
+    def __init__(self, train, test, coefficients, comparison_name, x_name=None, y_name=None, style="default"):
+        Errors.__init__(self, train, test, coefficients)
         self.style = style
+        self.x_name = x_name
+        self.y_name = y_name
 
     def linear_reg_plot(self, title=None):
         plot_name = "Linear Regression"
