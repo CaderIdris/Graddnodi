@@ -89,7 +89,7 @@ class Summary:
             min_df = self.min()
             if summate == "all":
                 for key, df in self._dataframes.items():
-                    count_dict_temp = (df.eq(min_df)).sum().to_dict()
+                    count_dict_temp = (df.eq(min_df)).sum(axis=1).to_dict()
                     keys = list(count_dict_temp.keys())
                     keys.sort(key=lambda a: a.count("+"))
                     count_dict[key] = {key: count_dict_temp[key] for key in keys}
@@ -100,9 +100,9 @@ class Summary:
                 keys = list(count_dict.keys())
                 keys.sort(key=lambda a: a.count("+"))
                 return {key: count_dict[key] for key in keys}
-            elif summate == "col":
+            elif summate == "row":
                 for key, df in self._dataframes.items():
-                    column_eq_min = df.eq(min_df).sum()
+                    column_eq_min = df.eq(min_df).sum(axis=1)
                     if column_eq_min.max() != 0:
                         best_columns = column_eq_min[
                             column_eq_min == column_eq_min.max()

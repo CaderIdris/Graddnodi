@@ -105,7 +105,7 @@ def main():
             help="Generate full output"
     )
     args = vars(arg_parser.parse_args())
-    cache_path = args["cache_path"]
+    output_path = args["output_path"]
     config_path = args["config_path"]
     influx_path = args["influx_path"]
     use_full = args["full_output"]
@@ -123,7 +123,7 @@ def main():
 
     # Download measurements from cache
     measurements = defaultdict(lambda: defaultdict(pd.DataFrame))
-    cache_folder = f"{cache_path}{run_name}/Measurements/"
+    cache_folder = f"{output_path}{run_name}/Measurements/"
     cached_files = file_list(cache_folder, extension=".db")
     for cached_file in cached_files:
         field_name = re.sub(r"(.*?)/|\.\w*$", "", cached_file)
@@ -302,9 +302,9 @@ def main():
             measurements[tag] = dict(measurements[tag])
         measurements = dict(measurements)
         if cache_measurements:
-            make_path(f"{cache_path}{run_name}/Measurements")
+            make_path(f"{output_path}{run_name}/Measurements")
             for field, devices in measurements.items():
-                con = sql.connect(f"{cache_path}{run_name}/" f"Measurements/{field}.db")
+                con = sql.connect(f"{output_path}{run_name}/" f"Measurements/{field}.db")
                 for table, dframe in devices.items():
                     dframe.to_sql(name=table, con=con, if_exists="replace", index=False)
                 con.close()
@@ -316,7 +316,7 @@ def main():
     bay_families = run_config["Calibration"]["Bayesian Families"]
     coefficients = dict()
 
-    coeffs_folder = f"{cache_path}{run_name}/Coefficients"
+    coeffs_folder = f"{output_path}{run_name}/Coefficients"
     coeff_dirs = folder_list(coeffs_folder)
     for field_name in coeff_dirs:
         coefficients[field_name] = dict()
@@ -411,9 +411,9 @@ def main():
                         # After comparison is complete, save all coefficients
                         # and test/train data to sqlite3 database
                         if cache_coeffs:
-                            make_path(f"{cache_path}{run_name}/Coefficients/{field}")
+                            make_path(f"{output_path}{run_name}/Coefficients/{field}")
                             con = sql.connect(
-                                f"{cache_path}{run_name}/Coefficients/{field}/"
+                                f"{output_path}{run_name}/Coefficients/{field}/"
                                 f"{comparison_name}.db"
                             )
                             for comp_technique, dframe in coefficients[field][
@@ -438,7 +438,7 @@ def main():
             techniques.remove("Train")
             for index_tech, technique in enumerate(techniques):
                 errors[field][comparison][technique] = dict()
-                results_path = f"{cache_path}{run_name}/Results/{field}/{comparison}/{technique}/Results.db"
+                results_path = f"{output_path}{run_name}/Results/{field}/{comparison}/{technique}/Results.db"
                 if Path(results_path).is_file():
                     con = sql.connect(results_path)
                     cursor = con.cursor()
@@ -448,7 +448,7 @@ def main():
                         errors[field][comparison][technique][table[0]] = pd.read_sql(
                             sql=f"SELECT * from '{table[0]}'",
                             con=con,
-                            index_col="Error",
+                            index_col="Variable"
                         )
                     continue
                 print(technique)
@@ -491,7 +491,7 @@ def main():
                 if error_techniques["Mean Pinball Loss"]:
                     result_calculations.mean_pinball_loss()
                 make_path(
-                    f"{cache_path}{run_name}/Results/{field}/{comparison}/{technique}"
+                    f"{output_path}{run_name}/Results/{field}/{comparison}/{technique}"
                 )
                 if use_full:
                     result_calculations.linear_reg_plot(
@@ -502,11 +502,11 @@ def main():
                     )
                     result_calculations.ecdf_plot(f"[{field}] {comparison} ({technique})")
                     result_calculations.save_plots(
-                        f"{cache_path}{run_name}/Results/{field}/{comparison}/{technique}"
+                        f"{output_path}{run_name}/Results/{field}/{comparison}/{technique}"
                     )
                 if index_tech == 0:
                     result_calculations.temp_time_series_plot(
-                        f"{cache_path}{run_name}/Results/{field}/{comparison}"
+                        f"{output_path}{run_name}/Results/{field}/{comparison}"
                     )
                 errors[field][comparison][
                     technique
@@ -514,7 +514,7 @@ def main():
                 # After error calculation is complete, save all coefficients
                 # and test/train data to sqlite3 database
                 con = sql.connect(
-                    f"{cache_path}{run_name}/Results/{field}/{comparison}/"
+                    f"{output_path}{run_name}/Results/{field}/{comparison}/"
                     f"{technique}/Results.db"
                 )
                 for dset, dframe in errors[field][comparison][technique].items():
@@ -525,7 +525,7 @@ def main():
                     )
                 con.close()
                 con = sql.connect(
-                    f"{cache_path}{run_name}/Results/{field}/{comparison}/"
+                    f"{output_path}{run_name}/Results/{field}/{comparison}/"
                     f"{technique}/Coefficients.db"
                 )
                 coeffs[technique].to_sql(
@@ -538,7 +538,7 @@ def main():
     for field, comparisons in errors.items():
         for comparison, techniques in comparisons.items():
             comparison_dict = dict()
-            graph_path = Path(f"{cache_path}{run_name}/Results/{field}/{comparison}")
+            graph_path = Path(f"{output_path}{run_name}/Results/{field}/{comparison}")
             for technique, datasets in techniques.items():
                 if "Calibrated Test Data" in list(datasets.keys()):
                     comparison_dict[technique] = datasets.get("Calibrated Test Data")
@@ -548,7 +548,7 @@ def main():
                     )
             summary_data = Summary(comparison_dict)
             best_techniques = summary_data.best_performing(summate="key")
-            best_variables = summary_data.best_performing(summate="col")
+            best_variables = summary_data.best_performing(summate="row")
             graphs.bar_chart(best_techniques, name="Techniques")
             graphs.bar_chart(best_variables, name="Variables")
             best_techniques_tab = pd.DataFrame(data={"Technique": list(best_techniques.keys()), "Total": list(best_techniques.values())}).set_index("Technique")
@@ -565,7 +565,7 @@ def main():
                 con.close()
             graphs.save_plots(graph_path.as_posix())
 
-    report_folder = Path(f"{cache_path}{run_name}/Results")
+    report_folder = Path(f"{output_path}{run_name}/Results")
     report_fields = [subdir for subdir in report_folder.iterdir() if subdir.is_dir()]
     report = Report(title="Graddnodi Analysis", subtitle=run_name)
     # Report
@@ -621,7 +621,7 @@ def main():
                     tables = cursor.fetchall()
                     for dat in tables:
                         errors = pd.read_sql(
-                            sql=f"SELECT * FROM '{dat[0]}'", con=con, index_col="Error"
+                            sql=f"SELECT * FROM '{dat[0]}'", con=con, index_col="Variable"
                         )
                         report.add_subsubsection(dat[0])
                         report.add_table(errors, dat[0], column_split=3, table_split=2)
@@ -670,7 +670,7 @@ def main():
                             ecdf_graphs, "eCDF Graphs", column_split=2, row_split=2
                         )
                         report.clear_page()
-    path_to_save = Path(f"{cache_path}{run_name}/Report")
+    path_to_save = Path(f"{output_path}{run_name}/Report")
     path_to_save.mkdir(parents=True, exist_ok=True)
     report.save_tex(f"{path_to_save.as_posix()}")
 

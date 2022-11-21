@@ -391,8 +391,8 @@ class Errors:
         error_name = "Explained Variance Score"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
-                if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
-                    self._errors[name]["Error"].append(error_name)
+                if len(self._errors[name]["Variable"]) == len(self._errors[name][method]):
+                    self._errors[name]["Variable"].append(error_name)
                 self._errors[name][method].append(
                     met.explained_variance_score(true, pred)
                 )
@@ -408,8 +408,8 @@ class Errors:
         error_name = "Max Error"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
-                if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
-                    self._errors[name]["Error"].append(error_name)
+                if len(self._errors[name]["Variable"]) == len(self._errors[name][method]):
+                    self._errors[name]["Variable"].append(error_name)
                 self._errors[name][method].append(met.max_error(true, pred))
 
     def mean_absolute(self):
@@ -423,8 +423,8 @@ class Errors:
         error_name = "Mean Absolute Error"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
-                if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
-                    self._errors[name]["Error"].append(error_name)
+                if len(self._errors[name]["Variable"]) == len(self._errors[name][method]):
+                    self._errors[name]["Variable"].append(error_name)
                 self._errors[name][method].append(met.mean_absolute_error(true, pred))
 
     def root_mean_squared(self):
@@ -438,8 +438,8 @@ class Errors:
         error_name = "Root Mean Squared Error"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
-                if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
-                    self._errors[name]["Error"].append(error_name)
+                if len(self._errors[name]["Variable"]) == len(self._errors[name][method]):
+                    self._errors[name]["Variable"].append(error_name)
                 self._errors[name][method].append(
                     met.mean_squared_error(true, pred, squared=False)
                 )
@@ -455,8 +455,8 @@ class Errors:
         error_name = "Root Mean Squared Log Error"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
-                if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
-                    self._errors[name]["Error"].append(error_name)
+                if len(self._errors[name]["Variable"]) == len(self._errors[name][method]):
+                    self._errors[name]["Variable"].append(error_name)
                 self._errors[name][method].append(
                     met.mean_squared_log_error(true, pred, squared=False)
                 )
@@ -472,8 +472,8 @@ class Errors:
         error_name = "Median Absolute Error"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
-                if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
-                    self._errors[name]["Error"].append(error_name)
+                if len(self._errors[name]["Variable"]) == len(self._errors[name][method]):
+                    self._errors[name]["Variable"].append(error_name)
                 self._errors[name][method].append(met.median_absolute_error(true, pred))
 
     def mean_absolute_percentage(self):
@@ -487,8 +487,8 @@ class Errors:
         error_name = "Mean Absolute Percentage Error"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
-                if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
-                    self._errors[name]["Error"].append(error_name)
+                if len(self._errors[name]["Variable"]) == len(self._errors[name][method]):
+                    self._errors[name]["Variable"].append(error_name)
                 self._errors[name][method].append(
                     met.mean_absolute_percentage_error(true, pred)
                 )
@@ -504,8 +504,8 @@ class Errors:
         error_name = "r2"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
-                if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
-                    self._errors[name]["Error"].append(error_name)
+                if len(self._errors[name]["Variable"]) == len(self._errors[name][method]):
+                    self._errors[name]["Variable"].append(error_name)
                 self._errors[name][method].append(met.r2_score(true, pred))
 
     def mean_poisson_deviance(self):
@@ -519,8 +519,8 @@ class Errors:
         error_name = "Mean Poisson Deviance"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
-                if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
-                    self._errors[name]["Error"].append(error_name)
+                if len(self._errors[name]["Variable"]) == len(self._errors[name][method]):
+                    self._errors[name]["Variable"].append(error_name)
                 self._errors[name][method].append(met.mean_poisson_deviance(true, pred))
 
     def mean_gamma_deviance(self):
@@ -534,8 +534,8 @@ class Errors:
         error_name = "Mean Gamma Deviance"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
-                if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
-                    self._errors[name]["Error"].append(error_name)
+                if len(self._errors[name]["Variable"]) == len(self._errors[name][method]):
+                    self._errors[name]["Variable"].append(error_name)
                 self._errors[name][method].append(met.mean_gamma_deviance(true, pred))
 
     def mean_tweedie_deviance(self):
@@ -550,8 +550,8 @@ class Errors:
         for method, combo in self.combos.items():
 
             for name, pred, true in combo:
-                if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
-                    self._errors[name]["Error"].append(error_name)
+                if len(self._errors[name]["Variable"]) == len(self._errors[name][method]):
+                    self._errors[name]["Variable"].append(error_name)
                 self._errors[name][method].append(met.mean_tweedie_deviance(true, pred))
 
     def mean_pinball_loss(self):
@@ -565,8 +565,8 @@ class Errors:
         error_name = "Mean Pinball Deviance"
         for method, combo in self.combos.items():
             for name, pred, true in combo:
-                if len(self._errors[name]["Error"]) == len(self._errors[name][method]):
-                    self._errors[name]["Error"].append(error_name)
+                if len(self._errors[name]["Variable"]) == len(self._errors[name][method]):
+                    self._errors[name]["Variable"].append(error_name)
                 self._errors[name][method].append(met.mean_pinball_loss(true, pred))
 
     def return_errors(self):
@@ -574,8 +574,9 @@ class Errors:
         for key, item in self._errors.items():
             if not isinstance(self._errors[key], pd.DataFrame):
                 self._errors[key] = pd.DataFrame(data=dict(item))
-            if "Error" in self._errors[key].columns:
-                self._errors[key] = self._errors[key].set_index("Error")
+            if "Variable" in self._errors[key].columns:
+                self._errors[key] = self._errors[key].set_index("Variable")
+            self._errors[key] = self._errors[key].T
         self._errors = dict(self._errors)
         return self._errors
 
@@ -854,7 +855,6 @@ class Results(Errors):
                     # graph_type: Type of graph e.g Linear Regression
                     # vars: Variables used e.g x + rh
                     # plot: The figure to be saved
-
 
 def ecdf(data):
     x = np.sort(data)
