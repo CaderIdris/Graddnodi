@@ -14,9 +14,8 @@ import pandas as pd
 from sklearn import metrics as met
 
 
-class Results:
-    """Calculates errors between "true" and "predicted" measurements, plots
-    graphs and returns all results
+class Errors:
+    """Calculates errors between "true" and "predicted" measurements.
 
     Attributes:
         train (DataFrame): Training data
@@ -37,12 +36,6 @@ class Results:
         x_name (str): Name of x device
 
         y_name (str): Name of y device
-
-        x_measurements (pd.DataFrame): x_measurements with associated
-        timestamps
-
-        y_measurements (pd.DataFrame): y_measurements with associated
-        timestamps
 
     Methods:
         _calibrate: Calibrate all x measurements with provided coefficients.
@@ -98,24 +91,6 @@ class Results:
         (y) measurements and all predicted (x) measurements
 
         return_errors: Returns dictionary of all recorded errors
-
-        bland_altman_plot: Plots a bland altman graph for all variable
-        combinations for all specified datasets using predicted (calibrated x)
-        and true (y) data
-
-        linear_reg_plot: Plots a linear regression graph for calibrations that
-        only have an x coefficients for all specified datasets using predited
-        (calibrated x) and true (y) data
-
-        ecdf_plot: Plots an eCDF graph for all variable combinations for all
-        specified dataset using predicted (calibrated x) and true (y) data
-
-        temp_time_series_plot: Temporary way to plot time series, not great
-
-        save_results: Saves errors and coefficients for specific variable and
-        dataset to local sqlite3 file
-
-        save_plots: Saves all plots in pgf format
     """
 
     def __init__(
@@ -149,8 +124,6 @@ class Results:
         self._plots = defaultdict(lambda: defaultdict(list))
         self.x_name = x_name
         self.y_name = y_name
-        self.x_measurements = x_measurements
-        self.y_measurements = y_measurements
 
     def _calibrate(self):
         """Calibrate all x measurements with provided coefficients.
@@ -606,6 +579,53 @@ class Results:
         self._errors = dict(self._errors)
         return self._errors
 
+
+class Results(Errors):
+    """Plots graphs of results from Errors
+
+    Attributes:
+        train (DataFrame): Training data
+
+        test (DataFrame): Testing data
+
+        coefficients (DataFrame): Calibration coefficients
+
+        _errors (dict): Dictionary of dataframes, each key representing a
+        different calibration method
+
+        y_pred (dict): Calibrated x measurements
+
+        combos (list): List of all possible variable and dataset combos
+
+        _plots (dict): All result plots made
+
+        x_name (str): Name of x device
+
+        y_name (str): Name of y device
+
+    Methods:
+        bland_altman_plot: Plots a bland altman graph for all variable
+        combinations for all specified datasets using predicted (calibrated x)
+        and true (y) data
+
+        linear_reg_plot: Plots a linear regression graph for calibrations that
+        only have an x coefficients for all specified datasets using predited
+        (calibrated x) and true (y) data
+
+        ecdf_plot: Plots an eCDF graph for all variable combinations for all
+        specified dataset using predicted (calibrated x) and true (y) data
+
+        temp_time_series_plot: Temporary way to plot time series, not great
+
+        save_results: Saves errors and coefficients for specific variable and
+        dataset to local sqlite3 file
+
+        save_plots: Saves all plots in pgf format
+    """
+    def __init__(self, train, test, coefficients, comparison_name, style="default"):
+        Errors.__init__(self, train, test, coefficients, comparison_name)
+        self.style = style
+
     def linear_reg_plot(self, title=None):
         plot_name = "Linear Regression"
         for method, combo in self.combos.items():
@@ -615,7 +635,7 @@ class Results:
                 if method != "x":
                     self._plots[name][method].append(None)
                     continue
-                plt.style.use("Settings/style.mplstyle")
+                plt.style.use(self.style)
                 fig = plt.figure(figsize=(8, 8))
                 fig_gs = fig.add_gridspec(
                     2,
@@ -740,7 +760,7 @@ class Results:
             for name, pred, true in combo:
                 if len(self._plots[name]["Plot"]) == len(self._plots[name][method]):
                     self._plots[name]["Plot"].append(plot_name)
-                plt.style.use("Settings/style.mplstyle")
+                plt.style.use(self.style)
                 fig, ax = plt.subplots(figsize=(8, 8))
                 x_data = np.mean(np.vstack((pred, true)).T, axis=1)
                 y_data = np.array(pred) - np.array(true)
@@ -814,29 +834,6 @@ class Results:
                     fig.suptitle(f"{title}\n{name} ({method})")
                 self._plots[name][method].append(fig)
 
-    def temp_time_series_plot(
-        self, path, title=None
-    ):  # This is not a good way to do this
-        plt.style.use("Settings/style.mplstyle")
-        x_vals = self.x_measurements["Values"]
-        y_vals = self.y_measurements["Values"]
-        dates = self.x_measurements["Datetime"]
-        fig, ax = plt.subplots(figsize=(16, 8))
-        ax.plot(self.x_measurements["Datetime"], x_vals, label=self.y_name)
-        ax.plot(self.y_measurements["Datetime"], y_vals, label=self.x_name)
-        x_null = x_vals.isnull()
-        y_null = y_vals.isnull()
-        x_or_y_null = np.logical_or(x_null, y_null)
-        first_datetime = dates[x_null.loc[~x_or_y_null].index[0]]
-        last_datetime = dates[x_null.loc[~x_or_y_null].index[-1]]
-        ax.legend()
-        ax.set_xlim(first_datetime, last_datetime)
-        ax.set_xlabel("Datetime")
-        ax.set_ylabel("Concentration")
-        fig.savefig(f"{path}/Time Series.pgf")
-        fig.savefig(f"{path}/Time Series.png")
-        plt.close(fig)
-
     def save_plots(self, path):
         for key, item in self._plots.items():
             self._plots[key] = pd.DataFrame(data=dict(item))
@@ -857,26 +854,6 @@ class Results:
                     # graph_type: Type of graph e.g Linear Regression
                     # vars: Variables used e.g x + rh
                     # plot: The figure to be saved
-
-    def save_results(self, path):
-        for key, item in self._errors.items():
-            self._errors[key] = pd.DataFrame(data=dict(item))
-            if "Error" in self._errors[key].columns:
-                self._errors[key] = self._errors[key].set_index("Error")
-                vars_list = self._errors[key].columns.to_list()
-                for vars in vars_list:
-                    error_results = pd.DataFrame(self._errors[key][vars])
-                    coefficients = pd.DataFrame(self.coefficients.loc[vars].T)
-                    directory = Path(f"{path}/{key}/{vars}")
-                    directory.mkdir(parents=True, exist_ok=True)
-                    con = sql.connect(f"{directory.as_posix()}/Results.db")
-                    error_results.to_sql(
-                        name="Errors", con=con, if_exists="replace", index=True
-                    )
-                    coefficients.to_sql(
-                        name="Coefficients", con=con, if_exists="replace", index=True
-                    )
-                    con.close()
 
 
 def ecdf(data):
