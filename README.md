@@ -9,14 +9,19 @@
 
 ## Table of Contents
 
-1. [Introdution](##introduction)
-1. [Input](##input)
-1. [Output](##output)
-1. [Requirements](##requirements)
-1. [Setup](##setup)
-1. [Standard Operating Procedure](##standard-operating-procedure)
-1. [Settings](##settings)
-1. [Data Dictionary](##data-dictionary)
+1. [Introdution](#introduction)
+1. [Input](#input)
+1. [Output](#output)
+1. [Requirements](#requirements)
+1. [How to Use](#how-to-use)
+1. [Setup](#setup)
+1. [Running without source file](#running-without-source-file)
+1. [Settings](#settings)
+1. [Data Dictionary](#data-dictionary)
+	1. [Measurements](#measurements)
+	1. [Coefficients](#coefficients)
+	1. [Results](#results)
+	1. [Summary](#summary)
 
 ---
 
@@ -124,7 +129,7 @@ This command installs all the packages listed in [requirements.txt](./requiremen
 
 ---
 
-## Running without the source file
+## Running without source file
 
 If you are not using the source file for any number of reasons (Using Windows, the fish shell etc) then the following commands can be run to use the program.
 Please note that the following commands assume you are using a virtual environment called .env stored in the Graddnodi directory.
@@ -540,8 +545,8 @@ Graddnodi saves all information it needs to SQLite3 databases.
 ### Measurements 
 
 The measurements downloaded from InfluxDB 2.x are saved in Output/*run name*/*field*.db.
-They are separated into different fields.
-Each table in the field represents a device.
+
+Each table in the field database represents a device.
 Each row in the table corresponds to a single measurement made by a device.
 
 |Name|Definition|Data type|Possible values|Required?|
@@ -553,7 +558,8 @@ Each row in the table corresponds to a single measurement made by a device.
 ### Coefficients
 
 The coefficients obtained from the different calibrations are saved in Output/*run name*/*field*/*A vs B*.db.
-Each table in the field represents a different calibration technique. 
+
+Each table in the comparison database represents a different calibration technique. 
 Rows correspond to different combinations of secondary measurements (e.g x, x + RH, x + T$^2$)
 
 |Name|Definition|Data type|Possible values|Required?|
@@ -570,5 +576,30 @@ Rows correspond to different combinations of secondary measurements (e.g x, x + 
 
 The results of the error calculations performed on the calibrated test set are saved in Output/_run name_/_field_/_comparison_/_Technique_/Results.db
 
-### Summary Stats
+Each table in the results database represents a different dataset (e.g Test (Calibrated), Train (Calibrated))
+Rows correspond to different combinations of secondary measurements (e.g x, x + RH, x + T$^2$)
+
+|Name|Definition|Data type|Possible values|Required?|
+|---|---|---|---|---|
+|Variable|The combination of variables used in the calibration|Text|x, x + RH, x + T$^2$ etc|Yes|
+|Explained Variance Score|The explained variance score between predicted and true|Real|0.019|No|
+|Max Error|The max error between predicted and true|Real|54.6|No|
+|Mean Absolute Error|The mean absolute error between predicted and true|Real|4.476|No|
+|Root Mean Squared Error|The root mean squared error between predicted and true|Real|7.88|No|
+|Median Absolute Error|The median absolute error between predicted and true|Real|2.26|No|
+|Mean Absolute Percentage Error|The mean absolute percentage error between predicted and true|Real|12|No|
+|r2|The r2 score between predicted and true|Real|0.78|No|
+|Mean Pinball Deviance|The mean pinball deviance between predicted and true|Real|2.23|No|
+
+### Summary 
+
+The summary statistics performed on calibrated measurements are saved in Output/_run name_/_field_/_comparison_/Summary.db
+
+There are two tables, Techniques compares the different calibration techniques and Variables compares the different combinations of secondary variables.
+Rows correspond to different techniques/variable combinations.
+
+|Name|Definition|Data type|Possible values|Required?|
+|---|---|---|---|---|
+|Technique/Variable|Name of technique/variable combination|Text|OLS, RANSAC/x, x + RH|Yes|
+|Total|Number of times the technique/combination achieved the lowest error result|Integer|0,2,8|Yes|
 
