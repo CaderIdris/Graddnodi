@@ -16,9 +16,11 @@ fonttools==4.33.3
 formulae==0.3.4
 influxdb-client==1.29.1
 intel-openmp==2022.1.0
+Jinja2==3.1.2
 joblib==1.1.0
 kiwisolver==1.4.3
 logical-unification==0.4.5
+MarkupSafe==2.1.1
 matplotlib==3.5.2
 miniKanren==1.0.3
 mkl==2022.1.0

@@ -462,9 +462,7 @@ def main():
                     coeffs[technique],
                     comparison,
                     x_name=x_name,
-                    y_name=y_name,
-                    x_measurements=x_measurements,
-                    y_measurements=y_measurements,
+                    y_name=y_name
                 )
                 if error_techniques["Explained Variance Score"]:
                     result_calculations.explained_variance_score()
@@ -504,10 +502,10 @@ def main():
                     result_calculations.save_plots(
                         f"{output_path}{run_name}/Results/{field}/{comparison}/{technique}"
                     )
-                if index_tech == 0:
-                    result_calculations.temp_time_series_plot(
-                        f"{output_path}{run_name}/Results/{field}/{comparison}"
-                    )
+#                if index_tech == 0:
+#                    result_calculations.temp_time_series_plot(
+#                        f"{output_path}{run_name}/Results/{field}/{comparison}"
+#                    )
                 errors[field][comparison][
                     technique
                 ] = result_calculations.return_errors()
@@ -540,11 +538,11 @@ def main():
             comparison_dict = dict()
             graph_path = Path(f"{output_path}{run_name}/Results/{field}/{comparison}")
             for technique, datasets in techniques.items():
-                if "Calibrated Test Data" in list(datasets.keys()):
-                    comparison_dict[technique] = datasets.get("Calibrated Test Data")
+                if "Test (Calibrated)" in list(datasets.keys()):
+                    comparison_dict[technique] = datasets.get("Test (Calibrated)")
                 else:
                     comparison_dict[technique] = datasets.get(
-                        "Calibrated Test Data (Mean)"
+                        "Test (Mean Calibrated)"
                     )
             summary_data = Summary(comparison_dict)
             best_techniques = summary_data.best_performing(summate="key")
