@@ -41,11 +41,11 @@ __status__ = "Indev"
 
 import argparse
 from collections import defaultdict
-import datetime as dt
 from pathlib import Path
 import re
 import sqlite3 as sql
 
+from haytex import Report
 import numpy as np
 import pandas as pd
 
@@ -57,7 +57,6 @@ from modules.calibration import Calibration
 from modules.results import Results
 from modules.summary import Summary
 from modules.grapher import Graphs
-from modules.report import Report
 
 
 def relpath(path: Path):
@@ -448,7 +447,7 @@ def main():
                         errors[field][comparison][technique][table[0]] = pd.read_sql(
                             sql=f"SELECT * from '{table[0]}'",
                             con=con,
-                            index_col="Variable"
+                            index_col="index"
                         )
                     continue
                 print(technique)
@@ -576,9 +575,8 @@ def main():
         for comparison in comparisons:
             # Chapter
             report.add_chapter(comparison.parts[-1])
-            report.add_pgf(
-                f"{relpath(comparison)}/Time Series.pgf", "Time Series Comparison",
-                sideways=True
+            report.add_figure(
+                f"{relpath(comparison)}/Time Series.pgf", caption="Time Series Comparison",
             )
             report.clear_page()
             con = sql.connect(f"{comparison.as_posix()}/Summary.db")
@@ -589,46 +587,47 @@ def main():
                 sql=f"SELECT * FROM 'Variables'", con=con, index_col="Variable"
             )
             con.close()
-            report.add_pgf(f"{relpath(comparison)}/Techniques.pgf", "Times techniques achieved the lowest error")
-            report.add_table(technique_tab, "Techniques")
+            report.add_figure(f"{relpath(comparison)}/Techniques.pgf", caption="Times techniques achieved the lowest error")
+            report.add_table(technique_tab, caption="Techniques")
             report.clear_page()
-            report.add_pgf(f"{relpath(comparison)}/Variables.pgf", "Times variable combinations achieved the lowest error")
-            report.add_table(variable_tab, "Variables")
+            report.add_figure(f"{relpath(comparison)}/Variables.pgf", caption="Times variable combinations achieved the lowest error")
+            report.add_table(variable_tab, caption="Variables")
             report.clear_page()
             techniques = [subdir for subdir in comparison.iterdir() if subdir.is_dir()]
             for technique in techniques:
                 # Section
-                report.add_section(technique.parts[-1])
-                datasets = [subdir for subdir in technique.iterdir() if subdir.is_dir()]
-                for dataset in datasets:
-                    report.add_subsection(dataset.parts[-1])
-                    # Add coefficients
-                    report.add_subsubsection("Coefficients")
-                    con = sql.connect(f"{technique.as_posix()}/Coefficients.db")
-                    coefficients = pd.read_sql(
-                        sql="SELECT * FROM 'Coefficients'", con=con, index_col="index"
-                    )
-                    report.add_table(
-                        coefficients, "Coefficients", column_split=4, table_split=2
-                    )
-                    con.close()
-                    report.clear_page()
-                    # Add results
-                    report.add_subsubsection("Results")
-                    con = sql.connect(f"{technique.as_posix()}/Results.db")
-                    cursor = con.cursor()
-                    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-                    tables = cursor.fetchall()
-                    for dat in tables:
-                        errors = pd.read_sql(
-                            sql=f"SELECT * FROM '{dat[0]}'", con=con, index_col="Variable"
+                if use_full:
+                    report.add_section(technique.parts[-1])
+                    datasets = [subdir for subdir in technique.iterdir() if subdir.is_dir()]
+                    for dataset in datasets:
+                        report.add_subsection(dataset.parts[-1])
+                        # Add coefficients
+                        report.add_subsubsection("Coefficients")
+                        con = sql.connect(f"{technique.as_posix()}/Coefficients.db")
+                        coefficients = pd.read_sql(
+                            sql="SELECT * FROM 'Coefficients'", con=con, index_col="index"
                         )
-                        report.add_subsubsection(dat[0])
-                        report.add_table(errors, dat[0], column_split=3, table_split=2)
-                    cursor.close()
-                    con.close()
-                    report.clear_page()
-                    if use_full:
+                        report.add_table(
+                            coefficients, cols=4, caption="Coefficients"
+                        )
+                        con.close()
+                        report.clear_page()
+                        # Add results
+                        report.add_subsubsection("Results")
+                        con = sql.connect(f"{technique.as_posix()}/Results.db")
+                        cursor = con.cursor()
+                        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+                        tables = cursor.fetchall()
+                        for dat in tables:
+                            errors = pd.read_sql(
+                                sql=f"SELECT * FROM '{dat[0]}'", con=con, index_col="index"
+                            )
+                            errors.index.names = ['Variables']
+                            report.add_subsubsection(dat[0])
+                            report.add_table(errors, caption=dat[0], cols=3)
+                        cursor.close()
+                        con.close()
+                        report.clear_page()
                         if "Uncalibrated" in dataset.parts[-1]:
                             continue
 
@@ -636,9 +635,9 @@ def main():
                         x_dir = Path(f"{dataset.as_posix()}/x")
                         if x_dir.is_dir():
                             report.add_subsection("Calibration")
-                            report.add_pgf_figure(
+                            report.add_figure(
                                 f"{relpath(x_dir)}/Linear Regression.pgf",
-                                "Linear Regression",
+                                caption="Linear Regression",
                             )
                             report.clear_page()
                         techniques = [
@@ -653,8 +652,8 @@ def main():
                         ba_glob = dataset.glob("**/Bland-Altman.pgf")
                         for graph in ba_glob:
                             ba_graphs.append(relpath(graph))
-                        report.add_multiple_pgf(
-                            ba_graphs, "Bland-Altman Graphs", column_split=2, row_split=2
+                        report.add_figure(
+                            ba_graphs, caption="Bland-Altman Graphs", cols=2, rows=2
                         )
                         report.clear_page()
                         # eCDFs
@@ -666,13 +665,13 @@ def main():
                         ecdf_glob = dataset.glob("**/eCDF.pgf")
                         for graph in ecdf_glob:
                             ecdf_graphs.append(relpath(graph))
-                        report.add_multiple_pgf(
-                            ecdf_graphs, "eCDF Graphs", column_split=2, row_split=2
+                        report.add_figure(
+                            ecdf_graphs, caption="eCDF Graphs", cols=2, rows=2
                         )
                         report.clear_page()
     path_to_save = Path(f"{output_path}{run_name}/Report")
     path_to_save.mkdir(parents=True, exist_ok=True)
-    report.save_tex(f"{path_to_save.as_posix()}")
+    report.save_tex(f"{path_to_save.as_posix()}", style_file="Settings/Style.sty")
 
 
 if __name__ == "__main__":
