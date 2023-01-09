@@ -316,7 +316,10 @@ def main():
     coefficients = dict()
 
     coeffs_folder = f"{output_path}{run_name}/Coefficients"
-    coeff_dirs = folder_list(coeffs_folder)
+    try:
+        coeff_dirs = folder_list(coeffs_folder)
+    except FileNotFoundError:
+        coeff_dirs = list()
     for field_name in coeff_dirs:
         coefficients[field_name] = dict()
         coeff_files = file_list(f"{coeffs_folder}/{field_name}", extension=".db")
@@ -346,6 +349,7 @@ def main():
             con.close()
     cache_coeffs = False
 
+    comparison_index = 1
     # Loop over fields
     for field, dframes in measurements.items():
         if coefficients.get(field) is None:
@@ -356,7 +360,7 @@ def main():
             if isinstance(y_dframe, pd.DataFrame):
                 # Loop over independent measurements
                 for x_device in device_names[index + 1 :]:
-                    comparison_name = f"{x_device} vs {y_device}"
+                    comparison_name = f"({comparison_index}) {x_device} vs {y_device}"
                     if coefficients[field].get(comparison_name) is not None:
                         continue
                     cache_coeffs = True
@@ -424,6 +428,7 @@ def main():
                                     if_exists="replace",
                                 )
                             con.close()
+                        comparison_index = comparison_index + 1
 
     errors = dict()
     error_techniques = run_config["Errors"]
