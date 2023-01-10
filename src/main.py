@@ -349,9 +349,9 @@ def main():
             con.close()
     cache_coeffs = False
 
-    comparison_index = 1
     # Loop over fields
     for field, dframes in measurements.items():
+        comparison_index = 1
         if coefficients.get(field) is None:
             coefficients[field] = dict()
         # Loop over dependent measurements
@@ -366,13 +366,16 @@ def main():
                     cache_coeffs = True
                     x_dframe = dframes.get(x_device)
                     if isinstance(x_dframe, pd.DataFrame):
-                        comparison = Calibration(
-                            x_data=x_dframe,
-                            y_data=y_dframe,
-                            split=data_settings["Split"],
-                            test_size=data_settings["Test Size"],
-                            seed=data_settings["Seed"],
-                        )
+                        try:
+                            comparison = Calibration(
+                                x_data=x_dframe,
+                                y_data=y_dframe,
+                                split=data_settings["Split"],
+                                test_size=data_settings["Test Size"],
+                                seed=data_settings["Seed"],
+                            )
+                        except ValueError:
+                            continue
                         dframe_columns = list(x_dframe.columns)
                         mv_combinations = [[]]
                         if not comparison.valid_comparison:

@@ -14,7 +14,7 @@ fastprogress==1.0.2
 filelock==3.7.1
 fonttools==4.33.3
 formulae==0.3.4
-haytex @ git+https://github.com/caderidris/haytex.git@v1.0
+haytex @ git+https://github.com/caderidris/haytex.git@v1.0.1
 influxdb-client==1.29.1
 intel-openmp==2022.1.0
 Jinja2==3.1.2
