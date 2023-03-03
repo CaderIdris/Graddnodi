@@ -119,18 +119,20 @@ class Calibration:
         - seed (int): Seed to use when deciding how to split variables,
         ensures consistency between runs. Defaults to 72.
         """
-        combined_data = pd.concat(
-            [
-                x_data,
-                y_data[["Values", "Datetime"]].rename(
-                    columns={"Values": "y", "Datetime": "y_dt"}
+        print(x_data)
+        print(y_data)
+        combined_data = x_data.join(
+                y_data[["Values"]].rename(
+                    columns={"Values": "y"}
                 ),
-            ],
-            axis=1,
+                how="inner",
+                lsuffix='x',
+                rsuffix='y'
         ).dropna()
-        x_data_clean = combined_data.drop(labels=["y", "y_dt"], axis=1)
-        y_data_clean = combined_data[["y_dt", "y"]].rename(
-            columns={"y": "Values", "y_dt": "Datetime"}
+        print(combined_data)
+        x_data_clean = combined_data.drop(labels=["y"], axis=1)
+        y_data_clean = combined_data[["y"]].rename(
+            columns={"y": "Values"}
         )
         if split and x_data_clean.shape[0] > 0:
             self.x_train, self.x_test, self.y_train, self.y_test = ttsplit(
@@ -171,8 +173,8 @@ class Calibration:
             combo_string (list): List containing all x variables being
             used
         """
-        x_name = self.x_train.columns[1]
-        y_name = self.y_train.columns[1]
+        x_name = self.x_train.columns[0]
+        y_name = self.y_train.columns[0]
         combo_string = ["x"]
         x_data = {x_name: list(self.x_train[x_name])}
         for key in mv_keys:
@@ -203,8 +205,8 @@ class Calibration:
             combo_string (list): List containing all x variables being
             used
         """
-        x_name = self.x_train.columns[1]
-        y_name = self.y_train.columns[1]
+        x_name = self.x_train.columns[0]
+        y_name = self.y_train.columns[0]
         pymc_dataframe = pd.DataFrame()
         pymc_dataframe["x"] = self.x_train[x_name]
         key_string = ["x"]
@@ -533,14 +535,14 @@ class Calibration:
         train_measurements = pd.concat(
             [
                 self.y_train.rename(columns={"Values": "y"}),
-                self.x_train.drop(columns=["Datetime"]).rename(columns={"Values": "x"}),
+                self.x_train.rename(columns={"Values": "x"}),
             ],
             axis=1,
         )
         test_measurements = pd.concat(
             [
                 self.y_test.rename(columns={"Values": "y"}),
-                self.x_test.drop(columns=["Datetime"]).rename(columns={"Values": "x"}),
+                self.x_test.rename(columns={"Values": "x"}),
             ],
             axis=1,
         )

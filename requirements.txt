@@ -15,6 +15,7 @@ filelock==3.7.1
 fonttools==4.33.3
 formulae==0.3.4
 haytex @ git+https://github.com/caderidris/haytex.git@v1.0.1
+calidhayte @ git+https://github.com/caderidris/calidhayte.git@1.0.0-beta
 influxdb-client==1.29.1
 intel-openmp==2022.1.0
 Jinja2==3.1.2

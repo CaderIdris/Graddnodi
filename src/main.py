@@ -41,10 +41,13 @@ __status__ = "Indev"
 
 import argparse
 from collections import defaultdict
+import datetime as dt
 from pathlib import Path
 import re
 import sqlite3 as sql
+from typing import Any, Optional, Union
 
+from calidhayte import Coefficients, Results, Summary, Graphs
 from haytex import Report
 import numpy as np
 import pandas as pd
@@ -53,10 +56,83 @@ from modules.idristools import get_json, parse_date_string, all_combinations
 from modules.idristools import DateDifference, make_path, file_list
 from modules.idristools import folder_list, debug_stats
 from modules.influxquery import InfluxQuery, FluxQuery
-from modules.calibration import Calibration
-from modules.results import Results
-from modules.summary import Summary
-from modules.grapher import Graphs
+#from modules.grapher import Graphs
+
+
+def read_sqlite(name: str, path: str, tables: list[str] = list()) -> dict[str, pd.DataFrame]:
+    """
+    Read measurements from a sqlite3 file
+    
+    Parameters
+    ----------
+    name : str
+        The name of the sqlite3 file
+    path : str
+        Directory where sqlite3 file is
+    tables : str, optional
+        Names of tables to import. If unused, imports all in sqlite file
+    
+    Returns
+    -------
+    dict containing all tables imported as dataframes, keys represent tables,
+    each subdict is a dict with integer keys representing separate folds
+    """
+    data: dict[str, pd.DataFrame] = dict()
+    con = sql.connect(f'{path}/{name}.db')
+    if not tables:
+        cursor = con.cursor()
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        tables_to_dl = cursor.fetchall()
+        cursor.close()
+    else:
+        tables_to_dl = tables.copy()
+    for table in tables_to_dl:
+        sqlite_table = pd.read_sql(
+            sql=f"SELECT * from '{table[0]}'",
+            con=con
+        )
+        data[table[0]] = sqlite_table
+    con.close()
+    return data
+
+
+def write_sqlite(
+        name: str,
+        path: str,
+        data: Union[pd.DataFrame, dict[str, pd.DataFrame]],
+        table: Optional[str] = None,
+        keep_index: bool = True
+        ):
+    """
+    Write data to sqlite3 file
+    
+    Paameters
+    ---------
+    name : str
+        The name of the sqlite3 file to be saved
+    path : str
+        Directory where sqlite3 file is to be saved
+    data : pd.DataFrame, dict
+        Data to save to sqlite file
+    table : str, optional
+        Name of table. Not necessary if dict passed as keys used.
+        Default is None.
+    keep_index : bool
+        Save the dataframe index to the sqlite table
+    """
+    con = sql.connect(f'{path}/{name}.db')
+    if isinstance(data, pd.DataFrame) and table is not None:
+        data = {table: data}
+    elif isinstance(data, pd.DataFrame) and table is None:
+        raise ValueError('If passing single dataframe, table name must be given')
+    for table_key, df in data.items():
+        df.to_sql(
+                name=str(table_key),
+                con=con,
+                if_exists="replace",
+                index=keep_index
+                )
+    con.close()
 
 
 def relpath(path: Path):
@@ -66,81 +142,28 @@ def relpath(path: Path):
     return "/".join(shortened)
 
 
-def main():
-    # Read command line arguments
-    arg_parser = argparse.ArgumentParser(
-        prog="Graddnodi",
-        description="Imports measurements made as part of a collocation "
-        "study from an InfluxDB 2.x database and calibrates them using a "
-        "variety of techniques",
-    )
-    arg_parser.add_argument(
-        "-c",
-        "--config-path",
-        type=str,
-        help="Alternate location for config json file (Defaults to "
-        "./Settings/config.json)",
-        default="Settings/config.json",
-    )
-    arg_parser.add_argument(
-        "-i",
-        "--influx-path",
-        type=str,
-        help="Alternate location for influx config json file (Defaults to "
-        "./Settings/influx.json)",
-        default="Settings/influx.json",
-    )
-    arg_parser.add_argument(
-        "-o",
-        "--output-path",
-        type=str,
-        help="Where output will be saved",
-        default="Output/",
-    )
-    arg_parser.add_argument(
-            "-f",
-            "--full-output",
-            action="store_true",
-            help="Generate full output"
-    )
-    args = vars(arg_parser.parse_args())
-    output_path = args["output_path"]
-    config_path = args["config_path"]
-    influx_path = args["influx_path"]
-    use_full = args["full_output"]
+def get_measurements_from_influx(
+    run_name: str,
+    output_path: str,
+    start_date: dt.datetime,
+    end_date: dt.datetime,
+    query_config: dict[str, Any],
+    run_config: dict[str, Any],
+    influx_config: dict[str, Any],
+        ):
+    """
+    """
 
-    # Setup
-    run_config = get_json(config_path)
-    influx_config = get_json(influx_path)
-    run_name = run_config["Runtime"]["Name"]
-    query_config = run_config["Devices"]
-
-    start_date = parse_date_string(run_config["Runtime"]["Start"])
-    end_date = parse_date_string(run_config["Runtime"]["End"])
     date_calculations = DateDifference(start_date, end_date)
     months_to_cover = date_calculations.month_difference()
 
     # Download measurements from cache
-    measurements = defaultdict(lambda: defaultdict(pd.DataFrame))
+    measurements: dict[str, dict[str, pd.DataFrame]] = dict()
     cache_folder = f"{output_path}{run_name}/Measurements/"
     cached_files = file_list(cache_folder, extension=".db")
     for cached_file in cached_files:
-        field_name = re.sub(r"(.*?)/|\.\w*$", "", cached_file)
-        con = sql.connect(cached_file)
-        cursor = con.cursor()
-        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-        tables = cursor.fetchall()
-        for table in tables:
-            measurements[field_name][table[0]] = pd.read_sql(
-                sql=f"SELECT * from '{table[0]}'",
-                con=con,
-                parse_dates={"Datetime": "%Y-%m-%d %H:%M:%S%z"},
-            )
-        cursor.close()
-        con.close()
-
-    # Don't cache measurements unless new ones downloaded
-    cache_measurements = False
+        field_name = str(re.sub(r"(.*?)/|\.\w*$", "", cached_file))
+        measurements[field_name] = read_sqlite(cache_folder, field_name)
 
     # Download measurements from InfluxDB 2.x on a month by month basis
     for month_num in range(0, months_to_cover):
@@ -148,16 +171,16 @@ def main():
         start_of_month = date_calculations.add_month(month_num)
         end_of_month = date_calculations.add_month(month_num + 1)
         empty_data_list = list()
-        if month_num > 0 and cache_measurements is False:
-            break
         for name, settings in query_config.items():
             for dev_field in settings["Fields"]:
+                if measurements.get(dev_field) is not None:
+                    if measurements[dev_field][name] is not None:
+                        continue
                 if (month_num) == 0 and (
                     not measurements[dev_field["Tag"]][name].empty
                 ):
                     # If measurements were in cache, skip
                     continue
-                cache_measurements = True
                 # Generate flux query
                 query = FluxQuery(
                     start_of_month,
@@ -293,29 +316,24 @@ def main():
                 measurements[empty_data[0]][empty_data[1]] = pd.concat(
                     [measurements[empty_data[0]][empty_data[1]], empty_df]
                 )
+    for field, data in measurements.items():
+        write_sqlite(field, cache_folder, data)
 
-    # Save measurements to a sqlite3 database be used later. Useful if
-    # working offline or using datasets with long query times
-    if cache_measurements:
-        for tag in measurements.keys():
-            measurements[tag] = dict(measurements[tag])
-        measurements = dict(measurements)
-        if cache_measurements:
-            make_path(f"{output_path}{run_name}/Measurements")
-            for field, devices in measurements.items():
-                con = sql.connect(f"{output_path}{run_name}/" f"Measurements/{field}.db")
-                for table, dframe in devices.items():
-                    dframe.to_sql(name=table, con=con, if_exists="replace", index=False)
-                con.close()
+    return measurements
 
-    # Begin calibration step
-    device_names = list(query_config.keys())
-    data_settings = run_config["Calibration"]["Data"]
-    techniques = run_config["Calibration"]["Techniques"]
-    bay_families = run_config["Calibration"]["Bayesian Families"]
-    coefficients = dict()
 
+def get_coefficients(
+    output_path: str,
+    run_name: str,
+    measurements: dict[str, Any],
+    data_settings: dict[str, Any],
+    techniques: dict[str, bool],
+    bay_families: dict[str, bool]
+        ):
+    """
+    """
     coeffs_folder = f"{output_path}{run_name}/Coefficients"
+    coefficients = dict()
     try:
         coeff_dirs = folder_list(coeffs_folder)
     except FileNotFoundError:
@@ -347,7 +365,6 @@ def main():
                     )
             cursor.close()
             con.close()
-    cache_coeffs = False
 
     # Loop over fields
     for field, dframes in measurements.items():
@@ -355,19 +372,23 @@ def main():
         if coefficients.get(field) is None:
             coefficients[field] = dict()
         # Loop over dependent measurements
-        for index, y_device in enumerate(device_names[:-1]):
+        device_names = list(dframes.keys())
+        for y_dev_index, y_device in enumerate(device_names[:-1], start=1):
             y_dframe = dframes.get(y_device)
             if isinstance(y_dframe, pd.DataFrame):
                 # Loop over independent measurements
-                for x_device in device_names[index + 1 :]:
+                for x_device in device_names[y_dev_index:]:
                     comparison_name = f"({comparison_index}) {x_device} vs {y_device}"
-                    if coefficients[field].get(comparison_name) is not None:
+                    print(f"{field} {comparison_name}")
+                    if any([
+                        re.match(f"\\(\\d*\\) {x_device} vs {y_device}", comp)
+                        for comp in coefficients[field].keys()]):
+                        comparison_index += 1
                         continue
-                    cache_coeffs = True
                     x_dframe = dframes.get(x_device)
                     if isinstance(x_dframe, pd.DataFrame):
                         try:
-                            comparison = Calibration(
+                            comparison = Coefficients(
                                 x_data=x_dframe,
                                 y_data=y_dframe,
                                 split=data_settings["Split"],
@@ -376,62 +397,129 @@ def main():
                             )
                         except ValueError:
                             continue
+                        cal_techs = {
+                            'Ordinary Least Squares': Coefficients.ols,
+                            'Ridge': Coefficients.ridge,
+                            'LASSO': Coefficients.lasso,
+                            'Elastic Net': Coefficients.elastic_net,
+                            'LARS': Coefficients.lars,
+                            'LASSO LARS': Coefficients.lasso_lars,
+                            'Orthogonal Matching Pursuit': Coefficients.orthogonal_matching_pursuit,
+                            'RANSAC': Coefficients.ransac,
+                            'Theil Sen': Coefficients.theil_sen
+                                }
                         dframe_columns = list(x_dframe.columns)
-                        mv_combinations = [[]]
                         if not comparison.valid_comparison:
                             continue
+                        comparison_index = comparison_index + 1
                         if len(dframe_columns) > 2:
-                            mv_combinations.extend(all_combinations(dframe_columns[2:]))
-                        for mv_combo in mv_combinations:
-                            if techniques["Ordinary Least Squares"]:
-                                comparison.ols(mv_combo)
-                            if techniques["Ridge"]:
-                                comparison.ridge(mv_combo)
-                            if techniques["LASSO"]:
-                                comparison.lasso(mv_combo)
-                            if techniques["Elastic Net"]:
-                                comparison.elastic_net(mv_combo)
-                            if techniques["LARS"]:
-                                comparison.lars(mv_combo)
-                            if techniques["LASSO LARS"]:
-                                comparison.lasso_lars(mv_combo)
-                            if techniques["Orthogonal Matching Pursuit"]:
-                                if mv_combo:
-                                    # OMP only works with 2 or more independent
-                                    # variables
-                                    comparison.orthogonal_matching_pursuit(mv_combo)
-                            if techniques["RANSAC"]:
-                                comparison.ransac(mv_combo)
-                            if techniques["Theil Sen"]:
-                                comparison.theil_sen(mv_combo)
+                            mv_combinations = pd.MultiIndex.from_product(
+                                    [[False, True] for _ in dframe_columns[2:]],
+                                    names=dframe_columns[2:]
+                                    )
+                        else:
+                            mv_combinations = pd.MultiIndex.from_product(
+                                    [[False]]
+                                    )
+                        for mv_index in mv_combinations:
+                            mv_combo = [mv_combinations.names[ind] for ind, val in enumerate(mv_index) if val]
+                            for tech_name, func in cal_techs.items():
+                                if techniques.get(tech_name, False):
+                                    func(comparison, mv_combo)
                             if techniques["Bayesian"]:
                                 for family, use in bay_families.items():
                                     # Loop over all bayesian families in config
                                     # and run comparison if value is true
                                     if use:
                                         comparison.bayesian(mv_combo, family)
-
                         coefficients[field][
                             comparison_name
                         ] = comparison.return_coefficients()
                         # After comparison is complete, save all coefficients
                         # and test/train data to sqlite3 database
-                        if cache_coeffs:
-                            make_path(f"{output_path}{run_name}/Coefficients/{field}")
-                            con = sql.connect(
-                                f"{output_path}{run_name}/Coefficients/{field}/"
-                                f"{comparison_name}.db"
-                            )
-                            for comp_technique, dframe in coefficients[field][
-                                comparison_name
-                            ].items():
-                                dframe.to_sql(
-                                    name=comp_technique,
-                                    con=con,
-                                    if_exists="replace",
-                                )
-                            con.close()
+                        cache_path = f"{output_path}{run_name}/Coefficients/{field}"
+                        make_path(cache_path)
+                        write_sqlite(comparison_name, cache_path, coefficients[field][comparison_name])
                         comparison_index = comparison_index + 1
+    return coefficients
+
+def main():
+    # Read command line arguments
+    arg_parser = argparse.ArgumentParser(
+        prog="Graddnodi",
+        description="Imports measurements made as part of a collocation "
+        "study from an InfluxDB 2.x database and calibrates them using a "
+        "variety of techniques",
+    )
+    arg_parser.add_argument(
+        "-c",
+        "--config-path",
+        type=str,
+        help="Alternate location for config json file (Defaults to "
+        "./Settings/config.json)",
+        default="Settings/config.json",
+    )
+    arg_parser.add_argument(
+        "-i",
+        "--influx-path",
+        type=str,
+        help="Alternate location for influx config json file (Defaults to "
+        "./Settings/influx.json)",
+        default="Settings/influx.json",
+    )
+    arg_parser.add_argument(
+        "-o",
+        "--output-path",
+        type=str,
+        help="Where output will be saved",
+        default="Output/",
+    )
+    arg_parser.add_argument(
+            "-f",
+            "--full-output",
+            action="store_true",
+            help="Generate full output"
+    )
+    args = vars(arg_parser.parse_args())
+    output_path = args["output_path"]
+    config_path = args["config_path"]
+    influx_path = args["influx_path"]
+    use_full = args["full_output"]
+
+    # Setup
+    run_config = get_json(config_path)
+    influx_config = get_json(influx_path)
+    run_name = run_config["Runtime"]["Name"]
+    query_config = run_config["Devices"]
+
+    start_date = parse_date_string(run_config["Runtime"]["Start"])
+    end_date = parse_date_string(run_config["Runtime"]["End"])
+
+    # Download measurements
+    measurements = get_measurements_from_influx(
+            run_name,
+            output_path,
+            start_date,
+            end_date,
+            query_config,
+            run_config,
+            influx_config
+            )
+
+
+    # Begin calibration step
+    data_settings = run_config["Calibration"]["Data"]
+    c_techniques = run_config["Calibration"]["Techniques"]
+    bay_families = run_config["Calibration"]["Bayesian Families"]
+    coefficients = get_coefficients(
+            output_path,
+            run_name,
+            measurements,
+            data_settings,
+            c_techniques,
+            bay_families
+            )
+
 
     errors = dict()
     error_techniques = run_config["Errors"]
@@ -459,7 +547,10 @@ def main():
                         )
                     continue
                 print(technique)
-                x_name = re.match(r".*(?= vs )", comparison)[0]
+                x_name = re.match(
+                        r"(\(\d*\) )(?P<device>.*)( vs .*)",
+                        comparison
+                        ).group('device')
                 y_name = re.sub(r".*(?<= vs )", "", comparison)
                 x_measurements = measurements[field][x_name]
                 y_measurements = measurements[field][y_name]
@@ -548,11 +639,23 @@ def main():
             graph_path = Path(f"{output_path}{run_name}/Results/{field}/{comparison}")
             for technique, datasets in techniques.items():
                 if "Calibrated Test Data" in list(datasets.keys()):
-                    comparison_dict[technique] = datasets.get("Calibrated Test Data")
+                    comparison_dict[technique] = datasets.get(
+                            "Calibrated Test Data"
+                            ).loc[:, [
+                                "Mean Absolute Error",
+                                "Root Mean Squared Error",
+                                "Median Absolute Error",
+                                "Mean Absolute Percentage Error"
+                                ]]
                 else:
                     comparison_dict[technique] = datasets.get(
                         "Calibrated Test Data (Mean)"
-                    )
+                            ).loc[:, [
+                                "Mean Absolute Error",
+                                "Root Mean Squared Error",
+                                "Median Absolute Error",
+                                "Mean Absolute Percentage Error"
+                                ]]
             summary_data = Summary(comparison_dict)
             best_techniques = summary_data.best_performing(summate="key")
             best_variables = summary_data.best_performing(summate="row")

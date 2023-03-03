@@ -821,15 +821,20 @@ class Results:
         plt.style.use("Settings/style.mplstyle")
         x_vals = self.x_measurements["Values"]
         y_vals = self.y_measurements["Values"]
-        dates = self.x_measurements["Datetime"]
+        try:
+            dates_x = self.x_measurements["Datetime"]
+            dates_y = self.y_measurements["Datetime"]
+        except KeyError:
+            dates_x = self.x_measurements.index
+            dates_y = self.y_measurements.index
         fig, ax = plt.subplots(figsize=(16, 8))
-        ax.plot(self.x_measurements["Datetime"], x_vals, label=self.y_name)
-        ax.plot(self.y_measurements["Datetime"], y_vals, label=self.x_name)
+        ax.plot(dates_y, y_vals, label=self.y_name)
+        ax.plot(dates_x, x_vals, label=self.x_name)
         x_null = x_vals.isnull()
         y_null = y_vals.isnull()
         x_or_y_null = np.logical_or(x_null, y_null)
-        first_datetime = dates[x_null.loc[~x_or_y_null].index[0]]
-        last_datetime = dates[x_null.loc[~x_or_y_null].index[-1]]
+        first_datetime = dates_x[0]
+        last_datetime = dates_x[-1]
         ax.legend()
         ax.set_xlim(first_datetime, last_datetime)
         ax.set_xlabel("Datetime")

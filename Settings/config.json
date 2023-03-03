@@ -80,7 +80,7 @@
 						}
 					],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
@@ -115,7 +115,7 @@
 						}
 					],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
@@ -150,7 +150,7 @@
 						}
 					],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
@@ -185,7 +185,7 @@
 						}
 					],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
@@ -220,7 +220,7 @@
 						}
 					],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -255,7 +255,7 @@
 						}
 					],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -271,7 +271,7 @@
 					"Field": "Aerodyne CAPSNO2 no2 ppbv",
 					"Boolean Filters": {
 						"Car": "27522",
-						"Aerodyne CAPSNO2 Status": "5x5"
+						"Aerodyne CAPSNO2 Status": "Pump On, No Filter, Normal Operation - No Baseline, LED is Off, NO2 Monitor, Near IR (760 nm)"
 					},
 					"Range Filters": [
 						{
@@ -290,7 +290,7 @@
 						}
 					],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -333,7 +333,7 @@
 						}
 					],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
@@ -368,7 +368,7 @@
 						}
 					],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
@@ -403,7 +403,7 @@
 						}
 					],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
@@ -438,7 +438,7 @@
 						}
 					],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
@@ -473,7 +473,7 @@
 						}
 					],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -508,7 +508,7 @@
 						}
 					],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -524,7 +524,7 @@
 					"Field": "Aerodyne CAPSNO2 no2 ppbv",
 					"Boolean Filters": {
 						"Car": "27522",
-						"Aerodyne CAPSNO2 Status": "5x5"
+						"Aerodyne CAPSNO2 Status": "Pump On, No Filter, Normal Operation - No Baseline, LED is Off, NO2 Monitor, Near IR (760 nm)"
 					},
 					"Range Filters": [
 						{
@@ -543,7 +543,7 @@
 						}
 					],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -568,7 +568,7 @@
 					"Boolean Filters": {"Serial Number": "C008-0001"},
 					"Range Filters": [],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				},
 				{
@@ -577,7 +577,7 @@
 					"Boolean Filters": {"Serial Number": "C008-0001"},
 					"Range Filters": [],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				}
 			],
@@ -594,7 +594,7 @@
 					"Boolean Filters": {"Serial Number": "C008-0003"},
 					"Range Filters": [],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				},
 				{
@@ -603,7 +603,7 @@
 					"Boolean Filters": {"Serial Number": "C008-0003"},
 					"Range Filters": [],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				}
 			],
@@ -637,7 +637,7 @@
 						}
 					],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 					]
 				}
@@ -672,7 +672,7 @@
 						}
 					],
 					"Secondary Fields": [],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 					]
 				}
@@ -730,7 +730,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				},
 				{
@@ -779,12 +779,12 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				},
 				{
 					"Tag": "PM4",
-					"Field": "PM4 PreScaled [Micrograms Per Cubic Meter]",
+					"Field": "PM 4 PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
 						"SerialNumber": "1505150",
 						"PM 4 Flag": "Valid"
@@ -828,7 +828,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				},
 				{
@@ -877,7 +877,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				},
 				{
@@ -952,7 +952,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -1035,7 +1035,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -1118,7 +1118,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -1183,7 +1183,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				},
 				{
@@ -1232,12 +1232,12 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				},
 				{
 					"Tag": "PM4",
-					"Field": "PM4 PreScaled [Micrograms Per Cubic Meter]",
+					"Field": "PM 4 PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
 						"SerialNumber": "1506150",
 						"PM 4 Flag": "Valid"
@@ -1281,7 +1281,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				},
 				{
@@ -1330,7 +1330,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				},
 				{
@@ -1405,7 +1405,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -1488,7 +1488,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -1571,7 +1571,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -1636,7 +1636,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				},
 				{
@@ -1685,12 +1685,12 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				},
 				{
 					"Tag": "PM4",
-					"Field": "PM4 PreScaled [Micrograms Per Cubic Meter]",
+					"Field": "PM 4 PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
 						"SerialNumber": "2450100",
 						"PM 4 Flag": "Valid"
@@ -1734,7 +1734,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				},
 				{
@@ -1783,7 +1783,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				},
 				{
@@ -1858,7 +1858,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -1941,7 +1941,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -2024,7 +2024,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -2089,7 +2089,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				},
 				{
@@ -2138,12 +2138,12 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				},
 				{
 					"Tag": "PM4",
-					"Field": "PM4 PreScaled [Micrograms Per Cubic Meter]",
+					"Field": "PM 4 PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
 						"SerialNumber": "2450222",
 						"PM 4 Flag": "Valid"
@@ -2187,7 +2187,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				},
 				{
@@ -2236,7 +2236,7 @@
 							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": []
 				},
 				{
@@ -2296,22 +2296,9 @@
 									"Offset": 0
 								}
 							]
-						},
-						{
-							"Tag": "O$_3$",
-							"Field": "Ozone PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 2,
-									"Offset": 0
-								}
-							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -2379,22 +2366,9 @@
 									"Offset": 0
 								}
 							]
-						},
-						{
-							"Tag": "O$_3$",
-							"Field": "Ozone PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 2,
-									"Offset": 0
-								}
-							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -2462,22 +2436,9 @@
 									"Offset": 0
 								}
 							]
-						},
-						{
-							"Tag": "NO$_2$",
-							"Field": "Nitrogen Dioxide PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 1.88,
-									"Offset": 0
-								}
-							]
 						}
 					],
-					"Hour Beginning": true,
+					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -2538,7 +2499,7 @@
 		"Mean Pinball Loss": true
 	},
 	"Runtime": {
-		"Name": "Test",
+		"Name": "Test2",
 		"Start": "2019/04/09",
 		"End": "2019/05/09",
 		"Average Operator": "mean",

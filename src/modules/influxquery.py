@@ -25,6 +25,7 @@ __email__ = "CaderIdrisGH@outlook.com"
 __status__ = "Beta"
 
 import datetime as dt
+from typing import Union
 
 from influxdb_client import InfluxDBClient
 import numpy as np
@@ -302,7 +303,14 @@ class FluxQuery:
         """
         self._query_list.append(f'  |> drop(columns: ["_start", "_stop"])')
 
-    def scale_measurements(self, slope=1, offset=0, power=1, start="", end=""):
+    def scale_measurements(
+            self,
+            slope=1,
+            offset=0,
+            power=1,
+            start: Union[dt.datetime, str]="",
+            end: Union[str, dt.datetime]=""
+            ):
         """Scales measurements. If start or stop is provided in RFC3339
         format, they are scaled within that range only.
 
