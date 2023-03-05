@@ -56,7 +56,7 @@ from modules.idristools import get_json, parse_date_string, all_combinations
 from modules.idristools import DateDifference, make_path, file_list
 from modules.idristools import folder_list, debug_stats
 from modules.influxquery import InfluxQuery, FluxQuery
-#from modules.grapher import Graphs
+from modules.grapher import GradGraphs
 
 
 def read_sqlite(name: str, path: str, tables: list[str] = list()) -> dict[str, pd.DataFrame]:
@@ -173,14 +173,12 @@ def get_measurements_from_influx(
         empty_data_list = list()
         for name, settings in query_config.items():
             for dev_field in settings["Fields"]:
-                if measurements.get(dev_field) is not None:
-                    if measurements[dev_field][name] is not None:
+                if measurements.get(dev_field["Tag"]) is not None:
+                    if (month_num) == 0 and (
+                        not measurements[dev_field["Tag"]][name].empty
+                    ):
+                        # If measurements were in cache, skip
                         continue
-                if (month_num) == 0 and (
-                    not measurements[dev_field["Tag"]][name].empty
-                ):
-                    # If measurements were in cache, skip
-                    continue
                 # Generate flux query
                 query = FluxQuery(
                     start_of_month,
@@ -443,84 +441,16 @@ def get_coefficients(
                         comparison_index = comparison_index + 1
     return coefficients
 
-def main():
-    # Read command line arguments
-    arg_parser = argparse.ArgumentParser(
-        prog="Graddnodi",
-        description="Imports measurements made as part of a collocation "
-        "study from an InfluxDB 2.x database and calibrates them using a "
-        "variety of techniques",
-    )
-    arg_parser.add_argument(
-        "-c",
-        "--config-path",
-        type=str,
-        help="Alternate location for config json file (Defaults to "
-        "./Settings/config.json)",
-        default="Settings/config.json",
-    )
-    arg_parser.add_argument(
-        "-i",
-        "--influx-path",
-        type=str,
-        help="Alternate location for influx config json file (Defaults to "
-        "./Settings/influx.json)",
-        default="Settings/influx.json",
-    )
-    arg_parser.add_argument(
-        "-o",
-        "--output-path",
-        type=str,
-        help="Where output will be saved",
-        default="Output/",
-    )
-    arg_parser.add_argument(
-            "-f",
-            "--full-output",
-            action="store_true",
-            help="Generate full output"
-    )
-    args = vars(arg_parser.parse_args())
-    output_path = args["output_path"]
-    config_path = args["config_path"]
-    influx_path = args["influx_path"]
-    use_full = args["full_output"]
 
-    # Setup
-    run_config = get_json(config_path)
-    influx_config = get_json(influx_path)
-    run_name = run_config["Runtime"]["Name"]
-    query_config = run_config["Devices"]
-
-    start_date = parse_date_string(run_config["Runtime"]["Start"])
-    end_date = parse_date_string(run_config["Runtime"]["End"])
-
-    # Download measurements
-    measurements = get_measurements_from_influx(
-            run_name,
-            output_path,
-            start_date,
-            end_date,
-            query_config,
-            run_config,
-            influx_config
-            )
-
-
-    # Begin calibration step
-    data_settings = run_config["Calibration"]["Data"]
-    c_techniques = run_config["Calibration"]["Techniques"]
-    bay_families = run_config["Calibration"]["Bayesian Families"]
-    coefficients = get_coefficients(
-            output_path,
-            run_name,
-            measurements,
-            data_settings,
-            c_techniques,
-            bay_families
-            )
-
-
+def get_results(
+        run_config,
+        coefficients,
+        run_name,
+        output_path,
+        use_full
+        ):
+    """
+    """
     errors = dict()
     error_techniques = run_config["Errors"]
     for field, comparisons in coefficients.items():
@@ -552,60 +482,56 @@ def main():
                         comparison
                         ).group('device')
                 y_name = re.sub(r".*(?<= vs )", "", comparison)
-                x_measurements = measurements[field][x_name]
-                y_measurements = measurements[field][y_name]
                 result_calculations = Results(
                     coeffs["Train"],
                     coeffs["Test"],
                     coeffs[technique],
                     comparison,
                     x_name=x_name,
-                    y_name=y_name,
-                    x_measurements=x_measurements,
-                    y_measurements=y_measurements,
+                    y_name=y_name
                 )
-                if error_techniques["Explained Variance Score"]:
-                    result_calculations.explained_variance_score()
-                if error_techniques["Max Error"]:
-                    result_calculations.max()
-                if error_techniques["Mean Absolute Error"]:
-                    result_calculations.mean_absolute()
-                if error_techniques["Root Mean Squared Error"]:
-                    result_calculations.root_mean_squared()
-                if error_techniques["Root Mean Squared Log Error"]:
-                    result_calculations.root_mean_squared_log()
-                if error_techniques["Median Absolute Error"]:
-                    result_calculations.median_absolute()
-                if error_techniques["Mean Absolute Percentage Error"]:
-                    result_calculations.mean_absolute_percentage()
-                if error_techniques["r2"]:
-                    result_calculations.r2()
-                if error_techniques["Mean Poisson Deviance"]:
-                    result_calculations.mean_poisson_deviance()
-                if error_techniques["Mean Gamma Deviance"]:
-                    result_calculations.mean_gamma_deviance()
-                if error_techniques["Mean Tweedie Deviance"]:
-                    result_calculations.mean_tweedie_deviance()
-                if error_techniques["Mean Pinball Loss"]:
-                    result_calculations.mean_pinball_loss()
+                err_tech_dict = {
+                    'Explained Variance Score': Results.explained_variance_score,
+                    'Max Error': Results.max,
+                    'Mean Absolute Error': Results.mean_absolute,
+                    'Root Mean Squared Error': Results.root_mean_squared,
+                    'Root Mean Squared Log Error': Results.root_mean_squared_log,
+                    'Median Absolute Error': Results.median_absolute,
+                    'Mean Absolute Percentage Error': Results.mean_absolute_percentage,
+                    'r2': Results.r2,
+                    'Mean Poisson Deviance': Results.mean_poisson_deviance,
+                    'Mean Gamma Deviance': Results.mean_gamma_deviance,
+                    'Mean Tweedie Deviance': Results.mean_tweedie_deviance,
+                    'Mean Pinball Deviance': Results.mean_pinball_deviance
+                        }
+                for tech, func in err_tech_dict.items():
+                    if error_techniques.get(tech, False):
+                        func(result_calculations)
                 make_path(
                     f"{output_path}{run_name}/Results/{field}/{comparison}/{technique}"
                 )
+                graphs = Graphs(
+                    coeffs["Train"],
+                    coeffs["Test"],
+                    coeffs[technique],
+                    x_name=x_name,
+                    y_name=y_name
+                        )
                 if use_full:
-                    result_calculations.linear_reg_plot(
+                    graphs.linear_reg_plot(
                         f"[{field}] {comparison} ({technique})"
                     )
-                    result_calculations.bland_altman_plot(
+                    graphs.bland_altman_plot(
                         f"[{field}] {comparison} ({technique})"
                     )
-                    result_calculations.ecdf_plot(f"[{field}] {comparison} ({technique})")
-                    result_calculations.save_plots(
-                        f"{output_path}{run_name}/Results/{field}/{comparison}/{technique}"
-                    )
+                    graphs.ecdf_plot(f"[{field}] {comparison} ({technique})")
                 if index_tech == 0:
                     result_calculations.temp_time_series_plot(
                         f"{output_path}{run_name}/Results/{field}/{comparison}"
                     )
+                result_calculations.save_plots(
+                    f"{output_path}{run_name}/Results/{field}/{comparison}/{technique}"
+                )
                 errors[field][comparison][
                     technique
                 ] = result_calculations.return_errors()
@@ -630,9 +556,17 @@ def main():
                     name="Coefficients", con=con, if_exists="replace"
                 )
                 con.close()
+    return errors
 
-    # SUMMARY STATS
-    graphs = Graphs()
+
+def get_summary(
+        errors,
+        output_path,
+        run_name
+        ):
+    """
+    """
+    graphs = GradGraphs()
     for field, comparisons in errors.items():
         for comparison, techniques in comparisons.items():
             comparison_dict = dict()
@@ -641,28 +575,26 @@ def main():
                 if "Calibrated Test Data" in list(datasets.keys()):
                     comparison_dict[technique] = datasets.get(
                             "Calibrated Test Data"
-                            ).loc[:, [
-                                "Mean Absolute Error",
-                                "Root Mean Squared Error",
-                                "Median Absolute Error",
-                                "Mean Absolute Percentage Error"
-                                ]]
+                            )
                 else:
                     comparison_dict[technique] = datasets.get(
                         "Calibrated Test Data (Mean)"
-                            ).loc[:, [
-                                "Mean Absolute Error",
-                                "Root Mean Squared Error",
-                                "Median Absolute Error",
-                                "Mean Absolute Percentage Error"
-                                ]]
+                            )
             summary_data = Summary(comparison_dict)
             best_techniques = summary_data.best_performing(summate="key")
             best_variables = summary_data.best_performing(summate="row")
             graphs.bar_chart(best_techniques, name="Techniques")
             graphs.bar_chart(best_variables, name="Variables")
-            best_techniques_tab = pd.DataFrame(data={"Technique": list(best_techniques.keys()), "Total": list(best_techniques.values())}).set_index("Technique")
-            best_variables_tab = pd.DataFrame(data={"Variable": list(best_variables.keys()), "Total": list(best_variables.values())}).set_index("Variable")
+            best_techniques_tab = pd.DataFrame(
+                    data={
+                        "Technique": list(best_techniques.keys()),
+                        "Total": list(best_techniques.values())
+                        }
+                    ).set_index("Technique")
+            best_variables_tab = pd.DataFrame(
+                    data={
+                        "Variable": list(best_variables.keys()),
+                        "Total": list(best_variables.values())}).set_index("Variable")
             con = sql.connect(f"{graph_path.as_posix()}/Summary.db")
             best_techniques_tab.to_sql(name="Techniques", con=con, if_exists="replace")
             best_variables_tab.to_sql(name="Variables", con=con, if_exists="replace")
@@ -675,6 +607,14 @@ def main():
                 con.close()
             graphs.save_plots(graph_path.as_posix())
 
+
+def write_report(
+        output_path,
+        run_name,
+        use_full
+        ):
+    """
+    """
     report_folder = Path(f"{output_path}{run_name}/Results")
     report_fields = [subdir for subdir in report_folder.iterdir() if subdir.is_dir()]
     report = Report(title="Graddnodi Analysis", subtitle=run_name)
@@ -783,6 +723,98 @@ def main():
     path_to_save = Path(f"{output_path}{run_name}/Report")
     path_to_save.mkdir(parents=True, exist_ok=True)
     report.save_tex(f"{path_to_save.as_posix()}", style_file="Settings/Style.sty")
+
+
+
+def main():
+    # Read command line arguments
+    arg_parser = argparse.ArgumentParser(
+        prog="Graddnodi",
+        description="Imports measurements made as part of a collocation "
+        "study from an InfluxDB 2.x database and calibrates them using a "
+        "variety of techniques",
+    )
+    arg_parser.add_argument(
+        "-c",
+        "--config-path",
+        type=str,
+        help="Alternate location for config json file (Defaults to "
+        "./Settings/config.json)",
+        default="Settings/config.json",
+    )
+    arg_parser.add_argument(
+        "-i",
+        "--influx-path",
+        type=str,
+        help="Alternate location for influx config json file (Defaults to "
+        "./Settings/influx.json)",
+        default="Settings/influx.json",
+    )
+    arg_parser.add_argument(
+        "-o",
+        "--output-path",
+        type=str,
+        help="Where output will be saved",
+        default="Output/",
+    )
+    arg_parser.add_argument(
+            "-f",
+            "--full-output",
+            action="store_true",
+            help="Generate full output"
+    )
+    args = vars(arg_parser.parse_args())
+    output_path = args["output_path"]
+    config_path = args["config_path"]
+    influx_path = args["influx_path"]
+    use_full = args["full_output"]
+
+    # Setup
+    run_config = get_json(config_path)
+    influx_config = get_json(influx_path)
+    run_name = run_config["Runtime"]["Name"]
+    query_config = run_config["Devices"]
+
+    start_date = parse_date_string(run_config["Runtime"]["Start"])
+    end_date = parse_date_string(run_config["Runtime"]["End"])
+
+    # Download measurements
+    measurements = get_measurements_from_influx(
+            run_name,
+            output_path,
+            start_date,
+            end_date,
+            query_config,
+            run_config,
+            influx_config
+            )
+
+
+    # Begin calibration step
+    data_settings = run_config["Calibration"]["Data"]
+    c_techniques = run_config["Calibration"]["Techniques"]
+    bay_families = run_config["Calibration"]["Bayesian Families"]
+    coefficients = get_coefficients(
+            output_path,
+            run_name,
+            measurements,
+            data_settings,
+            c_techniques,
+            bay_families
+            )
+
+
+    errors = get_results(
+        run_config,
+        coefficients,
+        run_name,
+        output_path,
+        use_full
+            )
+    # SUMMARY STATS
+    get_summary(errors, output_path, run_name)
+
+    write_report(output_path, run_name, use_full)
 
 
 if __name__ == "__main__":
