@@ -820,7 +820,7 @@
 		"Name": "Bushy Park Study",
 		"Start": "2018/01/01",
 		"End": "2022/01/01",
-		"Average Operator": "mean",
+		"Averaging Operator": "mean",
 		"Averaging Period": "1h"
 	},
 	"Debug Stats": true
