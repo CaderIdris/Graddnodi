@@ -3,6 +3,9 @@
 		"Bushy Park FDMS": {
 			"Bucket": "AURN",
 			"Measurement": "Automatic Urban Rural Network",
+			"Boolean Filters": {
+				"Site Name": "London Teddington Bushy Park"
+			},
 			"Fields": [
 				{
 					"Tag": "PM2.5",
@@ -10,19 +13,17 @@
 					"Boolean Filters": {
 						"Site Name": "London Teddington Bushy Park",
 						"PM2.5 particulate matter unit": "ugm-3 (TEOM FDMS)"
-					},
-					"Range Filters": [],
-					"Secondary Fields": [],
-					"Hour Beginning": true,
-					"Scaling": []
+					}
 				}
 			],
-			"Start": "",
-			"Stop": ""
+			"Hour Beginning": true
 		},
 		"Bushy Park OPC": {
 			"Bucket": "AURN",
 			"Measurement": "Automatic Urban Rural Network",
+			"Boolean Filters": {
+				"Site Name": "London Teddington Bushy Park"
+			},
 			"Fields": [
 				{
 					"Tag": "PM2.5",
@@ -30,11 +31,7 @@
 					"Boolean Filters": {
 						"Site Name": "London Teddington Bushy Park",
 						"PM2.5 particulate matter unit": "ugm-3 (Ref.eq)"
-					},
-					"Range Filters": [],
-					"Secondary Fields": [],
-					"Hour Beginning": true,
-					"Scaling": []
+					}
 				},
 				{
 					"Tag": "PM10",
@@ -42,50 +39,44 @@
 					"Boolean Filters": {
 						"Site Name": "London Teddington Bushy Park",
 						"PM2.5 particulate matter unit": "ugm-3 (Ref.eq)"
-					},
-					"Range Filters": [],
-					"Secondary Fields": [],
-					"Hour Beginning": true,
-					"Scaling": []
+					}
 				}
 			],
-			"Start": "",
-			"Stop": ""
+			"Hour Beginning": true
 		},
 		"AirView Reference A": {
 			"Bucket": "AirView",
 			"Measurement": "AirView",
+			"Boolean Filters": {
+				"Car": "27522"
+			},
+			"Range Filters": [
+				{
+					"Field": "GlobalSat G-Star IV latitude degrees N",
+					"Min": 51.42549,
+					"Max": 51.42550,
+					"Min Equal": false,
+					"Max Equal": false
+				},
+				{
+					"Field": "GlobalSat G-Star IV longitude degrees E",
+					"Min": -0.34538,
+					"Max": -0.34542,
+					"Min Equal": false,
+					"Max Equal": false
+				}
+			],
 			"Fields": [
 				{
 					"Tag": "PM1",
 					"Field": "Palas Fidas100 pm1 ug/m^3",
 					"Boolean Filters": {
-						"Car": "27522",
 						"Palas Fidas100 Status": "5x5"
 					},
-					"Range Filters": [
-						{
-							"Field": "GlobalSat G-Star IV latitude degrees N",
-							"Min": 51.22,
-							"Max": 51.44,
-							"Min Equal": false,
-							"Max Equal": false
-						},
-						{
-							"Field": "GlobalSat G-Star IV longitude degrees E",
-							"Min": -0.36,
-							"Max": -0.34,
-							"Min Equal": false,
-							"Max Equal": true
-						}
-					],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
 							"End": "",
-							"Power": 1,
 							"Slope": 1000,
 							"Offset": 0
 						}
@@ -95,32 +86,12 @@
 					"Tag": "PM2.5",
 					"Field": "Palas Fidas100 pm2.5 ug/m^3",
 					"Boolean Filters": {
-						"Car": "27522",
 						"Palas Fidas100 Status": "5x5"
 					},
-					"Range Filters": [
-						{
-							"Field": "GlobalSat G-Star IV latitude degrees N",
-							"Min": 51.22,
-							"Max": 51.44,
-							"Min Equal": false,
-							"Max Equal": false
-						},
-						{
-							"Field": "GlobalSat G-Star IV longitude degrees E",
-							"Min": -0.36,
-							"Max": -0.34,
-							"Min Equal": false,
-							"Max Equal": true
-						}
-					],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
 							"End": "",
-							"Power": 1,
 							"Slope": 1000,
 							"Offset": 0
 						}
@@ -130,32 +101,12 @@
 					"Tag": "PM4",
 					"Field": "Palas Fidas100 pm4 ug/m^3",
 					"Boolean Filters": {
-						"Car": "27522",
 						"Palas Fidas100 Status": "5x5"
 					},
-					"Range Filters": [
-						{
-							"Field": "GlobalSat G-Star IV latitude degrees N",
-							"Min": 51.22,
-							"Max": 51.44,
-							"Min Equal": false,
-							"Max Equal": false
-						},
-						{
-							"Field": "GlobalSat G-Star IV longitude degrees E",
-							"Min": -0.36,
-							"Max": -0.34,
-							"Min Equal": false,
-							"Max Equal": true
-						}
-					],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
 							"End": "",
-							"Power": 1,
 							"Slope": 1000,
 							"Offset": 0
 						}
@@ -165,32 +116,12 @@
 					"Tag": "PM10",
 					"Field": "Palas Fidas100 pm10 ug/m^3",
 					"Boolean Filters": {
-						"Car": "27522",
 						"Palas Fidas100 Status": "5x5"
 					},
-					"Range Filters": [
-						{
-							"Field": "GlobalSat G-Star IV latitude degrees N",
-							"Min": 51.22,
-							"Max": 51.44,
-							"Min Equal": false,
-							"Max Equal": false
-						},
-						{
-							"Field": "GlobalSat G-Star IV longitude degrees E",
-							"Min": -0.36,
-							"Max": -0.34,
-							"Min Equal": false,
-							"Max Equal": true
-						}
-					],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
 							"End": "",
-							"Power": 1,
 							"Slope": 1000,
 							"Offset": 0
 						}
@@ -200,32 +131,12 @@
 					"Tag": "O3",
 					"Field": "2bTechnologies Model 211-G o3 ppbv",
 					"Boolean Filters": {
-						"Car": "27522",
 						"2bTechnologies Model 211-G Status": "5x5"
 					},
-					"Range Filters": [
-						{
-							"Field": "GlobalSat G-Star IV latitude degrees N",
-							"Min": 51.22,
-							"Max": 51.44,
-							"Min Equal": false,
-							"Max Equal": false
-						},
-						{
-							"Field": "GlobalSat G-Star IV longitude degrees E",
-							"Min": -0.36,
-							"Max": -0.34,
-							"Min Equal": false,
-							"Max Equal": true
-						}
-					],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
 							"End": "",
-							"Power": 1,
 							"Slope": 2,
 							"Offset": 0
 						}
@@ -235,32 +146,12 @@
 					"Tag": "NO",
 					"Field": "Echotech Serinus40 no ppm",
 					"Boolean Filters": {
-						"Car": "27522",
 						"Echotech Serinus40 Status": "5x5"
 					},
-					"Range Filters": [
-						{
-							"Field": "GlobalSat G-Star IV latitude degrees N",
-							"Min": 51.22,
-							"Max": 51.44,
-							"Min Equal": false,
-							"Max Equal": false
-						},
-						{
-							"Field": "GlobalSat G-Star IV longitude degrees E",
-							"Min": -0.36,
-							"Max": -0.34,
-							"Min Equal": false,
-							"Max Equal": true
-						}
-					],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
 							"End": "",
-							"Power": 1,
 							"Slope": 1250,
 							"Offset": 0
 						}
@@ -270,75 +161,51 @@
 					"Tag": "NO2",
 					"Field": "Aerodyne CAPSNO2 no2 ppbv",
 					"Boolean Filters": {
-						"Car": "27522",
 						"Aerodyne CAPSNO2 Status": "Pump On, No Filter, Normal Operation - No Baseline, LED is Off, NO2 Monitor, Near IR (760 nm)"
 					},
-					"Range Filters": [
-						{
-							"Field": "GlobalSat G-Star IV latitude degrees N",
-							"Min": 51.22,
-							"Max": 51.44,
-							"Min Equal": false,
-							"Max Equal": false
-						},
-						{
-							"Field": "GlobalSat G-Star IV longitude degrees E",
-							"Min": -0.36,
-							"Max": -0.34,
-							"Min Equal": false,
-							"Max Equal": true
-						}
-					],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
 							"End": "",
-							"Power": 1,
 							"Slope": 1.88,
 							"Offset": 0
 						}
 					]
 				}				
-			],
-			"Start": "",
-			"Stop": ""
+			]
 		},
 		"AirView Reference B": {
 			"Bucket": "AirView",
 			"Measurement": "AirView",
+			"Boolean Filters": {
+				"Car": "27533"
+			},
+			"Range Filters": [
+				{
+					"Field": "GlobalSat G-Star IV latitude degrees N",
+					"Min": 51.42549,
+					"Max": 51.42550,
+					"Min Equal": false,
+					"Max Equal": false
+				},
+				{
+					"Field": "GlobalSat G-Star IV longitude degrees E",
+					"Min": -0.34538,
+					"Max": -0.34542,
+					"Min Equal": false,
+					"Max Equal": false
+				}
+			],
 			"Fields": [
 				{
 					"Tag": "PM1",
 					"Field": "Palas Fidas100 pm1 ug/m^3",
 					"Boolean Filters": {
-						"Car": "27522",
 						"Palas Fidas100 Status": "5x5"
 					},
-					"Range Filters": [
-						{
-							"Field": "GlobalSat G-Star IV latitude degrees N",
-							"Min": 51.22,
-							"Max": 51.44,
-							"Min Equal": false,
-							"Max Equal": false
-						},
-						{
-							"Field": "GlobalSat G-Star IV longitude degrees E",
-							"Min": -0.36,
-							"Max": -0.34,
-							"Min Equal": false,
-							"Max Equal": true
-						}
-					],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
-							"End": "",
-							"Power": 1,
 							"Slope": 1000,
 							"Offset": 0
 						}
@@ -348,32 +215,11 @@
 					"Tag": "PM2.5",
 					"Field": "Palas Fidas100 pm2.5 ug/m^3",
 					"Boolean Filters": {
-						"Car": "27522",
 						"Palas Fidas100 Status": "5x5"
 					},
-					"Range Filters": [
-						{
-							"Field": "GlobalSat G-Star IV latitude degrees N",
-							"Min": 51.22,
-							"Max": 51.44,
-							"Min Equal": false,
-							"Max Equal": false
-						},
-						{
-							"Field": "GlobalSat G-Star IV longitude degrees E",
-							"Min": -0.36,
-							"Max": -0.34,
-							"Min Equal": false,
-							"Max Equal": true
-						}
-					],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
-							"End": "",
-							"Power": 1,
 							"Slope": 1000,
 							"Offset": 0
 						}
@@ -383,32 +229,11 @@
 					"Tag": "PM4",
 					"Field": "Palas Fidas100 pm4 ug/m^3",
 					"Boolean Filters": {
-						"Car": "27522",
 						"Palas Fidas100 Status": "5x5"
 					},
-					"Range Filters": [
-						{
-							"Field": "GlobalSat G-Star IV latitude degrees N",
-							"Min": 51.22,
-							"Max": 51.44,
-							"Min Equal": false,
-							"Max Equal": false
-						},
-						{
-							"Field": "GlobalSat G-Star IV longitude degrees E",
-							"Min": -0.36,
-							"Max": -0.34,
-							"Min Equal": false,
-							"Max Equal": true
-						}
-					],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
-							"End": "",
-							"Power": 1,
 							"Slope": 1000,
 							"Offset": 0
 						}
@@ -418,32 +243,11 @@
 					"Tag": "PM10",
 					"Field": "Palas Fidas100 pm10 ug/m^3",
 					"Boolean Filters": {
-						"Car": "27522",
 						"Palas Fidas100 Status": "5x5"
 					},
-					"Range Filters": [
-						{
-							"Field": "GlobalSat G-Star IV latitude degrees N",
-							"Min": 51.22,
-							"Max": 51.44,
-							"Min Equal": false,
-							"Max Equal": false
-						},
-						{
-							"Field": "GlobalSat G-Star IV longitude degrees E",
-							"Min": -0.36,
-							"Max": -0.34,
-							"Min Equal": false,
-							"Max Equal": true
-						}
-					],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
-							"End": "",
-							"Power": 1,
 							"Slope": 1000,
 							"Offset": 0
 						}
@@ -453,32 +257,10 @@
 					"Tag": "O3",
 					"Field": "2bTechnologies Model 211-G o3 ppbv",
 					"Boolean Filters": {
-						"Car": "27522",
 						"2bTechnologies Model 211-G Status": "5x5"
 					},
-					"Range Filters": [
-						{
-							"Field": "GlobalSat G-Star IV latitude degrees N",
-							"Min": 51.22,
-							"Max": 51.44,
-							"Min Equal": false,
-							"Max Equal": false
-						},
-						{
-							"Field": "GlobalSat G-Star IV longitude degrees E",
-							"Min": -0.36,
-							"Max": -0.34,
-							"Min Equal": false,
-							"Max Equal": true
-						}
-					],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
-							"Start": "",
-							"End": "",
-							"Power": 1,
 							"Slope": 2,
 							"Offset": 0
 						}
@@ -488,32 +270,10 @@
 					"Tag": "NO",
 					"Field": "Echotech Serinus40 no ppm",
 					"Boolean Filters": {
-						"Car": "27522",
 						"Echotech Serinus40 Status": "5x5"
 					},
-					"Range Filters": [
-						{
-							"Field": "GlobalSat G-Star IV latitude degrees N",
-							"Min": 51.22,
-							"Max": 51.44,
-							"Min Equal": false,
-							"Max Equal": false
-						},
-						{
-							"Field": "GlobalSat G-Star IV longitude degrees E",
-							"Min": -0.36,
-							"Max": -0.34,
-							"Min Equal": false,
-							"Max Equal": true
-						}
-					],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
-							"Start": "",
-							"End": "",
-							"Power": 1,
 							"Slope": 1250,
 							"Offset": 0
 						}
@@ -523,436 +283,154 @@
 					"Tag": "NO2",
 					"Field": "Aerodyne CAPSNO2 no2 ppbv",
 					"Boolean Filters": {
-						"Car": "27522",
 						"Aerodyne CAPSNO2 Status": "Pump On, No Filter, Normal Operation - No Baseline, LED is Off, NO2 Monitor, Near IR (760 nm)"
 					},
-					"Range Filters": [
-						{
-							"Field": "GlobalSat G-Star IV latitude degrees N",
-							"Min": 51.22,
-							"Max": 51.44,
-							"Min Equal": false,
-							"Max Equal": false
-						},
-						{
-							"Field": "GlobalSat G-Star IV longitude degrees E",
-							"Min": -0.36,
-							"Max": -0.34,
-							"Min Equal": false,
-							"Max Equal": true
-						}
-					],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
-							"Start": "",
-							"End": "",
-							"Power": 1,
 							"Slope": 1.88,
 							"Offset": 0
 						}
 					]
 				}				
-			],
-			"Start": "",
-			"Stop": ""
+			]
 		},
 		"Nova Sensor A": {
 			"Bucket": "Nova PM",
 			"Measurement": "Nova PM",
+			"Boolean Filters": {
+				"Serial Number": "C008-0001"
+			},
 			"Fields": [
 				{
 					"Tag": "PM2.5",
-					"Field": "PM2.5",
-					"Boolean Filters": {"Serial Number": "C008-0001"},
-					"Range Filters": [],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
-					"Scaling": []
+					"Field": "PM2.5"
 				},
 				{
 					"Tag": "PM10",
-					"Field": "PM10",
-					"Boolean Filters": {"Serial Number": "C008-0001"},
-					"Range Filters": [],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
-					"Scaling": []
+					"Field": "PM10"
 				}
 			],
-			"Start": "",
-			"Stop": ""
+			"Hour Beginning": false
 		},
 		"Nova Sensor B": {
 			"Bucket": "Nova PM",
 			"Measurement": "Nova PM",
+			"Boolean Filters": {
+				"Serial Number": "C008-0001"
+			},
 			"Fields": [
 				{
 					"Tag": "PM2.5",
-					"Field": "PM2.5",
-					"Boolean Filters": {"Serial Number": "C008-0003"},
-					"Range Filters": [],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
-					"Scaling": []
+					"Field": "PM2.5"
 				},
 				{
 					"Tag": "PM10",
-					"Field": "PM10",
-					"Boolean Filters": {"Serial Number": "C008-0003"},
-					"Range Filters": [],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
-					"Scaling": []
+					"Field": "PM10"
 				}
 			],
-			"Start": "",
-			"Stop": ""
+			"Hour Beginning": false
 		},	
 		"AirView Low-Cost A": {
 			"Bucket": "AirView",
 			"Measurement": "AirView",
+			"Boolean Filters": {
+				"Car": "27522"
+			},
+			"Range Filters": [
+				{
+					"Field": "GlobalSat G-Star IV latitude degrees N",
+					"Min": 51.42549,
+					"Max": 51.42550,
+					"Min Equal": false,
+					"Max Equal": false
+				},
+				{
+					"Field": "GlobalSat G-Star IV longitude degrees E",
+					"Min": -0.34538,
+					"Max": -0.34542,
+					"Min Equal": false,
+					"Max Equal": false
+				}
+			],
+			"Hour Beginning": false,
 			"Fields": [
 				{
 					"Tag": "PM2.5",
-					"Field": "ThermoScientific PDR1500 pm ug/m^3",
-					"Boolean Filters": {
-						"Car": "27522"
-					},
-					"Range Filters": [
-						{
-							"Field": "GlobalSat G-Star IV latitude degrees N",
-							"Min": 51.22,
-							"Max": 51.44,
-							"Min Equal": false,
-							"Max Equal": false
-						},
-						{
-							"Field": "GlobalSat G-Star IV longitude degrees E",
-							"Min": -0.36,
-							"Max": -0.34,
-							"Min Equal": false,
-							"Max Equal": true
-						}
-					],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
-					"Scaling": [
-					]
+					"Field": "ThermoScientific PDR1500 pm ug/m^3"
 				}
-			],
-			"Start": "",
-			"Stop": ""
+			]
 		},
 		"AirView Low-Cost B": {
 			"Bucket": "AirView",
 			"Measurement": "AirView",
+			"Boolean Filters": {
+				"Car": "27533"
+			},
+			"Range Filters": [
+				{
+					"Field": "GlobalSat G-Star IV latitude degrees N",
+					"Min": 51.42549,
+					"Max": 51.42550,
+					"Min Equal": false,
+					"Max Equal": false
+				},
+				{
+					"Field": "GlobalSat G-Star IV longitude degrees E",
+					"Min": -0.34538,
+					"Max": -0.34542,
+					"Min Equal": false,
+					"Max Equal": false
+				}
+			],
+			"Hour Beginning": false,
 			"Fields": [
 				{
 					"Tag": "PM2.5",
-					"Field": "ThermoScientific PDR1500 pm ug/m^3",
-					"Boolean Filters": {
-						"Car": "27533"
-					},
-					"Range Filters": [
-						{
-							"Field": "GlobalSat G-Star IV latitude degrees N",
-							"Min": 51.22,
-							"Max": 51.44,
-							"Min Equal": false,
-							"Max Equal": false
-						},
-						{
-							"Field": "GlobalSat G-Star IV longitude degrees E",
-							"Min": -0.36,
-							"Max": -0.34,
-							"Min Equal": false,
-							"Max Equal": true
-						}
-					],
-					"Secondary Fields": [],
-					"Hour Beginning": false,
-					"Scaling": [
-					]
+					"Field": "ThermoScientific PDR1500 pm ug/m^3"
 				}
-			],
-			"Start": "",
-			"Stop": ""
+			]
 		},
 		"NPL AQMesh A": {
 			"Bucket": "ACOEM Data",
 			"Measurement": "ACOEM UK Systems",
+			"Boolean Filters": {
+				"SerialNumber": "1505150"
+			},
 			"Fields": [
 				{
 					"Tag": "PM1",
 					"Field": "Particulate Matter (PM 1) PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
-						"SerialNumber": "1505150",
 						"Particulate Matter (PM 1) Flag": "Valid"
-					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
-					"Scaling": []
+					}
 				},
 				{
 					"Tag": "PM2.5",
 					"Field": "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
-						"SerialNumber": "1505150",
 						"Particulate Matter (PM 2.5) Flag": "Valid"
-					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
-					"Scaling": []
+					}
 				},
 				{
 					"Tag": "PM4",
 					"Field": "PM 4 PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
-						"SerialNumber": "1505150",
 						"PM 4 Flag": "Valid"
-					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
-					"Scaling": []
+					}
 				},
 				{
 					"Tag": "PM10",
 					"Field": "Particulate Matter (PM 10) PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
-						"SerialNumber": "1505150",
 						"Particulate Matter (PM 10) Flag": "Valid"
-					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
-					"Scaling": []
+					}
 				},
 				{
 					"Tag": "NO",
 					"Field": "Nitric Oxide PreScaled [Parts Per Billion]",
 					"Boolean Filters": {
-						"SerialNumber": "1505150",
 						"Nitric Oxide Flag": "Valid"
 					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "NO$_2$",
-							"Field": "Nitrogen Dioxide PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 1.88,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "O$_3$",
-							"Field": "Ozone PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 2,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -967,75 +445,8 @@
 					"Tag": "NO2",
 					"Field": "Nitrogen Dioxide PreScaled [Parts Per Billion]",
 					"Boolean Filters": {
-						"SerialNumber": "1505150",
 						"Nitrogen Dioxide Flag": "Valid"
 					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "NO",
-							"Field": "Nitric Oxide PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 1.25,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "O$_3$",
-							"Field": "Ozone PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 2,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -1050,75 +461,8 @@
 					"Tag": "O3",
 					"Field": "Ozone PreScaled [Parts Per Billion]",
 					"Boolean Filters": {
-						"SerialNumber": "1505150",
-						"Nitrogen Dioxide Flag": "Valid"
+						"Ozone Flag": "Valid"
 					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "NO",
-							"Field": "Nitric Oxide PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 1.25,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "NO$_2$",
-							"Field": "Nitrogen Dioxide PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 1.88,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -1130,282 +474,59 @@
 					]
 				}
 			],
-			"Start": "",
-			"Stop": ""
+			"Secondary Fields": [
+				{
+					"Tag": "RH",
+					"Field": "Humidity PreScaled [Percent]"
+				},
+				{
+					"Tag": "T",
+					"Field": "Temperature PreScaled [Celsius]"
+				}
+			],
+			"Hour Beginning": false
 		},
 		"NPL AQMesh B": {
 			"Bucket": "ACOEM Data",
 			"Measurement": "ACOEM UK Systems",
+			"Boolean Filters": {
+				"SerialNumber": "1506150"
+			},
 			"Fields": [
 				{
 					"Tag": "PM1",
 					"Field": "Particulate Matter (PM 1) PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
-						"SerialNumber": "1506150",
 						"Particulate Matter (PM 1) Flag": "Valid"
-					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
-					"Scaling": []
+					}
 				},
 				{
 					"Tag": "PM2.5",
 					"Field": "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
-						"SerialNumber": "1506150",
 						"Particulate Matter (PM 2.5) Flag": "Valid"
-					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
-					"Scaling": []
+					}
 				},
 				{
 					"Tag": "PM4",
 					"Field": "PM 4 PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
-						"SerialNumber": "1506150",
 						"PM 4 Flag": "Valid"
-					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
-					"Scaling": []
+					}
 				},
 				{
 					"Tag": "PM10",
 					"Field": "Particulate Matter (PM 10) PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
-						"SerialNumber": "1506150",
 						"Particulate Matter (PM 10) Flag": "Valid"
-					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
-					"Scaling": []
+					}
 				},
 				{
 					"Tag": "NO",
 					"Field": "Nitric Oxide PreScaled [Parts Per Billion]",
 					"Boolean Filters": {
-						"SerialNumber": "1506150",
 						"Nitric Oxide Flag": "Valid"
 					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "NO$_2$",
-							"Field": "Nitrogen Dioxide PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 1.88,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "O$_3$",
-							"Field": "Ozone PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 2,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -1420,75 +541,8 @@
 					"Tag": "NO2",
 					"Field": "Nitrogen Dioxide PreScaled [Parts Per Billion]",
 					"Boolean Filters": {
-						"SerialNumber": "1506150",
 						"Nitrogen Dioxide Flag": "Valid"
 					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "NO",
-							"Field": "Nitric Oxide PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 1.25,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "O$_3$",
-							"Field": "Ozone PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 2,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -1503,75 +557,8 @@
 					"Tag": "O3",
 					"Field": "Ozone PreScaled [Parts Per Billion]",
 					"Boolean Filters": {
-						"SerialNumber": "1506150",
 						"Ozone Flag": "Valid"
 					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "NO",
-							"Field": "Nitric Oxide PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 1.25,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "NO$_2$",
-							"Field": "Nitrogen Dioxide PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 1.88,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -1583,282 +570,59 @@
 					]
 				}
 			],
-			"Start": "",
-			"Stop": ""
+			"Secondary Fields": [
+				{
+					"Tag": "RH",
+					"Field": "Humidity PreScaled [Percent]"
+				},
+				{
+					"Tag": "T",
+					"Field": "Temperature PreScaled [Celsius]"
+				}
+			],
+			"Hour Beginning": false
 		},
 		"Breathe London AQMesh": {
 			"Bucket": "ACOEM Data",
 			"Measurement": "ACOEM UK Systems",
+			"Boolean Filters": {
+				"SerialNumber": "2450100"
+			},
 			"Fields": [
 				{
 					"Tag": "PM1",
 					"Field": "Particulate Matter (PM 1) PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
-						"SerialNumber": "2450100",
 						"Particulate Matter (PM 1) Flag": "Valid"
-					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
-					"Scaling": []
+					}
 				},
 				{
 					"Tag": "PM2.5",
 					"Field": "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
-						"SerialNumber": "2450100",
 						"Particulate Matter (PM 2.5) Flag": "Valid"
-					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
-					"Scaling": []
+					}
 				},
 				{
 					"Tag": "PM4",
 					"Field": "PM 4 PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
-						"SerialNumber": "2450100",
 						"PM 4 Flag": "Valid"
-					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
-					"Scaling": []
+					}
 				},
 				{
 					"Tag": "PM10",
 					"Field": "Particulate Matter (PM 10) PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
-						"SerialNumber": "2450100",
 						"Particulate Matter (PM 10) Flag": "Valid"
-					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
-					"Scaling": []
+					}
 				},
 				{
 					"Tag": "NO",
 					"Field": "Nitric Oxide PreScaled [Parts Per Billion]",
 					"Boolean Filters": {
-						"SerialNumber": "2450100",
 						"Nitric Oxide Flag": "Valid"
 					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "NO$_2$",
-							"Field": "Nitrogen Dioxide PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 1.88,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "O$_3$",
-							"Field": "Ozone PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 2,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -1873,75 +637,8 @@
 					"Tag": "NO2",
 					"Field": "Nitrogen Dioxide PreScaled [Parts Per Billion]",
 					"Boolean Filters": {
-						"SerialNumber": "2450100",
 						"Nitrogen Dioxide Flag": "Valid"
 					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "NO",
-							"Field": "Nitric Oxide PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 1.25,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "O$_3$",
-							"Field": "Ozone PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 2,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -1956,75 +653,8 @@
 					"Tag": "O3",
 					"Field": "Ozone PreScaled [Parts Per Billion]",
 					"Boolean Filters": {
-						"SerialNumber": "2450100",
 						"Ozone Flag": "Valid"
 					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "NO",
-							"Field": "Nitric Oxide PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 1.25,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "NO$_2$",
-							"Field": "Nitrogen Dioxide PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 1.88,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -2036,269 +666,59 @@
 					]
 				}
 			],
-			"Start": "",
-			"Stop": ""
+			"Secondary Fields": [
+				{
+					"Tag": "RH",
+					"Field": "Humidity PreScaled [Percent]"
+				},
+				{
+					"Tag": "T",
+					"Field": "Temperature PreScaled [Celsius]"
+				}
+			],
+			"Hour Beginning": false
 		},
 		"NPL AQMesh C": {
 			"Bucket": "ACOEM Data",
 			"Measurement": "ACOEM UK Systems",
+			"Boolean Filters": {
+				"SerialNumber": "2450222"
+			},
 			"Fields": [
 				{
 					"Tag": "PM1",
 					"Field": "Particulate Matter (PM 1) PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
-						"SerialNumber": "2450222",
 						"Particulate Matter (PM 1) Flag": "Valid"
-					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
-					"Scaling": []
+					}
 				},
 				{
 					"Tag": "PM2.5",
 					"Field": "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
-						"SerialNumber": "2450222",
 						"Particulate Matter (PM 2.5) Flag": "Valid"
-					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
-					"Scaling": []
+					}
 				},
 				{
 					"Tag": "PM4",
 					"Field": "PM 4 PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
-						"SerialNumber": "2450222",
 						"PM 4 Flag": "Valid"
-					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
-					"Scaling": []
+					}
 				},
 				{
 					"Tag": "PM10",
 					"Field": "Particulate Matter (PM 10) PreScaled [Micrograms Per Cubic Meter]",
 					"Boolean Filters": {
-						"SerialNumber": "2450222",
 						"Particulate Matter (PM 10) Flag": "Valid"
-					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
-					"Scaling": []
+					}
 				},
 				{
 					"Tag": "NO",
 					"Field": "Nitric Oxide PreScaled [Parts Per Billion]",
 					"Boolean Filters": {
-						"SerialNumber": "2450222",
 						"Nitric Oxide Flag": "Valid"
 					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "NO$_2$",
-							"Field": "Nitrogen Dioxide PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 1.88,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -2313,62 +733,8 @@
 					"Tag": "NO2",
 					"Field": "Nitrogen Dioxide PreScaled [Parts Per Billion]",
 					"Boolean Filters": {
-						"SerialNumber": "2450222",
 						"Nitrogen Dioxide Flag": "Valid"
 					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "NO",
-							"Field": "Nitric Oxide PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 1.25,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -2383,62 +749,8 @@
 					"Tag": "O3",
 					"Field": "Ozone PreScaled [Parts Per Billion]",
 					"Boolean Filters": {
-						"SerialNumber": "2450222",
 						"Ozone Flag": "Valid"
 					},
-					"Range Filters": [],
-					"Secondary Fields": [
-						{
-							"Tag": "RH",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": []
-						},
-						{
-							"Tag": "T",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": []
-						},
-						{
-							"Tag": "RH$^2$",
-							"Field": "Humidity PreScaled [Percent]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "T$^2$",
-							"Field": "Temperature PreScaled [Celsius]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 2,
-									"Slope": 1,
-									"Offset": 0
-								}
-							]
-						},
-						{
-							"Tag": "NO",
-							"Field": "Nitric Oxide PreScaled [Parts Per Billion]",
-							"Scaling": [
-								{
-									"Start": "",
-									"End": "",
-									"Power": 1,
-									"Slope": 1.25,
-									"Offset": 0
-								}
-							]
-						}
-					],
-					"Hour Beginning": false,
 					"Scaling": [
 						{
 							"Start": "",
@@ -2450,8 +762,17 @@
 					]
 				}
 			],
-			"Start": "",
-			"Stop": ""
+			"Secondary Fields": [
+				{
+					"Tag": "RH",
+					"Field": "Humidity PreScaled [Percent]"
+				},
+				{
+					"Tag": "T",
+					"Field": "Temperature PreScaled [Celsius]"
+				}
+			],
+			"Hour Beginning": false
 		}
 	},
 	"Calibration": {
@@ -2499,9 +820,9 @@
 		"Mean Pinball Loss": true
 	},
 	"Runtime": {
-		"Name": "Test2",
-		"Start": "2019/04/09",
-		"End": "2019/05/09",
+		"Name": "Bushy Park Study",
+		"Start": "2018/01/01",
+		"End": "2022/01/01",
 		"Average Operator": "mean",
 		"Averaging Period": "1h"
 	},

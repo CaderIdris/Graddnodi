@@ -47,6 +47,7 @@ import re
 import sqlite3 as sql
 from typing import Any, Optional, Union
 
+from caderidflux import InfluxQuery, FluxQuery
 from calidhayte import Coefficients, Results, Summary, Graphs
 from haytex import Report
 import numpy as np
@@ -55,11 +56,10 @@ import pandas as pd
 from modules.idristools import get_json, parse_date_string, all_combinations
 from modules.idristools import DateDifference, make_path, file_list
 from modules.idristools import folder_list, debug_stats
-from modules.influxquery import InfluxQuery, FluxQuery
 from modules.grapher import GradGraphs
 
 
-def read_sqlite(name: str, path: str, tables: list[str] = list()) -> dict[str, pd.DataFrame]:
+def read_sqlite(path: str, name: str, tables: list[str] = list()) -> dict[str, pd.DataFrame]:
     """
     Read measurements from a sqlite3 file
     
@@ -153,169 +153,50 @@ def get_measurements_from_influx(
         ):
     """
     """
-
-    date_calculations = DateDifference(start_date, end_date)
-    months_to_cover = date_calculations.month_difference()
-
     # Download measurements from cache
-    measurements: dict[str, dict[str, pd.DataFrame]] = dict()
+    measurements: dict[str, pd.DataFrame] = dict()
     cache_folder = f"{output_path}{run_name}/Measurements/"
-    cached_files = file_list(cache_folder, extension=".db")
-    for cached_file in cached_files:
-        field_name = str(re.sub(r"(.*?)/|\.\w*$", "", cached_file))
-        measurements[field_name] = read_sqlite(cache_folder, field_name)
+    measurements = read_sqlite(cache_folder, "Measurements.db")
 
     # Download measurements from InfluxDB 2.x on a month by month basis
-    for month_num in range(0, months_to_cover):
-        date_list = None
-        start_of_month = date_calculations.add_month(month_num)
-        end_of_month = date_calculations.add_month(month_num + 1)
-        empty_data_list = list()
-        for name, settings in query_config.items():
-            for dev_field in settings["Fields"]:
-                if measurements.get(dev_field["Tag"]) is not None:
-                    if (month_num) == 0 and (
-                        not measurements[dev_field["Tag"]][name].empty
-                    ):
-                        # If measurements were in cache, skip
-                        continue
-                # Generate flux query
-                query = FluxQuery(
-                    start_of_month,
-                    end_of_month,
-                    settings["Bucket"],
-                    settings["Measurement"],
+    for name, settings in query_config.items():
+        fields = dict()
+        bool_filters = settings.get("Boolean Filters", {})
+        range_filters = settings.get("Range Filters", {})
+        scaling = list()
+        for field in settings['Fields'] + settings.get("Secondary Fields", []):
+            # Columns and tags to rename to
+            fields[field['Field']] = field['Tag']
+            # Boolean filters for specific columns
+            if field.get("Boolean Filters") is not None:
+                for key, value in field.get("Boolean Filters").items():
+                    bool_filters[key] = {"Value": value, "Col": field['Field']}
+            # Scaling
+            if field.get("Scaling") is not None:
+                for scale_dict in field.get("Scaling"):
+                    sc = scale_dict
+                    sc[field['Field']]['Field'] = field['Field']
+                    scaling.append(sc)
+                    
+        inf = InfluxQuery(influx_config)
+        inf.data_query(
+                bucket=settings['Bucket'],
+                start_date=start_date,
+                end_date=end_date,
+                measurement=settings['Measurement'],
+                fields=list(fields.keys()),
+                groups=[],
+                win_range=run_config['Averaging Period'],
+                win_func=run_config['Averaging Operator'],
+                bool_filters=bool_filters,
+                range_filters=range_filters,
+                hour_beginning=settings.get("Hour Beginning", False),
+                scaling=scaling,
+                multiindex=False,
+                time_split='day'
                 )
-                # Check if range filters are present. If yes, a modified
-                # query format needs to be used
-                if not dev_field["Range Filters"]:
-                    query.add_field(dev_field["Field"])
-                else:
-                    all_fields = [dev_field["Field"]]
-                    for value in dev_field["Range Filters"]:
-                        all_fields.append(value["Field"])
-                    query.add_multiple_fields(all_fields)
-                # Adds in any boolean filters (eg Sensor name = X)
-                for key, value in dev_field["Boolean Filters"].items():
-                    query.add_filter(key, value)
-                # Add in any range filters (e.g 0.2 > latitude > 0.1)
-                if dev_field["Range Filters"]:
-                    query.add_filter_range(
-                        dev_field["Field"], dev_field["Range Filters"]
-                    )
-                # Remove superfluous columns
-                query.keep_measurements()
-                # Add in scaling
-                for scale in dev_field["Scaling"]:
-                    scale_start = ""
-                    scale_end = ""
-                    if scale["Start"] != "":
-                        scale_start = parse_date_string(scale["Start"])
-                        if scale_start > end_of_month:
-                            continue
-                    if scale["End"] != "":
-                        scale_end = parse_date_string(scale["End"])
-                        if scale_end < start_of_month:
-                            continue
-                    query.scale_measurements(
-                        scale["Slope"],
-                        scale["Offset"],
-                        scale["Power"],
-                        scale_start,
-                        scale_end,
-                    )
-                # Add in window to average measurements over
-                query.add_window(
-                    run_config["Runtime"]["Averaging Period"],
-                    run_config["Runtime"]["Average Operator"],
-                    time_starting=dev_field["Hour Beginning"],
-                )
-                # Add yield line to return measurements
-                query.add_yield(run_config["Runtime"]["Average Operator"])
-                # Download from Influx
-                influx = InfluxQuery(influx_config)
-                influx.data_query(query.return_query())
-                inf_measurements = influx.return_measurements()
-                if inf_measurements is None:
-                    empty_data_list.append((dev_field["Tag"], name))
-                    continue
-                inf_measurements.rename({"Values": name})
-                if date_list is None:
-                    date_list = list(inf_measurements["Datetime"])
-                influx.clear_measurements()
-                # Add in any secondary measurements such as T or RH
-                # Secondary measurements will only have bool filters
-                # applied. This ~may~ be controversial and the decision
-                # may be reversed but it is what it is for now. Will
-                # result in more data present but faster processing times
-                for sec_measurement in dev_field["Secondary Fields"]:
-                    # Generate secondary measurement query
-                    sec_query = FluxQuery(
-                        start_of_month,
-                        end_of_month,
-                        settings["Bucket"],
-                        settings["Measurement"],
-                    )
-                    # Add in secondary measurement field
-                    sec_query.add_field(sec_measurement["Field"])
-                    # Add in boolean filters
-                    for key, value in dev_field["Boolean Filters"].items():
-                        sec_query.add_filter(key, value)
-                    # Add in any scaling
-                    for scale in sec_measurement["Scaling"]:
-                        scale_start = ""
-                        scale_end = ""
-                        if scale["Start"] != "":
-                            scale_start = parse_date_string(scale["Start"])
-                            if scale_start > end_of_month:
-                                continue
-                        if scale["End"] != "":
-                            scale_end = parse_date_string(scale["End"])
-                            if scale_end < start_of_month:
-                                continue
-                        sec_query.scale_measurements(
-                            scale["Slope"],
-                            scale["Offset"],
-                            scale["Power"],
-                            scale_start,
-                            scale_end,
-                        )
-                    # Set averaging window and remove irrelevant columns
-                    sec_query.keep_measurements()
-                    sec_query.add_window(
-                        run_config["Runtime"]["Averaging Period"],
-                        run_config["Runtime"]["Average Operator"],
-                        time_starting=dev_field["Hour Beginning"],
-                    )
-                    query.add_yield(sec_measurement["Tag"])
-                    # Query data from database
-                    influx.data_query(sec_query.return_query())
-                    sec_measurements = influx.return_measurements()
-                    # If no measurements present, skip. They will be
-                    # populated with nan when dataframe is concatenated
-                    if sec_measurements is None:
-                        influx.clear_measurements()
-                        continue
-                    inf_measurements[sec_measurement["Tag"]] = sec_measurements[
-                        "Values"
-                    ]
-                    inf_measurements.set_index("Datetime")
-                    influx.clear_measurements()
-                measurements[dev_field["Tag"]][name] = pd.concat(
-                    [measurements[dev_field["Tag"]][name], inf_measurements]
-                )
-        # If some measurements were downloaded, populate measurements that
-        # weren't downloaded with nan
-        if date_list is not None and empty_data_list:
-            empty_df = pd.DataFrame(
-                data={"Datetime": date_list, "Values": [np.nan] * len(date_list)}
-            )
-            for empty_data in empty_data_list:
-                measurements[empty_data[0]][empty_data[1]] = pd.concat(
-                    [measurements[empty_data[0]][empty_data[1]], empty_df]
-                )
-    for field, data in measurements.items():
-        write_sqlite(field, cache_folder, data)
+        measurements[name] = inf.return_measurements()
+    write_sqlite('Measurements', cache_folder, measurements)
 
     return measurements
 
