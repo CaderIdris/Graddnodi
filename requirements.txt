@@ -16,7 +16,7 @@ fonttools==4.33.3
 formulae==0.3.4
 haytex @ git+https://github.com/caderidris/haytex.git@v1.0.1
 calidhayte @ git+https://github.com/caderidris/calidhayte.git@v1.0.1-beta
-caderidflux @ git+https://github.com/caderidris/caderidflux.git@v0.0.1-prerelease
+caderidflux @ git+https://github.com/caderidris/caderidflux.git@v10pr
 influxdb-client==1.29.1
 intel-openmp==2022.1.0
 Jinja2==3.1.2

@@ -47,7 +47,7 @@ import re
 import sqlite3 as sql
 from typing import Any, Optional, Union
 
-from caderidflux import InfluxQuery, FluxQuery
+from caderidflux import InfluxQuery
 from calidhayte import Coefficients, Results, Summary, Graphs
 from haytex import Report
 import numpy as np
@@ -155,11 +155,15 @@ def get_measurements_from_influx(
     """
     # Download measurements from cache
     measurements: dict[str, pd.DataFrame] = dict()
-    cache_folder = f"{output_path}{run_name}/Measurements/"
-    measurements = read_sqlite(cache_folder, "Measurements.db")
+    print(measurements.keys())
+    cache_folder = f"{output_path}{run_name}"
+    measurements = read_sqlite(cache_folder, "Measurements")
 
     # Download measurements from InfluxDB 2.x on a month by month basis
     for name, settings in query_config.items():
+        if name in measurements.keys():
+            continue
+        print(name)
         fields = dict()
         bool_filters = settings.get("Boolean Filters", {})
         range_filters = settings.get("Range Filters", {})
@@ -175,7 +179,7 @@ def get_measurements_from_influx(
             if field.get("Scaling") is not None:
                 for scale_dict in field.get("Scaling"):
                     sc = scale_dict
-                    sc[field['Field']]['Field'] = field['Field']
+                    sc['Field'] = field['Field']
                     scaling.append(sc)
                     
         inf = InfluxQuery(influx_config)
@@ -195,8 +199,8 @@ def get_measurements_from_influx(
                 multiindex=False,
                 time_split='day'
                 )
-        measurements[name] = inf.return_measurements()
-    write_sqlite('Measurements', cache_folder, measurements)
+        measurements[name] = inf.return_measurements().rename(columns=fields)
+        write_sqlite('Measurements', cache_folder, measurements[name], table=name)
 
     return measurements
 
@@ -666,7 +670,7 @@ def main():
             start_date,
             end_date,
             query_config,
-            run_config,
+            run_config['Runtime'],
             influx_config
             )
 

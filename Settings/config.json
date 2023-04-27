@@ -4,15 +4,13 @@
 			"Bucket": "AURN",
 			"Measurement": "Automatic Urban Rural Network",
 			"Boolean Filters": {
-				"Site Name": "London Teddington Bushy Park"
+				"Site Name": "London Teddington Bushy Park",
+				"PM2.5 particulate matter unit": "ugm-3 (TEOM FDMS)"
 			},
 			"Fields": [
 				{
 					"Tag": "PM2.5",
-					"Field": "PM2.5 particulate matter",
-					"Boolean Filters": {
-						"PM2.5 particulate matter unit": "ugm-3 (TEOM FDMS)"
-					}
+					"Field": "PM2.5 particulate matter"
 				}
 			],
 			"Hour Beginning": true
@@ -21,22 +19,17 @@
 			"Bucket": "AURN",
 			"Measurement": "Automatic Urban Rural Network",
 			"Boolean Filters": {
-				"Site Name": "London Teddington Bushy Park"
+				"Site Name": "London Teddington Bushy Park",
+				"PM2.5 particulate matter unit": "ugm-3 (Ref.eq)"
 			},
 			"Fields": [
 				{
 					"Tag": "PM2.5",
-					"Field": "PM2.5 particulate matter",
-					"Boolean Filters": {
-						"PM2.5 particulate matter unit": "ugm-3 (Ref.eq)"
-					}
+					"Field": "PM2.5 particulate matter"
 				},
 				{
 					"Tag": "PM10",
-					"Field": "PM10 particulate matter",
-					"Boolean Filters": {
-						"PM10 particulate matter unit": "ugm-3 (Ref.eq)"
-					}
+					"Field": "PM10 particulate matter"
 				}
 			],
 			"Hour Beginning": true
@@ -50,16 +43,23 @@
 			"Range Filters": [
 				{
 					"Field": "GlobalSat G-Star IV latitude degrees N",
-					"Min": 51.42549,
-					"Max": 51.42550,
-					"Min Equal": false,
-					"Max Equal": false
+					"Min": 51.424,
+					"Max": 51.426,
+					"Min Equal": true,
+					"Max Equal": true
 				},
 				{
 					"Field": "GlobalSat G-Star IV longitude degrees E",
-					"Min": -0.34538,
-					"Max": -0.34542,
-					"Min Equal": false,
+					"Min": -0.346,
+					"Max": -0.344,
+					"Min Equal": true,
+					"Max Equal": true
+				},
+				{
+					"Field": "GlobalSat G-Star IV speed km/h",
+					"Min": 0,
+					"Max": 1,
+					"Min Equal": true,
 					"Max Equal": false
 				}
 			],
@@ -73,7 +73,6 @@
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
-							"End": "",
 							"Slope": 1000,
 							"Offset": 0
 						}
@@ -88,7 +87,6 @@
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
-							"End": "",
 							"Slope": 1000,
 							"Offset": 0
 						}
@@ -103,7 +101,6 @@
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
-							"End": "",
 							"Slope": 1000,
 							"Offset": 0
 						}
@@ -118,7 +115,6 @@
 					"Scaling": [
 						{
 							"Start": "2019/04/12 15:53:44",
-							"End": "",
 							"Slope": 1000,
 							"Offset": 0
 						}
@@ -132,8 +128,6 @@
 					},
 					"Scaling": [
 						{
-							"Start": "",
-							"End": "",
 							"Slope": 2,
 							"Offset": 0
 						}
@@ -147,8 +141,6 @@
 					},
 					"Scaling": [
 						{
-							"Start": "",
-							"End": "",
 							"Slope": 1250,
 							"Offset": 0
 						}
@@ -162,8 +154,6 @@
 					},
 					"Scaling": [
 						{
-							"Start": "",
-							"End": "",
 							"Slope": 1.88,
 							"Offset": 0
 						}
@@ -180,16 +170,23 @@
 			"Range Filters": [
 				{
 					"Field": "GlobalSat G-Star IV latitude degrees N",
-					"Min": 51.42549,
-					"Max": 51.42550,
-					"Min Equal": false,
-					"Max Equal": false
+					"Min": 51.424,
+					"Max": 51.426,
+					"Min Equal": true,
+					"Max Equal": true
 				},
 				{
 					"Field": "GlobalSat G-Star IV longitude degrees E",
-					"Min": -0.34538,
-					"Max": -0.34542,
-					"Min Equal": false,
+					"Min": -0.346,
+					"Max": -0.344,
+					"Min Equal": true,
+					"Max Equal": true
+				},
+				{
+					"Field": "GlobalSat G-Star IV speed km/h",
+					"Min": 0,
+					"Max": 1,
+					"Min Equal": true,
 					"Max Equal": false
 				}
 			],
@@ -336,16 +333,23 @@
 			"Range Filters": [
 				{
 					"Field": "GlobalSat G-Star IV latitude degrees N",
-					"Min": 51.42549,
-					"Max": 51.42550,
-					"Min Equal": false,
-					"Max Equal": false
+					"Min": 51.424,
+					"Max": 51.426,
+					"Min Equal": true,
+					"Max Equal": true
 				},
 				{
 					"Field": "GlobalSat G-Star IV longitude degrees E",
-					"Min": -0.34538,
-					"Max": -0.34542,
-					"Min Equal": false,
+					"Min": -0.346,
+					"Max": -0.344,
+					"Min Equal": true,
+					"Max Equal": true
+				},
+				{
+					"Field": "GlobalSat G-Star IV speed km/h",
+					"Min": 0,
+					"Max": 1,
+					"Min Equal": true,
 					"Max Equal": false
 				}
 			],
@@ -366,16 +370,23 @@
 			"Range Filters": [
 				{
 					"Field": "GlobalSat G-Star IV latitude degrees N",
-					"Min": 51.42549,
-					"Max": 51.42550,
-					"Min Equal": false,
-					"Max Equal": false
+					"Min": 51.424,
+					"Max": 51.426,
+					"Min Equal": true,
+					"Max Equal": true
 				},
 				{
 					"Field": "GlobalSat G-Star IV longitude degrees E",
-					"Min": -0.34538,
-					"Max": -0.34542,
-					"Min Equal": false,
+					"Min": -0.346,
+					"Max": -0.344,
+					"Min Equal": true,
+					"Max Equal": true
+				},
+				{
+					"Field": "GlobalSat G-Star IV speed km/h",
+					"Min": 0,
+					"Max": 1,
+					"Min Equal": true,
 					"Max Equal": false
 				}
 			],
@@ -430,8 +441,6 @@
 					},
 					"Scaling": [
 						{
-							"Start": "",
-							"End": "",
 							"Power": 1,
 							"Slope": 1.25,
 							"Offset": 0
@@ -446,8 +455,6 @@
 					},
 					"Scaling": [
 						{
-							"Start": "",
-							"End": "",
 							"Power": 1,
 							"Slope": 1.88,
 							"Offset": 0
@@ -462,8 +469,6 @@
 					},
 					"Scaling": [
 						{
-							"Start": "",
-							"End": "",
 							"Power": 1,
 							"Slope": 2,
 							"Offset": 0
@@ -526,8 +531,6 @@
 					},
 					"Scaling": [
 						{
-							"Start": "",
-							"End": "",
 							"Power": 1,
 							"Slope": 1.25,
 							"Offset": 0
@@ -542,8 +545,6 @@
 					},
 					"Scaling": [
 						{
-							"Start": "",
-							"End": "",
 							"Power": 1,
 							"Slope": 1.88,
 							"Offset": 0
@@ -558,8 +559,6 @@
 					},
 					"Scaling": [
 						{
-							"Start": "",
-							"End": "",
 							"Power": 1,
 							"Slope": 2,
 							"Offset": 0
@@ -622,8 +621,6 @@
 					},
 					"Scaling": [
 						{
-							"Start": "",
-							"End": "",
 							"Power": 1,
 							"Slope": 1.25,
 							"Offset": 0
@@ -638,8 +635,6 @@
 					},
 					"Scaling": [
 						{
-							"Start": "",
-							"End": "",
 							"Power": 1,
 							"Slope": 1.88,
 							"Offset": 0
@@ -654,8 +649,6 @@
 					},
 					"Scaling": [
 						{
-							"Start": "",
-							"End": "",
 							"Power": 1,
 							"Slope": 2,
 							"Offset": 0
@@ -718,8 +711,6 @@
 					},
 					"Scaling": [
 						{
-							"Start": "",
-							"End": "",
 							"Power": 1,
 							"Slope": 1.25,
 							"Offset": 0
@@ -734,8 +725,6 @@
 					},
 					"Scaling": [
 						{
-							"Start": "",
-							"End": "",
 							"Power": 1,
 							"Slope": 1.88,
 							"Offset": 0
@@ -750,8 +739,6 @@
 					},
 					"Scaling": [
 						{
-							"Start": "",
-							"End": "",
 							"Power": 1,
 							"Slope": 2,
 							"Offset": 0
