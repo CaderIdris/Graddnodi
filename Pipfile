@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+caderidflux = {ref = "v1.0.0pre", git = "git+https://github.com/CaderIdris/caderidflux"}
+influxdb-client = "*"
+graddnodi = {file = ".", editable = true}
+calidhayte = {file = "../../Packages/calidhayte", editable = true}
+jupyter = "*"
+plotly = "*"
+dash = "*"
+dash-bootstrap-components = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"

@@ -1,4 +1,7 @@
 modules/__pycache__/
 __pycache__/
-.env/
+Settings/influx.json
 Output/
+**/*.egg-info/
+**/.ipynb_checkpoints/
+Pipfile.lock
