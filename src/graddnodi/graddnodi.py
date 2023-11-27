@@ -85,7 +85,9 @@ PipelinesDict: TypeAlias = dict[
             str, dict[  # Technique e.g. Linear Regression
                 str, dict[  # Scaling (e.g Standard Scaling)
                     str, dict[  # Variables (e.g NO2 + T)
-                        int, Pipeline  # Fold
+                        int, Union[
+                            Pipeline, Path # Fold
+                                ]
                             ]
                         ]
                     ]
@@ -189,24 +191,48 @@ def download_cache(path: Union[str, Path]) -> GraddnodiResults:
 
     # Import pipelines
     pipelines_folder = path / 'Pipelines'
-    for comparison in filter(lambda x: x.is_dir(), pipelines_folder.glob('*/')):
-        pipelines[comparison.parts[-1]] = dict()
-        logger.debug(f'Looking for pipelines in comparison: {comparison}')
-        for field in filter(lambda x: x.is_dir(), comparison.glob('*/')):
-            pipelines[comparison.parts[-1]][field.parts[-1]] = dict()
-            for technique in filter(lambda x: x.is_dir(), field.glob('*/')):
-                pipelines[comparison.parts[-1]][field.parts[-1]][technique.parts[-1]] = dict()
-                for scaling in filter(lambda x: x.is_dir(), technique.glob('*/')):
-                    pipelines[comparison.parts[-1]][field.parts[-1]][technique.parts[-1]][scaling.parts[-1]] = dict()
-                    for variables in filter(lambda x: x.is_dir(), scaling.glob('*/')):
-                        pipelines[comparison.parts[-1]][field.parts[-1]][technique.parts[-1]][scaling.parts[-1]][variables.parts[-1]] = dict()
-                        for pkl in filter(lambda x: x.is_file(), variables.glob('*.pkl')):
-                            find_filename = re.match(r"(?P<filename>.*)\.pkl", pkl.parts[-1])
-                            filename = find_filename.group('filename')
-                            pipelines[comparison.parts[-1]][field.parts[-1]][technique.parts[-1]][scaling.parts[-1]][variables.parts[-1]][int(filename)] = pkl
+    for pkl in filter(lambda x: x.is_file(), pipelines_folder.glob('**/*.pkl')):
+        find_filename = re.match(r"(?P<filename>.*)\.pkl", pkl.parts[-1])
+        if find_filename is None:
+            continue
+        filename = find_filename.group('filename')
+        pipe_dict = pipelines
+        for part in pkl.parts[-6:-1]:
+            try:
+                pipe_dict = pipe_dict[part]
+            except KeyError:
+                pipe_dict[part] = dict()
+                pipe_dict = pipe_dict[part]
+        pipe_dict[int(filename)] = pkl
+        logger.debug(pkl)
 
 
     # Import results
+
+    results_path = path / 'Results'
+    if not results_path.is_dir():
+        results_path.mkdir(parents=True)
+    results_db = results_path / 'Results.db'
+    con = sql.connect(results_db)
+    try:
+        results = pd.read_sql(
+            sql=f"SELECT * from 'Results'",
+            con=con
+        )
+    except pd.errors.DatabaseError:
+        logging.debug('No cached results')
+        results = pd.DataFrame(
+            columns=[
+                'Field',
+                'Reference',
+                'Calibrated',
+                'Technique',
+                'Scaling Method',
+                'Variables'
+            ]
+       )
+    con.close()
+    
 
     graddnodi_results: GraddnodiResults = {
         "Measurements": measurements,
@@ -351,7 +377,7 @@ def comparisons(
             if not isinstance(x_dframe, pd.DataFrame):
                 continue
             comparison_name = f"{x_device} vs {y_device}"
-            logger.debug(f'Comparing {x_device} to {y_device}')
+            logger.info(f'Comparing {x_device} to {y_device}')
             if pipelines.get(comparison_name) is None:
                 pipelines[comparison_name] = dict()
             if matched_measurements.get(comparison_name) is None:
@@ -388,11 +414,12 @@ def comparisons(
                 for method_config in ["Default", "Random Search"]:
                     techniques_to_use = cal_settings[f'Techniques ({method_config})']
                     for technique, method in techniques.items():
-                        if not techniques_to_use.get(technique, False):
-                            logger.debug(f'Skipping {technique} as not in config')
                         name = f"{technique}{f' ({method_config})' if (method_config != 'Default') else ''}"
+                        if not techniques_to_use.get(technique, False):
+                            logger.debug(f'Skipping {name} as not in config')
+                            continue
                         if pipelines[comparison_name][field].get(name) is not None:
-                            logger.debug(f"Skipping {technique}")
+                            logger.debug(f"Skipping {name} as pipelines already present")
                             continue
                         pipelines[comparison_name][field][name] = dict()
                         logger.debug(f"Calibrating using {name}")
@@ -400,26 +427,29 @@ def comparisons(
                 models = calibrate.return_models()
                 pipelines[comparison_name][field].update(models)
                 calibrate.clear_models()
-                matched_measurements[comparison_name][field] = calibrate.return_measurements()
-                matched_measures_path = output_path / 'Matched Measurements' / comparison_name
-                matched_measures_path.mkdir(parents=True, exist_ok=True)
-                matched_measures_db = matched_measures_path / f'{field}.db'
-                logger.debug(f'Saving matched measurements for {comparison_name} {field}')
-                con = sql.connect(matched_measures_db)
-                for name in matched_measurements[comparison_name][field]:
-                    matched_measurements[comparison_name][field][name].to_sql(
-                        name=name,
-                        con=con,
-                        if_exists='replace'
-                    )
-                con.close()
+                if matched_measurements[comparison_name][field] is None:
+                    matched_measurements[comparison_name][field] = calibrate.return_measurements()
+                    matched_measures_path = output_path / 'Matched Measurements' / comparison_name
+                    matched_measures_path.mkdir(parents=True, exist_ok=True)
+                    matched_measures_db = matched_measures_path / f'{field}.db'
+                    logger.debug(f'Saving matched measurements for {comparison_name} {field}')
+                    con = sql.connect(matched_measures_db)
+                    for name in matched_measurements[comparison_name][field]:
+                        matched_measurements[comparison_name][field][name].to_sql(
+                            name=name,
+                            con=con,
+                            if_exists='replace'
+                        )
+                    con.close()
     return pipelines, matched_measurements
 
 
 def get_results(
     pipeline_dict: PipelinesDict,
     matched_measurements: MatchedMeasurementsDict,
-    errors: pd.DataFrame = pd.DataFrame()
+    error_config: dict[str, bool],
+    error_db_path: Path,
+    errors: pd.DataFrame = pd.DataFrame(),
         ) -> ResultsDict:
     """
     """
@@ -436,117 +466,46 @@ def get_results(
                     matched_measurements[comparison][field]['x'],
                     matched_measurements[comparison][field]['y'],
                     target=field,
-                    models=techniques
+                    models=techniques,
+                    errors=errors.loc[
+                        (errors['Field'] == field) &
+                        (errors['Reference'] == y_name) &
+                        (errors['Calibrated'] == x_name)
+                    ]
                 )
-                err_tech_dict = {
-                    'Explained Variance Score': Results.explained_variance_score,
-                    'Max Error': Results.max,
-                    'Mean Absolute Error': Results.mean_absolute,
-                    'Root Mean Squared Error': Results.root_mean_squared,
-                    #'Root Mean Squared Log Error': Results.root_mean_squared_log,
-                    'Median Absolute Error': Results.median_absolute,
-                    'Mean Absolute Percentage Error': Results.mean_absolute_percentage,
-                    'r2': Results.r2,
-                        }
-                for tech, func in err_tech_dict.items():
+            except KeyError:
+                continue
+            err_tech_dict = {
+                'Explained Variance Score': Results.explained_variance_score,
+                'Max Error': Results.max,
+                'Mean Absolute Error': Results.mean_absolute,
+                'Root Mean Squared Error': Results.root_mean_squared,
+                'Root Mean Squared Log Error': Results.root_mean_squared_log,
+                'Median Absolute Error': Results.median_absolute,
+                'Mean Absolute Percentage Error': Results.mean_absolute_percentage,
+                'r2': Results.r2,
+                    }
+            for tech, func in err_tech_dict.items():
+                if error_config.get(tech, False):
+                    logger.debug(f'Calculating {tech}')
                     func(result_calculations)
-                err = result_calculations.return_errors()
-                err['Field'] = field
-                err['Reference'] = y_name
-                err['Calibrated'] = x_name
-                errors = pd.concat([errors, err]).reset_index(drop=True)
-                logger.debug(errors.shape)
-                logger.debug(errors.columns)
-            except Exception as err:
-                logging.debug(err)
+                else:
+                    logger.debug(f'Skipping {tech} as not in config')
+            err = result_calculations.return_errors()
+            err['Field'] = field
+            err['Reference'] = y_name
+            err['Calibrated'] = x_name
+            errors = pd.concat([errors, err]).reset_index(drop=True).drop_duplicates()
+            con = sql.connect(error_db_path)
+            errors.to_sql(
+                'Results',
+                con=con,
+                if_exists='replace'
+            )
+            con.close()
+            logger.debug(errors.shape)
     return errors
 
-
-def main():
-    # Read command line arguments
-    arg_parser = argparse.ArgumentParser(
-        prog="Graddnodi",
-        description="Imports measurements made as part of a collocation "
-        "study from an InfluxDB 2.x database and calibrates them using a "
-        "variety of techniques",
-    )
-    arg_parser.add_argument(
-        "-c",
-        "--config-path",
-        type=str,
-        help="Alternate location for config json file (Defaults to "
-        "./Settings/config.json)",
-        default="Settings/config.json",
-    )
-    arg_parser.add_argument(
-        "-i",
-        "--influx-path",
-        type=str,
-        help="Alternate location for influx config json file (Defaults to "
-        "./Settings/influx.json)",
-        default="Settings/influx.json",
-    )
-    arg_parser.add_argument(
-        "-o",
-        "--output-path",
-        type=str,
-        help="Where output will be saved",
-        default="Output/",
-    )
-    arg_parser.add_argument(
-            "-f",
-            "--full-output",
-            action="store_true",
-            help="Generate full output"
-    )
-    args = vars(arg_parser.parse_args())
-    output_path = Path(args["output_path"])
-    config_path = Path(args["config_path"])
-    influx_path = Path(args["influx_path"])
-    use_full = args["full_output"]
-
-    # Setup
-    run_config = get_json(config_path)
-    influx_config = get_json(influx_path)
-    run_name = run_config["Runtime"]["Name"]
-    query_config = run_config["Devices"]
-
-    start_date = parse_date_string(run_config["Runtime"]["Start"])
-    end_date = parse_date_string(run_config["Runtime"]["End"])
-
-    # Download measurements
-    measurements = get_measurements_from_influx(
-            run_name,
-            start_date,
-            end_date,
-            query_config,
-            run_config['Runtime'],
-            influx_config
-            )
-
-
-    # Begin calibration step
-    data_settings = run_config["Calibration"]["Data"]
-    c_techniques = run_config["Calibration"]["Techniques"]
-    bay_families = run_config["Calibration"]["Bayesian Families"]
-    coefficients = comparisons(
-            output_path,
-            run_name,
-            measurements,
-            data_settings,
-            c_techniques,
-            bay_families
-            )
-
-
-    errors = get_results(
-        run_config,
-        coefficients,
-        run_name,
-        output_path,
-        use_full
-            )
-    
 
 def main_cli():
     logger.debug(f"Running Graddnodi in debug mode") 
@@ -624,11 +583,14 @@ def main_cli():
         data['MatchedMeasurements'],
         output_path / run_name
     )
-#    data['Results'] = get_results(
-#        data['Pipelines'],
-#        data['MatchedMeasurements']
-#    )
-#    data['Results'].to_csv('RESULTS.csv')
+    error_db_path = output_path / run_name / 'Results' / 'Results.db'
+    data['Results'] = get_results(
+        data['Pipelines'],
+        data['MatchedMeasurements'],
+        error_config=run_config.get('Errors', dict()),
+        error_db_path=error_db_path,
+        errors=data['Results']
+    )
     
 
 
