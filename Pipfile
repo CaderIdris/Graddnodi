@@ -12,6 +12,7 @@ jupyter = "*"
 plotly = "*"
 dash = "*"
 dash-bootstrap-components = "*"
+tomli = "*"
 
 [dev-packages]
 

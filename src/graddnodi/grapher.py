@@ -21,6 +21,8 @@ class GradGraphs:
     def save_plots(self, path: str):
         for key, plot in self.graphs.items():
             plot_path = f"{path}/{key}.pgf"
-            Path("/".join(Path(plot_path).parts[:-1])).mkdir(parents=True, exist_ok=True)
+            Path("/".join(Path(plot_path).parts[:-1])).mkdir(
+                parents=True, exist_ok=True
+            )
             plot.savefig(plot_path)
             plt.close(plot)
