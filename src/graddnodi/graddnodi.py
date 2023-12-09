@@ -41,18 +41,19 @@ __status__ = "Pre-release"
 
 import argparse
 import datetime as dt
+import json
 import logging
 import os
 from pathlib import Path
 import pickle
 import re
 import sqlite3 as sql
-from typing import Any, Dict, List, Optional, Tuple, TypeAlias, TypedDict, Union
+from typing import Any, Dict, List, Optional
+from typing import Tuple, TypeAlias, TypedDict, Union
 
 from caderidflux import InfluxQuery
 from calidhayte.calibrate import Calibrate
 from calidhayte.results import Results
-from calidhayte.summary import Summary
 from calidhayte.graphs import Graphs
 import numpy as np
 import pandas as pd
@@ -196,9 +197,53 @@ class GraddnodiResults(TypedDict):
     Results: ResultsDict
 
 
+def get_json(path: Union[Path, str]):
+    """Finds json file and returns it as dict
+
+    Creates blank file with required keys at path if json file is not
+    present
+
+    Parameters
+    ----------
+    path : Path, str 
+        Path to the json file, including filename and .json extension
+
+    Returns
+    -------
+    Dict[str, str]
+        Representing contents of json file
+
+    Raises
+    ------
+    FileNotFoundError
+        If file is not present, blank file created
+    ValueError
+        If file can not be parsed
+    """
+
+    try:
+        with open(path, "r") as jsonFile:
+            try:
+                return json.load(jsonFile)
+            except json.decoder.JSONDecodeError:
+                raise ValueError(
+                    f"{path} is not in the proper"
+                    f"format. If you're having issues, consider"
+                    f"using the template from the Github repo or "
+                    f" use the format seen in README.md"
+                )
+    except FileNotFoundError:
+        raise FileNotFoundError(
+            f"{path} could not be found, use the "
+            f"template from the Github repo or use the "
+            f"format seen in README.md"
+        )
+
+
 def import_toml(path: Union[str, Path]) -> ConfigDict:
     """
-    Imports toml file and runs type check to ensure it matches config specifications
+    Imports toml file and runs type check to ensure it matches config
+    specifications
 
     Parameters
     ----------
@@ -287,7 +332,9 @@ def type_check_config(config: dict[str, Any]):
                 config["Calibration"]["Configuration"].get(key), val
             ):
                 errors.append(
-                    f"Calibration.Configuration.{key} is type {type(config['Calibration']['Configuration'][key])}, expected {val}"
+                    f"Calibration.Configuration.{key} is type "
+                    f"{type(config['Calibration']['Configuration'][key])}, "
+                    f"expected {val}"
                 )
 
     # Test Calibration-Techniques
@@ -311,20 +358,23 @@ def type_check_config(config: dict[str, Any]):
         for entry, val in config["Calibration"]["Techniques"][key].items():
             if not isinstance(val, bool):
                 errors.append(
-                    f"Expected boolean for Calibration.Techniques.{key}.{entry}, received {type(val)} instead"
+                    f"Expected boolean for Calibration.Techniques.{key}."
+                    f"{entry}, received {type(val)} instead"
                 )
 
     # Test Calibration-Errors
     for key, val in config["Calibration"]["Errors"].items():
         if not isinstance(val, bool):
             errors.append(
-                f"Expected boolean for Calibration.Errors.{key}, received {type(val)} instead"
+                f"Expected boolean for Calibration.Errors.{key}, received "
+                f"{type(val)} instead"
             )
     # Test Calibration-Secondary Variables
     for key, val in config["Calibration"]["Secondary Variables"].items():
         if not isinstance(val, list):
             errors.append(
-                f"Expected list for Calibration.Secondary Variables.{key}, received {type(val)} instead"
+                f"Expected list for Calibration.Secondary Variables.{key}, "
+                f"received {type(val)} instead"
             )
 
     # Test Comparisons subdict
@@ -372,7 +422,8 @@ def type_check_config(config: dict[str, Any]):
             if comparison_dict.get(key) is not None:
                 if not isinstance(comparison_dict.get(key), val):
                     errors.append(
-                        f"Comparisons.{comp_key}.{key} is type {type(comparison_dict[key])}, expected {val}"
+                        f"Comparisons.{comp_key}.{key} is type "
+                        f"{type(comparison_dict[key])}, expected {val}"
                     )
         # Test Devices
         for device, dev_conf in comparison_dict["Devices"].items():
@@ -380,7 +431,8 @@ def type_check_config(config: dict[str, Any]):
                 lambda x: x not in dev_conf.keys(), expected_device.keys()
             ):
                 errors.append(
-                    f"Key not found in Comparisons.{comp_key}.{device} entry: {key}"
+                    f"Key not found in Comparisons.{comp_key}.{device} entry: "
+                    f"{key}"
                 )
             for key in filter(
                 lambda x: x
@@ -388,7 +440,8 @@ def type_check_config(config: dict[str, Any]):
                 dev_conf.keys(),
             ):
                 warnings.append(
-                    f"Unexpected key in Comparisons.{comp_key}.{device} entry: {key}"
+                    f"Unexpected key in Comparisons.{comp_key}.{device} entry:"
+                    f" {key}"
                 )
             # Test device key types
             for conf_key, conf_val in {
@@ -399,7 +452,9 @@ def type_check_config(config: dict[str, Any]):
                     continue
                 if not isinstance(dev_conf.get(conf_key), conf_val):
                     errors.append(
-                        f"Comparisons.{comp_key}.{key}.{device}.{conf_key} is type {type(dev_conf[conf_key])}, expected {conf_val}"
+                        f"Comparisons.{comp_key}.Devices.{device}.{conf_key} "
+                        f"is type {type(dev_conf[conf_key])}, "
+                        f"expected {conf_val}"
                     )
             # Test Fields
             for field in dev_conf.get("Fields", list()):
@@ -407,7 +462,10 @@ def type_check_config(config: dict[str, Any]):
                     lambda x: x not in field.keys(), expected_fields.keys()
                 ):
                     errors.append(
-                        f'Key not found in Comparisons.{comp_key}.{device}.Fields.{field.get("Tag", "(No tag present in field)")} entry: {key}'
+                        f'Key not found in Comparisons.{comp_key}.{device}.'
+                        f'Fields.'
+                        f'{field.get("Tag", "(No tag present in field)")}'
+                        f'entry: {key}'
                     )
                 for key in filter(
                     lambda x: x
@@ -415,7 +473,10 @@ def type_check_config(config: dict[str, Any]):
                     field.keys(),
                 ):
                     warnings.append(
-                        f'Unexpected key in Comparisons.{comp_key}.{device}.Fields.{field.get("Tag", "(No tag present in field)")} entry: {key}'
+                        f'Unexpected key in Comparisons.{comp_key}.{device}.'
+                        f'Fields.'
+                        f'{field.get("Tag", "(No tag present in field)")} '
+                        f'entry: {key}'
                     )
                 for field_key, field_val in {
                     **expected_device,
@@ -425,7 +486,11 @@ def type_check_config(config: dict[str, Any]):
                         continue
                     if not isinstance(field.get(field_key), field_val):
                         errors.append(
-                            f'Comparisons.{comp_key}.{device}.Fields.{field.get("Tag", "(No tag present in field)")}.{field_key} is type {type(field.get(field_key))}, expected {field_val}'
+                            f'Comparisons.{comp_key}.{device}.Fields.'
+                            f'{field.get("Tag", "(No tag present in field)")}.'
+                            f'{field_key} is type '
+                            f'{type(field.get(field_key))}, expected '
+                            f'{field_val}'
                         )
                 # Test field boolean filters
                 for bool_name, bool_val in field.get(
@@ -433,7 +498,10 @@ def type_check_config(config: dict[str, Any]):
                 ).items():
                     if not isinstance(bool_val, bool_filter_types):
                         errors.append(
-                            f'Comparisons.{comp_key}.{device}.Fields.{field.get("Tag", "(No tag present in field)")}.Boolean Filters.{bool_name} is type {type(bool_val)}, expected {bool_filter_types}'
+                            f'Comparisons.{comp_key}.{device}.Fields.'
+                            f'{field.get("Tag", "(No tag present in field)")}.'
+                            f'Boolean Filters.{bool_name} is type '
+                            f'{type(bool_val)}, expected {bool_filter_types}'
                         )
 
             # Test Boolean Filters
@@ -442,7 +510,9 @@ def type_check_config(config: dict[str, Any]):
             ).items():
                 if not isinstance(bool_val, bool_filter_types):
                     errors.append(
-                        f"Comparisons.{comp_key}.{device}.Boolean Filters.{bool_name} is type {type(bool_val)}, expected {bool_filter_types}"
+                        f"Comparisons.{comp_key}.{device}.Boolean Filters."
+                        f"{bool_name} is type {type(bool_val)}, expected "
+                        f"{bool_filter_types}"
                     )
 
             # Test Range Filters
@@ -451,7 +521,8 @@ def type_check_config(config: dict[str, Any]):
             ):
                 if not isinstance(range_filter, dict):
                     errors.append(
-                        f"Comparisons.{comp_key}.{device}.Range Filters should be a list of dicts, contains {type(range_filter)}"
+                        f"Comparisons.{comp_key}.{device}.Range Filters should"
+                        f" be a list of dicts, contains {type(range_filter)}"
                     )
                     continue
                 for key in filter(
@@ -459,14 +530,18 @@ def type_check_config(config: dict[str, Any]):
                     range_filter.keys(),
                 ):
                     warnings.append(
-                        f"Unexpected key in Comparisons.{comp_key}.{device}.Range Filters.[{index}] entry: {key}"
+                        f"Unexpected key in Comparisons.{comp_key}.{device}."
+                        f"Range Filters.[{index}] entry: {key}"
                     )
                 for rf_key, rf_type in range_filter_types.items():
                     if range_filter.get(rf_key) is None:
                         continue
                     if not isinstance(range_filter.get(rf_key), rf_type):
                         errors.append(
-                            f"Comparisons.{comp_key}.{device}.Range Filters.[{index}].{rf_key} is type {type(range_filter.get(rf_key))}, expected {rf_type}"
+                            f"Comparisons.{comp_key}.{device}.Range Filters."
+                            f"[{index}].{rf_key} is type "
+                            f"{type(range_filter.get(rf_key))}, "
+                            f"expected {rf_type}"
                         )
 
             # Test Secondary Fields
@@ -475,7 +550,10 @@ def type_check_config(config: dict[str, Any]):
                     lambda x: x not in field.keys(), expected_fields.keys()
                 ):
                     errors.append(
-                        f'Key not found in Comparisons.{comp_key}.{device}.Secondary Fields.{field.get("Tag", "(No tag present in field)")} entry: {key}'
+                        f'Key not found in Comparisons.{comp_key}.{device}.'
+                        f'Secondary Fields.'
+                        f'{field.get("Tag", "(No tag present in field)")}'
+                        f' entry: {key}'
                     )
                 for key in filter(
                     lambda x: x
@@ -483,7 +561,10 @@ def type_check_config(config: dict[str, Any]):
                     field.keys(),
                 ):
                     warnings.append(
-                        f'Unexpected key in Comparisons.{comp_key}.{device}.Secondary Fields.{field.get("Tag", "(No tag present in field)")} entry: {key}'
+                        f'Unexpected key in Comparisons.{comp_key}.{device}.'
+                        f'Secondary Fields.'
+                        f'{field.get("Tag", "(No tag present in field)")}'
+                        f' entry: {key}'
                     )
                 for field_key, field_val in {
                     **expected_device,
@@ -493,7 +574,11 @@ def type_check_config(config: dict[str, Any]):
                         continue
                     if not isinstance(field.get(field_key), field_val):
                         errors.append(
-                            f'Comparisons.{comp_key}.{device}.Secondary Fields.{field.get("Tag", "(No tag present in field)")}.{field_key} is type {type(field.get(field_key))}, expected {field_val}'
+                            f'Comparisons.{comp_key}.{device}.'
+                            f'Secondary Fields.'
+                            f'{field.get("Tag", "(No tag present in field)")}.'
+                            f'{field_key} is type {type(field.get(field_key))}'
+                            f', expected {field_val}'
                         )
                 # Test field boolean filters
                 for bool_name, bool_val in field.get(
@@ -501,7 +586,11 @@ def type_check_config(config: dict[str, Any]):
                 ).items():
                     if not isinstance(bool_val, bool_filter_types):
                         errors.append(
-                            f'Comparisons.{comp_key}.{device}.Secondary Fields.{field.get("Tag", "(No tag present in field)")}.Boolean Filters.{bool_name} is type {type(bool_val)}, expected {bool_filter_types}'
+                            f'Comparisons.{comp_key}.{device}.Secondary '
+                            f'Fields.'
+                            f'{field.get("Tag", "(No tag present in field)")}'
+                            f'.Boolean Filters.{bool_name} is type '
+                            f'{type(bool_val)}, expected {bool_filter_types}'
                         )
 
     for warning in warnings:
@@ -575,7 +664,9 @@ def download_cache(path: Union[str, Path]) -> GraddnodiResults:
             )
             con = sql.connect(field)
             cursor = con.cursor()
-            cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+            cursor.execute(
+                "SELECT name FROM sqlite_master WHERE type='table';"
+            )
             tables = cursor.fetchall()
             cursor.close()
             for table in tables:
@@ -590,7 +681,9 @@ def download_cache(path: Union[str, Path]) -> GraddnodiResults:
 
     # Import pipelines
     pipelines_folder = path / "Pipelines"
-    for pkl in filter(lambda x: x.is_file(), pipelines_folder.glob("**/*.pkl")):
+    for pkl in filter(
+        lambda x: x.is_file(), pipelines_folder.glob("**/*.pkl")
+    ):
         find_filename = re.match(r"(?P<filename>.*)\.pkl", pkl.parts[-1])
         if find_filename is None:
             continue
@@ -712,7 +805,7 @@ def comparisons(
 ) -> Tuple[PipelinesDict, MatchedMeasurementsDict]:
     """ """
 
-    cal_class_config = cal_settings["Config"]
+    cal_class_config = cal_settings["Configuration"]
 
     techniques = {
         "Linear Regression": Calibrate.linreg,
@@ -739,7 +832,9 @@ def comparisons(
         "Random Forest": Calibrate.random_forest,
         "Extra Trees Ensemble": Calibrate.extra_trees_ensemble,
         "Gradient Boosting Regression": Calibrate.gradient_boost_regressor,
-        "Histogram-Based Gradient Boosting Regression": Calibrate.hist_gradient_boost_regressor,
+        "Histogram-Based Gradient Boosting Regression": (
+            Calibrate.hist_gradient_boost_regressor
+        ),
         "Multi-Layer Perceptron Regression": Calibrate.mlp_regressor,
         "Support Vector Regression": Calibrate.svr,
         "Linear Support Vector Regression": Calibrate.svr,
@@ -769,7 +864,7 @@ def comparisons(
                 pipelines[comparison_name] = dict()
             if matched_measurements.get(comparison_name) is None:
                 matched_measurements[comparison_name] = dict()
-            for field, sec_vars in cal_settings["Comparisons"].items():
+            for field, sec_vars in cal_settings["Secondary Variables"].items():
                 all_vars = [field] + sec_vars
                 if (
                     field not in x_dframe.columns
@@ -806,7 +901,8 @@ def comparisons(
                         method_config
                     ]
                     for technique, method in techniques.items():
-                        name = f"{technique}{f' ({method_config})' if (method_config != 'Default') else ''}"
+                        name = f"{technique} ({method_config})"
+
                         if not techniques_to_use.get(technique, False):
                             logger.debug(f"Skipping {name} as not in config")
                             continue
@@ -838,7 +934,8 @@ def comparisons(
                     matched_measures_path.mkdir(parents=True, exist_ok=True)
                     matched_measures_db = matched_measures_path / f"{field}.db"
                     logger.debug(
-                        f"Saving matched measurements for {comparison_name} {field}"
+                        f"Saving matched measurements for {comparison_name} "
+                        f"{field}"
                     )
                     con = sql.connect(matched_measures_db)
                     for name in matched_measurements[comparison_name][field]:
@@ -858,12 +955,23 @@ def get_results(
 ) -> ResultsDict:
     """ """
     for comparison, fields in pipeline_dict.items():
+        x_name = re.match(r"(?P<device>.*)( vs .*)", comparison).group(
+            "device"
+        )
+        y_name = re.sub(r".*(?<= vs )", "", comparison)
         for field, techniques in fields.items():
             logger.debug(f"Testing {field} in {comparison}")
-            x_name = re.match(r"(?P<device>.*)( vs .*)", comparison).group(
-                "device"
-            )
-            y_name = re.sub(r".*(?<= vs )", "", comparison)
+            sub_errors = errors[
+                np.logical_and(
+                    errors['Reference'] == y_name,
+                    errors['Calibrated'] == x_name
+                )
+            ]
+            sub_errors = sub_errors[
+                sub_errors['Field'] == field
+            ]
+            if sub_errors.shape[0]:
+                continue
             try:
                 result_calculations = Results(
                     matched_measurements[comparison][field]["x"],
@@ -885,7 +993,9 @@ def get_results(
                 "Root Mean Squared Error": Results.root_mean_squared,
                 "Root Mean Squared Log Error": Results.root_mean_squared_log,
                 "Median Absolute Error": Results.median_absolute,
-                "Mean Absolute Percentage Error": Results.mean_absolute_percentage,
+                "Mean Absolute Percentage Error": (
+                    Results.mean_absolute_percentage
+                ),
                 "r2": Results.r2,
             }
             for tech, func in err_tech_dict.items():
@@ -960,6 +1070,7 @@ def main_cli():
     cal_settings = run_config["Calibration"]
 
     for run_name, run_settings in run_config["Comparisons"].items():
+        logger.info(f'Analysing {run_name}')
         query_config = run_settings["Devices"]
 
         start_date = run_settings["Start"]
