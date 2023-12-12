@@ -131,6 +131,7 @@ DeviceDict = TypedDict(
         "Range Filters": List[RangeFilterDict],
         "Fields": List[FieldDict],
         "Hour Beginning": Optional[bool],
+        "Use as Reference": Optional[bool]
     },
 )
 
@@ -393,6 +394,7 @@ def type_check_config(config: dict[str, Any]):
         "Range Filters": list,
         "Hour Beginning": bool,
         "Secondary Fields": list,
+        "Use as Reference": bool
     }
 
     expected_fields = {"Tag": str, "Field": str}
@@ -688,14 +690,14 @@ def download_cache(path: Union[str, Path]) -> GraddnodiResults:
         if find_filename is None:
             continue
         filename = find_filename.group("filename")
-        pipe_dict = pipelines
+        pp = pipelines
         for part in pkl.parts[-6:-1]:
             try:
-                pipe_dict = pipe_dict[part]
+                pp = pp[part]
             except KeyError:
-                pipe_dict[part] = dict()
-                pipe_dict = pipe_dict[part]
-        pipe_dict[int(filename)] = pkl
+                pp[part] = dict()
+                pp = pp[part]
+        pp[int(filename)] = pkl
         logger.debug(pkl)
 
     # Import results
@@ -799,6 +801,7 @@ def get_measurements_from_influx(
 def comparisons(
     measurements: MeasurementsDict,
     cal_settings: dict[str, Any],
+    device_config: dict[str, Any],
     pipelines: PipelinesDict,
     matched_measurements: MatchedMeasurementsDict,
     output_path: Path,
@@ -845,12 +848,17 @@ def comparisons(
         "XGBoost Random Forest Regression": Calibrate.xgboost_rf,
     }
 
-    device_names = list(measurements.keys())
+    device_names = list(device_config.keys())
     logger.debug(device_names)
     for y_dev_index, y_device in enumerate(device_names[:-1], start=1):
+        y_config = device_config.get(y_device)
+        if y_config is None or not y_config.get("Use as Reference", True):
+            logger.info(f'Skipping {y_device} as ground truth')
+            continue
         # Loop over ground truth (dependent) devices
         logger.debug(f"Using {y_device} as ground truth")
         y_dframe = measurements.get(y_device)
+        logger.error(pipelines.keys())
         if not isinstance(y_dframe, pd.DataFrame):
             continue
         for x_device in device_names[y_dev_index:]:
@@ -918,13 +926,13 @@ def comparisons(
                         logger.debug(f"Calibrating using {name}")
                         method(
                             calibrate,
-                            name=technique,
+                            name=name,
                             random_search=(method_config == "Random Search"),
                         )
                 models = calibrate.return_models()
                 pipelines[comparison_name][field].update(models)
                 calibrate.clear_models()
-                if matched_measurements[comparison_name][field] is None:
+                if matched_measurements[comparison_name].get(field) is None:
                     matched_measurements[comparison_name][
                         field
                     ] = calibrate.return_measurements()
@@ -1098,6 +1106,7 @@ def main_cli():
         data["Pipelines"], data["MatchedMeasurements"] = comparisons(
             data["Measurements"],
             cal_settings,
+            query_config,
             data["Pipelines"],
             data["MatchedMeasurements"],
             output_path / run_name,
@@ -1110,7 +1119,3 @@ def main_cli():
             error_db_path=error_db_path,
             errors=data["Results"],
         )
-
-
-if __name__ == "__main__":
-    main()

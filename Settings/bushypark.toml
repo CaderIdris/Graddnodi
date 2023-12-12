@@ -108,6 +108,7 @@
 	"Boolean Filters"."Site Name" = "London Teddington Bushy Park"
 	"Boolean Filters"."PM2.5 particulate matter unit" = "ugm-3 (TEOM FDMS)"
 	"Hour Beginning" = true
+	"Use as Reference" = true
 
 [[Comparisons."Bushy Park".Devices."Bushy Park FDMS".Fields]]
 	"Tag" = "PM2.5"
@@ -121,6 +122,7 @@
 	"Boolean Filters"."Site Name" = "London Teddington Bushy Park"
 	"Boolean Filters"."PM2.5 particulate matter unit" = "ugm-3 (Ref.eq)"
 	"Hour Beginning" = true
+	"Use as Reference" = true
 
 [[Comparisons."Bushy Park".Devices."Bushy Park OPC".Fields]]
 	"Tag" = "PM2.5"
@@ -137,6 +139,7 @@
 	"Measurement" = "AirView"
 	"Boolean Filters"."Car" = "27522"
 	"Hour Beginning" = false
+	"Use as Reference" = true
 
 [[Comparisons."Bushy Park".Devices."AirView Reference A"."Range Filters"]]
 	"Field" = "GlobalSat G-Star IV latitude degrees N"
@@ -223,6 +226,7 @@
 	"Measurement" = "AirView"
 	"Boolean Filters"."Car" = "27533"
 	"Hour Beginning" = false
+	"Use as Reference" = true
 
 [[Comparisons."Bushy Park".Devices."AirView Reference B"."Range Filters"]]
 	"Field" = "GlobalSat G-Star IV latitude degrees N"
@@ -308,6 +312,7 @@
 	"Measurement" = "Nova PM"
 	"Boolean Filters"."Serial Number" = "C008-0001"
 	"Hour Beginning" = false
+	"Use as Reference" = true
 
 [[Comparisons."Bushy Park".Devices."Nova Sensor A".Fields]]
 	"Tag" = "PM2.5"
@@ -324,6 +329,7 @@
 	"Measurement" = "Nova PM"
 	"Boolean Filters"."Serial Number" = "C008-0003"
 	"Hour Beginning" = false
+	"Use as Reference" = true
 
 [[Comparisons."Bushy Park".Devices."Nova Sensor B".Fields]]
 	"Tag" = "PM2.5"
@@ -373,6 +379,7 @@
 	"Measurement" = "AirView"
 	"Boolean Filters"."Car" = "27533"
 	"Hour Beginning" = false
+	"Use as Reference" = true
 
 [[Comparisons."Bushy Park".Devices."AirView Low-Cost B"."Range Filters"]]
 	"Field" = "GlobalSat G-Star IV latitude degrees N"
@@ -406,6 +413,7 @@
 	"Measurement" = "ACOEM UK Systems"
 	"Boolean Filters"."SerialNumber" = "1505150"
 	"Hour Beginning" = false
+	"Use as Reference" = true
 
 [[Comparisons."Bushy Park".Devices."NPL AQMesh A".Fields]]
 	"Tag" = "PM1"
@@ -466,6 +474,7 @@
 	"Measurement" = "ACOEM UK Systems"
 	"Boolean Filters"."SerialNumber" = "1506150"
 	"Hour Beginning" = false
+	"Use as Reference" = true
 
 [[Comparisons."Bushy Park".Devices."NPL AQMesh B".Fields]]
 	"Tag" = "PM1"
@@ -526,6 +535,7 @@
 	"Measurement" = "ACOEM UK Systems"
 	"Boolean Filters"."SerialNumber" = "2450100"
 	"Hour Beginning" = false
+	"Use as Reference" = true
 
 [[Comparisons."Bushy Park".Devices."Breathe London AQMesh".Fields]]
 	"Tag" = "PM1"
@@ -586,6 +596,7 @@
 	"Measurement" = "ACOEM UK Systems"
 	"Boolean Filters"."SerialNumber" = "2450222"
 	"Hour Beginning" = false
+	"Use as Reference" = true
 
 [[Comparisons."Bushy Park".Devices."NPL AQMesh C".Fields]]
 	"Tag" = "PM1"
