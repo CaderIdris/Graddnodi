@@ -1,6 +1,6 @@
 [Calibration.Configuration]
 	"Folds" = 5
-	"Stratification Groups" = 10
+	"Stratification Groups" = 5
 	"Seed" = 72
 	"Scalers" = "All"
 
@@ -80,7 +80,7 @@
 	"NO2" = ["RH", "T", "NO", "O3"]
 	"O3" = ["RH", "T", "NO", "NO2"]
 
-[Calibration.Errors]
+[Metrics]
 	"Explained Variance Score" = true
 	"Max Error" = true
 	"Mean Absolute Error" = true

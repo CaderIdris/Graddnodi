@@ -152,7 +152,6 @@ CalibrationConfig = TypedDict(
     {
         "Configuration": CalConfDict,
         "Techniques": TechDict,
-        "Errors": Dict[str, bool],
         "Secondary Variables": Optional[Dict[str, List[str]]],
     },
 )
@@ -161,6 +160,7 @@ CalibrationConfig = TypedDict(
 class ConfigDict(TypedDict):
     Calibration: CalibrationConfig
     Comparisons: Dict[str, ComparisonConfig]
+    Metrics: Dict[str, bool]
 
 
 MeasurementsDict: TypeAlias = dict[str, pd.DataFrame]
@@ -281,7 +281,7 @@ def type_check_config(config: dict[str, Any]):
     errors = list()
     warnings = list()
 
-    expected_root_keys = ["Calibration", "Comparisons"]
+    expected_root_keys = ["Calibration", "Comparisons", "Metrics"]
     # Test root
     for key in filter(lambda x: x not in config.keys(), expected_root_keys):
         errors.append(f"Key not found in config: {key}")
@@ -291,7 +291,6 @@ def type_check_config(config: dict[str, Any]):
     expected_calibration_keys = [
         "Configuration",
         "Techniques",
-        "Errors",
         "Secondary Variables",
     ]
     # Test Calibration subdict
@@ -364,10 +363,10 @@ def type_check_config(config: dict[str, Any]):
                 )
 
     # Test Calibration-Errors
-    for key, val in config["Calibration"]["Errors"].items():
+    for key, val in config["Metrics"].items():
         if not isinstance(val, bool):
             errors.append(
-                f"Expected boolean for Calibration.Errors.{key}, received "
+                f"Expected boolean for Metrics.{key}, received "
                 f"{type(val)} instead"
             )
     # Test Calibration-Secondary Variables
@@ -897,7 +896,7 @@ def comparisons(
                         / field,
                         seed=cal_class_config["Seed"],
                     )
-                except ValueError as err:
+                except (ValueError, IndexError) as err:
                     logger.error(err)
                     logger.error(
                         f"Could not complete {comparison_name}. "
@@ -1076,6 +1075,7 @@ def main_cli():
     influx_config = get_json(influx_path)
 
     cal_settings = run_config["Calibration"]
+    metrics = run_config["Metrics"]
 
     for run_name, run_settings in run_config["Comparisons"].items():
         logger.info(f'Analysing {run_name}')
@@ -1115,7 +1115,7 @@ def main_cli():
         data["Results"] = get_results(
             data["Pipelines"],
             data["MatchedMeasurements"],
-            error_config=run_config.get("Errors", dict()),
+            error_config=metrics,
             error_db_path=error_db_path,
             errors=data["Results"],
         )
