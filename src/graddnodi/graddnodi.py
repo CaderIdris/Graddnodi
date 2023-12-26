@@ -707,7 +707,7 @@ def download_cache(path: Union[str, Path]) -> GraddnodiResults:
     results_db = results_path / "Results.db"
     con = sql.connect(results_db)
     try:
-        results = pd.read_sql(sql=f"SELECT * from 'Results'", con=con)
+        results = pd.read_sql(sql=f"SELECT * from 'Results'", con=con).set_index("index")
     except pd.errors.DatabaseError:
         logging.debug("No cached results")
         results = pd.DataFrame(
@@ -845,6 +845,8 @@ def comparisons(
         "Isotonic Regression": Calibrate.isotonic,
         "XGBoost Regression": Calibrate.xgboost,
         "XGBoost Random Forest Regression": Calibrate.xgboost_rf,
+        "Linear GAM": Calibrate.linear_gam,
+        "Expectile GAM": Calibrate.expectile_gam
     }
 
     device_names = list(device_config.keys())
@@ -1004,6 +1006,13 @@ def get_results(
                     Results.mean_absolute_percentage
                 ),
                 "r2": Results.r2,
+                "Centered Root Mean Squared Error": Results.centered_rmse,
+                "Unnbiased Root Mean Squared Error": Results.unbiased_rmse,
+                "Mean Bias Error": Results.mbe,
+                "Reference IQR": Results.ref_iqr,
+                "Reference Mean": Results.ref_mean,
+                "Reference Range": Results.ref_range,
+                "Reference Standard Deviation": Results.ref_sd
             }
             for tech, func in err_tech_dict.items():
                 if error_config.get(tech, False):

@@ -38,6 +38,8 @@
 	"Isotonic Regression" = true
 	"XGBoost Regression" = true
 	"XGBoost Random Forest Regression" = true	
+	"Linear GAM" = true
+	"Expectile GAM" = true
 
 [Calibration.Techniques."Random Search"]
 	"Linear Regression" = false
@@ -81,7 +83,7 @@
 	"O3" = ["RH", "T", "NO", "NO2"]
 
 [Metrics]
-	"Explained Variance Score" = true
+	"Explained Variance Score" = false
 	"Max Error" = true
 	"Mean Absolute Error" = true
 	"Root Mean Squared Error" = true
@@ -93,6 +95,13 @@
 	"Mean Gamma Deviance" = false
 	"Mean Tweedie Deviance" = false
 	"Mean Pinball Loss" = true
+	"Centered Root Mean Squared Error" = true
+	"Unnbiased Root Mean Squared Error" = true
+	"Mean Bias Error" = true
+	"Reference IQR" = true
+	"Reference Mean" = true
+	"Reference Range" = true
+	"Reference Standard Deviation" = true
 
 
 

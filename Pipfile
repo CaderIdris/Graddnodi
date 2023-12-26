@@ -13,6 +13,7 @@ plotly = "*"
 dash = "*"
 dash-bootstrap-components = "*"
 tomli = "*"
+pygam = "*"
 
 [dev-packages]
 

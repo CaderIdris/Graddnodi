@@ -1,4 +1,5 @@
 from functools import partial
+from io import StringIO
 import logging
 import os
 from pathlib import Path
@@ -51,7 +52,7 @@ def get_df_index(path):
 
 @callback(Output("reference-options", "options"), Input("db-index", "data"))
 def ref_opts(data):
-    df = pd.read_json(data, orient="split")
+    df = pd.read_json(StringIO(data), orient="split")
     return [{"label": i, "value": i} for i in sorted(df["Reference"].unique())]
 
 
@@ -79,7 +80,7 @@ def filter_options(data, ref_d, fields, cal_d, tech, sca, var):
         "Scaling Method": sca,
         "Variables": var,
     }
-    db_index = pd.read_json(data, orient="split")
+    db_index = pd.read_json(StringIO(data), orient="split")
     df = db_index[db_index["Reference"] == ref_d]
     s_df = df.copy(deep=True)
     for name, col in levels.items():
@@ -120,7 +121,7 @@ def get_results_df(data, path, ref_d):
             pd.DataFrame().to_json(orient="split"),
             go.Figure(data=[go.Table(header={}, cells={})]),
         )
-    df = pd.read_json(data, orient="split")
+    df = pd.read_json(StringIO(data), orient="split")
     query_list = ["SELECT *", "FROM Results"]
     for i, (name, vals) in enumerate(df.items()):
         val_list = "', '".join(vals.unique())
@@ -129,7 +130,10 @@ def get_results_df(data, path, ref_d):
         )
     con = sql.connect(Path(path).joinpath("Results").joinpath("Results.db"))
     query = "\n".join(query_list)
-    sql_data = pd.read_sql(sql=f"{query};", con=con)
+    sql_data = pd.read_sql(sql=f"{query};", con=con).drop(
+        columns=['level_0', 'index'],
+        errors='ignore'
+    )
     con.close()
 
     table_cell_format = [
@@ -162,7 +166,7 @@ def get_results_df(data, path, ref_d):
 )
 def results_box_plot(data, tab, splitby):
     """ """
-    df = pd.read_json(data, orient="split")
+    df = pd.read_json(StringIO(data), orient="split")
     box_plot_fig = go.Figure()
     index = [
         "Field",
@@ -174,11 +178,10 @@ def results_box_plot(data, tab, splitby):
         "Fold",
     ]
 
-    yaxis_options = {"r2": {"autorange": False, "range": (0, 1)}}
 
     try:
         df = df.loc[:, [*index, tab]]
-        grouped = df.groupby([splitby])
+        grouped = df.groupby(splitby)
     except KeyError:
         return (
             go.Figure(data=[go.Table(header={}, cells={})]),
@@ -196,26 +199,45 @@ def results_box_plot(data, tab, splitby):
         "75%": partial(np.quantile, q=0.75),
         "Max": np.max,
     }
+    lower_bounds = list()
+    upper_bounds = list()
 
     for name, data in grouped:
+        q3 = data[tab].quantile(0.75) 
+        q1 = data[tab].quantile(0.25)
+        iqr = q3 - q1
+        upper_bounds.append(q3 + (2 * iqr))
+        lower_bounds.append(q1 - (2 * iqr))
+        violin_data = data[tab]
+        violin_data = violin_data[violin_data.ge(q1 - (2 * iqr)) & violin_data.le(q3 + (2 * iqr))]
         box_plot_fig.add_trace(
-            go.Box(
-                y=data[tab].values,
-                name=name[0],
-                boxpoints="all",
-                hoverinfo="all",
-                text=data.loc[:, index]
-                .to_csv(header=False, index=False)
-                .split("\n"),
+#            go.Box(
+#                y=data[tab].values,
+#                name=name,
+#                boxpoints="all",
+#                hoverinfo="all",
+#                text=data.loc[:, index]
+#                .to_csv(header=False, index=False)
+#                .split("\n"),
+#            )
+            go.Violin(
+                y=violin_data,
+                name=name,
+                box_visible=True,
+                hoverinfo="name",
+                spanmode="manual",
+                span=(q1 - (2 * iqr), q3 + (2 * iqr)),
+                meanline_visible=True
             )
         )
         for stat, func in summary_functions.items():
-            logging.error(f"{name} {stat}")
-            logging.error(type(data[tab].values))
-            summary.loc[stat, name[0]] = float(func(data[tab].values))
+            summary.loc[stat, name] = float(func(data[tab].values))
 
     box_plot_fig.update_layout(
-        yaxis=yaxis_options.get(tab, {}),
+        yaxis={
+            "autorange": False,
+            "range": (min(lower_bounds), max(upper_bounds))
+        },
         showlegend=False,
         margin={"l": 0, "r": 0, "t": 0, "b": 0},
     )
