@@ -1,11 +1,12 @@
 from functools import partial
+import json
 from io import StringIO
 import logging
 import os
 from pathlib import Path
 import sqlite3 as sql
 
-from dash import Dash, html, dash_table, dcc, callback, Output, Input
+from dash import Dash, html, dash_table, dcc, callback, Output, Input, State
 from flask import Flask
 import numpy as np
 import pandas as pd
@@ -69,16 +70,17 @@ def ref_opts(data):
     Output("fold-options", "options"),
     Output("chosen-combo-index", "data"),
     Output("num-of-runs", "children"),
+    Input('submit-button-state', 'n_clicks'),
     Input("db-index", "data"),
     Input("reference-options", "value"),
-    Input("field-options", "value"),
-    Input("calibrated-device-options", "value"),
-    Input("technique-options", "value"),
-    Input("scaling-options", "value"),
-    Input("var-options", "value"),
-    Input("fold-options", "value"),
+    State("field-options", "value"),
+    State("calibrated-device-options", "value"),
+    State("technique-options", "value"),
+    State("scaling-options", "value"),
+    State("var-options", "value"),
+    State("fold-options", "value")
 )
-def filter_options(data, ref_d, fields, cal_d, tech, sca, var, fold):
+def filter_options(_, data, ref_d, fields, cal_d, tech, sca, var, fold):
     levels = {
         "Field": fields,
         "Calibrated": cal_d,
@@ -87,9 +89,11 @@ def filter_options(data, ref_d, fields, cal_d, tech, sca, var, fold):
         "Variables": var,
         "Fold": fold,
     }
+    if not ref_d:
+        return [], [], [], [], [], [], "", ""
     db_index = pd.read_json(StringIO(data), orient="split")
-    df = db_index[db_index["Reference"].isin(ref_d)]
-    s_df = df.copy(deep=True)
+    df: pd.DataFrame = db_index[db_index["Reference"].isin(ref_d)]
+    s_df: pd.DataFrame = df.copy(deep=True)
     for name, col in levels.items():
         if not col:
             cols = s_df[name].unique()
@@ -119,16 +123,16 @@ def filter_options(data, ref_d, fields, cal_d, tech, sca, var, fold):
 @callback(
     Output("results-df", "data"),
     Output("raw-df", "data"),
-    Output("results-table", "figure"),
+    #Output("results-table", "figure"),
     Input("chosen-combo-index", "data"),
-    Input("folder-path", "data"),
-    Input("reference-options", "value"),
+    State("folder-path", "data"),
+    State("reference-options", "value"),
 )
 def get_results_df(data, path, ref_d):
     if not ref_d:
         return (
             pd.DataFrame().to_json(orient="split"),
-            go.Figure(data=[go.Table(header={}, cells={})]),
+            pd.DataFrame().to_json(orient="split"),
         )
     df = pd.read_json(StringIO(data), orient="split")
     query_list = ["SELECT *", "FROM Results"]
@@ -159,35 +163,20 @@ def get_results_df(data, path, ref_d):
     )
     con.close()
 
-    table_cell_format = [
-        ".2f" if i == "float64" else "" for i in sql_data.dtypes
-    ]
-
-    table_fig = go.Figure(
-        data=[
-            go.Table(
-                header={"values": list(sql_data.columns), "align": "left"},
-                cells={
-                    "values": sql_data.transpose().values.tolist(),
-                    "align": "left",
-                    "format": table_cell_format,
-                },
-            )
-        ],
-        layout=FULL_TABLE_LAYOUT,
-    )
-
-    return sql_data.to_json(orient="split"), none_sql_data.to_json(orient="split"), table_fig
+    return sql_data.to_json(orient="split"), none_sql_data.to_json(orient="split")#, table_fig
 
 
 @callback(
     Output("results-tabs", "children"), 
-    Input('results-df', "data")
+    Input('folder-path', "data")
 )
-def results_tabs(data):
+def results_tabs(path):
     """ """
-    df = pd.read_json(StringIO(data), orient="split")
+    con = sql.connect(Path(path).joinpath("Results").joinpath("Results.db"))
+    df = pd.read_sql("SELECT * FROM 'Results' LIMIT 1;", con=con)
+    con.close()
     bad_cols = [
+        "index",
         "Field",
         "Reference",
         "Calibrated",
@@ -211,31 +200,79 @@ def results_tabs(data):
         )
 
     if not tabs:
-        tabs = ['No Data']
+        tabs = [dcc.Tab(label='No Data', value='nd')]
 
     return dcc.Tabs(
         id="result-box-plot-tabs",
-        value="r2",
+        value=cols[0] if cols else "nd",
         children=tabs
     )
 
+def full_results_table_plot(df):
+    """
+    """
+    df = df.drop(columns=[col for col in df.columns if "(Raw)" in col or "Reference " in col])
+    table_cell_format = [
+        ".2f" if i == "float64" else "" for i in df.dtypes
+    ]
+    return go.Figure(
+        data=go.Table(
+            header={
+                "values": list(df.columns)
+            },
+            cells={
+                "values": df.transpose().values.tolist(),
+                "format": table_cell_format,
+            },
+        ),
+        layout=FULL_TABLE_LAYOUT,
+    )
+
+def empty_figure(missing_graph_type: str = ""):
+    fig = go.Figure(
+        layout={
+            "paper_bgcolor": "rgba(0, 0, 0, 0)",
+            "plot_bgcolor": "rgba(0, 0, 0, 0)",
+            'xaxis': {
+                'visible': False
+            },
+            'yaxis': {
+                'visible': False
+            },
+            **FULL_TABLE_LAYOUT
+        }
+    )
+    if missing_graph_type != "":
+        fig.add_annotation(
+            x=0,
+            y=1,
+            xref="paper",
+            yref="paper",
+            text=f"{missing_graph_type} is not implemented",
+            showarrow=False,
+            font={
+                'size': 32
+            }
+        )
+    return fig
 
 @callback(
-    Output("result-box-plot-fig", "figure"),
-    Output("result-box-plot-table", "figure"),
-    Output("improved-bar-chart", "figure"),
+    Output("split-data", "data"),
     Input("results-df", "data"),
-    Input("raw-df", "data"),
-    Input("result-box-plot-tabs", "value"),
-    Input("result-box-plot-split-by", "value"),
-    Input("box-toggle", "value"),
-    Input("norm-options", "value"),
+    State("result-box-plot-split-by", "value"),
+    State("norm-options", "value"),
+    State("remove-outliers", "value"),
+    State("raw-df", "data"),
 )
-def results_box_plot(data, raw_data, tab, splitby, box_toggle, norm_options):
-    """ """
-    df = pd.read_json(StringIO(data), orient="split")
-    raw_df = pd.read_json(StringIO(raw_data), orient="split")
-
+def grouped_data(cal_results, split_by, norm_by, outlier_removal, uncal_results):
+    """
+    """
+    s_data = dict() 
+    # Import data
+    df = pd.read_json(StringIO(cal_results), orient="split")
+    if not df.shape[0]:
+        return s_data
+    raw_df = pd.read_json(StringIO(uncal_results), orient="split")
     df = df.join(
         raw_df.set_index(["Field", "Reference", "Calibrated"]),
         on=["Field", "Reference", "Calibrated"],
@@ -243,8 +280,13 @@ def results_box_plot(data, raw_data, tab, splitby, box_toggle, norm_options):
         rsuffix=' (Raw)'
     )
 
-    
-    box_plot_fig = go.Figure()
+    # config
+    no_norm = [
+        "Mean Absolute Percentage Error",
+        "r2",
+        "Explained Variance Score"
+    ]
+
     index = [
         "Field",
         "Reference",
@@ -255,103 +297,61 @@ def results_box_plot(data, raw_data, tab, splitby, box_toggle, norm_options):
         "Fold",
     ]
 
-    no_norm = [
-        "Mean Absolute Percentage Error",
-        "r2",
-        "Explained Variance Score"
-    ]
-
-    pos_better = [
-        "r2",
-        "Explained Variance Score"
-    ]
-
     try:
-        grouped = df.groupby(splitby)
+        grouped = df.groupby(split_by)
     except KeyError:
-        return (
-            go.Figure(data=[go.Table(header={}, cells={})]),
-            go.Figure(data=[go.Table(header={}, cells={})]),
-        )
+        return s_data
 
-    summary = pd.DataFrame()
-    improved_techs = pd.DataFrame()
+    logging.critical(outlier_removal)
+    logging.critical(norm_by)
 
+    for name_t, data in grouped:
+        name = ", ".join(name_t)
+        for col in [col for col in data.columns if "(Raw)" not in col and "Reference " not in col and col not in index]:
+            if outlier_removal == "Yes":
+                q3 = data[col].quantile(0.75) 
+                q1 = data[col].quantile(0.25)
+                iqr = q3 - q1
+                upper_bound = q3 + (2 * iqr)
+                lower_bound = q1 - (2 * iqr)
+                no_outliers_col = data[col].copy()
+                no_outliers_col[
+                    np.logical_or(
+                        no_outliers_col.gt(upper_bound),
+                        no_outliers_col.lt(lower_bound),
+                    )
+                ] = np.nan
+                data[col] = no_outliers_col
+            if norm_by is not None and norm_by != "None" and col not in no_norm:
+                data[col] = data[col].div(data[norm_by])
+                data[f"{col} (Raw)"] = data[f"{col} (Raw)"].div(data[norm_by])
+        if "Technique" not in split_by:
+            data = data[data["Technique"] != "None"]
+        s_data[name] = data.to_json(orient='split')
+    return s_data
+
+
+def result_table_plot(dfs, col):
+    """
+    """
     summary_functions = {
         "Count": len,
         "Mean": np.mean,
         "σ": np.std,
         "Min": np.min,
-        "25%": partial(np.quantile, q=0.25),
-        "50%": partial(np.quantile, q=0.5),
-        "75%": partial(np.quantile, q=0.75),
+        "25%": partial(np.nanquantile, q=0.25),
+        "50%": partial(np.nanquantile, q=0.5),
+        "75%": partial(np.nanquantile, q=0.75),
         "Max": np.max,
     }
-    lower_bounds = list()
-    upper_bounds = list()
-
-    for name_t, data in grouped:
-        name = ", ".join(name_t)
-        q3 = data[tab].quantile(0.75) 
-        q1 = data[tab].quantile(0.25)
-        iqr = q3 - q1
-        upper_bounds.append(q3 + (2 * iqr))
-        lower_bounds.append(q1 - (2 * iqr))
-        violin_data = data[tab]
-        adjusted = data[tab] - data[f'{tab} (Raw)']
-        if tab not in pos_better:
-            improved = adjusted.lt(0)
-        else:
-            improved = adjusted.gt(0)
-        improved_techs[name] = improved.sort_values(ascending=False).value_counts().div(improved.size)
-        if norm_options and norm_options != "None" and tab not in no_norm:
-            violin_data = violin_data.div(data[norm_options])
-        violin_data = violin_data[violin_data.ge(q1 - (2 * iqr)) & violin_data.le(q3 + (2 * iqr))]
-        if box_toggle == "Box":
-            box_plot_fig.add_trace(
-                go.Box(
-                    y=violin_data,
-                    name=name,
-                    hoverinfo="all",
-                    boxmean="sd"
-                     
-                )
-            )
-        elif box_toggle == "Violin":
-            box_plot_fig.add_trace(
-                go.Violin(
-                    y=violin_data,
-                    name=name,
-                    box_visible=True,
-                    hoverinfo="name",
-                    meanline_visible=True
-                )
-            )
+    summary = pd.DataFrame()
+    for name, df in dfs.items():
+        c_data = df[col]
         for stat, func in summary_functions.items():
-            summary.loc[stat, name] = round(func(data[tab].values), 3)
-
-    box_plot_fig.update_layout(
-        yaxis={
-            "autorange": False,
-            "range": (min(lower_bounds), max(upper_bounds))
-        },
-        showlegend=False,
-        margin={"l": 0, "r": 0, "t": 0, "b": 0},
-    )
-
+            summary.loc[stat, name] = round(func(c_data), 3)
     summary.index.name = "Statistic"
     summary = summary.reset_index()
     summary.insert(0, "Statistic", summary.pop("Statistic"))
-
-    bars = [
-        go.Bar(
-            name="Improved" if name else "Worsened",
-            x=data.index,
-            y=data.values
-        )
-        for name, data in improved_techs.iterrows()
-    ]
-
     table_fig = go.Figure(
         data=[
             go.Table(
@@ -364,36 +364,177 @@ def results_box_plot(data, raw_data, tab, splitby, box_toggle, norm_options):
         ],
         layout=FULL_TABLE_LAYOUT,
     )
+    return table_fig
+
+def box_plot(dfs, col, norm_options):
+    """
+    """
+    no_norm = [
+        "Mean Absolute Percentage Error",
+        "r2",
+        "Explained Variance Score"
+    ]
+    box_plot_fig = go.Figure()
+    for name, df in dfs.items():
+        c_data = df[col]
+        box_plot_fig.add_trace(
+            go.Box(
+                y=c_data,
+                name=name,
+                hoverinfo="all",
+                boxmean="sd"
+                 
+            )
+        )
+
+    if norm_options and norm_options != 'None' and col not in no_norm:
+        title = f'{col} / {norm_options}' 
+    else:
+        title = col
+
+    box_plot_fig.update_layout(
+        yaxis={
+            "autorange": False,
+            "title": title
+        },
+        showlegend=False,
+        margin={"l": 0, "r": 0, "t": 0, "b": 0},
+        width=1500,
+        height=750,
+    )
+    return box_plot_fig
+
+def violin_plot(dfs, col, norm_options):
+    """
+    """
+    no_norm = [
+        "Mean Absolute Percentage Error",
+        "r2",
+        "Explained Variance Score"
+    ]
+    box_plot_fig = go.Figure()
+    for name, df in dfs.items():
+        c_data = df[col]
+        box_plot_fig.add_trace(
+            go.Violin(
+                y=c_data,
+                name=name,
+                box_visible=True,
+                hoverinfo="name",
+                meanline_visible=True
+            )
+        )
+
+    if norm_options and norm_options != 'None' and col not in no_norm:
+        title = f'{col} / {norm_options}' 
+    else:
+        title = col
+
+    box_plot_fig.update_layout(
+        yaxis={
+            "autorange": False,
+            "title": title
+        },
+        showlegend=False,
+        margin={"l": 0, "r": 0, "t": 0, "b": 0},
+        width=1500,
+        height=750,
+    )
+    return box_plot_fig
+
+
+def prop_imp_plot(dfs, col):
+    """
+    """
+    pos_better = [
+        "r2",
+        "Explained Variance Score"
+    ]
+    improved_techs = pd.DataFrame()
+    for name, df in dfs.items():
+        adjusted = df[col] - df[f'{col} (Raw)']
+        if col not in pos_better:
+            improved = adjusted.lt(0)
+        else:
+            improved = adjusted.gt(0)
+        improved_techs[name] = improved.sort_values(ascending=False).value_counts().div(improved.size)
+    bars = [
+        go.Bar(
+            name="Improved" if name else "Worsened",
+            x=data.index,
+            y=data.values
+        )
+        for name, data in improved_techs.iterrows()
+    ]
+
 
     improved_bar = go.Figure(
-        data=bars
+        data=bars,
+        layout={
+            'width': 1500,
+            'height': 750,
+            **FULL_TABLE_LAYOUT
+        }
     )
+    return improved_bar
 
-    return box_plot_fig, table_fig, improved_bar
-
-
-@callback(
-    Output("target-fig", "figure"),
-    Input("results-df", "data"),
-    Input("result-box-plot-split-by", "value"),
-)
-def target_fig(data, splitby):
-    """ """
-    df = pd.read_json(StringIO(data), orient="split")
-    df['cRMSE'] = df['Centered Root Mean Squared Error'].div(
-        df['Reference Standard Deviation']
-    )
-    df['Bias'] = df['Mean Bias Error'].div(
-        df['Reference Standard Deviation']
-    )
-
-
-    if splitby:
-        grouped = df.groupby(splitby)
-    else:
-        grouped = [(("All",), df)]
-
+def target_plot(dfs, norm_options):
+    """
+    """
     fig = go.Figure()
+    fig.add_shape(
+        type="circle",
+        xref="x",
+        yref="y",
+        x0=-1,
+        y0=-1,
+        x1=1,
+        y1=1
+    )
+
+    ind_cols = [
+        "Field",
+        "Reference",
+        "Calibrated",
+        "Technique",
+        "Scaling Method",
+        "Variables",
+        "Fold",
+    ]
+
+    for name, df in dfs.items():
+        df["text"] = df[ind_cols[0]]
+        for col in ind_cols[1:]:
+            df["text"] = df["text"].str.cat(df[col].astype(str), sep=", ")
+        if norm_options and norm_options not in ['None']:
+            crmse = df['Centered Root Mean Squared Error'].mul(norm_options)
+            bias = df['Mean Bias Error'].mul(norm_options)
+        else:
+            crmse = df['Centered Root Mean Squared Error']
+            bias = df['Mean Bias Error']
+        crmse = crmse.div(df['Reference Standard Deviation'])
+        bias = bias.div(df['Reference Standard Deviation'])
+        fig.add_trace(
+            go.Scatter(
+                x=crmse,
+                y=bias,
+                name=name,
+                text=df["text"],
+                mode='markers'
+            )
+        )
+    fig.update_xaxes(
+        range=[-2, 6],
+        minallowed=-2,
+        maxallowed=6,
+    )
+
+    fig.update_yaxes(
+        range=[-2, 6],
+        minallowed=-2,
+        maxallowed=6,
+    )
+
     fig.update_layout(
         margin={
             'autoexpand': False,
@@ -406,60 +547,44 @@ def target_fig(data, splitby):
             'itemclick': 'toggleothers',
             'itemdoubleclick': 'toggle'
         },
-        xaxis_title=r"$\text{cRMSE}/\sigma_{\text{Reference}}$",
-        yaxis_title=r"$\text{Bias}/\sigma_{\text{Reference}}$",
+        xaxis_title=r"cRMSE / Reference σ",
+        yaxis_title=r"Bias / Reference σ",
         autosize=False,
         width=1500,
         height=1000,
         minreducedwidth=950,
         minreducedheight=950
     )
-    fig.add_shape(
-        type="circle",
-        xref="x",
-        yref="y",
-        x0=-1,
-        y0=-1,
-        x1=1,
-        y1=1
-    )
-    ind_cols = [
-        "Field",
-        "Reference",
-        "Calibrated",
-        "Technique",
-        "Scaling Method",
-        "Variables",
-        "Fold",
-    ]
-    df["text"] = df[ind_cols[0]]
-    for col in ind_cols[1:]:
-        df["text"] = df["text"].str.cat(df[col].astype(str), sep=", ")
 
-    for name_t, data in grouped:
-        name = ", ".join(name_t)
-        fig.add_trace(
-            go.Scatter(
-                x=data["cRMSE"],
-                y=data["Bias"],
-                name=name,
-                text=data["text"],
-                mode='markers'
-            )
-        )
-    
-    fig.update_xaxes(
-        range=[-2, 6],
-        minallowed=-2,
-        maxallowed=6,
-    )
-
-    fig.update_yaxes(
-        range=[-2, 6],
-        minallowed=-2,
-        maxallowed=6,
-    )
     return fig
+        
+
+@callback(
+    Output('summary-figure', 'figure'),
+    Input("graph-type", "value"),
+    Input("split-data", "data"),
+    Input('result-box-plot-tabs', 'value'),
+    State("norm-options", "value")
+)
+def results_plot(plot_type, dfs, col, norm):
+    logging.critical(f'col: {col}')
+    if dfs:
+        data = {key: pd.read_json(StringIO(df), orient='split') for key, df in dfs.items()}
+    else:
+        return empty_figure()
+        
+    if plot_type == "results-table-tab":
+        return result_table_plot(data, col)
+    elif plot_type == "box-plot-tab":
+        return box_plot(data, col, norm)
+    elif plot_type == "violin-plot-tab":
+        return violin_plot(data, col, norm)
+    elif plot_type == "prop-imp-plot-tab":
+        return prop_imp_plot(data, col)
+    elif plot_type == "target-plot-tab":
+        return target_plot(data, norm)
+    elif plot_type == "valerio-temp":
+        return empty_figure(plot_type)
 
 
 @callback(
@@ -467,7 +592,10 @@ def target_fig(data, splitby):
     Input("results-df", "data")
 )
 def norm_options(data):
-    df = pd.read_json(StringIO(data), orient="split")
+    if not isinstance(data, pd.DataFrame):
+        df = pd.read_json(StringIO(data), orient="split")
+    else:
+        df = data
     valid_options = [
         "Reference Mean",
         "Reference Standard Deviation",
@@ -489,12 +617,14 @@ def norm_options(data):
         ],
     ]
 
+
 item_stores = [
     dcc.Store(id="folder-path"),
     dcc.Store(id="db-index"),
     dcc.Store(id="results-df"),
     dcc.Store(id="raw-df"),
     dcc.Store(id="chosen-combo-index"),
+    dcc.Store(id="split-data"),
 ]
 
 top_row = [
@@ -514,6 +644,7 @@ top_row = [
             ),
             dbc.Col([html.Div(id="folder-output-text")]),
         ]
+
     ),
 ]
 
@@ -524,29 +655,48 @@ selections = [
         [
             dbc.Col(
                 [
+                    html.H4("Reference Devices"),
                     dcc.Checklist(
                         id="reference-options", style=checklist_options
                     )
                 ]
             ),
             dbc.Col(
-                [dcc.Checklist(id="field-options", style=checklist_options)]
+                [
+                    html.H4("Fields"),
+                    dcc.Checklist(id="field-options", style=checklist_options)
+                ]
             ),
             dbc.Col(
                 [
+                    html.H4("Calibration Candidates"),
                     dcc.Checklist(
                         id="calibrated-device-options", style=checklist_options
                     )
                 ]
             ),
             dbc.Col(
-                [dcc.Checklist(id="technique-options", style=checklist_options)]
+                [
+                    html.H4("Regression Techniques"),
+                    dcc.Checklist(id="technique-options", style=checklist_options)]
             ),
             dbc.Col(
-                [dcc.Checklist(id="scaling-options", style=checklist_options)]
+                [
+                    html.H4("Scaling Techniques"),
+                    dcc.Checklist(id="scaling-options", style=checklist_options)]
             ),
-            dbc.Col([dcc.Checklist(id="var-options", style=checklist_options)]),
-            dbc.Col([dcc.Checklist(id="fold-options", style=checklist_options)]),
+            dbc.Col(
+                [
+                    html.H4("Variable Combos"),
+                    dcc.Checklist(id="var-options", style=checklist_options)
+                ]
+            ),
+            dbc.Col(
+                [
+                    html.H4("Folds"),
+                    dcc.Checklist(id="fold-options", style=checklist_options)
+                ]
+            ),
         ]
     )
 ]
@@ -558,64 +708,85 @@ results_table = [
     dbc.Row(
         [dcc.Graph(figure={}, id="results-table")],
     ),
-    dbc.Row([html.Div(id="num-of-runs", style={"text-align": "center"})]),
 ]
 
-results_box_plots = [
-    html.Div(id="results-tabs"),
+
+graph_selection_row = [
     dbc.Row(
         [
             dbc.Col(
-                dcc.Checklist(
-                    [
-                        "Calibrated",
-                        "Field",
-                        "Technique",
-                        "Scaling Method",
-                        "Variables",
-                        "Fold",
-                    ],
-                    ["Calibrated"],
-                    id="result-box-plot-split-by",
-                ),
+                [
+                    html.H4("Split By"),
+                    dcc.Checklist(
+                        [
+                            "Reference",
+                            "Calibrated",
+                            "Field",
+                            "Technique",
+                            "Scaling Method",
+                            "Variables",
+                            "Fold",
+                        ],
+                        ["Calibrated"],
+                        id="result-box-plot-split-by",
+                    ),
+                ],
                 width=2,
             ),
             dbc.Col(
-                dcc.RadioItems(
-                    id="reference-norm",
-                    value="None"
-                ),
+                [
+                    html.H4("Normalise Data"),
+                    dcc.RadioItems(
+                        id="norm-options",
+                    ),
+                ],
                 width=2,
             ),
             dbc.Col(
-                dcc.RadioItems(
-                    [
-                        "Box",
-                        "Violin"
-                    ],
-                    "Box",
-                    id="box-toggle",
-                ),
-                width=2,
-            ),
-            dbc.Col(
-                dcc.RadioItems(
-                    id="norm-options",
-                ),
+                [
+                    html.H4("Remove Outliers"),
+                    dcc.RadioItems(
+                        ["Yes", "No"],
+                        "Yes",
+                        id='remove-outliers'
+                    ),
+                ],
                 width=2,
             ),
         ]
     ),
-    dbc.Col(
+    dbc.Row(
         [
-            dcc.Graph(figure={}, id="result-box-plot-fig"),
-            dcc.Graph(figure={}, id="result-box-plot-table"),
-            dcc.Graph(figure={}, id="improved-bar-chart"),
-            dcc.Graph(figure={}, id="target-fig", mathjax=True),
+            dbc.Col(
+                [
+                    html.Button(id='submit-button-state', n_clicks=0, children='Submit'),
+                ],
+                width=2
+            ),
+            dbc.Col(
+                html.Div(id="num-of-runs", style={"text-align": "center"}),
+                width=10
+            )
         ]
     ),
+    dcc.Tabs(
+        id="graph-type",
+        value="results-table-tab",
+        children=[
+            dcc.Tab(label='Results Table', value='results-table-tab'),
+            dcc.Tab(label='Box Plot', value='box-plot-tab'),
+            dcc.Tab(label='Violin Plot', value='violin-plot-tab'),
+            dcc.Tab(label='Proportion Improved', value='prop-imp-plot-tab'),
+            dcc.Tab(label='Target Plot', value='target-plot-tab'),
+            dcc.Tab(label='The Plot Valerio Suggested', value='valerio-temp'),
+        ]
+    ),
+    html.Div(id="results-tabs"),
 ]
 
+summary_graph = [
+    dcc.Graph(id='summary-figure')
+]
 
 app.layout = dbc.Container(
     [
@@ -624,9 +795,15 @@ app.layout = dbc.Container(
         html.Hr(),
         *selections,
         html.Hr(),
-        *results_table,
+        *graph_selection_row,
         html.Hr(),
-        *results_box_plots,
+        *summary_graph,
+
+        html.Hr(),
+        html.Hr(),
+        #*results_table,
+        #html.Hr(),
+        #*results_box_plots,
     ]
 )
 
