@@ -16,6 +16,8 @@ import dash_bootstrap_components as dbc
 
 FULL_TABLE_LAYOUT = {"margin": {"pad": 0, "b": 0, "t": 0, "l": 0, "r": 0}}
 
+FIGURE_LAYOUT = {"margin": {"pad": 0, "b": 0, "t": 0, "l": 0, "r": 0}, 'showlegend': False, 'font': {'size': 16}, 'paper_bgcolor': 'rgba(0,0,0,0)', 'plot_bgcolor': 'rgba(0,0,0,0)', 'colorway': ['#1d2021'], 'scattermode': 'group'}
+
 external_stylesheets = [dbc.themes.JOURNAL]
 
 flask_server = Flask(__name__)
@@ -91,7 +93,10 @@ def filter_options(_, data, ref_d, fields, cal_d, tech, sca, var, fold):
     }
     if not ref_d:
         return [], [], [], [], [], [], "", ""
-    db_index = pd.read_json(StringIO(data), orient="split")
+    if not isinstance(data, pd.DataFrame):
+        db_index = pd.read_json(StringIO(data), orient="split")
+    else:
+        db_index = data
     df: pd.DataFrame = db_index[db_index["Reference"].isin(ref_d)]
     s_df: pd.DataFrame = df.copy(deep=True)
     for name, col in levels.items():
@@ -382,7 +387,8 @@ def box_plot(dfs, col, norm_options):
                 y=c_data,
                 name=name,
                 hoverinfo="all",
-                boxmean="sd"
+                boxmean="sd",
+                fillcolor='rgba(0,0,0,0)'
                  
             )
         )
@@ -397,8 +403,7 @@ def box_plot(dfs, col, norm_options):
             "autorange": False,
             "title": title
         },
-        showlegend=False,
-        margin={"l": 0, "r": 0, "t": 0, "b": 0},
+        **FIGURE_LAYOUT,
         width=1500,
         height=750,
     )
@@ -421,7 +426,8 @@ def violin_plot(dfs, col, norm_options):
                 name=name,
                 box_visible=True,
                 hoverinfo="name",
-                meanline_visible=True
+                meanline_visible=True,
+                fillcolor='rgba(0,0,0,0)'
             )
         )
 
@@ -435,8 +441,7 @@ def violin_plot(dfs, col, norm_options):
             "autorange": False,
             "title": title
         },
-        showlegend=False,
-        margin={"l": 0, "r": 0, "t": 0, "b": 0},
+        **FIGURE_LAYOUT,
         width=1500,
         height=750,
     )
@@ -457,12 +462,15 @@ def prop_imp_plot(dfs, col):
             improved = adjusted.lt(0)
         else:
             improved = adjusted.gt(0)
-        improved_techs[name] = improved.sort_values(ascending=False).value_counts().div(improved.size)
+        improved_techs.loc['Improved', name] = improved.sum() / improved.size 
+        improved_techs.loc['Worsened', name] = (improved.size - improved.sum()) / improved.size
     bars = [
         go.Bar(
-            name="Improved" if name else "Worsened",
+            name=name,
             x=data.index,
-            y=data.values
+            y=data.values,
+            marker_line_color='rgba(0,0,0,0)',
+            marker_color='#1FE41B' if name == 'Improved' else '#E41B1F',
         )
         for name, data in improved_techs.iterrows()
     ]
@@ -473,7 +481,7 @@ def prop_imp_plot(dfs, col):
         layout={
             'width': 1500,
             'height': 750,
-            **FULL_TABLE_LAYOUT
+            **FIGURE_LAYOUT,
         }
     )
     return improved_bar
@@ -534,6 +542,7 @@ def target_plot(dfs, norm_options):
         minallowed=-2,
         maxallowed=6,
     )
+    fig.update_layout(**FIGURE_LAYOUT)
 
     fig.update_layout(
         margin={
@@ -617,6 +626,69 @@ def norm_options(data):
         ],
     ]
 
+@callback(
+    Output('graphs-generated-text', 'data'),
+    Input('generate-graphs-button', 'n_clicks'),
+    State('folder-path', 'data'),
+    State('db-index', 'data')
+)
+def generate_graphs_for_paper(button, path, dbi):
+    tag_dict = {
+        "Results Table": 'results-table-tab',
+        "Box Plot": 'box-plot-tab',
+        "Violin Plot": 'violin-plot-tab',
+        "Proportion Improved": "prop-imp-plot-tab",
+        "Target Diagram": 'target-plot-tab',
+    }
+    graph_path = Path(path).joinpath('Graphs')
+    graph_path.mkdir(parents=True, exist_ok=True)
+    if button == 0:
+        return ''
+    if not isinstance(dbi, pd.DataFrame):
+        db_index = pd.read_json(StringIO(dbi), orient="split")
+    else:
+        db_index = dbi
+    with Path(path).joinpath('Results/summary_graphs.json').open('r') as file:
+        config = json.load(file)
+    logging.error(config)
+    for run, data in config.items():
+        logging.error(run)
+        filepath = graph_path.joinpath(f'{run}.pdf')
+        if filepath.exists():
+            continue
+        _, _, _, _, _, _, cci, _ = filter_options(
+            None,
+            db_index,
+            data.get('Reference Instruments', list()),
+            data.get('Fields', list()),
+            data.get('Calibration Devices', list()),
+            data.get('Techniques', list()),
+            data.get('Scaling Techniques', list()),
+            data.get('Variables', list()),
+            data.get('Folds', list()),
+        )
+        results, raw = get_results_df(cci, path, data.get('Reference Instruments', []))
+        grouped = grouped_data(
+            results,
+            data.get('Split By', ['Calibrated']),
+            data.get('Normalise By', 'None'),
+            data.get('Remove Outliers', 'Yes'),
+            raw
+        )
+        logging.error(grouped.keys())
+        plot = results_plot(
+            tag_dict.get(data.get("Plot Type", "Box Plot")),
+            grouped,
+            data.get("Metric Column", "r2"),
+            data.get('Normalise by', "None") 
+        )
+        plot.update_layout(**data.get("Layout", {}))
+        plot.update_xaxes(**data.get("X Axis", {}))
+        logging.error(data.get("Y Axis", {}))
+        plot.update_yaxes(**data.get("Y Axis", {}))
+        plot.write_image(filepath)
+
+
 
 item_stores = [
     dcc.Store(id="folder-path"),
@@ -625,6 +697,7 @@ item_stores = [
     dcc.Store(id="raw-df"),
     dcc.Store(id="chosen-combo-index"),
     dcc.Store(id="split-data"),
+    dcc.Store(id="graphs-generated-text"),
 ]
 
 top_row = [
@@ -788,6 +861,10 @@ summary_graph = [
     dcc.Graph(id='summary-figure')
 ]
 
+generate_graphs = [
+    html.Button(id='generate-graphs-button', n_clicks=0, children='Generate'),
+]
+
 app.layout = dbc.Container(
     [
         *item_stores,
@@ -798,8 +875,8 @@ app.layout = dbc.Container(
         *graph_selection_row,
         html.Hr(),
         *summary_graph,
-
         html.Hr(),
+        *generate_graphs,
         html.Hr(),
         #*results_table,
         #html.Hr(),

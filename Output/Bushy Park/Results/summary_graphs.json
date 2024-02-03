@@ -1,0 +1,18 @@
+{
+	"Test": {
+		"Reference Instruments": ["AirView Reference A", "AirView Reference B"],
+		"Fields": [],
+		"Calibration Devices": ["NPL AQMesh A", "NPL AQMesh B", "Nova Sensor A", "Nova Sensor B", "AirView Low-Cost A", "AirView Low-Cost B"],
+		"Techniques": [],
+		"Scaling Techniques": [],
+		"Variables": [],
+		"Folds": [],
+		"Layout": {},
+		"X Axis": {},
+		"Y Axis": {
+			"range": [null, 1.1],
+			"fixedrange": true,
+			"maxallowed": 1.1
+		}
+	}
+}
