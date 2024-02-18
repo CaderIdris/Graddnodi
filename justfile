@@ -5,5 +5,8 @@ default: run
 run:
 	echo "Write this at some point"
 
-dash:
-	pipenv run python src/graddnodi/app.py
+summary:
+	pipenv run python src/graddnodi/summary_dashboard.py
+
+pipeline:
+	pipenv run python src/graddnodi/pipeline_dashboard.py

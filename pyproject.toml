@@ -88,3 +88,6 @@ legacy_tox_ini = """
 [tool.pyright]
 venvPath = ""
 venv = ".venv"
+
+[tool.ruff.lint]
+select = ["F", "E", "W", "I", "N", "D", "UP", "ANN", "BLE", "C4", "EM", "NPY", "LOG", "RUF", "PD", "T20", "A"]
