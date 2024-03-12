@@ -133,6 +133,7 @@
 [Comparisons."Cranfield".Devices."Zep_1107b"]
 	"Bucket" = "Cranfield"
 	"Measurement" = "Zephyr"
+	"Boolean Filters"."Platform" = "Zep_1107b"
 	"Use as Reference" = false
 
 [[Comparisons."Cranfield".Devices."Zep_1107b".Fields]]
@@ -166,6 +167,7 @@
 [Comparisons."Cranfield".Devices."Zep_753"]
 	"Bucket" = "Cranfield"
 	"Measurement" = "Zephyr"
+	"Boolean Filters"."Platform" = "Zep_753"
 	"Use as Reference" = false
 
 [[Comparisons."Cranfield".Devices."Zep_753".Fields]]
@@ -199,6 +201,7 @@
 [Comparisons."Cranfield".Devices."Zep_754"]
 	"Bucket" = "Cranfield"
 	"Measurement" = "Zephyr"
+	"Boolean Filters"."Platform" = "Zep_754"
 	"Use as Reference" = false
 
 [[Comparisons."Cranfield".Devices."Zep_754".Fields]]
@@ -232,6 +235,7 @@
 [Comparisons."Cranfield".Devices."Zep_757"]
 	"Bucket" = "Cranfield"
 	"Measurement" = "Zephyr"
+	"Boolean Filters"."Platform" = "Zep_757"
 	"Use as Reference" = false
 
 [[Comparisons."Cranfield".Devices."Zep_757".Fields]]
@@ -265,6 +269,7 @@
 [Comparisons."Cranfield".Devices."Zep_858"]
 	"Bucket" = "Cranfield"
 	"Measurement" = "Zephyr"
+	"Boolean Filters"."Platform" = "Zep_858"
 	"Use as Reference" = false
 
 [[Comparisons."Cranfield".Devices."Zep_858".Fields]]

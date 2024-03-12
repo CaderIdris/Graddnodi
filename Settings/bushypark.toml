@@ -26,8 +26,8 @@
 	"Quantile Regression" = true
 	"Decision Tree" = true
 	"Extra Tree" = true
-	"Random Forest" = false
-	"Extra Trees Ensemble" = false
+	"Random Forest" = true
+	"Extra Trees Ensemble" = true
 	"Gradient Boosting Regression" = true
 	"Histogram-Based Gradient Boosting Regression" = true
 	"Multi-Layer Perceptron Regression" = true
