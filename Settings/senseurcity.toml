@@ -110,6 +110,7 @@
 	"Start" = 2020-01-21
 	"End" = 2021-07-21
 	"Averaging Operator" = "mean"
+	"Averaging Period" = "1m"
 
 [Comparisons."ANT_REF_R801".Devices."ANT_REF_R801"]
 	"Bucket" = "SensEURCity"
@@ -2343,6 +2344,7 @@
 	"Start" = 2020-01-21
 	"End" = 2021-07-21
 	"Averaging Operator" = "mean"
+	"Averaging Period" = "1m"
 
 [Comparisons."OSLO_REF_KVN".Devices."OSLO_REF_KVN"]
 	"Bucket" = "SensEURCity"
@@ -4512,6 +4514,7 @@
 	"Start" = 2020-01-21
 	"End" = 2021-07-21
 	"Averaging Operator" = "mean"
+	"Averaging Period" = "1m"
 
 [Comparisons."ZAG_REF_IMI".Devices."ZAG_REF_IMI"]
 	"Bucket" = "SensEURCity"
@@ -5657,6 +5660,7 @@
 	"Start" = 2020-01-21
 	"End" = 2021-07-21
 	"Averaging Operator" = "mean"
+	"Averaging Period" = "1m"
 
 [Comparisons."Ispra".Devices."Ispra"]
 	"Bucket" = "SensEURCity"
