@@ -36,6 +36,8 @@ app = Dash(
 server = app.server
 
 output_folder = Path(os.getenv("GRADDNODI_OUTPUT", "Output/"))
+logging.critical(output_folder)
+logging.critical(output_folder.is_dir())
 output_options = [
     str(_dir.parts[-1]) for _dir in output_folder.glob("*") if _dir.is_dir()
 ]
@@ -46,7 +48,9 @@ def folder_path(name):
     return str(output_folder.joinpath(name))
 
 
-@callback(Output("folder-output-text", "children"), Input("folder-path", "data"))
+@callback(
+    Output("folder-output-text", "children"), Input("folder-path", "data")
+)
 def folder_path_text(path):
     return f"Using data from {path}"
 
@@ -118,7 +122,10 @@ def filter_options(_, data, ref_d, fields, cal_d, tech, sca, var, fold):
             {"label": i.replace(" Regression", ""), "value": i}
             for i in sorted(df["Technique"].unique())
         ],
-        [{"label": i, "value": i} for i in sorted(df["Scaling Method"].unique())],
+        [
+            {"label": i, "value": i}
+            for i in sorted(df["Scaling Method"].unique())
+        ],
         [{"label": i, "value": i} for i in sorted(df["Variables"].unique())],
         [{"label": i, "value": i} for i in sorted(df["Fold"].unique())],
         s_df.to_json(orient="split"),
@@ -209,7 +216,9 @@ def results_tabs(path):
 def full_results_table_plot(df):
     """ """
     df = df.drop(
-        columns=[col for col in df.columns if "(Raw)" in col or "Reference " in col]
+        columns=[
+            col for col in df.columns if "(Raw)" in col or "Reference " in col
+        ]
     )
     table_cell_format = [".2f" if i == "float64" else "" for i in df.dtypes]
     return go.Figure(
@@ -255,7 +264,9 @@ def empty_figure(missing_graph_type: str = ""):
     State("remove-outliers", "value"),
     State("raw-df", "data"),
 )
-def grouped_data(cal_results, split_by, norm_by, outlier_removal, uncal_results):
+def grouped_data(
+    cal_results, split_by, norm_by, outlier_removal, uncal_results
+):
     """ """
     s_data = dict()
     # Import data
@@ -300,7 +311,9 @@ def grouped_data(cal_results, split_by, norm_by, outlier_removal, uncal_results)
         for col in [
             col
             for col in data.columns
-            if "(Raw)" not in col and "Reference " not in col and col not in index
+            if "(Raw)" not in col
+            and "Reference " not in col
+            and col not in index
         ]:
             if outlier_removal == "Yes":
                 q3 = data[col].quantile(0.75)
@@ -316,7 +329,11 @@ def grouped_data(cal_results, split_by, norm_by, outlier_removal, uncal_results)
                     )
                 ] = np.nan
                 data[col] = no_outliers_col
-            if norm_by is not None and norm_by != "None" and col not in no_norm:
+            if (
+                norm_by is not None
+                and norm_by != "None"
+                and col not in no_norm
+            ):
                 data[col] = data[col].div(data[norm_by])
                 data[f"{col} (Raw)"] = data[f"{col} (Raw)"].div(data[norm_by])
         if "Technique" not in split_by:
@@ -388,8 +405,8 @@ def box_plot(dfs, col, norm_options):
     box_plot_fig.update_layout(
         yaxis={"autorange": False, "title": title},
         **FIGURE_LAYOUT,
-        width=1500,
-        height=750,
+        width=1200,
+        height=600,
     )
     return box_plot_fig
 
@@ -493,7 +510,9 @@ def target_plot(dfs, norm_options):
         crmse = crmse.div(df["Reference Standard Deviation"])
         bias = bias.div(df["Reference Standard Deviation"])
         fig.add_trace(
-            go.Scatter(x=crmse, y=bias, name=name, text=df["text"], mode="markers")
+            go.Scatter(
+                x=crmse, y=bias, name=name, text=df["text"], mode="markers"
+            )
         )
     fig.update_xaxes(
         range=[-2, 6],
@@ -534,7 +553,8 @@ def results_plot(plot_type, dfs, col, norm):
     logging.critical(f"col: {col}")
     if dfs:
         data = {
-            key: pd.read_json(StringIO(df), orient="split") for key, df in dfs.items()
+            key: pd.read_json(StringIO(df), orient="split")
+            for key, df in dfs.items()
         }
     else:
         return empty_figure()
@@ -606,7 +626,7 @@ def generate_graphs_for_paper(button, path, dbi):
     logging.error(config)
     for run, data in config.items():
         logging.error(run)
-        filepath = graph_path.joinpath(f"{run}.pdf")
+        filepath = graph_path.joinpath(f"{run}.svg")
         if filepath.exists():
             continue
         _, _, _, _, _, _, cci, _ = filter_options(
@@ -620,7 +640,9 @@ def generate_graphs_for_paper(button, path, dbi):
             data.get("Variables", list()),
             data.get("Folds", list()),
         )
-        results, raw = get_results_df(cci, path, data.get("Reference Instruments", []))
+        results, raw = get_results_df(
+            cci, path, data.get("Reference Instruments", [])
+        )
         grouped = grouped_data(
             results,
             data.get("Split By", ["Calibrated"]),
@@ -635,9 +657,10 @@ def generate_graphs_for_paper(button, path, dbi):
             data.get("Metric Column", "r2"),
             data.get("Normalise By", "None"),
         )
-        plot.update_layout(**data.get("Layout", {}))
         plot.update_xaxes(**data.get("X Axis", {}))
         plot.update_yaxes(**data.get("Y Axis", {}))
+        plot.update_layout(**data.get("Layout", {}))
+        logging.critical(data.get("Y Axis", {}))
         plot.write_image(filepath)
 
 
@@ -712,7 +735,9 @@ item_stores = [
 ]
 
 top_row = [
-    dbc.Row([html.Div("Graddnodi", className="h1", style={"text-align": "center"})]),
+    dbc.Row(
+        [html.Div("Graddnodi", className="h1", style={"text-align": "center"})]
+    ),
     dbc.Row(
         [
             dbc.Col(
@@ -737,7 +762,9 @@ selections = [
             dbc.Col(
                 [
                     html.H4("Reference Devices"),
-                    dcc.Checklist(id="reference-options", style=checklist_options),
+                    dcc.Checklist(
+                        id="reference-options", style=checklist_options
+                    ),
                 ]
             ),
             dbc.Col(
@@ -757,13 +784,17 @@ selections = [
             dbc.Col(
                 [
                     html.H4("Regression Techniques"),
-                    dcc.Checklist(id="technique-options", style=checklist_options),
+                    dcc.Checklist(
+                        id="technique-options", style=checklist_options
+                    ),
                 ]
             ),
             dbc.Col(
                 [
                     html.H4("Scaling Techniques"),
-                    dcc.Checklist(id="scaling-options", style=checklist_options),
+                    dcc.Checklist(
+                        id="scaling-options", style=checklist_options
+                    ),
                 ]
             ),
             dbc.Col(
@@ -783,7 +814,9 @@ selections = [
 ]
 
 results_table = [
-    dbc.Row([html.Div("Results", className="h2", style={"text-align": "center"})]),
+    dbc.Row(
+        [html.Div("Results", className="h2", style={"text-align": "center"})]
+    ),
     dbc.Row(
         [dcc.Graph(figure={}, id="results-table")],
     ),

@@ -18,6 +18,7 @@ kaleido = "*"
 
 [dev-packages]
 flake8 = "*"
+ruff = "*"
 
 [requires]
 python_version = "3.11"

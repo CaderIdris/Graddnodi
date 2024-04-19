@@ -20,7 +20,6 @@ import json
 import logging
 import os
 from pathlib import Path
-import pickle
 import re
 import sqlite3 as sql
 from typing import Any, Optional
@@ -293,15 +292,21 @@ def type_check_config(config: dict[str, Any]) -> None:
         lambda x: x not in config["Calibration"]["Configuration"].keys(),
         expected_cal_conf.keys(),
     ):
-        errors.append(f"Key not found in Calibration.Configuration entry: {key}")
+        errors.append(
+            f"Key not found in Calibration.Configuration entry: {key}"
+        )
     for key in filter(
         lambda x: x not in expected_cal_conf.keys(),
         config["Calibration"]["Configuration"].keys(),
     ):
-        warnings.append(f"Unexpected key in Calibration.Configuration Entry: {key}")
+        warnings.append(
+            f"Unexpected key in Calibration.Configuration Entry: {key}"
+        )
     for key, val in expected_cal_conf.items():
         if config["Calibration"]["Configuration"].get(key) is not None:
-            if not isinstance(config["Calibration"]["Configuration"].get(key), val):
+            if not isinstance(
+                config["Calibration"]["Configuration"].get(key), val
+            ):
                 errors.append(
                     f"Calibration.Configuration.{key} is type "
                     f"{type(config['Calibration']['Configuration'][key])}, "
@@ -319,7 +324,9 @@ def type_check_config(config: dict[str, Any]) -> None:
         lambda x: x not in expected_caltech_keys,
         config["Calibration"]["Techniques"].keys(),
     ):
-        warnings.append(f"Unexpected key in Calibration.Techniques Entry: {key}")
+        warnings.append(
+            f"Unexpected key in Calibration.Techniques Entry: {key}"
+        )
     for key in filter(
         lambda x: x in expected_caltech_keys,
         config["Calibration"]["Techniques"].keys(),
@@ -335,7 +342,8 @@ def type_check_config(config: dict[str, Any]) -> None:
     for key, val in config["Metrics"].items():
         if not isinstance(val, bool):
             errors.append(
-                f"Expected boolean for Metrics.{key}, received " f"{type(val)} instead"
+                f"Expected boolean for Metrics.{key}, received "
+                f"{type(val)} instead"
             )
     # Test Calibration-Secondary Variables
     for key, val in config["Calibration"]["Secondary Variables"].items():
@@ -400,10 +408,12 @@ def type_check_config(config: dict[str, Any]) -> None:
                 lambda x: x not in dev_conf.keys(), expected_device.keys()
             ):
                 errors.append(
-                    f"Key not found in Comparisons.{comp_key}.{device} entry: " f"{key}"
+                    f"Key not found in Comparisons.{comp_key}.{device} entry: "
+                    f"{key}"
                 )
             for key in filter(
-                lambda x: x not in {**expected_device, **optional_device}.keys(),
+                lambda x: x
+                not in {**expected_device, **optional_device}.keys(),
                 dev_conf.keys(),
             ):
                 warnings.append(
@@ -435,7 +445,8 @@ def type_check_config(config: dict[str, Any]) -> None:
                         f'entry: {key}'
                     )
                 for key in filter(
-                    lambda x: x not in {**expected_fields, **optional_fields}.keys(),
+                    lambda x: x
+                    not in {**expected_fields, **optional_fields}.keys(),
                     field.keys(),
                 ):
                     warnings.append(
@@ -459,7 +470,9 @@ def type_check_config(config: dict[str, Any]) -> None:
                             f'{field_val}'
                         )
                 # Test field boolean filters
-                for bool_name, bool_val in field.get("Boolean Filters", dict()).items():
+                for bool_name, bool_val in field.get(
+                    "Boolean Filters", dict()
+                ).items():
                     if not isinstance(bool_val, bool_filter_types):
                         errors.append(
                             f'Comparisons.{comp_key}.{device}.Fields.'
@@ -469,7 +482,9 @@ def type_check_config(config: dict[str, Any]) -> None:
                         )
 
             # Test Boolean Filters
-            for bool_name, bool_val in dev_conf.get("Boolean Filters", dict()).items():
+            for bool_name, bool_val in dev_conf.get(
+                "Boolean Filters", dict()
+            ).items():
                 if not isinstance(bool_val, bool_filter_types):
                     errors.append(
                         f"Comparisons.{comp_key}.{device}.Boolean Filters."
@@ -478,7 +493,9 @@ def type_check_config(config: dict[str, Any]) -> None:
                     )
 
             # Test Range Filters
-            for index, range_filter in enumerate(dev_conf.get("Range Filters", [])):
+            for index, range_filter in enumerate(
+                dev_conf.get("Range Filters", [])
+            ):
                 if not isinstance(range_filter, dict):
                     errors.append(
                         f"Comparisons.{comp_key}.{device}.Range Filters should"
@@ -516,7 +533,8 @@ def type_check_config(config: dict[str, Any]) -> None:
                         f' entry: {key}'
                     )
                 for key in filter(
-                    lambda x: x not in {**expected_fields, **optional_fields}.keys(),
+                    lambda x: x
+                    not in {**expected_fields, **optional_fields}.keys(),
                     field.keys(),
                 ):
                     warnings.append(
@@ -540,7 +558,9 @@ def type_check_config(config: dict[str, Any]) -> None:
                             f', expected {field_val}'
                         )
                 # Test field boolean filters
-                for bool_name, bool_val in field.get("Boolean Filters", dict()).items():
+                for bool_name, bool_val in field.get(
+                    "Boolean Filters", dict()
+                ).items():
                     if not isinstance(bool_val, bool_filter_types):
                         errors.append(
                             f'Comparisons.{comp_key}.{device}.Secondary '
@@ -587,7 +607,8 @@ def download_cache(path: Union[str, Path]) -> GraddnodiResults:
     measurement_db = measurement_path / "Measurements.db"
     if measurement_db.exists() and not measurement_db.is_dir():
         logger.debug(
-            "Found previously saved results in " f'{"/".join(measurement_db.parts)}'
+            "Found previously saved results in "
+            f'{"/".join(measurement_db.parts)}'
         )
         con = sql.connect(measurement_db)
         cursor = con.cursor()
@@ -616,10 +637,14 @@ def download_cache(path: Union[str, Path]) -> GraddnodiResults:
             filename = find_filename.group("filename")
             matched_measurements[comparison.parts[-1]][filename] = dict()
 
-            logger.debug(f"Importing matched measurements for {filename} from db")
+            logger.debug(
+                f"Importing matched measurements for {filename} from db"
+            )
             con = sql.connect(field)
             cursor = con.cursor()
-            cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+            cursor.execute(
+                "SELECT name FROM sqlite_master WHERE type='table';"
+            )
             tables = cursor.fetchall()
             cursor.close()
             for table in tables:
@@ -627,12 +652,16 @@ def download_cache(path: Union[str, Path]) -> GraddnodiResults:
                 if data.shape[0] == 0:
                     continue
                 data = data.set_index("_time")
-                matched_measurements[comparison.parts[-1]][filename][table[0]] = data
+                matched_measurements[comparison.parts[-1]][filename][
+                    table[0]
+                ] = data
             con.close()
 
     # Import pipelines
     pipelines_folder = path / "Pipelines"
-    for pkl in filter(lambda x: x.is_file(), pipelines_folder.glob("**/*.pkl")):
+    for pkl in filter(
+        lambda x: x.is_file(), pipelines_folder.glob("**/*.pkl")
+    ):
         find_filename = re.match(r"(?P<filename>.*)\.pkl", pkl.parts[-1])
         if find_filename is None:
             continue
@@ -655,9 +684,9 @@ def download_cache(path: Union[str, Path]) -> GraddnodiResults:
     results_db = results_path / "Results.db"
     con = sql.connect(results_db)
     try:
-        results = pd.read_sql(sql=f"SELECT * from 'Results'", con=con).set_index(
-            "index"
-        )
+        results = pd.read_sql(
+            sql=f"SELECT * from 'Results'", con=con
+        ).set_index("index")
     except pd.errors.DatabaseError:
         logging.debug("No cached results")
         results = pd.DataFrame(
@@ -825,7 +854,10 @@ def comparisons(
                 matched_measurements[comparison_name] = dict()
             for field, sec_vars in cal_settings["Secondary Variables"].items():
                 all_vars = [field] + sec_vars
-                if field not in x_dframe.columns or field not in y_dframe.columns:
+                if (
+                    field not in x_dframe.columns
+                    or field not in y_dframe.columns
+                ):
                     logger.debug(f"{field} not valid for {comparison_name}")
                     continue
                 if pipelines[comparison_name].get(field) is None:
@@ -833,13 +865,18 @@ def comparisons(
                 try:
                     logger.info(f"Beginning {comparison_name} for {field}")
                     calibrate = Calibrate(
-                        x_data=x_dframe.loc[:, x_dframe.columns.isin(all_vars)],
+                        x_data=x_dframe.loc[
+                            :, x_dframe.columns.isin(all_vars)
+                        ],
                         y_data=y_dframe.loc[:, [field]],
                         target=field,
                         folds=cal_class_config["Folds"],
                         strat_groups=cal_class_config["Stratification Groups"],
                         scaler=cal_class_config["Scalers"],
-                        pickle_path=output_path / "Pipelines" / comparison_name / field,
+                        pickle_path=output_path
+                        / "Pipelines"
+                        / comparison_name
+                        / field,
                         seed=cal_class_config["Seed"],
                     )
                 except (ValueError, IndexError) as err:
@@ -850,14 +887,19 @@ def comparisons(
                     )
                     continue
                 for method_config in ["Default", "Random Search"]:
-                    techniques_to_use = cal_settings["Techniques"][method_config]
+                    techniques_to_use = cal_settings["Techniques"][
+                        method_config
+                    ]
                     for technique, method in techniques.items():
                         name = f"{technique} ({method_config})"
 
                         if not techniques_to_use.get(technique, False):
                             logger.debug(f"Skipping {name} as not in config")
                             continue
-                        if pipelines[comparison_name][field].get(name) is not None:
+                        if (
+                            pipelines[comparison_name][field].get(name)
+                            is not None
+                        ):
                             logger.debug(
                                 f"Skipping {name} as pipelines already present"
                             )
@@ -882,13 +924,14 @@ def comparisons(
                     matched_measures_path.mkdir(parents=True, exist_ok=True)
                     matched_measures_db = matched_measures_path / f"{field}.db"
                     logger.debug(
-                        f"Saving matched measurements for {comparison_name} " f"{field}"
+                        f"Saving matched measurements for {comparison_name} "
+                        f"{field}"
                     )
                     con = sql.connect(matched_measures_db)
                     for name in matched_measurements[comparison_name][field]:
-                        matched_measurements[comparison_name][field][name].to_sql(
-                            name=name, con=con, if_exists="replace"
-                        )
+                        matched_measurements[comparison_name][field][
+                            name
+                        ].to_sql(name=name, con=con, if_exists="replace")
                     con.close()
     return pipelines, matched_measurements
 
@@ -902,18 +945,19 @@ def get_results(
 ) -> ResultsDict:
     """ """
     for comparison, fields in pipeline_dict.items():
-        x_name = re.match(r"(?P<device>.*)( vs .*)", comparison).group("device")
+        x_name = re.match(r"(?P<device>.*)( vs .*)", comparison).group(
+            "device"
+        )
         y_name = re.sub(r".*(?<= vs )", "", comparison)
         for field, techniques in fields.items():
             logger.debug(f"Testing {field} in {comparison}")
             sub_errors = errors[
                 np.logical_and(
-                    errors["Reference"] == y_name, errors["Calibrated"] == x_name
+                    errors["Reference"] == y_name,
+                    errors["Calibrated"] == x_name,
                 )
             ]
             sub_errors = sub_errors[sub_errors["Field"] == field]
-            if sub_errors.shape[0]:
-                continue
             try:
                 result_calculations = Results(
                     matched_measurements[comparison][field]["x"],
@@ -935,7 +979,9 @@ def get_results(
                 "Root Mean Squared Error": Results.root_mean_squared,
                 "Root Mean Squared Log Error": Results.root_mean_squared_log,
                 "Median Absolute Error": Results.median_absolute,
-                "Mean Absolute Percentage Error": (Results.mean_absolute_percentage),
+                "Mean Absolute Percentage Error": (
+                    Results.mean_absolute_percentage
+                ),
                 "r2": Results.r2,
                 "Centered Root Mean Squared Error": Results.centered_rmse,
                 "Unnbiased Root Mean Squared Error": Results.unbiased_rmse,
@@ -955,7 +1001,11 @@ def get_results(
             err["Field"] = field
             err["Reference"] = y_name
             err["Calibrated"] = x_name
-            errors = pd.concat([errors, err]).reset_index(drop=True).drop_duplicates()
+            errors = (
+                pd.concat([errors, err])
+                .reset_index(drop=True)
+                .drop_duplicates()
+            )
             con = sql.connect(error_db_path)
             errors.to_sql("Results", con=con, if_exists="replace")
             con.close()
@@ -1025,7 +1075,9 @@ def main_cli():
 
         logger.debug(f"Downloading measurements from influxdb for {run_name}")
 
-        measurement_db = output_path / run_name / "Measurements" / "Measurements.db"
+        measurement_db = (
+            output_path / run_name / "Measurements" / "Measurements.db"
+        )
         data["Measurements"] = get_measurements_from_influx(
             start_date,
             end_date,
