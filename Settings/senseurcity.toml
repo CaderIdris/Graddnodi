@@ -72,6 +72,27 @@
 	"XGBoost Regression" = false
 	"XGBoost Random Forest Regression" = false	
 
+[Metrics]
+	"Explained Variance Score" = false
+	"Max Error" = true
+	"Mean Absolute Error" = true
+	"Root Mean Squared Error" = true
+	"Root Mean Squared Log Error" = false
+	"Median Absolute Error" = true
+	"Mean Absolute Percentage Error" = true
+	"r2" = true
+	"Mean Poisson Deviance" = false
+	"Mean Gamma Deviance" = false
+	"Mean Tweedie Deviance" = false
+	"Mean Pinball Loss" = true
+	"Centered Root Mean Squared Error" = true
+	"Unnbiased Root Mean Squared Error" = true
+	"Mean Bias Error" = true
+	"Reference IQR" = true
+	"Reference Mean" = true
+	"Reference Range" = true
+	"Reference Standard Deviation" = true
+
 [Calibration."Secondary Variables"]
 	CO = ["RH", "T", "P", "CO2"]
 	CO2 = ["RH", "T", "P", "CO"]
@@ -82,6 +103,7 @@
 	PM2.5 = ["RH", "T", "P"]
 	PM10 = ["RH", "T", "P"]
 	
+
 
 
 [Comparisons."ANT_REF_R801"]
@@ -145,7 +167,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4049A6"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4049A6"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4049A6".Fields]]
 	"Tag" = "P"
@@ -208,7 +231,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4047DD"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4047DD"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047DD".Fields]]
 	"Tag" = "P"
@@ -271,7 +295,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_40623F"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_40623F"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40623F".Fields]]
 	"Tag" = "P"
@@ -334,7 +359,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4047E7"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4047E7"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E7".Fields]]
 	"Tag" = "P"
@@ -397,7 +423,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_402B00"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_402B00"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402B00".Fields]]
 	"Tag" = "P"
@@ -460,7 +487,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4047E0"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4047E0"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E0".Fields]]
 	"Tag" = "P"
@@ -523,7 +551,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_406249"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_406249"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406249".Fields]]
 	"Tag" = "P"
@@ -586,7 +615,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_40499C"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_40499C"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499C".Fields]]
 	"Tag" = "P"
@@ -649,7 +679,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_40642B"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_40642B"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40642B".Fields]]
 	"Tag" = "P"
@@ -712,7 +743,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4065E3"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4065E3"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "P"
@@ -775,7 +807,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_408175"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_408175"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408175".Fields]]
 	"Tag" = "P"
@@ -838,7 +871,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_40499F"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_40499F"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499F".Fields]]
 	"Tag" = "P"
@@ -901,7 +935,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4067B3"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4067B3"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B3".Fields]]
 	"Tag" = "P"
@@ -964,7 +999,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4043AE"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4043AE"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043AE".Fields]]
 	"Tag" = "P"
@@ -1027,7 +1063,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4065EA"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4065EA"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065EA".Fields]]
 	"Tag" = "P"
@@ -1090,7 +1127,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_408165"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_408165"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408165".Fields]]
 	"Tag" = "P"
@@ -1153,7 +1191,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4065DA"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4065DA"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DA".Fields]]
 	"Tag" = "P"
@@ -1216,7 +1255,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4067B0"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4067B0"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B0".Fields]]
 	"Tag" = "P"
@@ -1279,7 +1319,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_406246"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_406246"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406246".Fields]]
 	"Tag" = "P"
@@ -1342,7 +1383,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4065DD"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4065DD"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DD".Fields]]
 	"Tag" = "P"
@@ -1405,7 +1447,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_40641B"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_40641B"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "P"
@@ -1468,7 +1511,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4067BA"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4067BA"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BA".Fields]]
 	"Tag" = "P"
@@ -1531,7 +1575,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4065E0"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4065E0"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "P"
@@ -1594,7 +1639,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_406424"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_406424"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406424".Fields]]
 	"Tag" = "P"
@@ -1657,7 +1703,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_402723"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_402723"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402723".Fields]]
 	"Tag" = "P"
@@ -1720,7 +1767,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4067BD"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4067BD"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BD".Fields]]
 	"Tag" = "P"
@@ -1783,7 +1831,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4047CD"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4047CD"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047CD".Fields]]
 	"Tag" = "P"
@@ -1846,7 +1895,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4065D0"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4065D0"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "P"
@@ -1909,7 +1959,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4047D7"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4047D7"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047D7".Fields]]
 	"Tag" = "P"
@@ -1972,7 +2023,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4043B1"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4043B1"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043B1".Fields]]
 	"Tag" = "P"
@@ -2035,7 +2087,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_408178"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_408178"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408178".Fields]]
 	"Tag" = "P"
@@ -2098,7 +2151,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_408168"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_408168"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408168".Fields]]
 	"Tag" = "P"
@@ -2161,7 +2215,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4043A7"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4043A7"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043A7".Fields]]
 	"Tag" = "P"
@@ -2224,7 +2279,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4065D3"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4065D3"
+	"Location.ID" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D3".Fields]]
 	"Tag" = "P"
@@ -2283,2136 +2339,2169 @@
 	
 
 
-[Comparisons."ANT_REF_R801"]
+[Comparisons."OSLO_REF_KVN"]
 	"Start" = 2020-01-21
 	"End" = 2021-07-21
 	"Averaging Operator" = "mean"
 
-[Comparisons."ANT_REF_R801".Devices."ANT_REF_R801"]
+[Comparisons."OSLO_REF_KVN".Devices."OSLO_REF_KVN"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Reference"
 	"Use as Reference" = true
 
-[Comparisons."ANT_REF_R801".Devices."ANT_REF_R801"."Boolean Filters"]
+[Comparisons."OSLO_REF_KVN".Devices."OSLO_REF_KVN"."Boolean Filters"]
 	
 
-[[Comparisons."ANT_REF_R801".Devices."ANT_REF_R801".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."OSLO_REF_KVN".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."ANT_REF_R801".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."OSLO_REF_KVN".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."ANT_REF_R801".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."OSLO_REF_KVN".Fields]]
 	"Tag" = "O3"
 	"Field" = "O3"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."ANT_REF_R801".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."OSLO_REF_KVN".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."ANT_REF_R801".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."OSLO_REF_KVN".Fields]]
 	"Tag" = "CO2"
 	"Field" = "CO2"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."ANT_REF_R801".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."OSLO_REF_KVN".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."ANT_REF_R801".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."OSLO_REF_KVN".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."ANT_REF_R801".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."OSLO_REF_KVN".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
 
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_651EF5"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_651EF5"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5"."Boolean Filters"]
+	"Name" = "Oslo_651EF5"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EF5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EF5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EF5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EF5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EF5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EF5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EF5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EF5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EF5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EF5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EF5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_64FD11"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_64FD11"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11"."Boolean Filters"]
+	"Name" = "Oslo_64FD11"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD11".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD11".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD11".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD11".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD11".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD11".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD11".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD11".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD11".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD11".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD11".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_65063E"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_65063E"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E"."Boolean Filters"]
+	"Name" = "Oslo_65063E"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65063E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65063E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65063E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65063E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65063E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65063E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65063E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65063E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65063E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65063E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65063E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_425FB3"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_425FB3"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3"."Boolean Filters"]
+	"Name" = "Oslo_425FB3"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB3".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB3".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB3".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB3".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB3".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB3".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB3".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB3".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB3".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB3".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB3".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_64B082"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_64B082"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082"."Boolean Filters"]
+	"Name" = "Oslo_64B082"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64B082".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64B082".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64B082".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64B082".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64B082".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64B082".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64B082".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64B082".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64B082".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64B082".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64B082".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_647D5A"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_647D5A"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A"."Boolean Filters"]
+	"Name" = "Oslo_647D5A"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_647D5A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_647D5A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_647D5A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_647D5A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_647D5A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_647D5A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_647D5A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_647D5A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_647D5A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_647D5A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_647D5A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_64CB6D"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_64CB6D"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D"."Boolean Filters"]
+	"Name" = "Oslo_64CB6D"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB6D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB6D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB6D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB6D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB6D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB6D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB6D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB6D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB6D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB6D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB6D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_426178"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_426178"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178"."Boolean Filters"]
+	"Name" = "Oslo_426178"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426178".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426178".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426178".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426178".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426178".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426178".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426178".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426178".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426178".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426178".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426178".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_64FD0A"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_64FD0A"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A"."Boolean Filters"]
+	"Name" = "Oslo_64FD0A"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD0A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD0A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD0A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD0A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD0A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD0A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD0A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD0A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD0A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD0A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64FD0A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_652FA4"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_652FA4"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4"."Boolean Filters"]
+	"Name" = "Oslo_652FA4"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FA4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FA4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FA4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FA4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FA4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FA4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FA4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FA4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FA4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FA4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FA4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_652D3A"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_652D3A"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A"."Boolean Filters"]
+	"Name" = "Oslo_652D3A"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652D3A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652D3A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652D3A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652D3A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652D3A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652D3A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652D3A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652D3A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652D3A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652D3A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652D3A".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_65325E"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_65325E"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E"."Boolean Filters"]
+	"Name" = "Oslo_65325E"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65325E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65325E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65325E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65325E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65325E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65325E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65325E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65325E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65325E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65325E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65325E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_40642E"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_40642E"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E"."Boolean Filters"]
+	"Name" = "Oslo_40642E"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40642E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40642E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40642E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40642E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40642E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40642E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40642E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40642E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40642E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40642E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40642E".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_40458D"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_40458D"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D"."Boolean Filters"]
+	"Name" = "Oslo_40458D"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40458D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40458D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40458D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40458D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40458D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40458D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40458D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40458D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40458D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40458D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40458D".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_40817F"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_40817F"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F"."Boolean Filters"]
+	"Name" = "Oslo_40817F"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40817F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40817F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40817F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40817F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40817F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40817F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40817F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40817F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40817F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40817F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40817F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_4065ED"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_4065ED"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED"."Boolean Filters"]
+	"Name" = "Oslo_4065ED"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_4065ED".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_4065ED".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_4065ED".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_4065ED".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_4065ED".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_4065ED".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_4065ED".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_4065ED".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_4065ED".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_4065ED".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_4065ED".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_65326C"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_65326C"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C"."Boolean Filters"]
+	"Name" = "Oslo_65326C"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65326C".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65326C".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65326C".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65326C".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65326C".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65326C".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65326C".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65326C".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65326C".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65326C".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_65326C".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_652FAF"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_652FAF"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF"."Boolean Filters"]
+	"Name" = "Oslo_652FAF"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FAF".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FAF".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FAF".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FAF".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FAF".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FAF".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FAF".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FAF".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FAF".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FAF".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652FAF".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_649312"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_649312"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312"."Boolean Filters"]
+	"Name" = "Oslo_649312"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_649312".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_649312".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_649312".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_649312".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_649312".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_649312".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_649312".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_649312".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_649312".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_649312".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_649312".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_64E9C5"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_64E9C5"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5"."Boolean Filters"]
+	"Name" = "Oslo_64E9C5"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64E9C5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64E9C5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64E9C5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64E9C5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64E9C5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64E9C5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64E9C5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64E9C5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64E9C5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64E9C5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64E9C5".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_64CB70"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_64CB70"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70"."Boolean Filters"]
+	"Name" = "Oslo_64CB70"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB70".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB70".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB70".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB70".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB70".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB70".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB70".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB70".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB70".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB70".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB70".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_426179"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_426179"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179"."Boolean Filters"]
+	"Name" = "Oslo_426179"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426179".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426179".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426179".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426179".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426179".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426179".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426179".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426179".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426179".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426179".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_426179".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_40816F"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_40816F"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F"."Boolean Filters"]
+	"Name" = "Oslo_40816F"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40816F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40816F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40816F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40816F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40816F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40816F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40816F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40816F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40816F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40816F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_40816F".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_425FB4"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_425FB4"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4"."Boolean Filters"]
+	"Name" = "Oslo_425FB4"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_425FB4".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_653257"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_653257"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257"."Boolean Filters"]
+	"Name" = "Oslo_653257"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_653257".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_653257".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_653257".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_653257".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_653257".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_653257".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_653257".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_653257".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_653257".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_653257".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_653257".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_64A291"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_64A291"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291"."Boolean Filters"]
+	"Name" = "Oslo_64A291"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A291".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A291".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A291".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A291".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A291".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A291".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A291".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A291".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A291".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A291".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A291".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_652A32"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_652A32"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32"."Boolean Filters"]
+	"Name" = "Oslo_652A32"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652A32".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652A32".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652A32".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652A32".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652A32".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652A32".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652A32".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652A32".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652A32".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652A32".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_652A32".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_648B91"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_648B91"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91"."Boolean Filters"]
+	"Name" = "Oslo_648B91"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_648B91".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_648B91".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_648B91".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_648B91".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_648B91".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_648B91".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_648B91".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_648B91".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_648B91".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_648B91".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_648B91".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_64CB78"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_64CB78"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78"."Boolean Filters"]
+	"Name" = "Oslo_64CB78"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB78".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB78".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB78".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB78".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB78".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB78".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB78".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB78".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB78".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB78".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64CB78".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_6517DD"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_6517DD"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD"."Boolean Filters"]
+	"Name" = "Oslo_6517DD"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_6517DD".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_6517DD".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_6517DD".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_6517DD".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_6517DD".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_6517DD".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_6517DD".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_6517DD".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_6517DD".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_6517DD".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_6517DD".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_64A292"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_64A292"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292"."Boolean Filters"]
+	"Name" = "Oslo_64A292"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A292".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A292".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A292".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A292".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A292".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A292".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A292".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A292".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A292".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A292".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_64A292".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices."Oslo_651EFC"]
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC"]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices."Oslo_651EFC"."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC"."Boolean Filters"]
+	"Name" = "Oslo_651EFC"
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EFC".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EFC".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EFC".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EFC".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EFC".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EFC".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EFC".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EFC".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EFC".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EFC".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."Oslo_651EFC".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
 	
-[Comparisons."ANT_REF_R801".Devices.""]
+[Comparisons."OSLO_REF_KVN".Devices.""]
 	"Bucket" = "SensEURCity"
 	"Measurement" = "Oslo"
 	"Use as Reference" = false
 
-[Comparisons."ANT_REF_R801".Devices.""."Boolean Filters"]
-	"TODO" = "TODO"
+[Comparisons."OSLO_REF_KVN".Devices.""."Boolean Filters"]
+	"Name" = ""
+	"Location.ID" = "OSLO_REF_KVN"
 
-[[Comparisons."ANT_REF_R801".Devices."".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "PM1"
 	"Field" = "PM1"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "PM2.5"
 	"Field" = "PM2.5"
 	
 	
-[[Comparisons."ANT_REF_R801".Devices."".Fields]]
+[[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "PM10"
 	"Field" = "PM10"
 	
@@ -4480,7 +4569,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Zagreb_648169"
+	"Location.ID" = "ZAG_REF_IMI"
 
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
 	"Tag" = "P"
@@ -4543,7 +4633,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Zagreb_427907"
+	"Location.ID" = "ZAG_REF_IMI"
 
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
 	"Tag" = "P"
@@ -4606,7 +4697,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Zagreb_40641E"
+	"Location.ID" = "ZAG_REF_IMI"
 
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
 	"Tag" = "P"
@@ -4669,7 +4761,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Zagreb_427906"
+	"Location.ID" = "ZAG_REF_IMI"
 
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
 	"Tag" = "P"
@@ -4732,7 +4825,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Zagreb_406414"
+	"Location.ID" = "ZAG_REF_IMI"
 
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
 	"Tag" = "P"
@@ -4795,7 +4889,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Zagreb_64E03B"
+	"Location.ID" = "ZAG_REF_IMI"
 
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
 	"Tag" = "P"
@@ -4858,7 +4953,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Zagreb_428164"
+	"Location.ID" = "ZAG_REF_IMI"
 
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
 	"Tag" = "P"
@@ -4921,7 +5017,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Zagreb_4047D0"
+	"Location.ID" = "ZAG_REF_IMI"
 
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "P"
@@ -4984,7 +5081,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Zagreb_652FA1"
+	"Location.ID" = "ZAG_REF_IMI"
 
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
 	"Tag" = "P"
@@ -5047,7 +5145,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Zagreb_648157"
+	"Location.ID" = "ZAG_REF_IMI"
 
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
 	"Tag" = "P"
@@ -5110,7 +5209,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Zagreb_649738"
+	"Location.ID" = "ZAG_REF_IMI"
 
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
 	"Tag" = "P"
@@ -5173,7 +5273,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Zagreb_42816D"
+	"Location.ID" = "ZAG_REF_IMI"
 
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
 	"Tag" = "P"
@@ -5236,7 +5337,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Zagreb_64876C"
+	"Location.ID" = "ZAG_REF_IMI"
 
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
 	"Tag" = "P"
@@ -5299,7 +5401,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Zagreb_64C52B"
+	"Location.ID" = "ZAG_REF_IMI"
 
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
 	"Tag" = "P"
@@ -5362,7 +5465,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Zagreb_652A38"
+	"Location.ID" = "ZAG_REF_IMI"
 
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
 	"Tag" = "P"
@@ -5425,7 +5529,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Zagreb_64C225"
+	"Location.ID" = "ZAG_REF_IMI"
 
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
 	"Tag" = "P"
@@ -5488,7 +5593,8 @@
 	"Use as Reference" = false
 
 [Comparisons."ZAG_REF_IMI".Devices.""."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = ""
+	"Location.ID" = "ZAG_REF_IMI"
 
 [[Comparisons."ZAG_REF_IMI".Devices."".Fields]]
 	"Tag" = "P"
@@ -5608,7 +5714,8 @@
 	"Use as Reference" = false
 
 [Comparisons."Ispra".Devices."Antwerp_4065E3"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4065E3"
+	"Location.ID" = "Ispra"
 
 [[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "P"
@@ -5671,7 +5778,8 @@
 	"Use as Reference" = false
 
 [Comparisons."Ispra".Devices."Antwerp_40641B"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_40641B"
+	"Location.ID" = "Ispra"
 
 [[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "P"
@@ -5734,7 +5842,8 @@
 	"Use as Reference" = false
 
 [Comparisons."Ispra".Devices."Antwerp_4065E0"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4065E0"
+	"Location.ID" = "Ispra"
 
 [[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "P"
@@ -5797,7 +5906,8 @@
 	"Use as Reference" = false
 
 [Comparisons."Ispra".Devices."Antwerp_4065D0"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Antwerp_4065D0"
+	"Location.ID" = "Ispra"
 
 [[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "P"
@@ -5860,7 +5970,8 @@
 	"Use as Reference" = false
 
 [Comparisons."Ispra".Devices."Oslo_40642E"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Oslo_40642E"
+	"Location.ID" = "Ispra"
 
 [[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
 	"Tag" = "P"
@@ -5923,7 +6034,8 @@
 	"Use as Reference" = false
 
 [Comparisons."Ispra".Devices."Oslo_40458D"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Oslo_40458D"
+	"Location.ID" = "Ispra"
 
 [[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
 	"Tag" = "P"
@@ -5986,7 +6098,8 @@
 	"Use as Reference" = false
 
 [Comparisons."Ispra".Devices."Oslo_4065ED"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Oslo_4065ED"
+	"Location.ID" = "Ispra"
 
 [[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "P"
@@ -6049,7 +6162,8 @@
 	"Use as Reference" = false
 
 [Comparisons."Ispra".Devices."Oslo_40816F"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Oslo_40816F"
+	"Location.ID" = "Ispra"
 
 [[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
 	"Tag" = "P"
@@ -6112,7 +6226,8 @@
 	"Use as Reference" = false
 
 [Comparisons."Ispra".Devices."Zagreb_406414"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Zagreb_406414"
+	"Location.ID" = "Ispra"
 
 [[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
 	"Tag" = "P"
@@ -6175,7 +6290,8 @@
 	"Use as Reference" = false
 
 [Comparisons."Ispra".Devices."Zagreb_4047D0"."Boolean Filters"]
-	"TODO" = "TODO"
+	"Name" = "Zagreb_4047D0"
+	"Location.ID" = "Ispra"
 
 [[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "P"
