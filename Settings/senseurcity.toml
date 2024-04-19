@@ -94,14 +94,14 @@
 	"Reference Standard Deviation" = true
 
 [Calibration."Secondary Variables"]
-	CO = ["RH", "T", "P", "CO2"]
-	CO2 = ["RH", "T", "P", "CO"]
-	NO2 = ["RH", "T", "P", "CO", "O3", "NO"]
-	O3 = ["RH", "T", "P", "NO", "CO", "NO2"]
-	NO = ["RH", "T", "P", "NO2", "CO", "O3"]
-	PM1 = ["RH", "T", "P"]
-	PM2.5 = ["RH", "T", "P"]
-	PM10 = ["RH", "T", "P"]
+	"CO" = ["RH", "T", "P", "CO2"]
+	"CO2" = ["RH", "T", "P", "CO"]
+	"NO2" = ["RH", "T", "P", "CO", "O3", "NO"]
+	"O3" = ["RH", "T", "P", "NO", "CO", "NO2"]
+	"NO" = ["RH", "T", "P", "NO2", "CO", "O3"]
+	"PM1" = ["RH", "T", "P"]
+	"PM2.5" = ["RH", "T", "P"]
+	"PM10" = ["RH", "T", "P"]
 	
 
 
@@ -118,7 +118,7 @@
 	"Use as Reference" = true
 
 [Comparisons."ANT_REF_R801".Devices."ANT_REF_R801"."Boolean Filters"]
-	
+	"Name" = "ANT_REF_R801"
 
 [[Comparisons."ANT_REF_R801".Devices."ANT_REF_R801".Fields]]
 	"Tag" = "NO"
@@ -175,55 +175,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4049A6".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4049A6".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4049A6".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4049A6".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4049A6".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4049A6".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4049A6".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4049A6".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4049A6".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4049A6".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4047DD"]
@@ -239,55 +261,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047DD".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047DD".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047DD".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047DD".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047DD".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047DD".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047DD".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047DD".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047DD".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047DD".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_40623F"]
@@ -303,55 +347,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40623F".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40623F".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40623F".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40623F".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40623F".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40623F".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40623F".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40623F".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40623F".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40623F".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4047E7"]
@@ -367,55 +433,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E7".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E7".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E7".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E7".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E7".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E7".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E7".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E7".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E7".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E7".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_402B00"]
@@ -431,55 +519,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402B00".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402B00".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402B00".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402B00".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402B00".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402B00".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402B00".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402B00".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402B00".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402B00".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4047E0"]
@@ -495,55 +605,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E0".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E0".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E0".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E0".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E0".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E0".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E0".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E0".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E0".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E0".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_406249"]
@@ -559,55 +691,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406249".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406249".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406249".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406249".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406249".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406249".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406249".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406249".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406249".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406249".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_40499C"]
@@ -623,55 +777,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499C".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499C".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499C".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499C".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499C".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499C".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499C".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499C".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499C".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499C".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_40642B"]
@@ -687,55 +863,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40642B".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40642B".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40642B".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40642B".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40642B".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40642B".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40642B".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40642B".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40642B".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40642B".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4065E3"]
@@ -751,55 +949,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_408175"]
@@ -815,55 +1035,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408175".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408175".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408175".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408175".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408175".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408175".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408175".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408175".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408175".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408175".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_40499F"]
@@ -879,55 +1121,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499F".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499F".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499F".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499F".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499F".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499F".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499F".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499F".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499F".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499F".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4067B3"]
@@ -943,55 +1207,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B3".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B3".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B3".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B3".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B3".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B3".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B3".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B3".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B3".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B3".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4043AE"]
@@ -1007,55 +1293,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043AE".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043AE".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043AE".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043AE".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043AE".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043AE".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043AE".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043AE".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043AE".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043AE".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4065EA"]
@@ -1071,55 +1379,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065EA".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065EA".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065EA".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065EA".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065EA".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065EA".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065EA".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065EA".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065EA".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065EA".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_408165"]
@@ -1135,55 +1465,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408165".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408165".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408165".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408165".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408165".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408165".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408165".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408165".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408165".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408165".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4065DA"]
@@ -1199,55 +1551,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DA".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DA".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DA".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DA".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DA".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DA".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DA".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DA".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DA".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DA".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4067B0"]
@@ -1263,55 +1637,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B0".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B0".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B0".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B0".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B0".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B0".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B0".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B0".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B0".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B0".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_406246"]
@@ -1327,55 +1723,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406246".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406246".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406246".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406246".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406246".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406246".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406246".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406246".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406246".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406246".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4065DD"]
@@ -1391,55 +1809,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DD".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DD".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DD".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DD".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DD".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DD".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DD".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DD".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DD".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DD".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_40641B"]
@@ -1455,55 +1895,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4067BA"]
@@ -1519,55 +1981,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BA".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BA".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BA".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BA".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BA".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BA".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BA".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BA".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BA".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BA".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4065E0"]
@@ -1583,55 +2067,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_406424"]
@@ -1647,55 +2153,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406424".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406424".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406424".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406424".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406424".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406424".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406424".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406424".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406424".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406424".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_402723"]
@@ -1711,55 +2239,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402723".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402723".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402723".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402723".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402723".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402723".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402723".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402723".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402723".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402723".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4067BD"]
@@ -1775,55 +2325,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BD".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BD".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BD".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BD".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BD".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BD".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BD".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BD".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BD".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BD".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4047CD"]
@@ -1839,55 +2411,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047CD".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047CD".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047CD".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047CD".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047CD".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047CD".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047CD".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047CD".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047CD".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047CD".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4065D0"]
@@ -1903,55 +2497,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4047D7"]
@@ -1967,55 +2583,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047D7".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047D7".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047D7".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047D7".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047D7".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047D7".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047D7".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047D7".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047D7".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047D7".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4043B1"]
@@ -2031,55 +2669,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043B1".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043B1".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043B1".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043B1".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043B1".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043B1".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043B1".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043B1".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043B1".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043B1".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_408178"]
@@ -2095,55 +2755,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408178".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408178".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408178".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408178".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408178".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408178".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408178".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408178".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408178".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408178".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_408168"]
@@ -2159,55 +2841,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408168".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408168".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408168".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408168".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408168".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408168".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408168".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408168".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408168".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408168".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4043A7"]
@@ -2223,55 +2927,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043A7".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043A7".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043A7".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043A7".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043A7".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043A7".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043A7".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043A7".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043A7".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043A7".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ANT_REF_R801".Devices."Antwerp_4065D3"]
@@ -2287,55 +3013,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D3".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D3".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D3".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D3".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D3".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D3".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D3".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D3".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D3".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D3".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 
@@ -2352,7 +3100,7 @@
 	"Use as Reference" = true
 
 [Comparisons."OSLO_REF_KVN".Devices."OSLO_REF_KVN"."Boolean Filters"]
-	
+	"Name" = "OSLO_REF_KVN"
 
 [[Comparisons."OSLO_REF_KVN".Devices."OSLO_REF_KVN".Fields]]
 	"Tag" = "NO"
@@ -2409,55 +3157,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11"]
@@ -2473,55 +3243,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E"]
@@ -2537,55 +3329,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3"]
@@ -2601,55 +3415,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082"]
@@ -2665,55 +3501,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A"]
@@ -2729,55 +3587,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D"]
@@ -2793,55 +3673,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_426178"]
@@ -2857,55 +3759,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A"]
@@ -2921,55 +3845,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4"]
@@ -2985,55 +3931,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A"]
@@ -3049,55 +4017,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E"]
@@ -3113,55 +4103,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E"]
@@ -3177,55 +4189,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D"]
@@ -3241,55 +4275,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F"]
@@ -3305,55 +4361,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED"]
@@ -3369,55 +4447,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C"]
@@ -3433,55 +4533,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF"]
@@ -3497,55 +4619,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_649312"]
@@ -3561,55 +4705,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5"]
@@ -3625,55 +4791,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70"]
@@ -3689,55 +4877,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_426179"]
@@ -3753,55 +4963,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F"]
@@ -3817,55 +5049,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4"]
@@ -3881,55 +5135,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_653257"]
@@ -3945,55 +5221,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291"]
@@ -4009,55 +5307,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32"]
@@ -4073,55 +5393,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91"]
@@ -4137,55 +5479,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78"]
@@ -4201,55 +5565,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD"]
@@ -4265,55 +5651,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292"]
@@ -4329,55 +5737,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC"]
@@ -4393,55 +5823,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."OSLO_REF_KVN".Devices.""]
@@ -4457,55 +5909,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."OSLO_REF_KVN".Devices."".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 
@@ -4522,7 +5996,7 @@
 	"Use as Reference" = true
 
 [Comparisons."ZAG_REF_IMI".Devices."ZAG_REF_IMI"."Boolean Filters"]
-	
+	"Name" = "ZAG_REF_IMI"
 
 [[Comparisons."ZAG_REF_IMI".Devices."ZAG_REF_IMI".Fields]]
 	"Tag" = "NO"
@@ -4579,55 +6053,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907"]
@@ -4643,55 +6139,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E"]
@@ -4707,55 +6225,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906"]
@@ -4771,55 +6311,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414"]
@@ -4835,55 +6397,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B"]
@@ -4899,55 +6483,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164"]
@@ -4963,55 +6569,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0"]
@@ -5027,55 +6655,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1"]
@@ -5091,55 +6741,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157"]
@@ -5155,55 +6827,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738"]
@@ -5219,55 +6913,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D"]
@@ -5283,55 +6999,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C"]
@@ -5347,55 +7085,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B"]
@@ -5411,55 +7171,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38"]
@@ -5475,55 +7257,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225"]
@@ -5539,55 +7343,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."ZAG_REF_IMI".Devices.""]
@@ -5603,55 +7429,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 
@@ -5668,7 +7516,7 @@
 	"Use as Reference" = true
 
 [Comparisons."Ispra".Devices."Ispra"."Boolean Filters"]
-	
+	"Name" = "Ispra"
 
 [[Comparisons."Ispra".Devices."Ispra".Fields]]
 	"Tag" = "NO"
@@ -5725,55 +7573,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."Ispra".Devices."Antwerp_40641B"]
@@ -5789,55 +7659,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."Ispra".Devices."Antwerp_4065E0"]
@@ -5853,55 +7745,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."Ispra".Devices."Antwerp_4065D0"]
@@ -5917,55 +7831,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."Ispra".Devices."Oslo_40642E"]
@@ -5981,55 +7917,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."Ispra".Devices."Oslo_40458D"]
@@ -6045,55 +8003,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."Ispra".Devices."Oslo_4065ED"]
@@ -6109,55 +8089,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."Ispra".Devices."Oslo_40816F"]
@@ -6173,55 +8175,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."Ispra".Devices."Zagreb_406414"]
@@ -6237,55 +8261,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 [Comparisons."Ispra".Devices."Zagreb_4047D0"]
@@ -6301,55 +8347,77 @@
 	"Tag" = "P"
 	"Field" = "BMP280"
 	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "T"
 	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "RH"
 	"Field" = "SHT31HI"
 	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "NO"
 	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2_B43F"
 	
+	"Boolean Filters"."NO2_B43F_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "O3"
 	"Field" = "OX_A431_P1"
+	
+	"Boolean Filters"."OX_A431_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "CO"
 	"Field" = "CO_A4_P1"
 	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "CO2"
 	"Field" = "D300"
 	
+	"Boolean Filters"."D300_flag" = "None"
+	
 	
 [[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "PM1"
-	"Field" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "PM10"
-	"Field" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
 	
 	
 
