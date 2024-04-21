@@ -15,6 +15,7 @@ dash-bootstrap-components = "*"
 tomli = "*"
 pygam = "*"
 kaleido = "*"
+statsmodels = "*"
 
 [dev-packages]
 flake8 = "*"

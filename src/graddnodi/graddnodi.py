@@ -471,7 +471,7 @@ def type_check_config(config: dict[str, Any]) -> None:
                         )
                 # Test field boolean filters
                 for bool_name, bool_val in field.get(
-                    "Boolean Filters", dict()
+                    "Boolean Filters", {}
                 ).items():
                     if not isinstance(bool_val, bool_filter_types):
                         errors.append(
@@ -483,7 +483,7 @@ def type_check_config(config: dict[str, Any]) -> None:
 
             # Test Boolean Filters
             for bool_name, bool_val in dev_conf.get(
-                "Boolean Filters", dict()
+                "Boolean Filters", {}
             ).items():
                 if not isinstance(bool_val, bool_filter_types):
                     errors.append(
@@ -559,7 +559,7 @@ def type_check_config(config: dict[str, Any]) -> None:
                         )
                 # Test field boolean filters
                 for bool_name, bool_val in field.get(
-                    "Boolean Filters", dict()
+                    "Boolean Filters", {}
                 ).items():
                     if not isinstance(bool_val, bool_filter_types):
                         errors.append(
@@ -596,9 +596,9 @@ def download_cache(path: Union[str, Path]) -> GraddnodiResults:
     """
     if isinstance(path, str):
         path = Path(path)
-    measurements = dict()
-    pipelines = dict()
-    results = dict()
+    measurements = {}
+    pipelines = {}
+    results = {}
 
     # Import measurements
     logger.debug("Locating previously saved measurements")
@@ -629,13 +629,13 @@ def download_cache(path: Union[str, Path]) -> GraddnodiResults:
     # Import comparisons
     mm_folder = path / "Matched Measurements"
     mm_folder.mkdir(parents=True, exist_ok=True)
-    matched_measurements = dict()
+    matched_measurements = {}
     for comparison in filter(lambda x: x.is_dir(), mm_folder.glob("**/*")):
-        matched_measurements[comparison.parts[-1]] = dict()
+        matched_measurements[comparison.parts[-1]] = {}
         for field in filter(lambda x: x.is_file(), comparison.glob("*.db")):
             find_filename = re.match(r"(?P<filename>.*)\.db", field.parts[-1])
             filename = find_filename.group("filename")
-            matched_measurements[comparison.parts[-1]][filename] = dict()
+            matched_measurements[comparison.parts[-1]][filename] = {}
 
             logger.debug(
                 f"Importing matched measurements for {filename} from db"
@@ -671,7 +671,7 @@ def download_cache(path: Union[str, Path]) -> GraddnodiResults:
             try:
                 pp = pp[part]
             except KeyError:
-                pp[part] = dict()
+                pp[part] = {}
                 pp = pp[part]
         pp[int(filename)] = pkl
         logger.debug(pkl)
@@ -718,7 +718,7 @@ def get_measurements_from_influx(
     run_config: dict[str, Any],
     influx_config: dict[str, Any],
     measurement_db: Path,
-    measurements: MeasurementsDict = dict(),
+    measurements: MeasurementsDict = {},
 ) -> MeasurementsDict:
     """ """
     # Download measurements from cache
@@ -730,7 +730,7 @@ def get_measurements_from_influx(
             logger.debug(f"Skipping {name} as already in measurements keys")
             continue
         logger.debug(f"Downloading measurements for {name}")
-        fields = dict()
+        fields = {}
         bool_filters = settings.get("Boolean Filters", {})
         range_filters = settings.get("Range Filters", {})
         scaling = []
@@ -849,9 +849,9 @@ def comparisons(
             comparison_name = f"{x_device} vs {y_device}"
             logger.info(f"Comparing {x_device} to {y_device}")
             if pipelines.get(comparison_name) is None:
-                pipelines[comparison_name] = dict()
+                pipelines[comparison_name] = {}
             if matched_measurements.get(comparison_name) is None:
-                matched_measurements[comparison_name] = dict()
+                matched_measurements[comparison_name] = {}
             for field, sec_vars in cal_settings["Secondary Variables"].items():
                 all_vars = [field] + sec_vars
                 if (
@@ -861,29 +861,33 @@ def comparisons(
                     logger.debug(f"{field} not valid for {comparison_name}")
                     continue
                 if pipelines[comparison_name].get(field) is None:
-                    pipelines[comparison_name][field] = dict()
+                    pipelines[comparison_name][field] = {}
                 try:
                     logger.info(f"Beginning {comparison_name} for {field}")
-                    calibrate = Calibrate(
+                    calibrate = Calibrate.setup(
                         x_data=x_dframe.loc[
                             :, x_dframe.columns.isin(all_vars)
                         ],
                         y_data=y_dframe.loc[:, [field]],
                         target=field,
+                        scaler=cal_class_config["Scalers"],
+                        interaction_degree=2,
+                        vif_bound=5,
+                        add_time_column=True,
+                        pickle_path=output_path.joinpath(
+                            "Pipelines",
+                            comparison_name,
+                            field
+                        ),
                         folds=cal_class_config["Folds"],
                         strat_groups=cal_class_config["Stratification Groups"],
-                        scaler=cal_class_config["Scalers"],
-                        pickle_path=output_path
-                        / "Pipelines"
-                        / comparison_name
-                        / field,
-                        seed=cal_class_config["Seed"],
+                        seed=cal_class_config["Seed"]
                     )
                 except (ValueError, IndexError) as err:
-                    logger.error(err)
-                    logger.error(
-                        f"Could not complete {comparison_name}. "
-                        f"The indices may not overlap."
+                    logger.exception(
+                        "Could not complete %s. "
+                        "The indices may not overlap.",
+                        comparison_name
                     )
                     continue
                 for method_config in ["Default", "Random Search"]:
@@ -894,17 +898,18 @@ def comparisons(
                         name = f"{technique} ({method_config})"
 
                         if not techniques_to_use.get(technique, False):
-                            logger.debug(f"Skipping {name} as not in config")
+                            logger.debug("Skipping %s as not in config", name)
                             continue
                         if (
                             pipelines[comparison_name][field].get(name)
                             is not None
                         ):
                             logger.debug(
-                                f"Skipping {name} as pipelines already present"
+                                "Skipping %s as pipelines already present",
+                                name
                             )
                             continue
-                        pipelines[comparison_name][field][name] = dict()
+                        pipelines[comparison_name][field][name] = {}
                         logger.debug(f"Calibrating using {name}")
                         method(
                             calibrate,
