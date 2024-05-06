@@ -96,9 +96,8 @@
 [Calibration."Secondary Variables"]
 	"CO" = ["RH", "T", "P", "CO2"]
 	"CO2" = ["RH", "T", "P", "CO"]
-	"NO2" = ["RH", "T", "P", "CO", "O3", "NO"]
-	"O3" = ["RH", "T", "P", "NO", "CO", "NO2"]
-	"NO" = ["RH", "T", "P", "NO2", "CO", "O3"]
+	"NO2" = ["RH", "T", "P", "CO", "NO"]
+	"NO" = ["RH", "T", "P", "NO2", "CO"]
 	"PM1" = ["RH", "T", "P"]
 	"PM2.5" = ["RH", "T", "P"]
 	"PM10" = ["RH", "T", "P"]
@@ -128,11 +127,6 @@
 [[Comparisons."ANT_REF_R801".Devices."ANT_REF_R801".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."ANT_REF_R801".Fields]]
-	"Tag" = "O3"
-	"Field" = "O3"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."ANT_REF_R801".Fields]]
@@ -201,16 +195,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4049A6".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4049A6".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4049A6".Fields]]
@@ -287,16 +274,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047DD".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4047DD".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047DD".Fields]]
@@ -373,16 +353,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40623F".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_40623F".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40623F".Fields]]
@@ -459,16 +432,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E7".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E7".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E7".Fields]]
@@ -545,16 +511,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402B00".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_402B00".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402B00".Fields]]
@@ -631,16 +590,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E0".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E0".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047E0".Fields]]
@@ -717,16 +669,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406249".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_406249".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406249".Fields]]
@@ -803,16 +748,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499C".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_40499C".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499C".Fields]]
@@ -889,16 +827,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40642B".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_40642B".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40642B".Fields]]
@@ -975,16 +906,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E3".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E3".Fields]]
@@ -1061,16 +985,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408175".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_408175".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408175".Fields]]
@@ -1147,16 +1064,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499F".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_40499F".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40499F".Fields]]
@@ -1233,16 +1143,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B3".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B3".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B3".Fields]]
@@ -1319,16 +1222,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043AE".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4043AE".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043AE".Fields]]
@@ -1405,16 +1301,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065EA".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4065EA".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065EA".Fields]]
@@ -1491,16 +1380,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408165".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_408165".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408165".Fields]]
@@ -1577,16 +1459,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DA".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DA".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DA".Fields]]
@@ -1663,16 +1538,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B0".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B0".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067B0".Fields]]
@@ -1749,16 +1617,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406246".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_406246".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406246".Fields]]
@@ -1835,16 +1696,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DD".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DD".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065DD".Fields]]
@@ -1921,16 +1775,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_40641B".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_40641B".Fields]]
@@ -2007,16 +1854,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BA".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BA".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BA".Fields]]
@@ -2093,16 +1933,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E0".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065E0".Fields]]
@@ -2179,16 +2012,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406424".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_406424".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_406424".Fields]]
@@ -2265,16 +2091,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402723".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_402723".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_402723".Fields]]
@@ -2351,16 +2170,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BD".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BD".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4067BD".Fields]]
@@ -2437,16 +2249,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047CD".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4047CD".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047CD".Fields]]
@@ -2523,16 +2328,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D0".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D0".Fields]]
@@ -2609,16 +2407,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047D7".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4047D7".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4047D7".Fields]]
@@ -2695,16 +2486,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043B1".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4043B1".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043B1".Fields]]
@@ -2781,16 +2565,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408178".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_408178".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408178".Fields]]
@@ -2867,16 +2644,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408168".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_408168".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_408168".Fields]]
@@ -2953,16 +2723,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043A7".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4043A7".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4043A7".Fields]]
@@ -3039,16 +2802,9 @@
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D3".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D3".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ANT_REF_R801".Devices."Antwerp_4065D3".Fields]]
@@ -3110,11 +2866,6 @@
 [[Comparisons."OSL_REF_KVN".Devices."OSL_REF_KVN".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."OSL_REF_KVN".Fields]]
-	"Tag" = "O3"
-	"Field" = "O3"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."OSL_REF_KVN".Fields]]
@@ -3183,16 +2934,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_651EF5".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_651EF5".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_651EF5".Fields]]
@@ -3269,16 +3013,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_64FD11".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_64FD11".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_64FD11".Fields]]
@@ -3355,16 +3092,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_65063E".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_65063E".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_65063E".Fields]]
@@ -3441,16 +3171,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_425FB3".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_425FB3".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_425FB3".Fields]]
@@ -3527,16 +3250,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_64B082".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_64B082".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_64B082".Fields]]
@@ -3613,16 +3329,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_647D5A".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_647D5A".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_647D5A".Fields]]
@@ -3699,16 +3408,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_64CB6D".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_64CB6D".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_64CB6D".Fields]]
@@ -3785,16 +3487,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_426178".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_426178".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_426178".Fields]]
@@ -3871,16 +3566,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_64FD0A".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_64FD0A".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_64FD0A".Fields]]
@@ -3957,16 +3645,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_652FA4".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_652FA4".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_652FA4".Fields]]
@@ -4043,16 +3724,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_652D3A".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_652D3A".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_652D3A".Fields]]
@@ -4129,16 +3803,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_65325E".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_65325E".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_65325E".Fields]]
@@ -4215,16 +3882,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_40642E".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_40642E".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_40642E".Fields]]
@@ -4301,16 +3961,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_40458D".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_40458D".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_40458D".Fields]]
@@ -4387,16 +4040,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_40817F".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_40817F".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_40817F".Fields]]
@@ -4473,16 +4119,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_4065ED".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_4065ED".Fields]]
@@ -4559,16 +4198,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_65326C".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_65326C".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_65326C".Fields]]
@@ -4645,16 +4277,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_652FAF".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_652FAF".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_652FAF".Fields]]
@@ -4731,16 +4356,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_649312".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_649312".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_649312".Fields]]
@@ -4817,16 +4435,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_64E9C5".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_64E9C5".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_64E9C5".Fields]]
@@ -4903,16 +4514,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_64CB70".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_64CB70".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_64CB70".Fields]]
@@ -4989,16 +4593,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_426179".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_426179".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_426179".Fields]]
@@ -5075,16 +4672,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_40816F".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_40816F".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_40816F".Fields]]
@@ -5161,16 +4751,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_425FB4".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_425FB4".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_425FB4".Fields]]
@@ -5247,16 +4830,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_653257".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_653257".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_653257".Fields]]
@@ -5333,16 +4909,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_64A291".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_64A291".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_64A291".Fields]]
@@ -5419,16 +4988,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_652A32".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_652A32".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_652A32".Fields]]
@@ -5505,16 +5067,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_648B91".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_648B91".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_648B91".Fields]]
@@ -5591,16 +5146,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_64CB78".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_64CB78".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_64CB78".Fields]]
@@ -5677,16 +5225,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_6517DD".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_6517DD".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_6517DD".Fields]]
@@ -5763,16 +5304,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_64A292".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_64A292".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_64A292".Fields]]
@@ -5849,16 +5383,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_651EFC".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_651EFC".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_651EFC".Fields]]
@@ -5935,16 +5462,9 @@
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_649526".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."OSL_REF_KVN".Devices."Oslo_649526".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."OSL_REF_KVN".Devices."Oslo_649526".Fields]]
@@ -6006,11 +5526,6 @@
 [[Comparisons."ZAG_REF_IMI".Devices."ZAG_REF_IMI".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2"
-	
-	
-[[Comparisons."ZAG_REF_IMI".Devices."ZAG_REF_IMI".Fields]]
-	"Tag" = "O3"
-	"Field" = "O3"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."ZAG_REF_IMI".Fields]]
@@ -6079,16 +5594,9 @@
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
@@ -6165,16 +5673,9 @@
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
@@ -6251,16 +5752,9 @@
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
@@ -6337,16 +5831,9 @@
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
@@ -6423,16 +5910,9 @@
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
@@ -6509,16 +5989,9 @@
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
@@ -6595,16 +6068,9 @@
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
@@ -6681,16 +6147,9 @@
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
@@ -6767,16 +6226,9 @@
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
@@ -6853,16 +6305,9 @@
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
@@ -6939,16 +6384,9 @@
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
@@ -7025,16 +6463,9 @@
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
@@ -7111,16 +6542,9 @@
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
@@ -7197,16 +6621,9 @@
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
@@ -7283,16 +6700,9 @@
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
@@ -7369,16 +6779,9 @@
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
@@ -7455,16 +6858,9 @@
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876B".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876B".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876B".Fields]]
@@ -7526,11 +6922,6 @@
 [[Comparisons."Ispra".Devices."Ispra".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NO2"
-	
-	
-[[Comparisons."Ispra".Devices."Ispra".Fields]]
-	"Tag" = "O3"
-	"Field" = "O3"
 	
 	
 [[Comparisons."Ispra".Devices."Ispra".Fields]]
@@ -7599,16 +6990,9 @@
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
@@ -7685,16 +7069,9 @@
 	
 [[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
@@ -7771,16 +7148,9 @@
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
@@ -7857,16 +7227,9 @@
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
@@ -7943,16 +7306,9 @@
 	
 [[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
@@ -8029,16 +7385,9 @@
 	
 [[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
@@ -8115,16 +7464,9 @@
 	
 [[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
@@ -8201,16 +7543,9 @@
 	
 [[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
@@ -8287,16 +7622,9 @@
 	
 [[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
@@ -8373,16 +7701,9 @@
 	
 [[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
 	"Tag" = "NO2"
-	"Field" = "NO2_B43F"
+	"Field" = "NO2_B43F_P1"
 	
-	"Boolean Filters"."NO2_B43F_flag" = "None"
-	
-	
-[[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
-	"Tag" = "O3"
-	"Field" = "OX_A431_P1"
-	
-	"Boolean Filters"."OX_A431_flag" = "None"
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
 	
 	
 [[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
