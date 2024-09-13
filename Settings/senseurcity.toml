@@ -39,6 +39,8 @@
 	"Isotonic Regression" = true
 	"XGBoost Regression" = true
 	"XGBoost Random Forest Regression" = true	
+	"Linear GAM" = true
+	"Expectile GAM" = true
 
 [Calibration.Techniques."Random Search"]
 	"Linear Regression" = false

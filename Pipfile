@@ -16,6 +16,7 @@ tomli = "*"
 pygam = "*"
 kaleido = "*"
 statsmodels = "*"
+distfit = "*"
 
 [dev-packages]
 flake8 = "*"

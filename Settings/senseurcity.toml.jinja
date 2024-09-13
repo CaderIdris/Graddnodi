@@ -1,0 +1,165 @@
+{% macro input(study, ref_field_dict, dev_field_dict) -%}
+[Comparisons."{{ study['Name'] }}"]
+	"Start" = {{ study["Start"] }}
+	"End" = {{ study["End"] }}
+	"Averaging Operator" = "{{ study["Operator"] }}"
+	"Averaging Period" = "{{ study["Period"] }}"
+
+[Comparisons."{{ study['Name'] }}".Devices."{{ study['Name'] }}"]
+	"Bucket" = "{{ study["Reference"]["Bucket"] }}"
+	"Measurement" = "{{ study["Reference"]["Measurement"] }}"
+	"Use as Reference" = true
+
+[Comparisons."{{ study['Name'] }}".Devices."{{ study['Name'] }}"."Boolean Filters"]
+	"Name" = "{{ study['Name'] }}"
+
+{% for field, config in ref_field_dict.items() -%}
+[[Comparisons."{{ study['Name'] }}".Devices."{{ study['Name'] }}".Fields]]
+	"Tag" = "{{ field }}"
+	"Field" = "{{ config['Field Name'] }}"
+	{% for filter_name, filter_value in config.get("Boolean Filters", {}).items() %}
+	"Boolean Filters"."{{ filter_name }}" = "{{ filter_value }}"
+	{% endfor %}
+	{% if "Scaling" in config -%}
+	"Scaling" = [
+		{
+		"Slope" = {{ config["Scaling"].get("Slope", 1) }},
+		"Offset" = {{ config["Scaling"].get("Offset", 0) }}
+		}
+	]
+	{%- endif %}
+{% endfor %}
+
+{% for name, device in study['Devices'].items() -%}
+[Comparisons."{{ study['Name'] }}".Devices."{{ device['Name'] }}"]
+	"Bucket" = "{{ device['Bucket'] }}"
+	"Measurement" = "{{ device['Measurement'] }}"
+	"Use as Reference" = false
+
+[Comparisons."{{ study['Name'] }}".Devices."{{ device['Name'] }}"."Boolean Filters"]
+	"Name" = "{{ device['Name'] }}"
+	"Location.ID" = "{{ study['Name'] }}"
+
+{% for field, config in dev_field_dict.items() -%}
+[[Comparisons."{{ study['Name'] }}".Devices."{{ device['Name'] }}".Fields]]
+	"Tag" = "{{ field }}"
+	"Field" = "{{ config['Field Name'] }}"
+	{% for filter_name, filter_value in config.get("Boolean Filters", {}).items() %}
+	"Boolean Filters"."{{ filter_name }}" = "{{ filter_value }}"
+	{% endfor %}
+	{% if "Scaling" in config -%}
+	"Scaling" = [
+		{
+		"Slope" = {{ config["Scaling"].get("Slope", 1) }},
+		"Offset" = {{ config["Scaling"].get("Offset", 0) }}
+		}
+	]
+	{%- endif %}
+{% endfor %}
+
+{%- endfor %}
+
+{%- endmacro %}
+[Calibration.Configuration]
+	"Folds" = 5
+	"Stratification Groups" = 10
+	"Seed" = 72
+	"Scalers" = "All"
+
+[Calibration.Techniques.Default]
+	"Linear Regression" = true
+	"Ridge Regression" = true
+	"Ridge Regression (Cross Validated)" = true
+	"Lasso Regression" = true
+	"Lasso Regression (Cross Validated)" = true
+	"Elastic Net Regression" = true
+	"Elastic Net Regression (Cross Validated)" = true
+	"Least Angle Regression" = true
+	"Least Angle Lasso Regression" = true
+	"Orthogonal Matching Pursuit" = true
+	"Bayesian Ridge Regression" = true
+	"Bayesian Automatic Relevance Detection" = true
+	"Tweedie Regression" = true
+	"Stochastic Gradient Descent" = true
+	"Passive Aggressive Regression" = true
+	"RANSAC" = true
+	"Theil-Sen Regression" = true
+	"Huber Regression" = true
+	"Quantile Regression" = true
+	"Decision Tree" = true
+	"Extra Tree" = true
+	"Random Forest" = false
+	"Extra Trees Ensemble" = false
+	"Gradient Boosting Regression" = true
+	"Histogram-Based Gradient Boosting Regression" = true
+	"Multi-Layer Perceptron Regression" = true
+	"Support Vector Regression" = true
+	"Linear Support Vector Regression" = true
+	"Nu-Support Vector Regression" = true
+	"Gaussian Process Regression" = false
+	"Isotonic Regression" = true
+	"XGBoost Regression" = true
+	"XGBoost Random Forest Regression" = true	
+
+[Calibration.Techniques."Random Search"]
+	"Linear Regression" = false
+	"Ridge Regression" = false
+	"Lasso Regression" = false
+	"Elastic Net Regression" = false
+	"Least Angle Regression" = false
+	"Least Angle Lasso Regression" = false
+	"Orthogonal Matching Pursuit" = false
+	"Bayesian Ridge Regression" = false
+	"Bayesian Automatic Relevance Detection" = false
+	"Tweedie Regression" = false
+	"Stochastic Gradient Descent" = false
+	"Passive Aggressive Regression" = false
+	"RANSAC" = false
+	"Theil-Sen Regression" = false
+	"Huber Regression" = false
+	"Quantile Regression" = false
+	"Decision Tree" = false
+	"Extra Tree" = false
+	"Random Forest" = false
+	"Extra Trees Ensemble" = false
+	"Gradient Boosting Regression" = false
+	"Histogram-Based Gradient Boosting Regression" = false
+	"Multi-Layer Perceptron Regression" = false
+	"Support Vector Regression" = false
+	"Linear Support Vector Regression" = false
+	"Nu-Support Vector Regression" = false
+	"Gaussian Process Regression" = false
+	"Isotonic Regression" = false
+	"XGBoost Regression" = false
+	"XGBoost Random Forest Regression" = false	
+
+[Metrics]
+	"Explained Variance Score" = false
+	"Max Error" = true
+	"Mean Absolute Error" = true
+	"Root Mean Squared Error" = true
+	"Root Mean Squared Log Error" = false
+	"Median Absolute Error" = true
+	"Mean Absolute Percentage Error" = true
+	"r2" = true
+	"Mean Poisson Deviance" = false
+	"Mean Gamma Deviance" = false
+	"Mean Tweedie Deviance" = false
+	"Mean Pinball Loss" = true
+	"Centered Root Mean Squared Error" = true
+	"Unnbiased Root Mean Squared Error" = true
+	"Mean Bias Error" = true
+	"Reference IQR" = true
+	"Reference Mean" = true
+	"Reference Range" = true
+	"Reference Standard Deviation" = true
+
+[Calibration."Secondary Variables"]
+	{% for key, value in sec_vars.items() -%}
+	"{{ key }}" = ["{{ value|join('", "') }}"]
+	{% endfor %}
+
+
+{% for study_config in studies.values() %}
+{{ input(study_config["Study"], study_config["Reference Fields"], study_config["Device Fields"]) }}
+{% endfor %}

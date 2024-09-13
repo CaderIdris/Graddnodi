@@ -620,6 +620,7 @@ def download_cache(path: Union[str, Path]) -> GraddnodiResults:
             data = pd.read_sql(sql=f"SELECT * from '{table[0]}'", con=con)
             if data.shape[0] == 0:
                 continue
+            data["_time"] = pd.to_datetime(data["_time"])
             data = data.set_index("_time")
             measurements[table[0]] = data
         con.close()
@@ -649,6 +650,7 @@ def download_cache(path: Union[str, Path]) -> GraddnodiResults:
             cursor.close()
             for table in tables:
                 data = pd.read_sql(sql=f"SELECT * from '{table[0]}'", con=con)
+                data["_time"] = pd.to_datetime(data["_time"])
                 if data.shape[0] == 0:
                     continue
                 data = data.set_index("_time")
@@ -853,7 +855,8 @@ def comparisons(
             if matched_measurements.get(comparison_name) is None:
                 matched_measurements[comparison_name] = {}
             for field, sec_vars in cal_settings["Secondary Variables"].items():
-                all_vars = [field] + sec_vars
+                all_vars = [field, *sec_vars]
+                skip_field = True
                 if (
                     field not in x_dframe.columns
                     or field not in y_dframe.columns
@@ -863,6 +866,23 @@ def comparisons(
                 if pipelines[comparison_name].get(field) is None:
                     pipelines[comparison_name][field] = {}
                 try:
+                    for method_config in ["Default", "Random Search"]:
+                        techniques_to_use = cal_settings["Techniques"][
+                            method_config
+                        ]
+                        for technique, method in techniques.items():
+                            name = f"{technique} ({method_config})"
+
+                            if not techniques_to_use.get(technique, False):
+                                continue
+                            if (
+                                pipelines[comparison_name][field].get(name)
+                                is not None
+                            ):
+                                continue
+                            skip_field = False
+                    if skip_field:
+                        continue
                     logger.info(f"Beginning {comparison_name} for {field}")
                     calibrate = Calibrate.setup(
                         x_data=x_dframe.loc[
@@ -872,13 +892,15 @@ def comparisons(
                         target=field,
                         scaler=cal_class_config["Scalers"],
                         interaction_degree=2,
-                        vif_bound=5,
+                        interaction_features=["T", "RH"],
+                        vif_bound=None,
                         add_time_column=True,
                         pickle_path=output_path.joinpath(
                             "Pipelines",
                             comparison_name,
                             field
                         ),
+                        subsample_data=14170,
                         folds=cal_class_config["Folds"],
                         strat_groups=cal_class_config["Stratification Groups"],
                         seed=cal_class_config["Seed"]

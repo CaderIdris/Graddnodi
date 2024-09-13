@@ -11,6 +11,7 @@ from flask import Flask
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 import dash_bootstrap_components as dbc
 
 FULL_TABLE_LAYOUT = {"margin": {"pad": 0, "b": 0, "t": 0, "l": 0, "r": 0}}
@@ -18,8 +19,8 @@ FULL_TABLE_LAYOUT = {"margin": {"pad": 0, "b": 0, "t": 0, "l": 0, "r": 0}}
 FIGURE_LAYOUT = {
     "margin": {"pad": 0, "b": 0, "t": 0, "l": 0, "r": 0},
     "showlegend": False,
-    "font": {"size": 16},
-    "paper_bgcolor": "rgba(0,0,0,0)",
+    "font": {"size": 24},
+    "paper_bgcolor": "rgba(255,255,255)",
     "plot_bgcolor": "rgba(0,0,0,0)",
     "colorway": ["#1d2021"],
     "scattermode": "group",
@@ -356,7 +357,7 @@ def result_table_plot(dfs, col):
     }
     summary = pd.DataFrame()
     for name, df in dfs.items():
-        c_data = df[col]
+        c_data = df.loc[:, col]
         for stat, func in summary_functions.items():
             summary.loc[stat, name] = round(func(c_data), 3)
     summary.index.name = "Statistic"
@@ -385,20 +386,47 @@ def box_plot(dfs, col, norm_options):
         "Explained Variance Score",
     ]
     box_plot_fig = go.Figure()
-    for name, df in dfs.items():
-        c_data = df[col]
-        box_plot_fig.add_trace(
-            go.Box(
-                y=c_data,
-                name=name,
-                hoverinfo="all",
-                boxmean="sd",
-                fillcolor="rgba(0,0,0,0)",
+    for name in [k for k in dfs if k != "None"] + ["None"]:
+        df = dfs.get(name)
+        if df is None:
+            continue
+        c_data = df.loc[:, col]
+        if c_data.mean() > 10E6:
+            c_data = []
+        if name == "None":
+            box_plot_fig.add_trace(
+                go.Box(
+                    y=[],
+                    name=name,
+                    hoverinfo="all",
+                    boxmean="sd",
+                    fillcolor="rgba(0,0,0,0)",
+                )
             )
-        )
+            box_plot_fig.add_trace(
+                go.Scatter(
+                    x=["None" for _ in c_data],
+                    y=c_data,
+                    name=name,
+                    mode="markers"
+                )
+            )
+        else:
+            box_plot_fig.add_trace(
+                go.Box(
+                    y=c_data,
+                    name=name,
+                    hoverinfo="all",
+                    boxmean="sd",
+                    fillcolor="rgba(0,0,0,0)",
+                )
+            )
+    if "None" in dfs:
+        for d in box_plot_fig.data:
+            logging.critical(d)
 
     if norm_options and norm_options != "None" and col not in no_norm:
-        title = f"{col} / {norm_options}"
+        title = f"{col} /<br>{norm_options}"
     else:
         title = col
 
@@ -420,7 +448,7 @@ def violin_plot(dfs, col, norm_options):
     ]
     box_plot_fig = go.Figure()
     for name, df in dfs.items():
-        c_data = df[col]
+        c_data = df.loc[:, col]
         box_plot_fig.add_trace(
             go.Violin(
                 y=c_data,
@@ -452,6 +480,7 @@ def prop_imp_plot(dfs, col):
     improved_techs = pd.DataFrame()
     for name, df in dfs.items():
         adjusted = df[col] - df[f"{col} (Raw)"]
+        c_data = df.loc[:, col] - df.loc[f"{col} (Raw)"]
         if col not in pos_better:
             improved = adjusted.lt(0)
         else:
@@ -556,6 +585,14 @@ def results_plot(plot_type, dfs, col, norm):
             key: pd.read_json(StringIO(df), orient="split")
             for key, df in dfs.items()
         }
+        logging.critical(data.keys())
+        if all([" (Default)" in key or "None" in key for key in data.keys()]):
+            logging.critical(True)
+            data = {
+                key.replace(" (Default)", ""): df
+                for key, df in data.items()
+            }
+        logging.critical(data.keys())
     else:
         return empty_figure()
 
@@ -626,19 +663,19 @@ def generate_graphs_for_paper(button, path, dbi):
     logging.error(config)
     for run, data in config.items():
         logging.error(run)
-        filepath = graph_path.joinpath(f"{run}.svg")
+        filepath = graph_path.joinpath(f"{run}.png")
         if filepath.exists():
             continue
         _, _, _, _, _, _, cci, _ = filter_options(
             None,
             db_index,
-            data.get("Reference Instruments", list()),
-            data.get("Fields", list()),
-            data.get("Calibration Devices", list()),
-            data.get("Techniques", list()),
-            data.get("Scaling Techniques", list()),
-            data.get("Variables", list()),
-            data.get("Folds", list()),
+            data.get("Reference Instruments", []),
+            data.get("Fields", []),
+            data.get("Calibration Devices", []),
+            data.get("Techniques", []),
+            data.get("Scaling Techniques", []),
+            data.get("Variables", []),
+            data.get("Folds", []),
         )
         results, raw = get_results_df(
             cci, path, data.get("Reference Instruments", [])
@@ -651,15 +688,130 @@ def generate_graphs_for_paper(button, path, dbi):
             raw,
         )
         logging.error(grouped.keys())
-        plot = results_plot(
-            tag_dict.get(data.get("Plot Type", "Box Plot")),
-            grouped,
-            data.get("Metric Column", "r2"),
-            data.get("Normalise By", "None"),
+        metric_columns = data.get("Metric Column", "r2")
+        if isinstance(metric_columns, str):
+            plot = results_plot(
+                tag_dict.get(data.get("Plot Type", "Box Plot")),
+                grouped,
+                metric_columns,
+                data.get("Normalise By", "None"),
+            )
+            plot.update_xaxes(**data.get("X Axis", {}))
+            plot.update_yaxes(**data.get("Y Axis", {}))
+            plot.update_yaxes(**{
+                "ticks": "outside",
+                "gridcolor": "#1d2021",
+                #"font": {"size": 16},
+                "showgrid": True,
+                "zeroline": True,
+                "showline": True,
+                "zerolinecolor": "#1d2021",
+            })
+        elif isinstance(metric_columns, list):
+            plot_type = tag_dict.get(data.get("Plot Type", "Box Plot"))
+            normalise_by = data.get("Normalise By", "None")
+            plots = {
+                metric: results_plot(plot_type, grouped, metric, normalise_by)
+                for metric in metric_columns
+            }
+            plot_type = 'table' if plot_type == "results-table-tab" else "xy"
+            plot = make_subplots(
+                cols=1,
+                rows=len(plots),
+                vertical_spacing=0.01,
+                shared_xaxes=True,
+                specs = [[{'type': plot_type}] for _ in range(len(plots))]
+            )
+            for index, (metric, subplot) in enumerate(plots.items(), start=1):
+                axes_num = "" if index == 1 else str(index)
+                traces = subplot.select_traces()
+                plot_config = subplot.to_dict()
+                layout = plot_config.get("layout", {})
+                print(plot_config["layout"].keys())
+                for trace in traces:
+                    plot.add_trace(
+                        trace,
+                        row=index,
+                        col=1
+                    )
+                if plot_type != 'table':
+                    plot.add_annotation(
+                        xref='x domain',
+                        yref='y domain',
+                        x=0.01,
+                        y=0.97,
+                        text=f'({chr(96+index)})',
+                        font={"size": 24},
+                        showarrow=False,
+                        row=index,
+                        col=1
+                    )
+                plot.update_layout(**{
+                    k: v
+                    for k, v in layout.items()
+                    if k not in ["xaxis", "yaxis"]
+                })
+                xaxis_config = layout.get('xaxis', {})
+                xaxis_config.update(data.get("X Axis", {}).get(metric, {}))
+                xaxis_config.update({
+                    "ticks": "outside",
+                    "gridcolor": "#b6bdbf",
+                    "showgrid": True,
+                    "showline": True,
+                    "mirror": True,
+                    #"title": {"font": {"size": 16}},
+                    "linecolor": "#1d2021",
+                    "tickangle": -45
+                })
+                yaxis_config = layout.get('yaxis', {})
+                yaxis_config.update(data.get("Y Axis", {}).get(metric, {}))
+                yaxis_config.update({
+                    "ticks": "outside",
+                    "gridcolor": "#b6bdbf",
+                    "showgrid": True,
+                    "zeroline": True,
+                    "showline": True,
+                    #"title": {"font": {"size": 16}},
+                    "mirror": True,
+                    "zerolinecolor": "#b6bdbf",
+                    "linecolor": "#1d2021",
+                    "minor": {
+                        "ticks": "outside",
+                        "gridcolor": "#e5e6e7",
+                        "showgrid": True,
+
+                    }
+                })
+                if plot_type != 'table':
+                    plot.layout[f'xaxis{axes_num}'].update(**xaxis_config)
+                    plot.layout[f'yaxis{axes_num}'].update(**yaxis_config)
+        else:
+            plot = results_plot(
+                tag_dict.get(data.get("Plot Type", "Box Plot")),
+                grouped,
+                "r2",
+                data.get("Normalise By", "None"),
+            )
+            plot.update_xaxes(**data.get("X Axis", {}))
+            plot.update_yaxes(**data.get("Y Axis", {}))
+            plot.update_yaxes(**{
+                "ticks": "outside",
+                "gridcolor": "#1d2021",
+                "showgrid": True,
+                "zeroline": True,
+                "zerolinecolor": "#1d2021",
+            })
+        dimension_dict = {
+            "width": 2100,
+            "height": 800 * (
+                len(metric_columns) if isinstance(metric_columns, list) else 1
+            )
+        }
+        layout_dict = data.get("Layout", {})
+        plot.update_layout(
+            **layout_dict,
+            **{k: v for k, v in dimension_dict.items() if k not in layout_dict}
         )
-        plot.update_xaxes(**data.get("X Axis", {}))
-        plot.update_yaxes(**data.get("Y Axis", {}))
-        plot.update_layout(**data.get("Layout", {}))
         logging.critical(data.get("Y Axis", {}))
         plot.write_image(filepath)
 
