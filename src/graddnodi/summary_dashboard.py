@@ -5,14 +5,26 @@ import logging
 import os
 from pathlib import Path
 import sqlite3 as sql
+from typing import Optional
 
 from dash import Dash, html, dcc, callback, Output, Input, State
+from dash.exceptions import PreventUpdate
 from flask import Flask
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import dash_bootstrap_components as dbc
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(
+    level=logging.WARNING if not os.getenv("PYLOGDEBUG", None) \
+        else logging.DEBUG,
+    format=(
+        "%(asctime)s: %(levelname)s - [%(funcName)s]:[%(lineno)d]"
+        "- %(message)s"
+    )
+)
 
 FULL_TABLE_LAYOUT = {"margin": {"pad": 0, "b": 0, "t": 0, "l": 0, "r": 0}}
 
@@ -32,45 +44,123 @@ flask_server = Flask(__name__)
 app = Dash(
     __name__,
     external_stylesheets=external_stylesheets,
-    server=flask_server,
+    server=flask_server
 )
 server = app.server
 
 output_folder = Path(os.getenv("GRADDNODI_OUTPUT", "Output/"))
-logging.critical(output_folder)
-logging.critical(output_folder.is_dir())
+logger.debug(
+    "Expected output folder (%s) exists: %s",
+    output_folder,
+    str(output_folder.is_dir())
+)
 output_options = [
     str(_dir.parts[-1]) for _dir in output_folder.glob("*") if _dir.is_dir()
 ]
+logger.debug("Available options:")
+for graddnodi_data_folder in output_options:
+    logger.debug("- %s", graddnodi_data_folder)
 
 
-@callback(Output("folder-path", "data"), Input("folder-name", "value"))
 def folder_path(name):
     return str(output_folder.joinpath(name))
 
 
 @callback(
-    Output("folder-output-text", "children"), Input("folder-path", "data")
+    Output("db-index", "data"),
+    Input("reference-button-state", "n_clicks"),
+    State("reference-df-index", "data"),
+    State("reference-options", "value"),
 )
-def folder_path_text(path):
-    return f"Using data from {path}"
+def get_df_index(
+    _: int,
+    reference_index: Optional[str],
+    reference_options: Optional[list[str]]
+) -> Optional[str]:
+    """Get all metadata from sqlite db.
+
+    Parameters
+    ----------
+    folders : list[str]
+        List of all folders containing sqlite db to query data from.
+
+    Returns
+    -------
+    json representation of dataframe containing all metadata (e.g technique)
+    """
+    ref_df = pd.read_json(StringIO(reference_index), orient="split")
+    raw_index = []
+    for path, config in ref_df.groupby("Folder"):
+        logger.debug("Querying sqlite db in %s", path)
+        con = sql.connect(str(path))
+        sql_query = [
+            (
+                'SELECT DISTINCT "Reference", "Field", "Calibrated", '
+                '"Technique", "Scaling Method", "Variables", "Fold" FROM '
+                'Results '
+            )
+        ]
+        if reference_options:
+            logger.debug(reference_options)
+            logger.debug(config["Reference"])
+            opts_to_use = "', '".join(
+                [
+                    ref
+                    for ref in reference_options
+                    if ref in config["Reference"].to_list()
+                ]
+            )
+            logger.debug(opts_to_use)
+            sql_query.append(
+                f"""WHERE "Reference" IN ('{opts_to_use}')"""
+            )
+        sql_query.append(";")
+        logger.debug("".join(sql_query))
+        sql_index = pd.read_sql(
+            sql="".join(sql_query),
+            con=con,
+        )
+        sql_index["Folder"] = str(path)
+        raw_index.append(
+            sql_index
+        )
+        con.close()
+    index = pd.concat(raw_index)
+    logger.debug("Number of distinct indices: %s", index.shape[0])
+    return index.to_json(orient="split")
 
 
-@callback(Output("db-index", "data"), Input("folder-path", "data"))
-def get_df_index(path):
-    con = sql.connect(Path(path).joinpath("Results").joinpath("Results.db"))
-    raw_index = pd.read_sql(
-        sql='SELECT DISTINCT "Reference", "Field", "Calibrated", "Technique", "Scaling Method", "Variables", "Fold" FROM Results;',
-        con=con,
-    )
-    con.close()
-    return raw_index.to_json(orient="split")
-
-
-@callback(Output("reference-options", "options"), Input("db-index", "data"))
-def ref_opts(data):
-    df = pd.read_json(StringIO(data), orient="split")
-    return [{"label": i, "value": i} for i in sorted(df["Reference"].unique())]
+@callback(
+    Output("reference-options", "options"),
+    Output("reference-df-index", "data"),
+    Input("folder-button-state", "n_clicks"),
+    State("folder-name", "value")
+)
+def ref_opt(_: int, folders: Optional[list[str]]):
+    raw_index = []
+    if folders is None:
+        logger.debug("No folders selected")
+        raise PreventUpdate
+    for folder in folders:
+        path = output_folder.joinpath(f"{folder}/Results/Results.db")
+        logger.debug("Querying sqlite db in %s", path)
+        con = sql.connect(path)
+        sql_index = pd.read_sql(
+            sql=(
+                'SELECT DISTINCT "Reference" FROM Results;'
+            ),
+            con=con,
+        )
+        sql_index["Folder"] = str(path)
+        raw_index.append(
+            sql_index
+        )
+        con.close()
+    index = pd.concat(raw_index)
+    logger.debug("Number of distinct reference devices: %s", index.shape[0])
+    options = [{"label": i, "value": i} for i in index["Reference"].unique()]
+    logger.debug(options)
+    return options, index.to_json(orient="split")
 
 
 @callback(
@@ -84,7 +174,6 @@ def ref_opts(data):
     Output("num-of-runs", "children"),
     Input("submit-button-state", "n_clicks"),
     Input("db-index", "data"),
-    Input("reference-options", "value"),
     State("field-options", "value"),
     State("calibrated-device-options", "value"),
     State("technique-options", "value"),
@@ -92,7 +181,44 @@ def ref_opts(data):
     State("var-options", "value"),
     State("fold-options", "value"),
 )
-def filter_options(_, data, ref_d, fields, cal_d, tech, sca, var, fold):
+def filter_options(
+    _: int,
+    data: str,
+    fields: Optional[list[str]],
+    cal_d: Optional[list[str]],
+    tech: Optional[list[str]],
+    sca: Optional[list[str]],
+    var: Optional[list[str]],
+    fold: Optional[list[str]]
+) -> tuple[
+    list[dict[str, str]],
+    list[dict[str, str]],
+    list[dict[str, str]],
+    list[dict[str, str]],
+    list[dict[str, str]],
+    list[dict[str, str]],
+    str,
+    str
+]:
+    """Return options to select subset of results.
+
+    Parameters
+    ----------
+    _ : int
+        Unused.
+    data : str
+        All available parameters.
+    cal_d : list[str], optional
+        Selected calibration devices.
+    tech : list[str], optional
+        Selected calibration techniques.
+    sca : list[str], optional
+        Selected scaling techniques.
+    var : list[str], optional
+        Selected variables.
+    fold : list[str], optional
+        Selected folds.
+    """
     levels = {
         "Field": fields,
         "Calibrated": cal_d,
@@ -101,36 +227,41 @@ def filter_options(_, data, ref_d, fields, cal_d, tech, sca, var, fold):
         "Variables": var,
         "Fold": fold,
     }
-    if not ref_d:
-        return [], [], [], [], [], [], "", ""
-    if not isinstance(data, pd.DataFrame):
-        db_index = pd.read_json(StringIO(data), orient="split")
-    else:
-        db_index = data
-    df: pd.DataFrame = db_index[db_index["Reference"].isin(ref_d)]
-    s_df: pd.DataFrame = df.copy(deep=True)
+    if not data:
+        raise PreventUpdate
+    unedited_df: pd.DataFrame = pd.read_json(StringIO(data), orient="split")
+    s_df = unedited_df.copy(deep=True)
     for name, col in levels.items():
         if not col:
-            cols = s_df[name].unique()
-        else:
-            cols = col
-        s_df = s_df[s_df[name].isin(cols)]
+            continue
+        s_df = pd.DataFrame(s_df[s_df[name].isin(col)])
 
     return (
-        [{"label": i, "value": i} for i in sorted(df["Field"].unique())],
-        [{"label": i, "value": i} for i in sorted(df["Calibrated"].unique())],
         [
-            {"label": i.replace(" Regression", ""), "value": i}
-            for i in sorted(df["Technique"].unique())
+            {"label": i, "value": i}
+            for i in sorted(unedited_df["Field"].unique())
         ],
         [
             {"label": i, "value": i}
-            for i in sorted(df["Scaling Method"].unique())
+            for i in sorted(unedited_df["Calibrated"].unique())
         ],
-        [{"label": i, "value": i} for i in sorted(df["Variables"].unique())],
-        [{"label": i, "value": i} for i in sorted(df["Fold"].unique())],
-        s_df.to_json(orient="split"),
-        # table_fig,
+        [
+            {"label": i.replace(" Regression", ""), "value": i}
+            for i in sorted(unedited_df["Technique"].unique())
+        ],
+        [
+            {"label": i, "value": i}
+            for i in sorted(unedited_df["Scaling Method"].unique())
+        ],
+        [
+            {"label": i, "value": i}
+            for i in sorted(unedited_df["Variables"].unique())
+        ],
+        [
+            {"label": i, "value": i}
+            for i in sorted(unedited_df["Fold"].unique())
+        ],
+        str(s_df.to_json(orient="split")),
         f"{s_df.shape[0]} combinations",
     )
 
@@ -138,78 +269,97 @@ def filter_options(_, data, ref_d, fields, cal_d, tech, sca, var, fold):
 @callback(
     Output("results-df", "data"),
     Output("raw-df", "data"),
-    # Output("results-table", "figure"),
-    Input("chosen-combo-index", "data"),
-    State("folder-path", "data"),
-    State("reference-options", "value"),
+    Input("chosen-combo-index", "data")
 )
-def get_results_df(data, path, ref_d):
-    if not ref_d:
-        return (
-            pd.DataFrame().to_json(orient="split"),
-            pd.DataFrame().to_json(orient="split"),
-        )
-    df = pd.read_json(StringIO(data), orient="split")
-    query_list = ["SELECT *", "FROM Results"]
-    none_query_list = ["SELECT *", "FROM Results"]
-    for i, (name, vals) in enumerate(df.items()):
-        val_list = "', '".join(vals.unique())
-        query_list.append(
-            f"""{"WHERE" if i == 0 else "AND"} "{name}" in ('{val_list}')"""
-        )
-        if name == "Technique":
-            none_query_list.append(
-                f"""{"WHERE" if i == 0 else "AND"} "{name}" in ('None')"""
+def get_results_df(
+    index_to_query: Optional[str]
+) -> tuple[Optional[str], Optional[str]]:
+    """Query results from database.
+
+    Parameters
+    ----------
+    index_to_query : str, optional
+        Index values to query from results, in json split orientation.
+
+    Returns
+    -------
+    tuple containing subset of results and results with no calibration.
+    """
+    index_df = pd.read_json(StringIO(index_to_query), orient="split")
+    sql_data_list = []
+    none_data_list = []
+    for database, info in index_df.groupby("Folder"):
+        logging.debug("Querying results in: %s", database)
+        query_list = ["SELECT *", "FROM Results"]
+        none_query_list = ["SELECT *", "FROM Results"]
+        for i, (name, vals) in enumerate(info.drop("Folder", axis=1).items()):
+            val_list = "', '".join(vals.unique())
+            query_list.append(
+                f"""{"WHERE" if i == 0 else "AND"} """
+                f""""{name}" in ('{val_list}')"""
             )
-        else:
-            none_query_list.append(
-                f"""{"WHERE" if i == 0 else "AND"} "{name}" in ('{val_list}')"""
-            )
-    con = sql.connect(Path(path).joinpath("Results").joinpath("Results.db"))
-    query = "\n".join(query_list)
-    none_query = "\n".join(none_query_list)
-    sql_data = pd.read_sql(sql=f"{query};", con=con).drop(
-        columns=["level_0", "index"], errors="ignore"
+            if name == "Technique":
+                none_query_list.append(
+                    f"""{"WHERE" if i == 0 else "AND"} """
+                    f""""{name}" in ('None')"""
+                )
+            else:
+                none_query_list.append(
+                    f"""{"WHERE" if i == 0 else "AND"} """
+                    f""""{name}" in ('{val_list}')"""
+                )
+        con = sql.connect(str(database))
+        logging.debug("Query: %s", " \\n ".join(query_list))
+        logging.debug("None Query: %s", " \\n ".join(none_query_list))
+        query = "\n".join(query_list)
+        none_query = "\n".join(none_query_list)
+        results = pd.read_sql(sql=f"{query};", con=con).drop(
+            columns=["level_0", "index"], errors="ignore"
+        )
+        none_results = pd.read_sql(sql=f"{none_query};", con=con).drop(
+            columns=["level_0", "index"], errors="ignore"
+        )
+        results["Study"] = Path(str(database)).parts[-3]
+        sql_data_list.append(results)
+        none_data_list.append(none_results)
+        con.close()
+
+    sql_data = pd.concat(sql_data_list)
+    none_data = pd.concat(none_data_list)
+    return (
+        sql_data.to_json(orient='split'),
+        none_data.to_json(orient='split')
     )
-    none_sql_data = pd.read_sql(sql=f"{none_query};", con=con).drop(
-        columns=["level_0", "index"], errors="ignore"
-    )
-    con.close()
 
-    return sql_data.to_json(orient="split"), none_sql_data.to_json(
-        orient="split"
-    )  # , table_fig
-
-
-@callback(Output("results-tabs", "children"), Input("folder-path", "data"))
-def results_tabs(path):
+@callback(Output("results-tabs", "children"), Input("chosen-combo-index", "data"))
+def results_tabs(index_to_query: Optional[str]):
     """ """
-    con = sql.connect(Path(path).joinpath("Results").joinpath("Results.db"))
-    df = pd.read_sql("SELECT * FROM 'Results' LIMIT 1;", con=con)
-    con.close()
-    bad_cols = [
-        "index",
-        "Field",
-        "Reference",
-        "Calibrated",
-        "Technique",
-        "Scaling Method",
-        "Variables",
-        "Fold",
-        "Count",
-        *[col for col in df.columns if "Reference" in col],
-    ]
-    cols = [col for col in df.columns if col not in bad_cols]
-    tabs = list()
-    for col in cols:
-        tabs.append(dcc.Tab(label=col, value=col))
-
+    index_df = pd.read_json(StringIO(index_to_query), orient="split")
+    cols = set()
+    for db in index_df["Folder"].unique():
+        con = sql.connect(db)
+        df = pd.read_sql("SELECT * FROM 'Results' LIMIT 1;", con=con)
+        con.close()
+        bad_cols = [
+            "index",
+            "Field",
+            "Reference",
+            "Calibrated",
+            "Technique",
+            "Scaling Method",
+            "Variables",
+            "Fold",
+            "Count",
+            *[col for col in df.columns if "Reference" in col],
+        ]
+        cols.update({col for col in df.columns if col not in bad_cols})
+    tabs = [dcc.Tab(label=col, value=col) for col in sorted(cols)]
     if not tabs:
         tabs = [dcc.Tab(label="No Data", value="nd")]
 
     return dcc.Tabs(
         id="result-box-plot-tabs",
-        value=cols[0] if cols else "nd",
+        value=sorted(cols)[0] if cols else "nd",
         children=tabs,
     )
 
@@ -269,13 +419,13 @@ def grouped_data(
     cal_results, split_by, norm_by, outlier_removal, uncal_results
 ):
     """ """
-    s_data = dict()
+    split_data = {}
     # Import data
-    df = pd.read_json(StringIO(cal_results), orient="split")
-    if not df.shape[0]:
-        return s_data
+    results = pd.read_json(StringIO(cal_results), orient="split")
+    if not results.shape[0]:
+        return split_data
     raw_df = pd.read_json(StringIO(uncal_results), orient="split")
-    df = df.join(
+    results = results.join(
         raw_df.set_index(["Field", "Reference", "Calibrated"]),
         on=["Field", "Reference", "Calibrated"],
         how="left",
@@ -297,50 +447,58 @@ def grouped_data(
         "Scaling Method",
         "Variables",
         "Fold",
+        "Study"
     ]
+    for study, df in results.groupby("Study"):
+        logger.debug("Splitting data for %s", study)
+        logger.debug("%s rows in study", df.shape[0])
+        split_data[study] = {}
+        try:
+            grouped = df.groupby(split_by)
+        except KeyError:
+            continue
 
-    try:
-        grouped = df.groupby(split_by)
-    except KeyError:
-        return s_data
-
-    logging.critical(outlier_removal)
-    logging.critical(norm_by)
-
-    for name_t, data in grouped:
-        name = ", ".join(name_t)
-        for col in [
-            col
-            for col in data.columns
-            if "(Raw)" not in col
-            and "Reference " not in col
-            and col not in index
-        ]:
-            if outlier_removal == "Yes":
-                q3 = data[col].quantile(0.75)
-                q1 = data[col].quantile(0.25)
-                iqr = q3 - q1
-                upper_bound = q3 + (2 * iqr)
-                lower_bound = q1 - (2 * iqr)
-                no_outliers_col = data[col].copy()
-                no_outliers_col[
-                    np.logical_or(
-                        no_outliers_col.gt(upper_bound),
-                        no_outliers_col.lt(lower_bound),
+        for name_t, data in grouped:
+            name = ", ".join(name_t)
+            logger.debug("Subset: %s", name)
+            logger.debug("%s rows in subset", data.shape[0])
+            for col in [
+                col
+                for col in data.columns
+                if "(Raw)" not in col
+                and "Reference " not in col
+                and col not in index
+            ]:
+                if outlier_removal == "Yes":
+                    q3 = data[col].quantile(0.75)
+                    q1 = data[col].quantile(0.25)
+                    iqr = q3 - q1
+                    upper_bound = q3 + (2 * iqr)
+                    lower_bound = q1 - (2 * iqr)
+                    no_outliers_col = data[col].copy()
+                    no_outliers_col[
+                        np.logical_or(
+                            no_outliers_col.gt(upper_bound),
+                            no_outliers_col.lt(lower_bound),
+                        )
+                    ] = np.nan
+                    data[col] = no_outliers_col
+                if (
+                    norm_by is not None
+                    and norm_by != "None"
+                    and col not in no_norm
+                ):
+                    data[col] = data[col].div(data[norm_by])
+                    data[f"{col} (Raw)"] = data[f"{col} (Raw)"].div(
+                        data[norm_by]
                     )
-                ] = np.nan
-                data[col] = no_outliers_col
-            if (
-                norm_by is not None
-                and norm_by != "None"
-                and col not in no_norm
-            ):
-                data[col] = data[col].div(data[norm_by])
-                data[f"{col} (Raw)"] = data[f"{col} (Raw)"].div(data[norm_by])
-        if "Technique" not in split_by:
-            data = data[data["Technique"] != "None"]
-        s_data[name] = data.to_json(orient="split")
-    return s_data
+            if "Technique" not in split_by:
+                data = data[data["Technique"] != "None"]
+            split_data[study][name] = data.to_json(orient="split")
+    logger.debug("Exporting split data: %s studies", len(split_data.keys()))
+    for study, splits in split_data.items():
+        logger.debug("%s: %s splits", study, len(splits.keys()))
+    return split_data
 
 
 def result_table_plot(dfs, col):
@@ -357,6 +515,8 @@ def result_table_plot(dfs, col):
     }
     summary = pd.DataFrame()
     for name, df in dfs.items():
+        logger.critical(name)
+        logger.debug(df.sample(10)["Study"])
         c_data = df.loc[:, col]
         for stat, func in summary_functions.items():
             summary.loc[stat, name] = round(func(c_data), 3)
@@ -578,36 +738,49 @@ def target_plot(dfs, norm_options):
     Input("result-box-plot-tabs", "value"),
     State("norm-options", "value"),
 )
-def results_plot(plot_type, dfs, col, norm):
-    logging.critical(f"col: {col}")
-    if dfs:
-        data = {
-            key: pd.read_json(StringIO(df), orient="split")
-            for key, df in dfs.items()
-        }
-        logging.critical(data.keys())
-        if all([" (Default)" in key or "None" in key for key in data.keys()]):
-            logging.critical(True)
-            data = {
-                key.replace(" (Default)", ""): df
-                for key, df in data.items()
+def results_plot(plot_type, df_split, col, norm):
+    data = {}
+    logger.debug("Reading split data: %s studies", len(df_split.keys()))
+    for study, splits in df_split.items():
+        logger.debug("%s: %s splits", study, len(splits.keys()))
+    logger.debug(
+        "Plotting %s for %s %s",
+        plot_type,
+        col,
+        f"({norm})" if norm else ""
+    )
+    if df_split:
+        for study, dfs in df_split.items():
+            data[study] = {
+                key: pd.read_json(StringIO(df), orient="split")
+                for key, df in dfs.items()
             }
-        logging.critical(data.keys())
+            if all(
+                [
+                    " (Default)" in key or "None" in key
+                    for key in data
+                ]
+            ):
+                data[study] = {
+                    key.replace(" (Default)", ""): df
+                    for key, df in data.items()
+                }
     else:
         return empty_figure()
-
-    if plot_type == "results-table-tab":
-        return result_table_plot(data, col)
-    elif plot_type == "box-plot-tab":
-        return box_plot(data, col, norm)
-    elif plot_type == "violin-plot-tab":
-        return violin_plot(data, col, norm)
-    elif plot_type == "prop-imp-plot-tab":
-        return prop_imp_plot(data, col)
-    elif plot_type == "target-plot-tab":
-        return target_plot(data, norm)
-    elif plot_type == "valerio-temp":
-        return empty_figure(plot_type)
+    match plot_type:
+        case "results-table-tab":
+            return result_table_plot(data, col)
+        case "box-plot-tab":
+            return box_plot(data, col, norm)
+        case "violin-plot-tab":
+            return violin_plot(data, col, norm)
+        case "prop-imp-plot-tab":
+            return prop_imp_plot(data, col)
+        case "target-plot-tab":
+            return target_plot(data, norm)
+        case "valerio-temp":
+            return empty_figure(plot_type)
+    return empty_figure(plot_type)
 
 
 @callback(Output("norm-options", "options"), Input("results-df", "data"))
@@ -660,9 +833,7 @@ def generate_graphs_for_paper(button, path, dbi):
         db_index = dbi
     with Path(path).joinpath("Graphs/summary_graphs.json").open("r") as file:
         config = json.load(file)
-    logging.error(config)
     for run, data in config.items():
-        logging.error(run)
         filepath = graph_path.joinpath(f"{run}.png")
         if filepath.exists():
             continue
@@ -687,7 +858,6 @@ def generate_graphs_for_paper(button, path, dbi):
             data.get("Remove Outliers", "Yes"),
             raw,
         )
-        logging.error(grouped.keys())
         metric_columns = data.get("Metric Column", "r2")
         if isinstance(metric_columns, str):
             plot = results_plot(
@@ -812,7 +982,6 @@ def generate_graphs_for_paper(button, path, dbi):
             **layout_dict,
             **{k: v for k, v in dimension_dict.items() if k not in layout_dict}
         )
-        logging.critical(data.get("Y Axis", {}))
         plot.write_image(filepath)
 
 
@@ -878,6 +1047,7 @@ def download_config(
 
 item_stores = [
     dcc.Store(id="folder-path"),
+    dcc.Store(id="reference-df-index"),
     dcc.Store(id="db-index"),
     dcc.Store(id="results-df"),
     dcc.Store(id="raw-df"),
@@ -896,12 +1066,47 @@ top_row = [
                 [
                     dcc.Dropdown(
                         sorted(output_options),
-                        sorted(output_options)[0],
+                        #sorted(output_options)[0],
                         id="folder-name",
+                        multi=True,
+                        placeholder="Select comparisons"
                     ),
                 ]
             ),
-            dbc.Col([html.Div(id="folder-output-text")]),
+            dbc.Col(
+                [
+                    html.Button(
+                        id="folder-button-state",
+                        n_clicks=0,
+                        children="1) Query Reference Devices"
+                    ),
+                ]
+            )
+        ]
+    ),
+]
+
+reference_devices_row = [
+    dbc.Row(
+        [
+            dbc.Col(
+                [
+                    dcc.Dropdown(
+                        id="reference-options",
+                        multi=True,
+                        placeholder="Reference Devices"
+                    ),
+                ]
+            ),
+            dbc.Col(
+                [
+                    html.Button(
+                        id="reference-button-state",
+                        n_clicks=0,
+                        children="2) Query Configuration Options"
+                    ),
+                ]
+            )
         ]
     ),
 ]
@@ -911,14 +1116,6 @@ checklist_options = {"overflow-y": "scroll", "height": "20vh"}
 selections = [
     dbc.Row(
         [
-            dbc.Col(
-                [
-                    html.H4("Reference Devices"),
-                    dcc.Checklist(
-                        id="reference-options", style=checklist_options
-                    ),
-                ]
-            ),
             dbc.Col(
                 [
                     html.H4("Fields"),
@@ -1063,6 +1260,8 @@ app.layout = dbc.Container(
     [
         *item_stores,
         *top_row,
+        html.Hr(),
+        *reference_devices_row,
         html.Hr(),
         *selections,
         html.Hr(),
