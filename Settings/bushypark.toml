@@ -6,11 +6,11 @@
 
 [Calibration.Techniques.Default]
 	"Linear Regression" = true
-	"Ridge Regression" = true
+	"Ridge Regression" = false
 	"Ridge Regression (Cross Validated)" = true
-	"Lasso Regression" = true
+	"Lasso Regression" = false
 	"Lasso Regression (Cross Validated)" = true
-	"Elastic Net Regression" = true
+	"Elastic Net Regression" = false
 	"Elastic Net Regression (Cross Validated)" = true
 	"Least Angle Regression" = true
 	"Least Angle Lasso Regression" = true
@@ -20,10 +20,10 @@
 	"Tweedie Regression" = true
 	"Stochastic Gradient Descent" = true
 	"Passive Aggressive Regression" = true
-	"RANSAC" = true
+	"RANSAC" = false
 	"Theil-Sen Regression" = true
 	"Huber Regression" = true
-	"Quantile Regression" = true
+	"Quantile Regression" = false
 	"Decision Tree" = true
 	"Extra Tree" = true
 	"Random Forest" = true
@@ -102,6 +102,7 @@
 	"Reference Mean" = true
 	"Reference Range" = true
 	"Reference Standard Deviation" = true
+	"Reference Absolute Deviation" = true
 
 
 
@@ -118,6 +119,7 @@
 	"Boolean Filters"."PM2.5 particulate matter unit" = "ugm-3 (TEOM FDMS)"
 	"Hour Beginning" = true
 	"Use as Reference" = true
+	"Training Cutoff" = "72d"
 
 [[Comparisons."Bushy Park".Devices."Bushy Park FDMS".Fields]]
 	"Tag" = "PM2.5"
@@ -132,6 +134,7 @@
 	"Boolean Filters"."PM2.5 particulate matter unit" = "ugm-3 (Ref.eq)"
 	"Hour Beginning" = true
 	"Use as Reference" = true
+	"Timedelta" = "72d"
 
 [[Comparisons."Bushy Park".Devices."Bushy Park OPC".Fields]]
 	"Tag" = "PM2.5"
@@ -149,6 +152,7 @@
 	"Boolean Filters"."Car" = "27522"
 	"Hour Beginning" = false
 	"Use as Reference" = true
+	"Training Cutoff" = "72d"
 
 [[Comparisons."Bushy Park".Devices."AirView Reference A"."Range Filters"]]
 	"Field" = "GlobalSat G-Star IV latitude degrees N"
@@ -236,6 +240,7 @@
 	"Boolean Filters"."Car" = "27533"
 	"Hour Beginning" = false
 	"Use as Reference" = true
+	"Training Cutoff" = "72d"
 
 [[Comparisons."Bushy Park".Devices."AirView Reference B"."Range Filters"]]
 	"Field" = "GlobalSat G-Star IV latitude degrees N"
@@ -322,6 +327,7 @@
 	"Boolean Filters"."Serial Number" = "C008-0001"
 	"Hour Beginning" = false
 	"Use as Reference" = true
+	"Training Cutoff" = "72d"
 
 [[Comparisons."Bushy Park".Devices."Nova Sensor A".Fields]]
 	"Tag" = "PM2.5"
@@ -339,6 +345,7 @@
 	"Boolean Filters"."Serial Number" = "C008-0003"
 	"Hour Beginning" = false
 	"Use as Reference" = true
+	"Training Cutoff" = "72d"
 
 [[Comparisons."Bushy Park".Devices."Nova Sensor B".Fields]]
 	"Tag" = "PM2.5"
@@ -355,6 +362,7 @@
 	"Measurement" = "AirView"
 	"Boolean Filters"."Car" = "27522"
 	"Hour Beginning" = false
+	"Training Cutoff" = "72d"
 
 [[Comparisons."Bushy Park".Devices."AirView Low-Cost A"."Range Filters"]]
 	"Field" = "GlobalSat G-Star IV latitude degrees N"
@@ -389,6 +397,7 @@
 	"Boolean Filters"."Car" = "27533"
 	"Hour Beginning" = false
 	"Use as Reference" = true
+	"Training Cutoff" = "72d"
 
 [[Comparisons."Bushy Park".Devices."AirView Low-Cost B"."Range Filters"]]
 	"Field" = "GlobalSat G-Star IV latitude degrees N"
@@ -423,6 +432,7 @@
 	"Boolean Filters"."SerialNumber" = "1505150"
 	"Hour Beginning" = false
 	"Use as Reference" = true
+	"Training Cutoff" = "72d"
 
 [[Comparisons."Bushy Park".Devices."NPL AQMesh A".Fields]]
 	"Tag" = "PM1"
@@ -484,6 +494,7 @@
 	"Boolean Filters"."SerialNumber" = "1506150"
 	"Hour Beginning" = false
 	"Use as Reference" = true
+	"Training Cutoff" = "72d"
 
 [[Comparisons."Bushy Park".Devices."NPL AQMesh B".Fields]]
 	"Tag" = "PM1"
@@ -545,6 +556,7 @@
 	"Boolean Filters"."SerialNumber" = "2450100"
 	"Hour Beginning" = false
 	"Use as Reference" = true
+	"Training Cutoff" = "72d"
 
 [[Comparisons."Bushy Park".Devices."Breathe London AQMesh".Fields]]
 	"Tag" = "PM1"
@@ -606,6 +618,7 @@
 	"Boolean Filters"."SerialNumber" = "2450222"
 	"Hour Beginning" = false
 	"Use as Reference" = true
+	"Training Cutoff" = "72d"
 
 [[Comparisons."Bushy Park".Devices."NPL AQMesh C".Fields]]
 	"Tag" = "PM1"
@@ -658,3 +671,206 @@
 [[Comparisons."Bushy Park".Devices."NPL AQMesh C"."Secondary Fields"]]
 	"Tag" = "T"
 	"Field" = "Temperature PreScaled [Celsius]"
+
+[Comparisons."Cranfield"]
+	"Start" = 2022-01-01
+	"End" = 2023-09-01
+	"Averaging Operator" = "mean"
+	"Averaging Period" = "1h"
+
+[Comparisons."Cranfield".Devices."Reference"]
+	"Bucket" = "Cranfield"
+	"Measurement" = "Reference"
+	"Use as Reference" = true
+	"Training Cutoff" = "72d"
+
+[[Comparisons."Cranfield".Devices."Reference".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "Pm2.5"
+
+[[Comparisons."Cranfield".Devices."Reference".Fields]]
+	"Tag" = "PM10"
+	"Field" = "Pm10"
+
+[[Comparisons."Cranfield".Devices."Reference".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NitrogenDioxide"
+
+[[Comparisons."Cranfield".Devices."Reference".Fields]]
+	"Tag" = "O3"
+	"Field" = "Ozone"
+
+[Comparisons."Cranfield".Devices."Zep_1107b"]
+	"Bucket" = "Cranfield"
+	"Measurement" = "Zephyr"
+	"Boolean Filters"."Platform" = "Zep_1107b"
+	"Use as Reference" = false
+	"Training Cutoff" = "72d"
+
+[[Comparisons."Cranfield".Devices."Zep_1107b".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "Particulatepm25"
+
+[[Comparisons."Cranfield".Devices."Zep_1107b".Fields]]
+	"Tag" = "PM10"
+	"Field" = "Particulatepm10"
+
+[[Comparisons."Cranfield".Devices."Zep_1107b".Fields]]
+	"Tag" = "NO"
+	"Field" = "No"
+
+[[Comparisons."Cranfield".Devices."Zep_1107b".Fields]]
+	"Tag" = "NO2"
+	"Field" = "No2"
+
+[[Comparisons."Cranfield".Devices."Zep_1107b".Fields]]
+	"Tag" = "O3"
+	"Field" = "O3"
+
+[[Comparisons."Cranfield".Devices."Zep_1107b".Fields]]
+	"Tag" = "RH"
+	"Field" = "Humidity"
+
+[[Comparisons."Cranfield".Devices."Zep_1107b".Fields]]
+	"Tag" = "T"
+	"Field" = "Tempc"
+
+[Comparisons."Cranfield".Devices."Zep_753"]
+	"Bucket" = "Cranfield"
+	"Measurement" = "Zephyr"
+	"Boolean Filters"."Platform" = "Zep_753"
+	"Use as Reference" = false
+	"Training Cutoff" = "72d"
+
+[[Comparisons."Cranfield".Devices."Zep_753".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "Particulatepm25"
+
+[[Comparisons."Cranfield".Devices."Zep_753".Fields]]
+	"Tag" = "PM10"
+	"Field" = "Particulatepm10"
+
+[[Comparisons."Cranfield".Devices."Zep_753".Fields]]
+	"Tag" = "NO"
+	"Field" = "No"
+
+[[Comparisons."Cranfield".Devices."Zep_753".Fields]]
+	"Tag" = "NO2"
+	"Field" = "No2"
+
+[[Comparisons."Cranfield".Devices."Zep_753".Fields]]
+	"Tag" = "O3"
+	"Field" = "O3"
+
+[[Comparisons."Cranfield".Devices."Zep_753".Fields]]
+	"Tag" = "RH"
+	"Field" = "Humidity"
+
+[[Comparisons."Cranfield".Devices."Zep_753".Fields]]
+	"Tag" = "T"
+	"Field" = "Tempc"
+
+[Comparisons."Cranfield".Devices."Zep_754"]
+	"Bucket" = "Cranfield"
+	"Measurement" = "Zephyr"
+	"Boolean Filters"."Platform" = "Zep_754"
+	"Use as Reference" = false
+	"Training Cutoff" = "72d"
+
+[[Comparisons."Cranfield".Devices."Zep_754".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "Particulatepm25"
+
+[[Comparisons."Cranfield".Devices."Zep_754".Fields]]
+	"Tag" = "PM10"
+	"Field" = "Particulatepm10"
+
+[[Comparisons."Cranfield".Devices."Zep_754".Fields]]
+	"Tag" = "NO"
+	"Field" = "No"
+
+[[Comparisons."Cranfield".Devices."Zep_754".Fields]]
+	"Tag" = "NO2"
+	"Field" = "No2"
+
+[[Comparisons."Cranfield".Devices."Zep_754".Fields]]
+	"Tag" = "O3"
+	"Field" = "O3"
+
+[[Comparisons."Cranfield".Devices."Zep_754".Fields]]
+	"Tag" = "RH"
+	"Field" = "Humidity"
+
+[[Comparisons."Cranfield".Devices."Zep_754".Fields]]
+	"Tag" = "T"
+	"Field" = "Tempc"
+
+[Comparisons."Cranfield".Devices."Zep_757"]
+	"Bucket" = "Cranfield"
+	"Measurement" = "Zephyr"
+	"Boolean Filters"."Platform" = "Zep_757"
+	"Use as Reference" = false
+	"Training Cutoff" = "72d"
+
+[[Comparisons."Cranfield".Devices."Zep_757".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "Particulatepm25"
+
+[[Comparisons."Cranfield".Devices."Zep_757".Fields]]
+	"Tag" = "PM10"
+	"Field" = "Particulatepm10"
+
+[[Comparisons."Cranfield".Devices."Zep_757".Fields]]
+	"Tag" = "NO"
+	"Field" = "No"
+
+[[Comparisons."Cranfield".Devices."Zep_757".Fields]]
+	"Tag" = "NO2"
+	"Field" = "No2"
+
+[[Comparisons."Cranfield".Devices."Zep_757".Fields]]
+	"Tag" = "O3"
+	"Field" = "O3"
+
+[[Comparisons."Cranfield".Devices."Zep_757".Fields]]
+	"Tag" = "RH"
+	"Field" = "Humidity"
+
+[[Comparisons."Cranfield".Devices."Zep_757".Fields]]
+	"Tag" = "T"
+	"Field" = "Tempc"
+
+[Comparisons."Cranfield".Devices."Zep_858"]
+	"Bucket" = "Cranfield"
+	"Measurement" = "Zephyr"
+	"Boolean Filters"."Platform" = "Zep_858"
+	"Use as Reference" = false
+	"Training Cutoff" = "72d"
+
+[[Comparisons."Cranfield".Devices."Zep_858".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "Particulatepm25"
+
+[[Comparisons."Cranfield".Devices."Zep_858".Fields]]
+	"Tag" = "PM10"
+	"Field" = "Particulatepm10"
+
+[[Comparisons."Cranfield".Devices."Zep_858".Fields]]
+	"Tag" = "NO"
+	"Field" = "No"
+
+[[Comparisons."Cranfield".Devices."Zep_858".Fields]]
+	"Tag" = "NO2"
+	"Field" = "No2"
+
+[[Comparisons."Cranfield".Devices."Zep_858".Fields]]
+	"Tag" = "O3"
+	"Field" = "O3"
+
+[[Comparisons."Cranfield".Devices."Zep_858".Fields]]
+	"Tag" = "RH"
+	"Field" = "Humidity"
+
+[[Comparisons."Cranfield".Devices."Zep_858".Fields]]
+	"Tag" = "T"
+	"Field" = "Tempc"

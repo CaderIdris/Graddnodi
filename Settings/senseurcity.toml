@@ -94,6 +94,7 @@
 	"Reference Mean" = true
 	"Reference Range" = true
 	"Reference Standard Deviation" = true
+	"Reference Absolute Deviation" = true
 
 [Calibration."Secondary Variables"]
 	"CO" = ["RH", "T", "P", "CO2"]

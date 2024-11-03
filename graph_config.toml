@@ -1,0 +1,754 @@
+["All Pollutants vs Reference - Box Plot - MAE".Configuration]
+	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
+	Fields = ["NO", "NO2", "CO2", "PM1", "PM2.5", "PM10"]
+	"Regression Techniques" = [
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Decision Tree (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Expectile GAM (Default)",
+		"Extra Tree (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Huber Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Linear GAM (Default)",
+		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Stochastic Gradient Descent (Default)",
+		"Support Vector Regression (Default)",
+		"Theil-Sen Regression (Default)",
+		"XGBoost Random Forest Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Scaling Techniques" = ["None"]
+	"Split By" = ["Field"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+
+[["All Pollutants vs Reference - Box Plot - MAE".Graphs]]
+	"Y Axis" = {"range" = [0, 17]}
+
+[["All Pollutants vs Reference - Box Plot - MAE".Graphs]]
+	"Normalise By" = "Reference Mean"
+	"Y Axis" = {"range" = [0, 2.2]}
+
+[["All Pollutants vs Reference - Box Plot - MAE".Graphs]]
+	"Normalise By" = "Reference Standard Deviation"
+	"Y Axis" = {"range" = [0, 1.05]}
+
+["All Scaling vs Reference - Box Plot - MAE".Configuration]
+	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
+	Fields = ["NO", "NO2", "CO2", "PM1", "PM2.5", "PM10"]
+	"Regression Techniques" = [
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Decision Tree (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Expectile GAM (Default)",
+		"Extra Tree (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Huber Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Linear GAM (Default)",
+		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Stochastic Gradient Descent (Default)",
+		"Support Vector Regression (Default)",
+		"Theil-Sen Regression (Default)",
+		"XGBoost Random Forest Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Split By" = ["Scaling Method"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+
+[["All Scaling vs Reference - Box Plot - MAE".Graphs]]
+	"Y Axis" = {"range" = [0, 16]}
+
+[["All Scaling vs Reference - Box Plot - MAE".Graphs]]
+	"Normalise By" = "Reference Mean"
+	"Y Axis" = {"range" = [0, 1.45]}
+
+[["All Scaling vs Reference - Box Plot - MAE".Graphs]]
+	"Normalise By" = "Reference Standard Deviation"
+	"Y Axis" = {"range" = [0, 1]}
+
+["All Techniques - NO - Box Plot - MAE".Configuration]
+	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
+	Fields = ["NO"]
+	"Regression Techniques" = [
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Decision Tree (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Expectile GAM (Default)",
+		"Extra Tree (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Huber Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Linear GAM (Default)",
+		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Stochastic Gradient Descent (Default)",
+		"Support Vector Regression (Default)",
+		"Theil-Sen Regression (Default)",
+		"XGBoost Random Forest Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+
+[["All Techniques - NO - Box Plot - MAE".Graphs]]
+	"Y Axis" = {"range" = [0, 15.2]}
+
+[["All Techniques - NO - Box Plot - MAE".Graphs]]
+	"Normalise By" = "Reference Mean"
+	"Y Axis" = {"range" = [0, 2.2]}
+
+[["All Techniques - NO - Box Plot - MAE".Graphs]]
+	"Normalise By" = "Reference Standard Deviation"
+	"Y Axis" = {"range" = [0, 1.2]}
+
+["All Techniques - NO2 - Box Plot - MAE".Configuration]
+	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
+	Fields = ["NO2"]
+	"Regression Techniques" = [
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Decision Tree (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Expectile GAM (Default)",
+		"Extra Tree (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Huber Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Linear GAM (Default)",
+		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Stochastic Gradient Descent (Default)",
+		"Support Vector Regression (Default)",
+		"Theil-Sen Regression (Default)",
+		"XGBoost Random Forest Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+
+[["All Techniques - NO2 - Box Plot - MAE".Graphs]]
+	"Y Axis" = {"range" = [0, 10]}
+
+[["All Techniques - NO2 - Box Plot - MAE".Graphs]]
+	"Normalise By" = "Reference Mean"
+	"Y Axis" = {"range" = [0, 1]}
+
+[["All Techniques - NO2 - Box Plot - MAE".Graphs]]
+	"Normalise By" = "Reference Standard Deviation"
+	"Y Axis" = {"range" = [0, 1]}
+
+["All Techniques - CO2 - Box Plot - MAE".Configuration]
+	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
+	Fields = ["CO2"]
+	"Regression Techniques" = [
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Decision Tree (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Expectile GAM (Default)",
+		"Extra Tree (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Huber Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Linear GAM (Default)",
+		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Stochastic Gradient Descent (Default)",
+		"Support Vector Regression (Default)",
+		"Theil-Sen Regression (Default)",
+		"XGBoost Random Forest Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+
+[["All Techniques - CO2 - Box Plot - MAE".Graphs]]
+	"Y Axis" = {"range" = [0, 15]}
+
+[["All Techniques - CO2 - Box Plot - MAE".Graphs]]
+	"Normalise By" = "Reference Mean"
+	"Y Axis" = {"range" = [0, 0.6]}
+
+[["All Techniques - CO2 - Box Plot - MAE".Graphs]]
+	"Normalise By" = "Reference Standard Deviation"
+	"Y Axis" = {"range" = [0, 1]}
+
+["All Techniques - PM1 - Box Plot - MAE".Configuration]
+	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
+	Fields = ["PM1"]
+	"Regression Techniques" = [
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Decision Tree (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Expectile GAM (Default)",
+		"Extra Tree (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Huber Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Linear GAM (Default)",
+		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Stochastic Gradient Descent (Default)",
+		"Support Vector Regression (Default)",
+		"Theil-Sen Regression (Default)",
+		"XGBoost Random Forest Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+
+[["All Techniques - PM1 - Box Plot - MAE".Graphs]]
+	"Y Axis" = {"range" = [0, 8.5]}
+
+[["All Techniques - PM1 - Box Plot - MAE".Graphs]]
+	"Normalise By" = "Reference Mean"
+	"Y Axis" = {"range" = [0, 1]}
+
+[["All Techniques - PM1 - Box Plot - MAE".Graphs]]
+	"Normalise By" = "Reference Standard Deviation"
+	"Y Axis" = {"range" = [0, 1]}
+
+["All Techniques - PM2.5 - Box Plot - MAE".Configuration]
+	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
+	Fields = ["PM2.5"]
+	"Regression Techniques" = [
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Decision Tree (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Expectile GAM (Default)",
+		"Extra Tree (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Huber Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Linear GAM (Default)",
+		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Stochastic Gradient Descent (Default)",
+		"Support Vector Regression (Default)",
+		"Theil-Sen Regression (Default)",
+		"XGBoost Random Forest Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+
+[["All Techniques - PM2.5 - Box Plot - MAE".Graphs]]
+	"Y Axis" = {"range" = [0, 8.5]}
+
+[["All Techniques - PM2.5 - Box Plot - MAE".Graphs]]
+	"Normalise By" = "Reference Mean"
+	"Y Axis" = {"range" = [0, 0.8]}
+
+[["All Techniques - PM2.5 - Box Plot - MAE".Graphs]]
+	"Normalise By" = "Reference Standard Deviation"
+	"Y Axis" = {"range" = [0, 1]}
+
+["All Techniques - PM10 - Box Plot - MAE".Configuration]
+	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
+	Fields = ["PM10"]
+	"Regression Techniques" = [
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Decision Tree (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Expectile GAM (Default)",
+		"Extra Tree (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Huber Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Linear GAM (Default)",
+		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Stochastic Gradient Descent (Default)",
+		"Support Vector Regression (Default)",
+		"Theil-Sen Regression (Default)",
+		"XGBoost Random Forest Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+
+[["All Techniques - PM10 - Box Plot - MAE".Graphs]]
+	"Y Axis" = {"range" = [0, 14]}
+
+[["All Techniques - PM10 - Box Plot - MAE".Graphs]]
+	"Normalise By" = "Reference Mean"
+	"Y Axis" = {"range" = [0, 0.6]}
+
+[["All Techniques - PM10 - Box Plot - MAE".Graphs]]
+	"Normalise By" = "Reference Standard Deviation"
+	"Y Axis" = {"range" = [0, 1]}
+
+["All Pollutants vs Reference - Box Plot - MBE".Configuration]
+	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
+	Fields = ["NO", "NO2", "CO2", "PM1", "PM2.5", "PM10"]
+	"Regression Techniques" = [
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Decision Tree (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Expectile GAM (Default)",
+		"Extra Tree (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Huber Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Linear GAM (Default)",
+		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Stochastic Gradient Descent (Default)",
+		"Support Vector Regression (Default)",
+		"Theil-Sen Regression (Default)",
+		"XGBoost Random Forest Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Scaling Techniques" = ["None"]
+	"Split By" = ["Field"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Bias Error"
+
+[["All Pollutants vs Reference - Box Plot - MBE".Graphs]]
+	"Y Axis" = {"range" = [-2, 2]}
+
+[["All Pollutants vs Reference - Box Plot - MBE".Graphs]]
+	"Normalise By" = "Reference Mean"
+	"Y Axis" = {"range" = [-0.7, 0.7]}
+
+[["All Pollutants vs Reference - Box Plot - MBE".Graphs]]
+	"Normalise By" = "Reference Standard Deviation"
+	"Y Axis" = {"range" = [-0.2, 0.2]}
+
+["All Scaling vs Reference - Box Plot - MBE".Configuration]
+	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
+	Fields = ["NO", "NO2", "CO2", "PM1", "PM2.5", "PM10"]
+	"Regression Techniques" = [
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Decision Tree (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Expectile GAM (Default)",
+		"Extra Tree (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Huber Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Linear GAM (Default)",
+		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Stochastic Gradient Descent (Default)",
+		"Support Vector Regression (Default)",
+		"Theil-Sen Regression (Default)",
+		"XGBoost Random Forest Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Split By" = ["Scaling Method"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Bias Error"
+
+[["All Scaling vs Reference - Box Plot - MBE".Graphs]]
+	"Y Axis" = {"range" = [-0.5, 0.5]}
+
+[["All Scaling vs Reference - Box Plot - MBE".Graphs]]
+	"Normalise By" = "Reference Mean"
+	"Y Axis" = {"range" = [-0.1, 0.1]}
+
+[["All Scaling vs Reference - Box Plot - MBE".Graphs]]
+	"Normalise By" = "Reference Standard Deviation"
+	"Y Axis" = {"range" = [-0.075, 0.075]}
+
+["All Techniques - NO - Box Plot - MBE".Configuration]
+	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
+	Fields = ["NO"]
+	"Regression Techniques" = [
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Decision Tree (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Expectile GAM (Default)",
+		"Extra Tree (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Huber Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Linear GAM (Default)",
+		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Stochastic Gradient Descent (Default)",
+		"Support Vector Regression (Default)",
+		"Theil-Sen Regression (Default)",
+		"XGBoost Random Forest Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Bias Error"
+
+[["All Techniques - NO - Box Plot - MBE".Graphs]]
+	"Y Axis" = {"range" = [-2, 2]}
+
+[["All Techniques - NO - Box Plot - MBE".Graphs]]
+	"Normalise By" = "Reference Mean"
+	"Y Axis" = {"range" = [-0.6, 0.6]}
+
+[["All Techniques - NO - Box Plot - MBE".Graphs]]
+	"Normalise By" = "Reference Standard Deviation"
+	"Y Axis" = {"range" = [-0.3, 0.3]}
+
+["All Techniques - NO2 - Box Plot - MBE".Configuration]
+	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
+	Fields = ["NO2"]
+	"Regression Techniques" = [
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Decision Tree (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Expectile GAM (Default)",
+		"Extra Tree (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Huber Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Linear GAM (Default)",
+		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Stochastic Gradient Descent (Default)",
+		"Support Vector Regression (Default)",
+		"Theil-Sen Regression (Default)",
+		"XGBoost Random Forest Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Bias Error"
+
+[["All Techniques - NO2 - Box Plot - MBE".Graphs]]
+	"Y Axis" = {"range" = [-4, 4]}
+
+[["All Techniques - NO2 - Box Plot - MBE".Graphs]]
+	"Normalise By" = "Reference Mean"
+	"Y Axis" = {"range" = [-0.45, 0.45]}
+
+[["All Techniques - NO2 - Box Plot - MBE".Graphs]]
+	"Normalise By" = "Reference Standard Deviation"
+	"Y Axis" = {"range" = [-0.55, 0.55]}
+
+["All Techniques - CO2 - Box Plot - MBE".Configuration]
+	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
+	Fields = ["CO2"]
+	"Regression Techniques" = [
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Decision Tree (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Expectile GAM (Default)",
+		"Extra Tree (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Huber Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Linear GAM (Default)",
+		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Stochastic Gradient Descent (Default)",
+		"Support Vector Regression (Default)",
+		"Theil-Sen Regression (Default)",
+		"XGBoost Random Forest Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Bias Error"
+
+[["All Techniques - CO2 - Box Plot - MBE".Graphs]]
+	"Y Axis" = {"range" = [-5.5, 5.5]}
+
+[["All Techniques - CO2 - Box Plot - MBE".Graphs]]
+	"Normalise By" = "Reference Mean"
+	"Y Axis" = {"range" = [-0.02, 0.02]}
+
+[["All Techniques - CO2 - Box Plot - MBE".Graphs]]
+	"Normalise By" = "Reference Standard Deviation"
+	"Y Axis" = {"range" = [-0.35, 0.35]}
+
+["All Techniques - PM1 - Box Plot - MBE".Configuration]
+	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
+	Fields = ["PM1"]
+	"Regression Techniques" = [
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Decision Tree (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Expectile GAM (Default)",
+		"Extra Tree (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Huber Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Linear GAM (Default)",
+		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Stochastic Gradient Descent (Default)",
+		"Support Vector Regression (Default)",
+		"Theil-Sen Regression (Default)",
+		"XGBoost Random Forest Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Bias Error"
+
+[["All Techniques - PM1 - Box Plot - MBE".Graphs]]
+	"Y Axis" = {"range" = [-5, 5]}
+
+[["All Techniques - PM1 - Box Plot - MBE".Graphs]]
+	"Normalise By" = "Reference Mean"
+	"Y Axis" = {"range" = [-0.6, 0.6]}
+
+[["All Techniques - PM1 - Box Plot - MBE".Graphs]]
+	"Normalise By" = "Reference Standard Deviation"
+	"Y Axis" = {"range" = [-0.6, 0.6]}
+
+["All Techniques - PM2.5 - Box Plot - MBE".Configuration]
+	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
+	Fields = ["PM2.5"]
+	"Regression Techniques" = [
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Decision Tree (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Expectile GAM (Default)",
+		"Extra Tree (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Huber Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Linear GAM (Default)",
+		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Stochastic Gradient Descent (Default)",
+		"Support Vector Regression (Default)",
+		"Theil-Sen Regression (Default)",
+		"XGBoost Random Forest Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Bias Error"
+
+[["All Techniques - PM2.5 - Box Plot - MBE".Graphs]]
+	"Y Axis" = {"range" = [-3.5, 3.5]}
+
+[["All Techniques - PM2.5 - Box Plot - MBE".Graphs]]
+	"Normalise By" = "Reference Mean"
+	"Y Axis" = {"range" = [-0.3, 0.3]}
+
+[["All Techniques - PM2.5 - Box Plot - MBE".Graphs]]
+	"Normalise By" = "Reference Standard Deviation"
+	"Y Axis" = {"range" = [-0.6, 0.6]}
+
+["All Techniques - PM10 - Box Plot - MBE".Configuration]
+	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
+	Fields = ["PM10"]
+	"Regression Techniques" = [
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Decision Tree (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Expectile GAM (Default)",
+		"Extra Tree (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Huber Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Linear GAM (Default)",
+		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Stochastic Gradient Descent (Default)",
+		"Support Vector Regression (Default)",
+		"Theil-Sen Regression (Default)",
+		"XGBoost Random Forest Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Bias Error"
+
+[["All Techniques - PM10 - Box Plot - MBE".Graphs]]
+	"Y Axis" = {"range" = [-6, 6]}
+
+[["All Techniques - PM10 - Box Plot - MBE".Graphs]]
+	"Normalise By" = "Reference Mean"
+	"Y Axis" = {"range" = [-0.225, 0.225]}
+
+[["All Techniques - PM10 - Box Plot - MBE".Graphs]]
+	"Normalise By" = "Reference Standard Deviation"
+	"Y Axis" = {"range" = [-0.5, 0.5]}
+

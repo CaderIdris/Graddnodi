@@ -17,6 +17,7 @@ pygam = "*"
 kaleido = "*"
 statsmodels = "*"
 distfit = "*"
+"sqlean.py" = "*"
 
 [dev-packages]
 flake8 = "*"

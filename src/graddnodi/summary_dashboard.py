@@ -1,20 +1,25 @@
+from base64 import b64decode
 from functools import partial
 import json
 from io import StringIO
+from itertools import cycle
 import logging
 import os
 from pathlib import Path
-import sqlite3 as sql
+import tomllib
 from typing import Optional
 
 from dash import Dash, html, dcc, callback, Output, Input, State
 from dash.exceptions import PreventUpdate
+import dash_bootstrap_components as dbc
 from flask import Flask
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-import dash_bootstrap_components as dbc
+import sqlean as sql
+
+sql.extensions.enable_all()
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
@@ -30,15 +35,31 @@ FULL_TABLE_LAYOUT = {"margin": {"pad": 0, "b": 0, "t": 0, "l": 0, "r": 0}}
 
 FIGURE_LAYOUT = {
     "margin": {"pad": 0, "b": 0, "t": 0, "l": 0, "r": 0},
-    "showlegend": False,
-    "font": {"size": 24},
+    "showlegend": True,
+    "font": {"size": 12},
     "paper_bgcolor": "rgba(255,255,255)",
     "plot_bgcolor": "rgba(0,0,0,0)",
-    "colorway": ["#1d2021"],
+    "colorway": [
+        "#fb4934",
+        "#458588",
+        "#98971a",
+        "#b16286",
+        "#fabd2f",
+        "#d65d0e",
+        "#7fa2ac",
+        "#665c54"
+    ],
     "scattermode": "group",
+    "legend": {
+        "orientation": 'h',
+        "x": 0.5,
+        "xanchor": "center",
+        "yanchor": "bottom",
+        "y": 1.02
+    }
 }
 
-external_stylesheets = [dbc.themes.JOURNAL]
+external_stylesheets = [dbc.themes.COSMO]
 
 flask_server = Flask(__name__)
 app = Dash(
@@ -61,82 +82,12 @@ logger.debug("Available options:")
 for graddnodi_data_folder in output_options:
     logger.debug("- %s", graddnodi_data_folder)
 
-
-def folder_path(name):
-    return str(output_folder.joinpath(name))
-
-
-@callback(
-    Output("db-index", "data"),
-    Input("reference-button-state", "n_clicks"),
-    State("reference-df-index", "data"),
-    State("reference-options", "value"),
-)
-def get_df_index(
-    _: int,
-    reference_index: Optional[str],
-    reference_options: Optional[list[str]]
-) -> Optional[str]:
-    """Get all metadata from sqlite db.
-
-    Parameters
-    ----------
-    folders : list[str]
-        List of all folders containing sqlite db to query data from.
-
-    Returns
-    -------
-    json representation of dataframe containing all metadata (e.g technique)
-    """
-    ref_df = pd.read_json(StringIO(reference_index), orient="split")
-    raw_index = []
-    for path, config in ref_df.groupby("Folder"):
-        logger.debug("Querying sqlite db in %s", path)
-        con = sql.connect(str(path))
-        sql_query = [
-            (
-                'SELECT DISTINCT "Reference", "Field", "Calibrated", '
-                '"Technique", "Scaling Method", "Variables", "Fold" FROM '
-                'Results '
-            )
-        ]
-        if reference_options:
-            logger.debug(reference_options)
-            logger.debug(config["Reference"])
-            opts_to_use = "', '".join(
-                [
-                    ref
-                    for ref in reference_options
-                    if ref in config["Reference"].to_list()
-                ]
-            )
-            logger.debug(opts_to_use)
-            sql_query.append(
-                f"""WHERE "Reference" IN ('{opts_to_use}')"""
-            )
-        sql_query.append(";")
-        logger.debug("".join(sql_query))
-        sql_index = pd.read_sql(
-            sql="".join(sql_query),
-            con=con,
-        )
-        sql_index["Folder"] = str(path)
-        raw_index.append(
-            sql_index
-        )
-        con.close()
-    index = pd.concat(raw_index)
-    logger.debug("Number of distinct indices: %s", index.shape[0])
-    return index.to_json(orient="split")
-
-
 @callback(
     Output("reference-options", "options"),
     Output("reference-df-index", "data"),
-    Input("folder-button-state", "n_clicks"),
-    State("folder-name", "value")
+    Input("folder-name", "value")
 )
-def ref_opt(_: int, folders: Optional[list[str]]):
+def ref_opt(folders: Optional[list[str]]):
     raw_index = []
     if folders is None:
         logger.debug("No folders selected")
@@ -162,6 +113,105 @@ def ref_opt(_: int, folders: Optional[list[str]]):
     logger.debug(options)
     return options, index.to_json(orient="split")
 
+@callback(
+    Output("ref-colours", "data"),
+    Input("reference-button-state", "n_clicks"),
+    State("reference-options", "value"),
+)
+def get_colours(
+    _: int,
+    ref_opts: Optional[list[str]]
+):
+    """"""
+    if not ref_opts:
+        raise PreventUpdate
+    colors = cycle(
+        [
+            "#fb4934",
+            "#458588",
+            "#98971a",
+            "#b16286",
+            "#fabd2f",
+            "#d65d0e",
+            "#7fa2ac",
+            "#665c54"
+        ]
+    )
+    return {
+        k: next(colors) for k in ref_opts
+    }
+
+
+@callback(
+    Output("db-index", "data"),
+    Input("reference-button-state", "n_clicks"),
+    State("reference-df-index", "data"),
+    State("reference-options", "value"),
+)
+def get_df_index(
+    _: int,
+    reference_index: Optional[str],
+    reference_options: Optional[list[str]]
+) -> Optional[str]:
+    """Get all metadata from sqlite db.
+
+    Parameters
+    ----------
+    folders : list[str]
+        List of all folders containing sqlite db to query data from.
+
+    Returns
+    -------
+    json representation of dataframe containing all metadata (e.g technique)
+    """
+    if not reference_index:
+        raise PreventUpdate
+    ref_df = pd.read_json(StringIO(reference_index), orient="split")
+    raw_index = []
+    for path, config in ref_df.groupby("Folder"):
+        logger.debug("Querying sqlite db in %s", path)
+        con = sql.connect(str(path))
+        query_opts = {}
+        sql_query = [
+            (
+                'SELECT DISTINCT "Reference", "Field", "Calibrated", '
+                '"Technique", "Scaling Method", "Variables", "Fold" FROM '
+                'Results '
+            )
+        ]
+        if reference_options:
+            logger.debug(reference_options)
+            logger.debug(config["Reference"])
+            query_opts["ref_opts"] = "', '".join(
+                [
+                    ref
+                    for ref in reference_options
+                    if ref in config["Reference"].to_list()
+                ]
+            )
+            sql_query.append('WHERE "Reference" IN (:ref_opts)')
+        sql_query.append(";")
+        logger.debug("".join(sql_query))
+        cursor = con.cursor()
+        cursor.execute("".join(sql_query), query_opts)
+        sql_index = pd.DataFrame(
+            cursor.fetchall(),
+            columns=pd.Index(
+                [description[0] for description in cursor.description]
+            )
+        )
+        cursor.close()
+        sql_index["Database"] = str(path)
+        raw_index.append(
+            sql_index
+        )
+        con.close()
+    index = pd.concat(raw_index)
+    logger.debug("Number of distinct indices: %s", index.shape[0])
+    return index.to_json(orient="split")
+
+
+
 
 @callback(
     Output("field-options", "options"),
@@ -170,110 +220,181 @@ def ref_opt(_: int, folders: Optional[list[str]]):
     Output("scaling-options", "options"),
     Output("var-options", "options"),
     Output("fold-options", "options"),
-    Output("chosen-combo-index", "data"),
-    Output("num-of-runs", "children"),
+    Output("field-options", "value"),
+    Output("calibrated-device-options", "value"),
+    Output("technique-options", "value"),
+    Output("scaling-options", "value"),
+    Output("var-options", "value"),
+    Output("fold-options", "value"),
+    Input("db-index", "data")
+)
+def filter_options(
+    data: str,
+) -> tuple[
+    list[dict[str, str]],
+    ...
+]:
+    """Return options to select subset of results.
+
+    Parameters
+    ----------
+    data : str
+        All available parameters.
+    """
+    levels = [
+        "Field",
+        "Calibrated",
+        "Technique",
+        "Scaling Method",
+        "Variables",
+        "Fold",
+    ]
+    if not data:
+        raise PreventUpdate
+    unedited_df: pd.DataFrame = pd.read_json(StringIO(data), orient="split")
+    options: dict[str, list[dict[str, str]]] = {}
+    for col in levels:
+        options[col] = [
+            {
+                "label": f"{key} [{count}]", "value": key
+            } for key, count in
+            unedited_df.loc[:, col].sort_index().value_counts().items()
+            if not (col == "Technique" and key == "None")
+        ]
+
+
+    return tuple(
+        options[col] for col in levels
+    ) + ([], [], [], [], [], [])
+
+@callback(
+    Output("norm-options", "options"),
+    Output("metric-options", "options"),
+    Input("reference-button-state", "n_clicks"),
+    State("reference-df-index", "data"),
+    State("reference-options", "value"),
+)
+def metric_options(
+    _: int,
+    reference_index: str,
+    reference_options: list[str]
+) -> tuple[list[dict[str, str]], ...]:
+    """Query valid metrics in results and ref values for normalisation.
+
+    Parameters
+    ----------
+    _ : int
+        Unused, triggers callback.
+    reference_index : str
+        Reference devices and the database they're found in.
+    reference_options : list[str]
+        Selected reference devices, use all if empty.
+
+    """
+    if not reference_index:
+        raise PreventUpdate
+    index_cols = [
+        "index",
+        "Field",
+        "Reference",
+        "Calibrated",
+        "Technique",
+        "Scaling Method",
+        "Variables",
+        "Fold",
+        "Count",
+    ]
+    ref_df = pd.read_json(StringIO(reference_index), orient="split")
+    metric_columns = set()
+    norm_columns = set()
+    for path, config in ref_df.groupby("Folder"):
+        logger.debug("Querying sqlite db in %s", path)
+        con = sql.connect(str(path))
+        query_opts = {}
+        sql_query = ['SELECT * FROM "Results" ']
+        if reference_options:
+            logger.debug(reference_options)
+            logger.debug(config["Reference"])
+            query_opts["ref_opts"] = "', '".join(
+                [
+                    ref
+                    for ref in reference_options
+                    if ref in config["Reference"].to_list()
+                ]
+            )
+            sql_query.append('WHERE "Reference" IN (:ref_opts)')
+        sql_query.append(" LIMIT 0;")
+        logger.debug("".join(sql_query))
+        cursor = con.cursor()
+        cursor.execute("".join(sql_query), query_opts)
+        columns = [description[0] for description in cursor.description]
+        cursor.close()
+        norm_columns.update(
+            {col for col in columns if col[:10] == "Reference "}
+        )
+        metric_columns.update(
+            {
+                col for col in columns
+                if col[:10] != "Reference " and col not in index_cols
+            }
+        )
+        con.close()
+    norm_options: list[dict[str, str]] = [
+        {
+            "label": "None",
+            "value": ""
+        }
+    ]
+
+    norm_options.extend(
+        [
+            {
+                "label": i.replace("Reference ", ""),
+                "value": i,
+            } for i in sorted(norm_columns)
+        ]
+    )
+    metric_options: list[dict[str, str]] = [
+        {"label": i, "value": i} for i in sorted(metric_columns)
+    ]
+    return (
+        norm_options,
+        metric_options
+    )
+
+
+@callback(
+    Output("results-df", "data"),
     Input("submit-button-state", "n_clicks"),
-    Input("db-index", "data"),
+    State("db-index", "data"),
+    State("reference-options", "value"),
     State("field-options", "value"),
     State("calibrated-device-options", "value"),
     State("technique-options", "value"),
     State("scaling-options", "value"),
     State("var-options", "value"),
     State("fold-options", "value"),
-)
-def filter_options(
-    _: int,
-    data: str,
-    fields: Optional[list[str]],
-    cal_d: Optional[list[str]],
-    tech: Optional[list[str]],
-    sca: Optional[list[str]],
-    var: Optional[list[str]],
-    fold: Optional[list[str]]
-) -> tuple[
-    list[dict[str, str]],
-    list[dict[str, str]],
-    list[dict[str, str]],
-    list[dict[str, str]],
-    list[dict[str, str]],
-    list[dict[str, str]],
-    str,
-    str
-]:
-    """Return options to select subset of results.
-
-    Parameters
-    ----------
-    _ : int
-        Unused.
-    data : str
-        All available parameters.
-    cal_d : list[str], optional
-        Selected calibration devices.
-    tech : list[str], optional
-        Selected calibration techniques.
-    sca : list[str], optional
-        Selected scaling techniques.
-    var : list[str], optional
-        Selected variables.
-    fold : list[str], optional
-        Selected folds.
-    """
-    levels = {
-        "Field": fields,
-        "Calibrated": cal_d,
-        "Technique": tech,
-        "Scaling Method": sca,
-        "Variables": var,
-        "Fold": fold,
-    }
-    if not data:
-        raise PreventUpdate
-    unedited_df: pd.DataFrame = pd.read_json(StringIO(data), orient="split")
-    s_df = unedited_df.copy(deep=True)
-    for name, col in levels.items():
-        if not col:
-            continue
-        s_df = pd.DataFrame(s_df[s_df[name].isin(col)])
-
-    return (
-        [
-            {"label": i, "value": i}
-            for i in sorted(unedited_df["Field"].unique())
-        ],
-        [
-            {"label": i, "value": i}
-            for i in sorted(unedited_df["Calibrated"].unique())
-        ],
-        [
-            {"label": i.replace(" Regression", ""), "value": i}
-            for i in sorted(unedited_df["Technique"].unique())
-        ],
-        [
-            {"label": i, "value": i}
-            for i in sorted(unedited_df["Scaling Method"].unique())
-        ],
-        [
-            {"label": i, "value": i}
-            for i in sorted(unedited_df["Variables"].unique())
-        ],
-        [
-            {"label": i, "value": i}
-            for i in sorted(unedited_df["Fold"].unique())
-        ],
-        str(s_df.to_json(orient="split")),
-        f"{s_df.shape[0]} combinations",
-    )
-
-
-@callback(
-    Output("results-df", "data"),
-    Output("raw-df", "data"),
-    Input("chosen-combo-index", "data")
+    State("split-by-options", "value"),
+    State("norm-options", "value"),
+    State("metric-options", "value"),
+    State("remove-outliers", "value"),
 )
 def get_results_df(
-    index_to_query: Optional[str]
-) -> tuple[Optional[str], Optional[str]]:
+    _: int,
+    index_to_query: Optional[str],
+    ref_opts: list[str],
+    field_opts: list[str],
+    cal_opts: list[str],
+    tech_opts: list[str],
+    scaling_opts: list[str],
+    var_opts: list[str],
+    fold_opts: list[str],
+    split_opts: list[str],
+    norm_opt: str,
+    metric_opt: str,
+    outlier_opt: str
+) -> dict[str, str]:
+
     """Query results from database.
 
     Parameters
@@ -285,103 +406,203 @@ def get_results_df(
     -------
     tuple containing subset of results and results with no calibration.
     """
-    index_df = pd.read_json(StringIO(index_to_query), orient="split")
-    sql_data_list = []
-    none_data_list = []
-    for database, info in index_df.groupby("Folder"):
-        logging.debug("Querying results in: %s", database)
-        query_list = ["SELECT *", "FROM Results"]
-        none_query_list = ["SELECT *", "FROM Results"]
-        for i, (name, vals) in enumerate(info.drop("Folder", axis=1).items()):
-            val_list = "', '".join(vals.unique())
-            query_list.append(
-                f"""{"WHERE" if i == 0 else "AND"} """
-                f""""{name}" in ('{val_list}')"""
-            )
-            if name == "Technique":
-                none_query_list.append(
-                    f"""{"WHERE" if i == 0 else "AND"} """
-                    f""""{name}" in ('None')"""
-                )
-            else:
-                none_query_list.append(
-                    f"""{"WHERE" if i == 0 else "AND"} """
-                    f""""{name}" in ('{val_list}')"""
-                )
-        con = sql.connect(str(database))
-        logging.debug("Query: %s", " \\n ".join(query_list))
-        logging.debug("None Query: %s", " \\n ".join(none_query_list))
-        query = "\n".join(query_list)
-        none_query = "\n".join(none_query_list)
-        results = pd.read_sql(sql=f"{query};", con=con).drop(
-            columns=["level_0", "index"], errors="ignore"
-        )
-        none_results = pd.read_sql(sql=f"{none_query};", con=con).drop(
-            columns=["level_0", "index"], errors="ignore"
-        )
-        results["Study"] = Path(str(database)).parts[-3]
-        sql_data_list.append(results)
-        none_data_list.append(none_results)
-        con.close()
+    no_norm = [
+        "Mean Absolute Percentage Error",
+        "r2",
+        "Explained Variance Score",
+    ]
+    options = {
+        "Reference": ref_opts,
+        "Field": field_opts,
+        "Calibrated": cal_opts,
+        "Technique": tech_opts,
+        "Scaling Method": scaling_opts,
+        "Variables": var_opts,
+        "Fold": fold_opts,
+    }
+    query_params = {
+        "metric": metric_opt,
+        "splits": '", "'.join(split_opts),
+        "norm": f'"{norm_opt}"' if norm_opt and metric_opt not in no_norm else 1
+    }
 
-    sql_data = pd.concat(sql_data_list)
-    none_data = pd.concat(none_data_list)
-    return (
-        sql_data.to_json(orient='split'),
-        none_data.to_json(orient='split')
-    )
-
-@callback(Output("results-tabs", "children"), Input("chosen-combo-index", "data"))
-def results_tabs(index_to_query: Optional[str]):
-    """ """
+    if not index_to_query or not split_opts:
+        raise PreventUpdate
     index_df = pd.read_json(StringIO(index_to_query), orient="split")
-    cols = set()
-    for db in index_df["Folder"].unique():
+    results = {}
+    for database, sub_df in index_df.groupby("Database"):
+        db = Path(str(database))
+        folder_name = db.parts[-3]
         con = sql.connect(db)
-        df = pd.read_sql("SELECT * FROM 'Results' LIMIT 1;", con=con)
+        cursor = con.cursor()
+        con.set_trace_callback(logger.debug)
+        if outlier_opt == "Yes":
+            iqr_query = [
+                (
+                    f'SELECT "{query_params["splits"]}", '
+                    f'percentile("{query_params["metric"]}" / '
+                    f'{query_params["norm"]}, 25) AS Q1, '
+                    f'percentile("{query_params["metric"]}" / '
+                    f'{query_params["norm"]}, 75) AS Q3, '
+                    f'percentile("{query_params["metric"]}" / '
+                    f'{query_params["norm"]}, 75) - '
+                    f'percentile("{query_params["metric"]}" / '
+                    f'{query_params["norm"]}, 75) as IQR, '
+                    f'percentile("{query_params["metric"]}" / '
+                    f'{query_params["norm"]}, 25) - '
+                    f'(1.5 * (percentile("{query_params["metric"]}" '
+                    f'/ {query_params["norm"]}, 75) - '
+                    f'percentile("{query_params["metric"]}" / '
+                    f'{query_params["norm"]}, 25))) AS Low, '
+                    f'percentile("{query_params["metric"]}" / '
+                    f'{query_params["norm"]}, 75) + '
+                    f'(1.5 * (percentile("{query_params["metric"]}" '
+                    f'/ {query_params["norm"]}, 75) - '
+                    f'percentile("{query_params["metric"]}" / '
+                    f'{query_params["norm"]}, 25))) AS High '
+                    'FROM "Results" '
+                )
+            ]
+            for ind_col, vals in options.items():
+                if not vals:
+                    continue
+                filter_by = [
+                    val for val in vals if val in sub_df[ind_col].unique()
+                ]
+                iqr_query.append(
+                        f'{"WHERE" if len(iqr_query) == 1 else "AND"} '
+                        f'''"{ind_col}" IN ('{"', '".join(filter_by)}') '''
+                )
+                query_params[ind_col] = filter_by
+            iqr_query.append(f'GROUP BY "{query_params["splits"]}";')
+            cursor.execute("".join(iqr_query), query_params)
+            limits = pd.DataFrame(
+                cursor.fetchall(),
+                columns=pd.Index([desc[0] for desc in cursor.description])
+            )
+        else:
+            iqr_query = [
+                (
+                    f'SELECT "{query_params["splits"]}", '
+                    f'MIN("{query_params["metric"]}" / '
+                    f'{query_params["norm"]}) AS Low, '
+                    f'MAX("{query_params["metric"]}" / '
+                    f'{query_params["norm"]}) AS High '
+                    'FROM "Results" '
+                )
+            ]
+            for ind_col, vals in options.items():
+                if not vals:
+                    continue
+                filter_by = [
+                    val for val in vals if val in sub_df[ind_col].unique()
+                ]
+                iqr_query.append(
+                        f'{"WHERE" if len(iqr_query) == 1 else "AND"} '
+                        f'''"{ind_col}" IN ('{"', '".join(filter_by)}') '''
+                )
+                query_params[ind_col] = filter_by
+            iqr_query.append(f'GROUP BY "{query_params["splits"]}";')
+            cursor.execute("".join(iqr_query), query_params)
+            limits = pd.DataFrame(
+                cursor.fetchall(),
+                columns=pd.Index([desc[0] for desc in cursor.description])
+            )
+
+        summary_list = []
+
+        for _, bounds in limits.iterrows():
+            normed_col_name = f'"{query_params["metric"]}" / {query_params["norm"]}'
+            bounds_query = [
+                (
+                    f'SELECT "{query_params["splits"]}", '
+                    f'median({normed_col_name}) AS Median, '
+                    f'(percentile({normed_col_name}, 75) - percentile({normed_col_name}, 25)) AS IQR '
+                    'FROM "Results" '
+
+                )
+            ]
+            for i, ind in enumerate(split_opts):
+                bounds_query.append(
+                    f'{"WHERE" if i == 0 else "AND"} '
+                    f'"{ind}" == \'{bounds[ind]}\' '
+                )
+
+            for ind_col, vals in options.items():
+                if not vals or ind_col in split_opts:
+                    continue
+                filter_by = query_params[ind_col]
+                bounds_query.append(
+                    f'''AND "{ind_col}" IN ('{"', '".join(filter_by)}') '''
+                )
+            bounds_query.append(
+                f'AND "{query_params["metric"]}" / {query_params["norm"]} '
+                f'BETWEEN {bounds["Low"]} AND {bounds["High"]}'
+            )
+            bounds_query.append(";")
+            cursor.execute("".join(bounds_query), query_params)
+            bounds_df = pd.DataFrame(
+                cursor.fetchall(),
+                columns=pd.Index([desc[0] for desc in cursor.description])
+            )
+
+            summary_query = [
+                (
+                    f'SELECT "{query_params["splits"]}", '
+                    f'AVG({normed_col_name}) AS Mean, '
+                    f'stddev({normed_col_name}) AS σ, '  # noqa: RUF001
+                    f'min({normed_col_name}) FILTER (WHERE {normed_col_name} > ({bounds_df.loc[0, "Median"]} - (1.5 * {bounds_df.loc[0, "IQR"]}))) AS Min, '
+                    f'percentile({normed_col_name}, 25) AS Q1, '
+                    f'median({normed_col_name}) AS Median, '
+                    f'percentile({normed_col_name}, 75) AS Q3, '
+                    f'max({normed_col_name}) FILTER (WHERE {normed_col_name} < ({bounds_df.loc[0, "Median"]} + (1.5 * {bounds_df.loc[0, "IQR"]}))) AS Max, '
+                    f'percentile({normed_col_name}, 75) - '
+                    f'percentile({normed_col_name}, 25) AS IQR, '
+                    f'count({normed_col_name}) AS Count '
+                    'FROM "Results" '
+                )
+            ]
+            for i, ind in enumerate(split_opts):
+                summary_query.append(
+                    f'{"WHERE" if i == 0 else "AND"} '
+                    f'"{ind}" == \'{bounds[ind]}\' '
+                )
+
+            for ind_col, vals in options.items():
+                if not vals or ind_col in split_opts:
+                    continue
+                filter_by = query_params[ind_col]
+                summary_query.append(
+                    f'''AND "{ind_col}" IN ('{"', '".join(filter_by)}') '''
+                )
+            summary_query.append(
+                f'AND "{query_params["metric"]}" / {query_params["norm"]} '
+                f'BETWEEN {bounds["Low"]} AND {bounds["High"]}'
+            )
+            summary_query.append(";")
+            cursor.execute("".join(summary_query), query_params)
+            query_df = pd.DataFrame(
+                cursor.fetchall(),
+                columns=pd.Index([desc[0] for desc in cursor.description])
+            )
+            summary_list.append(
+                query_df
+            )
+        if summary_list:
+            final_list = pd.concat(summary_list).round(3).set_index(split_opts)
+            if len(split_opts) > 1:
+                final_list.index = [
+                    ", ".join(i) for i in final_list.index.to_list()
+                ]
+            logger.debug(
+                "Generated results for %s: %s",
+                folder_name,
+                final_list.shape
+            )
+            results[folder_name] = final_list.to_json(orient='split')
+        cursor.close()
         con.close()
-        bad_cols = [
-            "index",
-            "Field",
-            "Reference",
-            "Calibrated",
-            "Technique",
-            "Scaling Method",
-            "Variables",
-            "Fold",
-            "Count",
-            *[col for col in df.columns if "Reference" in col],
-        ]
-        cols.update({col for col in df.columns if col not in bad_cols})
-    tabs = [dcc.Tab(label=col, value=col) for col in sorted(cols)]
-    if not tabs:
-        tabs = [dcc.Tab(label="No Data", value="nd")]
-
-    return dcc.Tabs(
-        id="result-box-plot-tabs",
-        value=sorted(cols)[0] if cols else "nd",
-        children=tabs,
-    )
-
-
-def full_results_table_plot(df):
-    """ """
-    df = df.drop(
-        columns=[
-            col for col in df.columns if "(Raw)" in col or "Reference " in col
-        ]
-    )
-    table_cell_format = [".2f" if i == "float64" else "" for i in df.dtypes]
-    return go.Figure(
-        data=go.Table(
-            header={"values": list(df.columns)},
-            cells={
-                "values": df.transpose().values.tolist(),
-                "format": table_cell_format,
-            },
-        ),
-        layout=FULL_TABLE_LAYOUT,
-    )
+    return results
 
 
 def empty_figure(missing_graph_type: str = ""):
@@ -407,138 +628,45 @@ def empty_figure(missing_graph_type: str = ""):
     return fig
 
 
-@callback(
-    Output("split-data", "data"),
-    Input("results-df", "data"),
-    State("result-box-plot-split-by", "value"),
-    State("norm-options", "value"),
-    State("remove-outliers", "value"),
-    State("raw-df", "data"),
-)
-def grouped_data(
-    cal_results, split_by, norm_by, outlier_removal, uncal_results
-):
+def result_table_plot(dfs):
     """ """
-    split_data = {}
-    # Import data
-    results = pd.read_json(StringIO(cal_results), orient="split")
-    if not results.shape[0]:
-        return split_data
-    raw_df = pd.read_json(StringIO(uncal_results), orient="split")
-    results = results.join(
-        raw_df.set_index(["Field", "Reference", "Calibrated"]),
-        on=["Field", "Reference", "Calibrated"],
-        how="left",
-        rsuffix=" (Raw)",
+    table_fig = make_subplots(
+        len(dfs),
+        1,
+        subplot_titles=list(dfs.keys()),
+        specs=[
+            [{"type": "table"}]
+            for _ in dfs
+        ]
     )
-
-    # config
-    no_norm = [
-        "Mean Absolute Percentage Error",
-        "r2",
-        "Explained Variance Score",
-    ]
-
-    index = [
-        "Field",
-        "Reference",
-        "Calibrated",
-        "Technique",
-        "Scaling Method",
-        "Variables",
-        "Fold",
-        "Study"
-    ]
-    for study, df in results.groupby("Study"):
-        logger.debug("Splitting data for %s", study)
-        logger.debug("%s rows in study", df.shape[0])
-        split_data[study] = {}
-        try:
-            grouped = df.groupby(split_by)
-        except KeyError:
-            continue
-
-        for name_t, data in grouped:
-            name = ", ".join(name_t)
-            logger.debug("Subset: %s", name)
-            logger.debug("%s rows in subset", data.shape[0])
-            for col in [
-                col
-                for col in data.columns
-                if "(Raw)" not in col
-                and "Reference " not in col
-                and col not in index
-            ]:
-                if outlier_removal == "Yes":
-                    q3 = data[col].quantile(0.75)
-                    q1 = data[col].quantile(0.25)
-                    iqr = q3 - q1
-                    upper_bound = q3 + (2 * iqr)
-                    lower_bound = q1 - (2 * iqr)
-                    no_outliers_col = data[col].copy()
-                    no_outliers_col[
-                        np.logical_or(
-                            no_outliers_col.gt(upper_bound),
-                            no_outliers_col.lt(lower_bound),
-                        )
-                    ] = np.nan
-                    data[col] = no_outliers_col
-                if (
-                    norm_by is not None
-                    and norm_by != "None"
-                    and col not in no_norm
-                ):
-                    data[col] = data[col].div(data[norm_by])
-                    data[f"{col} (Raw)"] = data[f"{col} (Raw)"].div(
-                        data[norm_by]
-                    )
-            if "Technique" not in split_by:
-                data = data[data["Technique"] != "None"]
-            split_data[study][name] = data.to_json(orient="split")
-    logger.debug("Exporting split data: %s studies", len(split_data.keys()))
-    for study, splits in split_data.items():
-        logger.debug("%s: %s splits", study, len(splits.keys()))
-    return split_data
-
-
-def result_table_plot(dfs, col):
-    """ """
-    summary_functions = {
-        "Count": len,
-        "Mean": np.mean,
-        "σ": np.std,
-        "Min": np.min,
-        "25%": partial(np.nanquantile, q=0.25),
-        "50%": partial(np.nanquantile, q=0.5),
-        "75%": partial(np.nanquantile, q=0.75),
-        "Max": np.max,
-    }
-    summary = pd.DataFrame()
-    for name, df in dfs.items():
-        logger.critical(name)
-        logger.debug(df.sample(10)["Study"])
-        c_data = df.loc[:, col]
-        for stat, func in summary_functions.items():
-            summary.loc[stat, name] = round(func(c_data), 3)
-    summary.index.name = "Statistic"
-    summary = summary.reset_index()
-    summary.insert(0, "Statistic", summary.pop("Statistic"))
-    table_fig = go.Figure(
-        data=[
+    size = 0
+    for i, (_, data) in enumerate(dfs.items(), start=1):
+        size += data.shape[0]
+        table_cell_format = [
+            ".2f" if i == "float64" else ""
+            for i in data.dtypes
+        ]
+        table_fig.add_trace(
             go.Table(
-                header={"values": list(summary.columns), "align": "left"},
+                header={"values": list(data.columns), "align": "left"},
                 cells={
-                    "values": summary.transpose().values.tolist(),
+                    "values": data.transpose().to_numpy().tolist(),
                     "align": "left",
+                    "format": table_cell_format
                 },
-            )
-        ],
-        layout=FULL_TABLE_LAYOUT,
+            ),
+            row=i,
+            col=1
+        )
+    table_fig.update_layout(
+        autosize=False,
+        width=2100,
+        height=800 * (len(dfs)),
     )
     return table_fig
 
 
-def box_plot(dfs, col, norm_options):
+def box_plot(dfs, col, norm_options, colours, legend):
     """ """
     no_norm = [
         "Mean Absolute Percentage Error",
@@ -546,44 +674,24 @@ def box_plot(dfs, col, norm_options):
         "Explained Variance Score",
     ]
     box_plot_fig = go.Figure()
-    for name in [k for k in dfs if k != "None"] + ["None"]:
-        df = dfs.get(name)
-        if df is None:
-            continue
-        c_data = df.loc[:, col]
-        if c_data.mean() > 10E6:
-            c_data = []
-        if name == "None":
-            box_plot_fig.add_trace(
-                go.Box(
-                    y=[],
-                    name=name,
-                    hoverinfo="all",
-                    boxmean="sd",
-                    fillcolor="rgba(0,0,0,0)",
-                )
+    for key, data in dfs.items():
+        box_plot_fig.add_trace(
+            go.Box(
+                x=data.index,
+                q1=data["Q1"],
+                median=data["Median"],
+                q3=data["Q3"],
+                lowerfence=data["Min"],
+                upperfence=data["Max"],
+                mean=data["Mean"],
+                sd=data["σ"],
+                name=key,
+                offsetgroup=key,
+                showlegend=legend,
+                fillcolor="rgba(0,0,0,0)",
+                marker_color = colours[key]
             )
-            box_plot_fig.add_trace(
-                go.Scatter(
-                    x=["None" for _ in c_data],
-                    y=c_data,
-                    name=name,
-                    mode="markers"
-                )
-            )
-        else:
-            box_plot_fig.add_trace(
-                go.Box(
-                    y=c_data,
-                    name=name,
-                    hoverinfo="all",
-                    boxmean="sd",
-                    fillcolor="rgba(0,0,0,0)",
-                )
-            )
-    if "None" in dfs:
-        for d in box_plot_fig.data:
-            logging.critical(d)
+        )
 
     if norm_options and norm_options != "None" and col not in no_norm:
         title = f"{col} /<br>{norm_options}"
@@ -591,231 +699,64 @@ def box_plot(dfs, col, norm_options):
         title = col
 
     box_plot_fig.update_layout(
-        yaxis={"autorange": False, "title": title},
         **FIGURE_LAYOUT,
         width=1200,
-        height=600,
-    )
-    return box_plot_fig
-
-
-def violin_plot(dfs, col, norm_options):
-    """ """
-    no_norm = [
-        "Mean Absolute Percentage Error",
-        "r2",
-        "Explained Variance Score",
-    ]
-    box_plot_fig = go.Figure()
-    for name, df in dfs.items():
-        c_data = df.loc[:, col]
-        box_plot_fig.add_trace(
-            go.Violin(
-                y=c_data,
-                name=name,
-                box_visible=True,
-                hoverinfo="name",
-                meanline_visible=True,
-                fillcolor="rgba(0,0,0,0)",
-            )
-        )
-
-    if norm_options and norm_options != "None" and col not in no_norm:
-        title = f"{col} / {norm_options}"
-    else:
-        title = col
-
-    box_plot_fig.update_layout(
-        yaxis={"autorange": False, "title": title},
-        **FIGURE_LAYOUT,
-        width=1500,
-        height=750,
-    )
-    return box_plot_fig
-
-
-def prop_imp_plot(dfs, col):
-    """ """
-    pos_better = ["r2", "Explained Variance Score"]
-    improved_techs = pd.DataFrame()
-    for name, df in dfs.items():
-        adjusted = df[col] - df[f"{col} (Raw)"]
-        c_data = df.loc[:, col] - df.loc[f"{col} (Raw)"]
-        if col not in pos_better:
-            improved = adjusted.lt(0)
-        else:
-            improved = adjusted.gt(0)
-        improved_techs.loc["Improved", name] = improved.sum() / improved.size
-        improved_techs.loc["Worsened", name] = (
-            improved.size - improved.sum()
-        ) / improved.size
-    bars = [
-        go.Bar(
-            name=name,
-            x=data.index,
-            y=data.values,
-            marker_line_color="rgba(0,0,0,0)",
-            marker_color="#1FE41B" if name == "Improved" else "#E41B1F",
-        )
-        for name, data in improved_techs.iterrows()
-    ]
-
-    improved_bar = go.Figure(
-        data=bars,
-        layout={
-            "width": 1500,
-            "height": 750,
-            **FIGURE_LAYOUT,
+        height=800,
+        boxmode='group',
+        yaxis={
+            "autorange": False,
+            "title": title,
         },
+        xaxis={
+                    "tickangle": -45
+        }
+
     )
-    return improved_bar
-
-
-def target_plot(dfs, norm_options):
-    """ """
-    fig = go.Figure()
-    fig.add_shape(type="circle", xref="x", yref="y", x0=-1, y0=-1, x1=1, y1=1)
-
-    ind_cols = [
-        "Field",
-        "Reference",
-        "Calibrated",
-        "Technique",
-        "Scaling Method",
-        "Variables",
-        "Fold",
-    ]
-
-    for name, df in dfs.items():
-        df["text"] = df[ind_cols[0]]
-        for col in ind_cols[1:]:
-            df["text"] = df["text"].str.cat(df[col].astype(str), sep=", ")
-        if norm_options and norm_options not in ["None"]:
-            crmse = df["Centered Root Mean Squared Error"].mul(norm_options)
-            bias = df["Mean Bias Error"].mul(norm_options)
-        else:
-            crmse = df["Centered Root Mean Squared Error"]
-            bias = df["Mean Bias Error"]
-        crmse = crmse.div(df["Reference Standard Deviation"])
-        bias = bias.div(df["Reference Standard Deviation"])
-        fig.add_trace(
-            go.Scatter(
-                x=crmse, y=bias, name=name, text=df["text"], mode="markers"
-            )
-        )
-    fig.update_xaxes(
-        range=[-2, 6],
-        minallowed=-2,
-        maxallowed=6,
-    )
-
-    fig.update_yaxes(
-        range=[-2, 6],
-        minallowed=-2,
-        maxallowed=6,
-    )
-    fig.update_layout(**FIGURE_LAYOUT)
-
-    fig.update_layout(
-        margin={"autoexpand": False, "b": 75, "t": 75, "l": 75, "r": 575},
-        legend={"itemclick": "toggleothers", "itemdoubleclick": "toggle"},
-        xaxis_title=r"cRMSE / Reference σ",
-        yaxis_title=r"Bias / Reference σ",
-        autosize=False,
-        width=1500,
-        height=1000,
-        minreducedwidth=950,
-        minreducedheight=950,
-    )
-
-    return fig
+    return box_plot_fig
 
 
 @callback(
     Output("summary-figure", "figure"),
     Input("graph-type", "value"),
-    Input("split-data", "data"),
-    Input("result-box-plot-tabs", "value"),
+    Input("results-df", "data"),
+    Input("metric-options", "value"),
     State("norm-options", "value"),
+    State("ref-colours", "data"),
 )
-def results_plot(plot_type, df_split, col, norm):
+def results_plot(plot_type, df_split, col, norm, colours, legend=True):
     data = {}
-    logger.debug("Reading split data: %s studies", len(df_split.keys()))
-    for study, splits in df_split.items():
-        logger.debug("%s: %s splits", study, len(splits.keys()))
+    if not df_split:
+        raise PreventUpdate
     logger.debug(
-        "Plotting %s for %s %s",
+        "Plotting %s split by %s keys",
         plot_type,
-        col,
-        f"({norm})" if norm else ""
+        len(df_split.keys())
     )
-    if df_split:
-        for study, dfs in df_split.items():
-            data[study] = {
-                key: pd.read_json(StringIO(df), orient="split")
-                for key, df in dfs.items()
-            }
-            if all(
-                [
-                    " (Default)" in key or "None" in key
-                    for key in data
-                ]
-            ):
-                data[study] = {
-                    key.replace(" (Default)", ""): df
-                    for key, df in data.items()
-                }
-    else:
-        return empty_figure()
+    for study, splits in df_split.items():
+        data[study] = pd.read_json(StringIO(splits), orient='split')
     match plot_type:
         case "results-table-tab":
-            return result_table_plot(data, col)
+            return result_table_plot(data)
         case "box-plot-tab":
-            return box_plot(data, col, norm)
-        case "violin-plot-tab":
-            return violin_plot(data, col, norm)
-        case "prop-imp-plot-tab":
-            return prop_imp_plot(data, col)
-        case "target-plot-tab":
-            return target_plot(data, norm)
-        case "valerio-temp":
-            return empty_figure(plot_type)
+            return box_plot(data, col, norm, colours, legend=legend)
     return empty_figure(plot_type)
 
-
-@callback(Output("norm-options", "options"), Input("results-df", "data"))
-def norm_options(data):
-    if not isinstance(data, pd.DataFrame):
-        df = pd.read_json(StringIO(data), orient="split")
-    else:
-        df = data
-    valid_options = [
-        "Reference Mean",
-        "Reference Standard Deviation",
-        "Reference Interquartile Range",
-        "Reference Range",
-    ]
-    return [
-        {"label": "None", "value": "None", "disabled": False},
-        *[
-            {
-                "label": i.replace("Reference ", ""),
-                "value": i,
-                "disabled": i not in df.columns,
-            }
-            for i in valid_options
-        ],
-    ]
+def double_stack_config(sub_config, plot_config, key, default=None):
+    if default is None:
+        default = []
+    return plot_config.get(key, sub_config.get(key, default))
 
 
 @callback(
     Output("graphs-generated-text", "data"),
-    Input("generate-graphs-button", "n_clicks"),
-    State("folder-path", "data"),
-    State("db-index", "data"),
+    Input("generate-graphs-button", "contents"),
     prevent_initial_call=True,
 )
-def generate_graphs_for_paper(button, path, dbi):
+def generate_graphs_for_paper(button):
+    if not button:
+        raise PreventUpdate
+    _, content = button.split(',')
+    toml_string = b64decode(content).decode()
     tag_dict = {
         "Results Table": "results-table-tab",
         "Box Plot": "box-plot-tab",
@@ -823,17 +764,149 @@ def generate_graphs_for_paper(button, path, dbi):
         "Proportion Improved": "prop-imp-plot-tab",
         "Target Diagram": "target-plot-tab",
     }
-    graph_path = Path(path).joinpath("Graphs")
-    graph_path.mkdir(parents=True, exist_ok=True)
-    if button == 0:
-        return ""
-    if not isinstance(dbi, pd.DataFrame):
-        db_index = pd.read_json(StringIO(dbi), orient="split")
-    else:
-        db_index = dbi
-    with Path(path).joinpath("Graphs/summary_graphs.json").open("r") as file:
-        config = json.load(file)
-    for run, data in config.items():
+    config = tomllib.loads(toml_string)
+    graph_path = Path("./Graphs")
+    graph_path.mkdir(exist_ok=True, parents=True)
+    for run, run_data in config.items():
+        config = run_data["Configuration"]
+        graphs = run_data["Graphs"]
+        filepath = graph_path.joinpath(f"{run}.png")
+        if filepath.exists():
+            logger.info("Skipping %s", run)
+            continue
+        logger.info("Generating %s", run)
+        plot = make_subplots(
+            cols=1,
+            rows=len(graphs),
+            vertical_spacing=0.01,
+            shared_xaxes=True
+        )
+        for index, data in enumerate(graphs, start=1):
+            arg_folders = config["Folders"]
+            reference_options, reference_index = ref_opt(arg_folders)
+            reference_options = [i["value"] for i in reference_options]
+            df_index = get_df_index(
+                1,
+                reference_index,
+                data.get("Reference", reference_options)
+            )
+            arg_reference = double_stack_config(data, config, "Reference", reference_options)
+            arg_field = double_stack_config(data, config, "Fields")
+            arg_cal = double_stack_config(data, config, "Calibrated")
+            arg_tech = double_stack_config(data, config, "Regression Techniques")
+            arg_scaling = double_stack_config(data, config, "Scaling Techniques")
+            arg_variables = double_stack_config(data, config, "Variables")
+            arg_fold = double_stack_config(data, config, "Folds")
+            arg_split = double_stack_config(data, config, "Split By")
+            arg_norm = double_stack_config(data, config, "Normalise By", "")
+            arg_metric = double_stack_config(data, config, "Metric", "Mean Absolute Error")
+            arg_outlier = double_stack_config(data, config, "Remove Outliers", "Yes")
+            results = get_results_df(
+                1,
+                df_index,
+                ref_opts = arg_reference,
+                field_opts = arg_field,
+                cal_opts = arg_cal,
+                tech_opts = arg_tech,
+                scaling_opts = arg_scaling,
+                var_opts = arg_variables,
+                fold_opts = arg_fold,
+                split_opts = arg_split,
+                norm_opt = arg_norm,
+                metric_opt = arg_metric,
+                outlier_opt = arg_outlier
+            )
+            colours = get_colours(1, data.get("Reference", reference_options))
+            subplot = results_plot(
+                tag_dict[data.get("Plot Type", "Box Plot")],
+                results,
+                data.get("Metric", "Mean Absolute Error"),
+                data.get("Normalise By", ""),
+                colours,
+                legend = index == 1
+            )
+            traces = subplot.select_traces()
+            plot_config = subplot.to_dict()
+            layout = plot_config.get("layout", {})
+            for trace in traces:
+                plot.add_trace(
+                    trace,
+                    row=index,
+                    col=1
+                )
+            if len(graphs) > 1:
+                plot.add_annotation(
+                    xref='x domain',
+                    yref='y domain',
+                    x=0.01,
+                    y=0.97,
+                    text=f'({chr(96+index)})',
+                    font={"size": 24},
+                    showarrow=False,
+                    row=index,
+                    col=1
+                )
+            plot.update_layout(**{
+                k: v
+                for k, v in layout.items()
+                if k not in ["xaxis", "yaxis"]
+            })
+            xaxis_config = layout.get('xaxis', {})
+            xaxis_config.update(data.get("X Axis", {}))
+            xaxis_config.update({
+                "ticks": "outside",
+                "gridcolor": "#b6bdbf",
+                "showgrid": True,
+                "showline": True,
+                "mirror": True,
+                "linecolor": "#1d2021",
+                #"title": {"font": {"size": 16}},
+                "tickangle": -45
+            })
+            yaxis_config = layout.get('yaxis', {})
+            yaxis_config.update(data.get("Y Axis", {}))
+            yaxis_config.update({
+                "ticks": "outside",
+                "gridcolor": "#b6bdbf",
+                "showgrid": True,
+                "zeroline": True,
+                "showline": True,
+                #"title": {"font": {"size": 16}},
+                "mirror": True,
+                "zerolinecolor": "#b6bdbf",
+                "linecolor": "#1d2021",
+                "minor": {
+                    "ticks": "outside",
+                    "gridcolor": "#e5e6e7",
+                    "showgrid": True,
+
+                }
+            })
+            plot.layout[f'xaxis{index}'].update(**xaxis_config)
+            plot.layout[f'yaxis{index}'].update(**yaxis_config)
+        plot.update_xaxes(**config.get("X Axis", {}))
+        plot.update_yaxes(**config.get("Y Axis", {}))
+        plot.update_yaxes(
+            ticks = "outside",
+            gridcolor = "#1d2021",
+            showgrid = True,
+            zeroline = True,
+            zerolinecolor = "#1d2021"
+        )
+        dimension_dict = {
+            "width": 2100,
+            "height": 800 * (len(graphs))
+        }
+        layout_dict = config.get("Layout", {})
+        plot.update_layout(
+            boxmode='group',
+            **FIGURE_LAYOUT,
+            **layout_dict,
+            **{k: v for k, v in dimension_dict.items() if k not in layout_dict}
+        )
+        plot.write_image(filepath)
+    return None
+    for i in []:
         filepath = graph_path.joinpath(f"{run}.png")
         if filepath.exists():
             continue
@@ -929,8 +1002,8 @@ def generate_graphs_for_paper(button, path, dbi):
                     "showgrid": True,
                     "showline": True,
                     "mirror": True,
-                    #"title": {"font": {"size": 16}},
                     "linecolor": "#1d2021",
+                    #"title": {"font": {"size": 16}},
                     "tickangle": -45
                 })
                 yaxis_config = layout.get('yaxis', {})
@@ -999,7 +1072,7 @@ def generate_graphs_for_paper(button, path, dbi):
     State("norm-options", "value"),
     State("remove-outliers", "value"),
     State("graph-type", "value"),
-    State("result-box-plot-tabs", "value"),
+    State("metric-options", "value"),
     prevent_initial_call=True,
 )
 def download_config(
@@ -1054,6 +1127,7 @@ item_stores = [
     dcc.Store(id="chosen-combo-index"),
     dcc.Store(id="split-data"),
     dcc.Store(id="graphs-generated-text"),
+    dcc.Store(id="ref-colours"),
 ]
 
 top_row = [
@@ -1075,22 +1149,6 @@ top_row = [
             ),
             dbc.Col(
                 [
-                    html.Button(
-                        id="folder-button-state",
-                        n_clicks=0,
-                        children="1) Query Reference Devices"
-                    ),
-                ]
-            )
-        ]
-    ),
-]
-
-reference_devices_row = [
-    dbc.Row(
-        [
-            dbc.Col(
-                [
                     dcc.Dropdown(
                         id="reference-options",
                         multi=True,
@@ -1103,7 +1161,7 @@ reference_devices_row = [
                     html.Button(
                         id="reference-button-state",
                         n_clicks=0,
-                        children="2) Query Configuration Options"
+                        children="1) Query Configuration Options"
                     ),
                 ]
             )
@@ -1158,6 +1216,50 @@ selections = [
                     dcc.Checklist(id="fold-options", style=checklist_options),
                 ]
             ),
+            dbc.Col(
+                [
+                    html.H4("Normalise Data"),
+                    dcc.RadioItems(
+                        id="norm-options",
+                        style=checklist_options
+                    ),
+                ],
+            ),
+            dbc.Col(
+                [
+                    html.H4("Remove Outliers"),
+                    dcc.RadioItems(["Yes", "No"], "Yes", id="remove-outliers"),
+                ],
+            ),
+            dbc.Col(
+                [
+                    html.H4("Split By"),
+                    dcc.Checklist(
+                        [
+                            "Reference",
+                            "Calibrated",
+                            "Field",
+                            "Technique",
+                            "Scaling Method",
+                            "Variables",
+                            "Fold",
+                        ],
+                        ["Calibrated"],
+                        id="split-by-options",
+                        style=checklist_options
+                    ),
+                ],
+            ),
+            dbc.Col(
+                [
+                    html.H4("Metric"),
+                    dcc.RadioItems(
+                        id="metric-options",
+                        value="r2",
+                        style=checklist_options
+                    ),
+                ],
+            ),
         ]
     )
 ]
@@ -1175,41 +1277,6 @@ results_table = [
 graph_selection_row = [
     dbc.Row(
         [
-            dbc.Col(
-                [
-                    html.H4("Split By"),
-                    dcc.Checklist(
-                        [
-                            "Reference",
-                            "Calibrated",
-                            "Field",
-                            "Technique",
-                            "Scaling Method",
-                            "Variables",
-                            "Fold",
-                        ],
-                        ["Calibrated"],
-                        id="result-box-plot-split-by",
-                    ),
-                ],
-                width=2,
-            ),
-            dbc.Col(
-                [
-                    html.H4("Normalise Data"),
-                    dcc.RadioItems(
-                        id="norm-options",
-                    ),
-                ],
-                width=2,
-            ),
-            dbc.Col(
-                [
-                    html.H4("Remove Outliers"),
-                    dcc.RadioItems(["Yes", "No"], "Yes", id="remove-outliers"),
-                ],
-                width=2,
-            ),
         ]
     ),
     dbc.Row(
@@ -1241,27 +1308,20 @@ graph_selection_row = [
         children=[
             dcc.Tab(label="Results Table", value="results-table-tab"),
             dcc.Tab(label="Box Plot", value="box-plot-tab"),
-            dcc.Tab(label="Violin Plot", value="violin-plot-tab"),
-            dcc.Tab(label="Proportion Improved", value="prop-imp-plot-tab"),
-            dcc.Tab(label="Target Plot", value="target-plot-tab"),
-            dcc.Tab(label="The Plot Valerio Suggested", value="valerio-temp"),
         ],
     ),
-    html.Div(id="results-tabs"),
 ]
 
-summary_graph = [dcc.Graph(id="summary-figure")]
+summary_graph = [dcc.Graph(figure={}, id="summary-figure")]
 
 generate_graphs = [
-    html.Button(id="generate-graphs-button", n_clicks=0, children="Generate"),
+    dcc.Upload(id='generate-graphs-button', children=html.Button("Upload Batch Configuration")),
 ]
 
 app.layout = dbc.Container(
     [
         *item_stores,
         *top_row,
-        html.Hr(),
-        *reference_devices_row,
         html.Hr(),
         *selections,
         html.Hr(),
@@ -1274,7 +1334,8 @@ app.layout = dbc.Container(
         # *results_table,
         # html.Hr(),
         # *results_box_plots,
-    ]
+    ],
+    fluid=True
 )
 
 

@@ -1,6 +1,6 @@
 [project]
 name = "graddnodi"
-version = "1.0.0pre"
+version = "1.1.0pre"
 requires-python = ">=3.9"
 description = "Perform collocation studies, testing a wide range of calibration methods"
 authors = [
