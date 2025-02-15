@@ -1,3 +1,88 @@
+# 	"Calibrated" = [
+# 	"Antwerp_40641B",
+# 	"Antwerp_4065D0",
+# 	"Antwerp_4065E0",
+# 	"Antwerp_4065E3",
+# 	"Antwerp_406424",
+# 	"Antwerp_4047DD",
+# 	"Antwerp_4043AE",
+# 	"Antwerp_4047D7",
+# 	"Antwerp_4065D3",
+# 	"Antwerp_408175",
+# 	"Antwerp_4067B3",
+# 	"Antwerp_40499F",
+# 	"Antwerp_4043B1",
+# 	"Antwerp_406246",
+# 	"Antwerp_4047CD",
+# 	"Antwerp_408168",
+# 	"Antwerp_4049A6",
+# 	"Antwerp_4047E7",
+# 	"Antwerp_4067BA",
+# 	"Antwerp_4067BD",
+# 	"Antwerp_406249",
+# 	"Antwerp_408178",
+# 	"Antwerp_40623F",
+# 	"Antwerp_402723",
+# 	"Antwerp_402B00",
+# 	"Antwerp_4067B0",
+# 	"Antwerp_4047E0",
+# 	"Antwerp_4065DA",
+# 	"Antwerp_408165",
+# 	"Antwerp_4065EA",
+# 	"Antwerp_4065DD",
+# 	"Antwerp_40499C",
+# 	"Antwerp_4043A7",
+# 	"Antwerp_40642B",
+# 	"Oslo_40642E",
+# 	"Oslo_4065ED",
+# 	"Oslo_40816F",
+# 	"Oslo_652FA4",
+# 	"Oslo_64FD11",
+# 	"Oslo_64E9C5",
+# 	"Oslo_64A292",
+# 	"Oslo_65325E",
+# 	"Oslo_647D5A",
+# 	"Oslo_651EFC",
+# 	"Oslo_649312",
+# 	"Oslo_653257",
+# 	"Oslo_426179",
+# 	"Oslo_64FD0A",
+# 	"Oslo_40817F",
+# 	"Oslo_652FAF",
+# 	"Oslo_64CB78",
+# 	"Oslo_426178",
+# 	"Oslo_64A291",
+# 	"Oslo_64CB6D",
+# 	"Oslo_65326C",
+# 	"Oslo_651EF5",
+# 	"Oslo_425FB3",
+# 	"Oslo_652D3A",
+# 	"Oslo_649526",
+# 	"Oslo_6517DD",
+# 	"Oslo_648B91",
+# 	"Oslo_425FB4",
+# 	"Oslo_65063E",
+# 	"Oslo_64CB70",
+# 	"Oslo_40458D",
+# 	"Oslo_652A32",
+# 	"Zagreb_652FA1",
+# 	"Zagreb_649738",
+# 	"Zagreb_427907",
+# 	"Zagreb_648169",
+# 	"Zagreb_40641E",
+# 	"Zagreb_427906",
+# 	"Zagreb_42816D",
+# 	"Zagreb_64876C",
+# 	"Zagreb_64C52B",
+# 	"Zagreb_428164",
+# 	"Zagreb_64C225",
+# 	"Zagreb_64876B",
+# 	"Zagreb_64E03B",
+# 	"Zagreb_652A38",
+# 	"Zagreb_648157",
+# 	"Zagreb_4047D0",
+# 	"Zagreb_406414",
+# ]
 [SensEURCity."All Pollutants vs Reference - Box Plot - All".Configuration]
 	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
 	Fields = ["NO2", "PM2.5", "NO"]
@@ -9,112 +94,7 @@
 		"NO2 + P + CO + NO + RH + T + RH^2 + RH T + T^2",
 		"PM2.5 + P + RH + T + RH^2 + RH T + T^2",
 	]
-	"Calibrated" = [
-		"Antwerp 1",
-		"Antwerp 2",
-		"Antwerp 3",
-		"Antwerp 4",
-		"Antwerp 5",
-		"Antwerp 6",
-		"Antwerp 7",
-		"Antwerp 8",
-		"Antwerp 9",
-		"Antwerp 10",
-		"Antwerp 11",
-		"Antwerp 12",
-		"Antwerp 13",
-		"Antwerp 14",
-		"Antwerp 15",
-		"Antwerp 16",
-		"Antwerp 17",
-		"Antwerp 18",
-		"Antwerp 19",
-		"Antwerp 20",
-		"Antwerp 21",
-		"Antwerp 22",
-		"Antwerp 23",
-		"Antwerp 24",
-		"Antwerp 25",
-		"Antwerp 26",
-		"Antwerp 27",
-		"Antwerp 28",
-		"Antwerp 29",
-		"Antwerp 30",
-		"Antwerp 31",
-		"Antwerp 32",
-		"Antwerp 33",
-		"Antwerp 34",
-		"Oslo 1",
-		"Oslo 2",
-		"Oslo 3",
-		"Oslo 4",
-		"Oslo 5",
-		"Oslo 6",
-		"Oslo 7",
-		"Oslo 8",
-		"Oslo 9",
-		"Oslo 10",
-		"Oslo 11",
-		"Oslo 13",
-		"Oslo 14",
-		"Oslo 15",
-		"Oslo 16",
-		"Oslo 17",
-		"Oslo 18",
-		"Oslo 19",
-		"Oslo 20",
-		"Oslo 21",
-		"Oslo 22",
-		"Oslo 23",
-		"Oslo 24",
-		"Oslo 25",
-		"Oslo 26",
-		"Oslo 27",
-		"Oslo 28",
-		"Oslo 29",
-		"Oslo 30",
-		"Oslo 31",
-		"Oslo 33",
-		"Zagreb 1",
-		"Zagreb 2",
-		"Zagreb 3",
-		"Zagreb 4",
-		"Zagreb 6",
-		"Zagreb 7",
-		"Zagreb 8",
-		"Zagreb 9",
-		"Zagreb 10",
-		"Zagreb 11",
-		"Zagreb 12",
-		"Zagreb 13",
-		"Zagreb 14",
-		"Zagreb 15",
-		"Zagreb 17",
-	]
 	"Regression Techniques" = [
-		"Bayesian Automatic Relevance Detection (Default)",
-		"Bayesian Ridge Regression (Default)",
-		"Expectile GAM (Default)",
-		"Extra Trees Ensemble (Default)",
-		"Histogram-Based Gradient Boosting Regression (Default)",
-		"Isotonic Regression (Default)",
-		"Gradient Boosting Regression (Default)",
-		"Elastic Net Regression (Cross Validated) (Default)",
-		"Lasso Regression (Cross Validated) (Default)",
-		"Least Angle Lasso Regression (Default)",
-		"Least Angle Regression (Default)",
-		"Linear GAM (Default)",
-		"Linear Regression (Default)",
-		
-		"Multi-Layer Perceptron Regression (Default)",
-		"Nu-Support Vector Regression (Default)",
-		"Orthogonal Matching Pursuit (Default)",
-		"Passive Aggressive Regression (Default)",
-		"Random Forest (Default)",
-		"Ridge Regression (Cross Validated) (Default)",
-		"Support Vector Regression (Default)",
-		"Theil-Sen Regression (Default)",
-		"XGBoost Regression (Default)"
 	]
 	"Split By" = ["Field"]
 	"Remove Outliers" = "Yes"
@@ -141,88 +121,6 @@
 [SensEURCity."All Pollutants and Folds vs Reference - Box Plot - nMAE".Configuration]
 	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
 	Fields = ["NO2", "PM2.5", "NO"]
-	"Calibrated" = [
-		"Antwerp 1",
-		"Antwerp 2",
-		"Antwerp 3",
-		"Antwerp 4",
-		"Antwerp 5",
-		"Antwerp 6",
-		"Antwerp 7",
-		"Antwerp 8",
-		"Antwerp 9",
-		"Antwerp 10",
-		"Antwerp 11",
-		"Antwerp 12",
-		"Antwerp 13",
-		"Antwerp 14",
-		"Antwerp 15",
-		"Antwerp 16",
-		"Antwerp 17",
-		"Antwerp 18",
-		"Antwerp 19",
-		"Antwerp 20",
-		"Antwerp 21",
-		"Antwerp 22",
-		"Antwerp 23",
-		"Antwerp 24",
-		"Antwerp 25",
-		"Antwerp 26",
-		"Antwerp 27",
-		"Antwerp 28",
-		"Antwerp 29",
-		"Antwerp 30",
-		"Antwerp 31",
-		"Antwerp 32",
-		"Antwerp 33",
-		"Antwerp 34",
-		"Oslo 1",
-		"Oslo 2",
-		"Oslo 3",
-		"Oslo 4",
-		"Oslo 5",
-		"Oslo 6",
-		"Oslo 7",
-		"Oslo 8",
-		"Oslo 9",
-		"Oslo 10",
-		"Oslo 11",
-		"Oslo 13",
-		"Oslo 14",
-		"Oslo 15",
-		"Oslo 16",
-		"Oslo 17",
-		"Oslo 18",
-		"Oslo 19",
-		"Oslo 20",
-		"Oslo 21",
-		"Oslo 22",
-		"Oslo 23",
-		"Oslo 24",
-		"Oslo 25",
-		"Oslo 26",
-		"Oslo 27",
-		"Oslo 28",
-		"Oslo 29",
-		"Oslo 30",
-		"Oslo 31",
-		"Oslo 33",
-		"Zagreb 1",
-		"Zagreb 2",
-		"Zagreb 3",
-		"Zagreb 4",
-		"Zagreb 6",
-		"Zagreb 7",
-		"Zagreb 8",
-		"Zagreb 9",
-		"Zagreb 10",
-		"Zagreb 11",
-		"Zagreb 12",
-		"Zagreb 13",
-		"Zagreb 14",
-		"Zagreb 15",
-		"Zagreb 17",
-	]
 	Variables = [
 		"PM2.5",
 		"NO2",
@@ -232,29 +130,6 @@
 		"PM2.5 + P + RH + T + RH^2 + RH T + T^2",
 	]
 	"Regression Techniques" = [
-		"Bayesian Automatic Relevance Detection (Default)",
-		"Bayesian Ridge Regression (Default)",
-		"Expectile GAM (Default)",
-		"Extra Trees Ensemble (Default)",
-		"Histogram-Based Gradient Boosting Regression (Default)",
-		"Isotonic Regression (Default)",
-		"Gradient Boosting Regression (Default)",
-		"Elastic Net Regression (Cross Validated) (Default)",
-		"Lasso Regression (Cross Validated) (Default)",
-		"Least Angle Lasso Regression (Default)",
-		"Least Angle Regression (Default)",
-		"Linear GAM (Default)",
-		"Linear Regression (Default)",
-		
-		"Multi-Layer Perceptron Regression (Default)",
-		"Nu-Support Vector Regression (Default)",
-		"Orthogonal Matching Pursuit (Default)",
-		"Passive Aggressive Regression (Default)",
-		"Random Forest (Default)",
-		"Ridge Regression (Cross Validated) (Default)",
-		"Support Vector Regression (Default)",
-		"Theil-Sen Regression (Default)",
-		"XGBoost Regression (Default)"
 	]
 	"Split By" = ["Field", "Fold"]
 	"Remove Outliers" = "Yes"
@@ -289,29 +164,6 @@
 		"PM2.5 + P + RH + T + RH^2 + RH T + T^2 + Time Since Origin",
 	]
 	"Regression Techniques" = [
-		"Bayesian Automatic Relevance Detection (Default)",
-		"Bayesian Ridge Regression (Default)",
-		"Expectile GAM (Default)",
-		"Extra Trees Ensemble (Default)",
-		"Histogram-Based Gradient Boosting Regression (Default)",
-		"Isotonic Regression (Default)",
-		"Gradient Boosting Regression (Default)",
-		"Elastic Net Regression (Cross Validated) (Default)",
-		"Lasso Regression (Cross Validated) (Default)",
-		"Least Angle Lasso Regression (Default)",
-		"Least Angle Regression (Default)",
-		"Linear GAM (Default)",
-		"Linear Regression (Default)",
-		
-		"Multi-Layer Perceptron Regression (Default)",
-		"Nu-Support Vector Regression (Default)",
-		"Orthogonal Matching Pursuit (Default)",
-		"Passive Aggressive Regression (Default)",
-		"Random Forest (Default)",
-		"Ridge Regression (Cross Validated) (Default)",
-		"Support Vector Regression (Default)",
-		"Theil-Sen Regression (Default)",
-		"XGBoost Regression (Default)"
 	]
 	"Split By" = ["Variables"]
 	"Remove Outliers" = "Yes"
@@ -337,151 +189,6 @@
 	"Normalise By" = "Reference Absolute Deviation"
 	"Y Axis" = {"range" = [0, 8]}
 
-[SensEURCity."All Devices vs Reference - Box Plot - nMAE".Configuration]
-	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
-	Variables = [
-		"PM2.5",
-		"NO2",
-		"NO",
-		"NO + P + CO + NO2 + RH + T + RH^2 + RH T + T^2",
-		"NO2 + P + CO + NO + RH + T + RH^2 + RH T + T^2",
-		"PM2.5 + P + RH + T + RH^2 + RH T + T^2",
-	]
-	"Regression Techniques" = [
-		"Bayesian Automatic Relevance Detection (Default)",
-		"Bayesian Ridge Regression (Default)",
-		"Expectile GAM (Default)",
-		"Extra Trees Ensemble (Default)",
-		"Histogram-Based Gradient Boosting Regression (Default)",
-		"Isotonic Regression (Default)",
-		"Gradient Boosting Regression (Default)",
-		"Elastic Net Regression (Cross Validated) (Default)",
-		"Lasso Regression (Cross Validated) (Default)",
-		"Least Angle Lasso Regression (Default)",
-		"Least Angle Regression (Default)",
-		"Linear GAM (Default)",
-		"Linear Regression (Default)",
-		
-		"Multi-Layer Perceptron Regression (Default)",
-		"Nu-Support Vector Regression (Default)",
-		"Orthogonal Matching Pursuit (Default)",
-		"Passive Aggressive Regression (Default)",
-		"Random Forest (Default)",
-		"Ridge Regression (Cross Validated) (Default)",
-		"Support Vector Regression (Default)",
-		"Theil-Sen Regression (Default)",
-		"XGBoost Regression (Default)"
-	]
-	"Axis Order" = [
-		"Antwerp 1",
-		"Antwerp 2",
-		"Antwerp 3",
-		"Antwerp 4",
-		"Antwerp 5",
-		"Antwerp 6",
-		"Antwerp 7",
-		"Antwerp 8",
-		"Antwerp 9",
-		"Antwerp 10",
-		"Antwerp 11",
-		"Antwerp 12",
-		"Antwerp 13",
-		"Antwerp 14",
-		"Antwerp 15",
-		"Antwerp 16",
-		"Antwerp 17",
-		"Antwerp 18",
-		"Antwerp 19",
-		"Antwerp 20",
-		"Antwerp 21",
-		"Antwerp 22",
-		"Antwerp 23",
-		"Antwerp 24",
-		"Antwerp 25",
-		"Antwerp 26",
-		"Antwerp 27",
-		"Antwerp 28",
-		"Antwerp 29",
-		"Antwerp 30",
-		"Antwerp 31",
-		"Antwerp 32",
-		"Antwerp 33",
-		"Antwerp 34",
-		"Oslo 1",
-		"Oslo 2",
-		"Oslo 3",
-		"Oslo 4",
-		"Oslo 5",
-		"Oslo 6",
-		"Oslo 7",
-		"Oslo 8",
-		"Oslo 9",
-		"Oslo 10",
-		"Oslo 11",
-		"Oslo 12",
-		"Oslo 13",
-		"Oslo 14",
-		"Oslo 15",
-		"Oslo 16",
-		"Oslo 17",
-		"Oslo 18",
-		"Oslo 19",
-		"Oslo 20",
-		"Oslo 21",
-		"Oslo 22",
-		"Oslo 23",
-		"Oslo 24",
-		"Oslo 25",
-		"Oslo 26",
-		"Oslo 27",
-		"Oslo 28",
-		"Oslo 29",
-		"Oslo 30",
-		"Oslo 31",
-		"Oslo 32",
-		"Oslo 33",
-		"Zagreb 1",
-		"Zagreb 2",
-		"Zagreb 3",
-		"Zagreb 4",
-		"Zagreb 5",
-		"Zagreb 6",
-		"Zagreb 7",
-		"Zagreb 8",
-		"Zagreb 9",
-		"Zagreb 10",
-		"Zagreb 11",
-		"Zagreb 12",
-		"Zagreb 13",
-		"Zagreb 14",
-		"Zagreb 15",
-		"Zagreb 16",
-		"Zagreb 17",
-	]
-	"Split By" = ["Calibrated"]
-	"Remove Outliers" = "Yes"
-	"Plot Type" = "Box Plot"
-	"Metric" = "Mean Absolute Error"
-	"Layout" = {"boxmode" = "overlay", "width" = 2000}
-
-[[SensEURCity."All Devices vs Reference - Box Plot - nMAE".Graphs]]
-	Fields = ["NO"]
-	Title = "$\\text{NO}$"
-	"Normalise By" = "Reference Absolute Deviation"
-	"Y Axis" = {"range" = [0, 6]}
-
-[[SensEURCity."All Devices vs Reference - Box Plot - nMAE".Graphs]]
-	Fields = ["NO2"]
-	Title = "$\\text{NO}_{2}$"
-	"Normalise By" = "Reference Absolute Deviation"
-	"Y Axis" = {"range" = [0, 2.9]}
-
-[[SensEURCity."All Devices vs Reference - Box Plot - nMAE".Graphs]]
-	Fields = ["PM2.5"]
-	Title = "$\\text{PM}_{2.5}$"
-	"Normalise By" = "Reference Absolute Deviation"
-	"Y Axis" = {"range" = [0, 4.8]}
-
 [SensEURCity."NO Devices vs Reference - Box Plot - nMAE".Configuration]
 	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
 	Fields = ["NO"]
@@ -494,121 +201,14 @@
 		"PM2.5 + P + RH + T + RH^2 + RH T + T^2",
 	]
 	"Regression Techniques" = [
-		"Bayesian Automatic Relevance Detection (Default)",
-		"Bayesian Ridge Regression (Default)",
-		"Expectile GAM (Default)",
-		"Extra Trees Ensemble (Default)",
-		"Histogram-Based Gradient Boosting Regression (Default)",
-		"Isotonic Regression (Default)",
-		"Gradient Boosting Regression (Default)",
-		"Elastic Net Regression (Cross Validated) (Default)",
-		"Lasso Regression (Cross Validated) (Default)",
-		"Least Angle Lasso Regression (Default)",
-		"Least Angle Regression (Default)",
-		"Linear GAM (Default)",
-		"Linear Regression (Default)",
-		
-		"Multi-Layer Perceptron Regression (Default)",
-		"Nu-Support Vector Regression (Default)",
-		"Orthogonal Matching Pursuit (Default)",
-		"Passive Aggressive Regression (Default)",
-		"Random Forest (Default)",
-		"Ridge Regression (Cross Validated) (Default)",
-		"Support Vector Regression (Default)",
-		"Theil-Sen Regression (Default)",
-		"XGBoost Regression (Default)"
-	]
-	"Axis Order" = [
-		"Antwerp 1",
-		"Antwerp 2",
-		"Antwerp 3",
-		"Antwerp 4",
-		"Antwerp 5",
-		"Antwerp 6",
-		"Antwerp 7",
-		"Antwerp 8",
-		"Antwerp 9",
-		"Antwerp 10",
-		"Antwerp 11",
-		"Antwerp 12",
-		"Antwerp 13",
-		"Antwerp 14",
-		"Antwerp 15",
-		"Antwerp 16",
-		"Antwerp 17",
-		"Antwerp 18",
-		"Antwerp 19",
-		"Antwerp 20",
-		"Antwerp 21",
-		"Antwerp 22",
-		"Antwerp 23",
-		"Antwerp 24",
-		"Antwerp 25",
-		"Antwerp 26",
-		"Antwerp 27",
-		"Antwerp 28",
-		"Antwerp 29",
-		"Antwerp 30",
-		"Antwerp 31",
-		"Antwerp 32",
-		"Antwerp 33",
-		"Antwerp 34",
-		"Oslo 1",
-		"Oslo 2",
-		"Oslo 3",
-		"Oslo 4",
-		"Oslo 5",
-		"Oslo 6",
-		"Oslo 7",
-		"Oslo 8",
-		"Oslo 9",
-		"Oslo 10",
-		"Oslo 11",
-		"Oslo 12",
-		"Oslo 13",
-		"Oslo 14",
-		"Oslo 15",
-		"Oslo 16",
-		"Oslo 17",
-		"Oslo 18",
-		"Oslo 19",
-		"Oslo 20",
-		"Oslo 21",
-		"Oslo 22",
-		"Oslo 23",
-		"Oslo 24",
-		"Oslo 25",
-		"Oslo 26",
-		"Oslo 27",
-		"Oslo 28",
-		"Oslo 29",
-		"Oslo 30",
-		"Oslo 31",
-		"Oslo 32",
-		"Oslo 33",
-		"Zagreb 1",
-		"Zagreb 2",
-		"Zagreb 3",
-		"Zagreb 4",
-		"Zagreb 5",
-		"Zagreb 6",
-		"Zagreb 7",
-		"Zagreb 8",
-		"Zagreb 9",
-		"Zagreb 10",
-		"Zagreb 11",
-		"Zagreb 12",
-		"Zagreb 13",
-		"Zagreb 14",
-		"Zagreb 15",
-		"Zagreb 16",
-		"Zagreb 17",
 	]
 	"Split By" = ["Calibrated"]
 	"Remove Outliers" = "Yes"
 	"Plot Type" = "Box Plot"
 	"Metric" = "Mean Absolute Error"
-	"Layout" = {"boxmode" = "overlay", "width" = 2000}
+	"Axis Order" = [
+	]
+	"Layout" = {"boxmode" = "overlay"}
 
 [[SensEURCity."NO Devices vs Reference - Box Plot - nMAE".Graphs]]
 	"Normalise By" = "Reference Absolute Deviation"
@@ -626,121 +226,14 @@
 		"PM2.5 + P + RH + T + RH^2 + RH T + T^2",
 	]
 	"Regression Techniques" = [
-		"Bayesian Automatic Relevance Detection (Default)",
-		"Bayesian Ridge Regression (Default)",
-		"Expectile GAM (Default)",
-		"Extra Trees Ensemble (Default)",
-		"Histogram-Based Gradient Boosting Regression (Default)",
-		"Isotonic Regression (Default)",
-		"Gradient Boosting Regression (Default)",
-		"Elastic Net Regression (Cross Validated) (Default)",
-		"Lasso Regression (Cross Validated) (Default)",
-		"Least Angle Lasso Regression (Default)",
-		"Least Angle Regression (Default)",
-		"Linear GAM (Default)",
-		"Linear Regression (Default)",
-		
-		"Multi-Layer Perceptron Regression (Default)",
-		"Nu-Support Vector Regression (Default)",
-		"Orthogonal Matching Pursuit (Default)",
-		"Passive Aggressive Regression (Default)",
-		"Random Forest (Default)",
-		"Ridge Regression (Cross Validated) (Default)",
-		"Support Vector Regression (Default)",
-		"Theil-Sen Regression (Default)",
-		"XGBoost Regression (Default)"
 	]
 	"Split By" = ["Calibrated"]
 	"Remove Outliers" = "Yes"
 	"Plot Type" = "Box Plot"
 	"Metric" = "Mean Absolute Error"
 	"Axis Order" = [
-		"Antwerp 1",
-		"Antwerp 2",
-		"Antwerp 3",
-		"Antwerp 4",
-		"Antwerp 5",
-		"Antwerp 6",
-		"Antwerp 7",
-		"Antwerp 8",
-		"Antwerp 9",
-		"Antwerp 10",
-		"Antwerp 11",
-		"Antwerp 12",
-		"Antwerp 13",
-		"Antwerp 14",
-		"Antwerp 15",
-		"Antwerp 16",
-		"Antwerp 17",
-		"Antwerp 18",
-		"Antwerp 19",
-		"Antwerp 20",
-		"Antwerp 21",
-		"Antwerp 22",
-		"Antwerp 23",
-		"Antwerp 24",
-		"Antwerp 25",
-		"Antwerp 26",
-		"Antwerp 27",
-		"Antwerp 28",
-		"Antwerp 29",
-		"Antwerp 30",
-		"Antwerp 31",
-		"Antwerp 32",
-		"Antwerp 33",
-		"Antwerp 34",
-		"Oslo 1",
-		"Oslo 2",
-		"Oslo 3",
-		"Oslo 4",
-		"Oslo 5",
-		"Oslo 6",
-		"Oslo 7",
-		"Oslo 8",
-		"Oslo 9",
-		"Oslo 10",
-		"Oslo 11",
-		"Oslo 12",
-		"Oslo 13",
-		"Oslo 14",
-		"Oslo 15",
-		"Oslo 16",
-		"Oslo 17",
-		"Oslo 18",
-		"Oslo 19",
-		"Oslo 20",
-		"Oslo 21",
-		"Oslo 22",
-		"Oslo 23",
-		"Oslo 24",
-		"Oslo 25",
-		"Oslo 26",
-		"Oslo 27",
-		"Oslo 28",
-		"Oslo 29",
-		"Oslo 30",
-		"Oslo 31",
-		"Oslo 32",
-		"Oslo 33",
-		"Zagreb 1",
-		"Zagreb 2",
-		"Zagreb 3",
-		"Zagreb 4",
-		"Zagreb 5",
-		"Zagreb 6",
-		"Zagreb 7",
-		"Zagreb 8",
-		"Zagreb 9",
-		"Zagreb 10",
-		"Zagreb 11",
-		"Zagreb 12",
-		"Zagreb 13",
-		"Zagreb 14",
-		"Zagreb 15",
-		"Zagreb 16",
-		"Zagreb 17",
 	]
-	"Layout" = {"boxmode" = "overlay", "width" = 2000}
+	"Layout" = {"boxmode" = "overlay"}
 
 [[SensEURCity."NO2 Devices vs Reference - Box Plot - nMAE".Graphs]]
 	"Normalise By" = "Reference Absolute Deviation"
@@ -758,121 +251,14 @@
 		"PM2.5 + P + RH + T + RH^2 + RH T + T^2",
 	]
 	"Regression Techniques" = [
-		"Bayesian Automatic Relevance Detection (Default)",
-		"Bayesian Ridge Regression (Default)",
-		"Expectile GAM (Default)",
-		"Extra Trees Ensemble (Default)",
-		"Histogram-Based Gradient Boosting Regression (Default)",
-		"Isotonic Regression (Default)",
-		"Gradient Boosting Regression (Default)",
-		"Elastic Net Regression (Cross Validated) (Default)",
-		"Lasso Regression (Cross Validated) (Default)",
-		"Least Angle Lasso Regression (Default)",
-		"Least Angle Regression (Default)",
-		"Linear GAM (Default)",
-		"Linear Regression (Default)",
-		
-		"Multi-Layer Perceptron Regression (Default)",
-		"Nu-Support Vector Regression (Default)",
-		"Orthogonal Matching Pursuit (Default)",
-		"Passive Aggressive Regression (Default)",
-		"Random Forest (Default)",
-		"Ridge Regression (Cross Validated) (Default)",
-		"Support Vector Regression (Default)",
-		"Theil-Sen Regression (Default)",
-		"XGBoost Regression (Default)"
 	]
 	"Split By" = ["Calibrated"]
 	"Remove Outliers" = "Yes"
 	"Plot Type" = "Box Plot"
 	"Metric" = "Mean Absolute Error"
 	"Axis Order" = [
-		"Antwerp 1",
-		"Antwerp 2",
-		"Antwerp 3",
-		"Antwerp 4",
-		"Antwerp 5",
-		"Antwerp 6",
-		"Antwerp 7",
-		"Antwerp 8",
-		"Antwerp 9",
-		"Antwerp 10",
-		"Antwerp 11",
-		"Antwerp 12",
-		"Antwerp 13",
-		"Antwerp 14",
-		"Antwerp 15",
-		"Antwerp 16",
-		"Antwerp 17",
-		"Antwerp 18",
-		"Antwerp 19",
-		"Antwerp 20",
-		"Antwerp 21",
-		"Antwerp 22",
-		"Antwerp 23",
-		"Antwerp 24",
-		"Antwerp 25",
-		"Antwerp 26",
-		"Antwerp 27",
-		"Antwerp 28",
-		"Antwerp 29",
-		"Antwerp 30",
-		"Antwerp 31",
-		"Antwerp 32",
-		"Antwerp 33",
-		"Antwerp 34",
-		"Oslo 1",
-		"Oslo 2",
-		"Oslo 3",
-		"Oslo 4",
-		"Oslo 5",
-		"Oslo 6",
-		"Oslo 7",
-		"Oslo 8",
-		"Oslo 9",
-		"Oslo 10",
-		"Oslo 11",
-		"Oslo 12",
-		"Oslo 13",
-		"Oslo 14",
-		"Oslo 15",
-		"Oslo 16",
-		"Oslo 17",
-		"Oslo 18",
-		"Oslo 19",
-		"Oslo 20",
-		"Oslo 21",
-		"Oslo 22",
-		"Oslo 23",
-		"Oslo 24",
-		"Oslo 25",
-		"Oslo 26",
-		"Oslo 27",
-		"Oslo 28",
-		"Oslo 29",
-		"Oslo 30",
-		"Oslo 31",
-		"Oslo 32",
-		"Oslo 33",
-		"Zagreb 1",
-		"Zagreb 2",
-		"Zagreb 3",
-		"Zagreb 4",
-		"Zagreb 5",
-		"Zagreb 6",
-		"Zagreb 7",
-		"Zagreb 8",
-		"Zagreb 9",
-		"Zagreb 10",
-		"Zagreb 11",
-		"Zagreb 12",
-		"Zagreb 13",
-		"Zagreb 14",
-		"Zagreb 15",
-		"Zagreb 16",
-		"Zagreb 17",
 	]
-	"Layout" = {"boxmode" = "overlay", "width" = 2000}
+	"Layout" = {"boxmode" = "overlay"}
 
 [[SensEURCity."PM2.5 Devices vs Reference - Box Plot - nMAE".Graphs]]
 	"Normalise By" = "Reference Absolute Deviation"
@@ -881,88 +267,6 @@
 [SensEURCity."All Pollutants and Scaling Techniques vs Reference - Box Plot - nMAE".Configuration]
 	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI", "Ispra"]
 	Fields = ["NO2", "PM2.5", "NO"]
-	"Calibrated" = [
-		"Antwerp 1",
-		"Antwerp 2",
-		"Antwerp 3",
-		"Antwerp 4",
-		"Antwerp 5",
-		"Antwerp 6",
-		"Antwerp 7",
-		"Antwerp 8",
-		"Antwerp 9",
-		"Antwerp 10",
-		"Antwerp 11",
-		"Antwerp 12",
-		"Antwerp 13",
-		"Antwerp 14",
-		"Antwerp 15",
-		"Antwerp 16",
-		"Antwerp 17",
-		"Antwerp 18",
-		"Antwerp 19",
-		"Antwerp 20",
-		"Antwerp 21",
-		"Antwerp 22",
-		"Antwerp 23",
-		"Antwerp 24",
-		"Antwerp 25",
-		"Antwerp 26",
-		"Antwerp 27",
-		"Antwerp 28",
-		"Antwerp 29",
-		"Antwerp 30",
-		"Antwerp 31",
-		"Antwerp 32",
-		"Antwerp 33",
-		"Antwerp 34",
-		"Oslo 1",
-		"Oslo 2",
-		"Oslo 3",
-		"Oslo 4",
-		"Oslo 5",
-		"Oslo 6",
-		"Oslo 7",
-		"Oslo 8",
-		"Oslo 9",
-		"Oslo 10",
-		"Oslo 11",
-		"Oslo 13",
-		"Oslo 14",
-		"Oslo 15",
-		"Oslo 16",
-		"Oslo 17",
-		"Oslo 18",
-		"Oslo 19",
-		"Oslo 20",
-		"Oslo 21",
-		"Oslo 22",
-		"Oslo 23",
-		"Oslo 24",
-		"Oslo 25",
-		"Oslo 26",
-		"Oslo 27",
-		"Oslo 28",
-		"Oslo 29",
-		"Oslo 30",
-		"Oslo 31",
-		"Oslo 33",
-		"Zagreb 1",
-		"Zagreb 2",
-		"Zagreb 3",
-		"Zagreb 4",
-		"Zagreb 6",
-		"Zagreb 7",
-		"Zagreb 8",
-		"Zagreb 9",
-		"Zagreb 10",
-		"Zagreb 11",
-		"Zagreb 12",
-		"Zagreb 13",
-		"Zagreb 14",
-		"Zagreb 15",
-		"Zagreb 17",
-	]
 	Variables = [
 		"PM2.5",
 		"NO2",
@@ -972,29 +276,6 @@
 		"PM2.5 + P + RH + T + RH^2 + RH T + T^2",
 	]
 	"Regression Techniques" = [
-		"Bayesian Automatic Relevance Detection (Default)",
-		"Bayesian Ridge Regression (Default)",
-		"Expectile GAM (Default)",
-		"Extra Trees Ensemble (Default)",
-		"Histogram-Based Gradient Boosting Regression (Default)",
-		"Isotonic Regression (Default)",
-		"Gradient Boosting Regression (Default)",
-		"Elastic Net Regression (Cross Validated) (Default)",
-		"Lasso Regression (Cross Validated) (Default)",
-		"Least Angle Lasso Regression (Default)",
-		"Least Angle Regression (Default)",
-		"Linear GAM (Default)",
-		"Linear Regression (Default)",
-		
-		"Multi-Layer Perceptron Regression (Default)",
-		"Nu-Support Vector Regression (Default)",
-		"Orthogonal Matching Pursuit (Default)",
-		"Passive Aggressive Regression (Default)",
-		"Random Forest (Default)",
-		"Ridge Regression (Cross Validated) (Default)",
-		"Support Vector Regression (Default)",
-		"Theil-Sen Regression (Default)",
-		"XGBoost Regression (Default)"
 	]
 	"Split By" = ["Field", "Scaling Method"]
 	"Remove Outliers" = "Yes"
@@ -1051,6 +332,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -1076,6 +358,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Random Forest (Default)",
@@ -1086,80 +369,83 @@
 		"XGBoost Regression (Default)"
 	]
 	"Calibrated" = [
-	"Antwerp 32",
-	"Antwerp 34",
-	"Antwerp 33",
-	"Antwerp 31",
-	"Antwerp 21",
-	"Antwerp 2",
-	"Antwerp 13",
-	"Antwerp 25",
-	"Antwerp 30",
-	"Antwerp 10",
-	"Antwerp 12",
-	"Antwerp 11",
-	"Antwerp 26",
-	"Antwerp 18",
-	"Antwerp 24",
-	"Antwerp 28",
-	"Antwerp 1",
-	"Antwerp 4",
-	"Antwerp 20",
-	"Antwerp 23",
-	"Antwerp 7",
-	"Antwerp 27",
-	"Antwerp 3",
-	"Antwerp 22",
-	"Antwerp 5",
-	"Antwerp 17",
-	"Antwerp 6",
-	"Antwerp 16",
-	"Antwerp 15",
-	"Antwerp 14",
-	"Antwerp 19",
-	"Antwerp 8",
-	"Antwerp 29",
-	"Antwerp 9",
-	"Oslo 30",
-	"Oslo 33",
-	"Oslo 10",
-	"Oslo 17",
-	"Oslo 6",
-	"Oslo 28",
-	"Oslo 16",
-	"Oslo 21",
-	"Oslo 19",
-	"Oslo 13",
-	"Oslo 15",
-	"Oslo 25",
-	"Oslo 8",
-	"Oslo 22",
-	"Oslo 7",
-	"Oslo 14",
-	"Oslo 4",
-	"Oslo 11",
-	"Oslo 29",
-	"Oslo 26",
-	"Oslo 24",
-	"Oslo 3",
-	"Oslo 18",
-	"Oslo 31",
-	"Oslo 23",
-	"Zagreb 7",
-	"Zagreb 9",
-	"Zagreb 2",
-	"Zagreb 1",
-	"Zagreb 3",
-	"Zagreb 4",
-	"Zagreb 10",
-	"Zagreb 11",
-	"Zagreb 12",
-	"Zagreb 6",
-	"Zagreb 14",
-	"Zagreb 15",
-	"Zagreb 13",
-	"Zagreb 8",
-	"Zagreb 17",
+	"Antwerp_40641B",
+	"Antwerp_4065D0",
+	"Antwerp_4065E0",
+	"Antwerp_4065E3",
+	"Antwerp_406424",
+	"Antwerp_4047DD",
+	"Antwerp_4043AE",
+	"Antwerp_4047D7",
+	"Antwerp_4065D3",
+	"Antwerp_408175",
+	"Antwerp_4067B3",
+	"Antwerp_40499F",
+	"Antwerp_4043B1",
+	"Antwerp_406246",
+	"Antwerp_4047CD",
+	"Antwerp_408168",
+	"Antwerp_4049A6",
+	"Antwerp_4047E7",
+	"Antwerp_4067BA",
+	"Antwerp_4067BD",
+	"Antwerp_406249",
+	"Antwerp_408178",
+	"Antwerp_40623F",
+	"Antwerp_402723",
+	"Antwerp_402B00",
+	"Antwerp_4067B0",
+	"Antwerp_4047E0",
+	"Antwerp_4065DA",
+	"Antwerp_408165",
+	"Antwerp_4065EA",
+	"Antwerp_4065DD",
+	"Antwerp_40499C",
+	"Antwerp_4043A7",
+	"Antwerp_40642B",
+	"Oslo_40642E",
+	"Oslo_4065ED",
+	"Oslo_40816F",
+	"Oslo_652FA4",
+	"Oslo_64E9C5",
+	"Oslo_647D5A",
+	"Oslo_651EFC",
+	"Oslo_649312",
+	"Oslo_653257",
+	"Oslo_426179",
+	"Oslo_40817F",
+	"Oslo_652FAF",
+	"Oslo_64CB78",
+	"Oslo_426178",
+	"Oslo_64A291",
+	"Oslo_64CB6D",
+	"Oslo_65326C",
+	"Oslo_425FB3",
+	"Oslo_652D3A",
+	"Oslo_649526",
+	"Oslo_6517DD",
+	"Oslo_648B91",
+	"Oslo_65063E",
+	"Oslo_64CB70",
+	"Oslo_40458D",
+	"Oslo_652A32",
+	"Zagreb_652FA1",
+	"Zagreb_649738",
+	"Zagreb_427907",
+	"Zagreb_648169",
+	"Zagreb_40641E",
+	"Zagreb_427906",
+	"Zagreb_42816D",
+	"Zagreb_64876C",
+	"Zagreb_64C52B",
+	"Zagreb_428164",
+	"Zagreb_64C225",
+	"Zagreb_64876B",
+	"Zagreb_64E03B",
+	"Zagreb_652A38",
+	"Zagreb_648157",
+	"Zagreb_4047D0",
+	"Zagreb_406414",
 ]
 	"Split By" = ["Technique"]
 	"Remove Outliers" = "Yes"
@@ -1173,12 +459,8 @@
 	"Title" = "None"
 	"Scaling Techniques" = ["None"]
 
-# [[SensEURCity."NO Techniques (Scaling Technique) - Box Plot - nMAE".Graphs]]
-# 	"Title" = "Standard Scaling"
-# 	"Scaling Techniques" = ["Standard Scale"]
-
 [[SensEURCity."NO Techniques (Scaling Technique) - Box Plot - nMAE".Graphs]]
-	"Title" = "MinMax Scaling"
+	"Title" = "MinMax"
 	"Scaling Techniques" = ["MinMax Scale"]
 
 [[SensEURCity."NO Techniques (Scaling Technique) - Box Plot - nMAE".Graphs]]
@@ -1189,255 +471,87 @@
 	"Title" = "Uniform Quantile Transform"
 	"Scaling Techniques" = ["Quantile Transform (Uniform)"]
 
-# [[SensEURCity."NO Techniques (Scaling Technique) - Box Plot - nMAE".Graphs]]
-# 	"Title" = "Gaussian Quantile Transform"
-# 	"Scaling Techniques" = ["Quantile Transform (Gaussian)"]
-
-[SensEURCity."NO Techniques (Fold) - Box Plot - nMAE".Configuration]
-	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI"]
-	Fields = ["NO"]
-	Variables = [
-		"PM2.5",
-		"NO2",
-		"NO",
-		"NO + P + CO + NO2 + RH + T + RH^2 + RH T + T^2",
-		"NO2 + P + CO + NO + RH + T + RH^2 + RH T + T^2",
-		"PM2.5 + P + RH + T + RH^2 + RH T + T^2",
-	]
-	"Regression Techniques" = [
-		"Bayesian Automatic Relevance Detection (Default)",
-		"Bayesian Ridge Regression (Default)",
-		"Expectile GAM (Default)",
-		"Extra Trees Ensemble (Default)",
-		"Histogram-Based Gradient Boosting Regression (Default)",
-		"Isotonic Regression (Default)",
-		"Gradient Boosting Regression (Default)",
-		"Elastic Net Regression (Cross Validated) (Default)",
-		"Lasso Regression (Cross Validated) (Default)",
-		"Least Angle Lasso Regression (Default)",
-		"Least Angle Regression (Default)",
-		"Linear GAM (Default)",
-		"Linear Regression (Default)",
-		"Multi-Layer Perceptron Regression (Default)",
-		"Nu-Support Vector Regression (Default)",
-		"Orthogonal Matching Pursuit (Default)",
-		"Passive Aggressive Regression (Default)",
-		"Random Forest (Default)",
-		"Ridge Regression (Cross Validated) (Default)",
-		"Support Vector Regression (Default)",
-		"Theil-Sen Regression (Default)",
-		"XGBoost Regression (Default)"
-	]
-	"Axis Order" = [
-		"Linear Regression (Default)",
-		"Lasso Regression (Cross Validated) (Default)",
-		"Least Angle Lasso Regression (Default)",
-		"Least Angle Regression (Default)",
-		"Bayesian Automatic Relevance Detection (Default)",
-		"Bayesian Ridge Regression (Default)",
-		"Ridge Regression (Cross Validated) (Default)",
-		"Passive Aggressive Regression (Default)",
-		"Elastic Net Regression (Cross Validated) (Default)",
-		"Orthogonal Matching Pursuit (Default)",
-		"Theil-Sen Regression (Default)",
-		"Linear GAM (Default)",
-		"Expectile GAM (Default)",
-		"Support Vector Regression (Default)",
-		"Nu-Support Vector Regression (Default)",
-		"Isotonic Regression (Default)",
-		"Random Forest (Default)",
-		"Extra Trees Ensemble (Default)",
-		"Gradient Boosting Regression (Default)",
-		"Histogram-Based Gradient Boosting Regression (Default)",
-		"Multi-Layer Perceptron Regression (Default)",
-		"XGBoost Regression (Default)"
-	]
-	"Calibrated" = [
-	"Antwerp 32",
-	"Antwerp 34",
-	"Antwerp 33",
-	"Antwerp 31",
-	"Antwerp 21",
-	"Antwerp 2",
-	"Antwerp 13",
-	"Antwerp 25",
-	"Antwerp 30",
-	"Antwerp 10",
-	"Antwerp 12",
-	"Antwerp 11",
-	"Antwerp 26",
-	"Antwerp 18",
-	"Antwerp 24",
-	"Antwerp 28",
-	"Antwerp 1",
-	"Antwerp 4",
-	"Antwerp 20",
-	"Antwerp 23",
-	"Antwerp 7",
-	"Antwerp 27",
-	"Antwerp 3",
-	"Antwerp 22",
-	"Antwerp 5",
-	"Antwerp 17",
-	"Antwerp 6",
-	"Antwerp 16",
-	"Antwerp 15",
-	"Antwerp 14",
-	"Antwerp 19",
-	"Antwerp 8",
-	"Antwerp 29",
-	"Antwerp 9",
-	"Oslo 30",
-	"Oslo 33",
-	"Oslo 10",
-	"Oslo 17",
-	"Oslo 6",
-	"Oslo 28",
-	"Oslo 16",
-	"Oslo 21",
-	"Oslo 19",
-	"Oslo 13",
-	"Oslo 15",
-	"Oslo 25",
-	"Oslo 8",
-	"Oslo 22",
-	"Oslo 7",
-	"Oslo 14",
-	"Oslo 4",
-	"Oslo 11",
-	"Oslo 29",
-	"Oslo 26",
-	"Oslo 24",
-	"Oslo 3",
-	"Oslo 18",
-	"Oslo 31",
-	"Oslo 23",
-	"Zagreb 7",
-	"Zagreb 9",
-	"Zagreb 2",
-	"Zagreb 1",
-	"Zagreb 3",
-	"Zagreb 4",
-	"Zagreb 10",
-	"Zagreb 11",
-	"Zagreb 12",
-	"Zagreb 6",
-	"Zagreb 14",
-	"Zagreb 15",
-	"Zagreb 13",
-	"Zagreb 8",
-	"Zagreb 17",
-]
-	"Split By" = ["Technique"]
-	"Remove Outliers" = "Yes"
-	"Plot Type" = "Box Plot"
-	"Metric" = "Mean Absolute Error"
-	"Layout" = {"boxmode" = "group"}
-	"Normalise By" = "Reference Absolute Deviation"
-	"Y Axis" = {"range" = [0, 4.4]}
-
-[[SensEURCity."NO Techniques (Fold) - Box Plot - nMAE".Graphs]]
-	"Title" = "1"
-	"Fold" = ["1"]
-
-[[SensEURCity."NO Techniques (Fold) - Box Plot - nMAE".Graphs]]
-	"Title" = "2"
-	"Fold" = ["2"]
-
-[[SensEURCity."NO Techniques (Fold) - Box Plot - nMAE".Graphs]]
-	"Title" = "3"
-	"Fold" = ["3"]
-
-[[SensEURCity."NO Techniques (Fold) - Box Plot - nMAE".Graphs]]
-	"Title" = "4"
-	"Fold" = ["4"]
-
-[[SensEURCity."NO Techniques (Fold) - Box Plot - nMAE".Graphs]]
-	"Title" = "5"
-	"Fold" = ["5"]
-
-[[SensEURCity."NO Techniques (Fold) - Box Plot - nMAE".Graphs]]
-	"Title" = "Mean"
-	"Fold" = ["Mean"]
-
 [SensEURCity."NO Techniques (Variables) - Box Plot - nMAE".Configuration]
 	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI"]
 	Fields = ["NO"]
 	"Calibrated" = [
-	"Antwerp 32",
-	"Antwerp 34",
-	"Antwerp 33",
-	"Antwerp 31",
-	"Antwerp 21",
-	"Antwerp 2",
-	"Antwerp 13",
-	"Antwerp 25",
-	"Antwerp 30",
-	"Antwerp 10",
-	"Antwerp 12",
-	"Antwerp 11",
-	"Antwerp 26",
-	"Antwerp 18",
-	"Antwerp 24",
-	"Antwerp 28",
-	"Antwerp 1",
-	"Antwerp 4",
-	"Antwerp 20",
-	"Antwerp 23",
-	"Antwerp 7",
-	"Antwerp 27",
-	"Antwerp 3",
-	"Antwerp 22",
-	"Antwerp 5",
-	"Antwerp 17",
-	"Antwerp 6",
-	"Antwerp 16",
-	"Antwerp 15",
-	"Antwerp 14",
-	"Antwerp 19",
-	"Antwerp 8",
-	"Antwerp 29",
-	"Antwerp 9",
-	"Oslo 30",
-	"Oslo 33",
-	"Oslo 10",
-	"Oslo 17",
-	"Oslo 6",
-	"Oslo 28",
-	"Oslo 16",
-	"Oslo 21",
-	"Oslo 19",
-	"Oslo 13",
-	"Oslo 15",
-	"Oslo 25",
-	"Oslo 8",
-	"Oslo 22",
-	"Oslo 7",
-	"Oslo 14",
-	"Oslo 4",
-	"Oslo 11",
-	"Oslo 29",
-	"Oslo 26",
-	"Oslo 24",
-	"Oslo 3",
-	"Oslo 18",
-	"Oslo 31",
-	"Oslo 23",
-	"Zagreb 7",
-	"Zagreb 9",
-	"Zagreb 2",
-	"Zagreb 1",
-	"Zagreb 3",
-	"Zagreb 4",
-	"Zagreb 10",
-	"Zagreb 11",
-	"Zagreb 12",
-	"Zagreb 6",
-	"Zagreb 14",
-	"Zagreb 15",
-	"Zagreb 13",
-	"Zagreb 8",
-	"Zagreb 17",
+	"Antwerp_40641B",
+	"Antwerp_4065D0",
+	"Antwerp_4065E0",
+	"Antwerp_4065E3",
+	"Antwerp_406424",
+	"Antwerp_4047DD",
+	"Antwerp_4043AE",
+	"Antwerp_4047D7",
+	"Antwerp_4065D3",
+	"Antwerp_408175",
+	"Antwerp_4067B3",
+	"Antwerp_40499F",
+	"Antwerp_4043B1",
+	"Antwerp_406246",
+	"Antwerp_4047CD",
+	"Antwerp_408168",
+	"Antwerp_4049A6",
+	"Antwerp_4047E7",
+	"Antwerp_4067BA",
+	"Antwerp_4067BD",
+	"Antwerp_406249",
+	"Antwerp_408178",
+	"Antwerp_40623F",
+	"Antwerp_402723",
+	"Antwerp_402B00",
+	"Antwerp_4067B0",
+	"Antwerp_4047E0",
+	"Antwerp_4065DA",
+	"Antwerp_408165",
+	"Antwerp_4065EA",
+	"Antwerp_4065DD",
+	"Antwerp_40499C",
+	"Antwerp_4043A7",
+	"Antwerp_40642B",
+	"Oslo_40642E",
+	"Oslo_4065ED",
+	"Oslo_40816F",
+	"Oslo_652FA4",
+	"Oslo_64E9C5",
+	"Oslo_647D5A",
+	"Oslo_651EFC",
+	"Oslo_649312",
+	"Oslo_653257",
+	"Oslo_426179",
+	"Oslo_40817F",
+	"Oslo_652FAF",
+	"Oslo_64CB78",
+	"Oslo_426178",
+	"Oslo_64A291",
+	"Oslo_64CB6D",
+	"Oslo_65326C",
+	"Oslo_425FB3",
+	"Oslo_652D3A",
+	"Oslo_649526",
+	"Oslo_6517DD",
+	"Oslo_648B91",
+	"Oslo_65063E",
+	"Oslo_64CB70",
+	"Oslo_40458D",
+	"Oslo_652A32",
+	"Zagreb_652FA1",
+	"Zagreb_649738",
+	"Zagreb_427907",
+	"Zagreb_648169",
+	"Zagreb_40641E",
+	"Zagreb_427906",
+	"Zagreb_42816D",
+	"Zagreb_64876C",
+	"Zagreb_64C52B",
+	"Zagreb_428164",
+	"Zagreb_64C225",
+	"Zagreb_64876B",
+	"Zagreb_64E03B",
+	"Zagreb_652A38",
+	"Zagreb_648157",
+	"Zagreb_4047D0",
+	"Zagreb_406414",
 ]
 	"Scaling Techniques" = [
 		"None",
@@ -1459,6 +573,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -1484,6 +599,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Random Forest (Default)",
@@ -1502,94 +618,95 @@
 	"Y Axis" = {"range" = [0, 4.4]}
 
 [[SensEURCity."NO Techniques (Variables) - Box Plot - nMAE".Graphs]]
-	"Title" = "$\\text{NO}$"
+	"Title" = "NO"
 	"Variables" = ["NO"]
 
 [[SensEURCity."NO Techniques (Variables) - Box Plot - nMAE".Graphs]]
-	"Title" = "$\\text{NO} + \\text{P} + \\text{CO} + \\text{NO}_{2} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
-	"Variables" = ["NO + P + CO + NO2 + RH + T + RH^2 + RH T + T^2"]
-
-[[SensEURCity."NO Techniques (Variables) - Box Plot - nMAE".Graphs]]
-	"Title" = "$\\text{NO} + \\text{Time Since Origin}$"
+	"Title" = "NO + Time Since Origin"
 	"Variables" = ["NO + Time Since Origin"]
 
 [[SensEURCity."NO Techniques (Variables) - Box Plot - nMAE".Graphs]]
-	"Title" = "$\\text{NO} + \\text{P} + \\text{CO} + \\text{NO}_{2} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}$"
+	"Title" = "NO + P + CO + NO2 + RH + T + RH^2 + RH T + T^2"
+	"Variables" = ["NO + P + CO + NO2 + RH + T + RH^2 + RH T + T^2"]
+
+[[SensEURCity."NO Techniques (Variables) - Box Plot - nMAE".Graphs]]
+	"Title" = "NO + P + CO + NO2 + RH + T + RH^2 + RH T + T^2 + Time Since Origin"
 	"Variables" = ["NO + P + CO + NO2 + RH + T + RH^2 + RH T + T^2 + Time Since Origin"]
 
 [SensEURCity."NO2 Techniques (Scaling Technique) - Box Plot - nMAE".Configuration]
 	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI"]
 	Fields = ["NO2"]
 	"Calibrated" = [
-	"Antwerp 32",
-	"Antwerp 34",
-	"Antwerp 33",
-	"Antwerp 31",
-	"Antwerp 21",
-	"Antwerp 2",
-	"Antwerp 13",
-	"Antwerp 25",
-	"Antwerp 30",
-	"Antwerp 10",
-	"Antwerp 12",
-	"Antwerp 11",
-	"Antwerp 26",
-	"Antwerp 18",
-	"Antwerp 24",
-	"Antwerp 28",
-	"Antwerp 1",
-	"Antwerp 4",
-	"Antwerp 20",
-	"Antwerp 23",
-	"Antwerp 7",
-	"Antwerp 27",
-	"Antwerp 3",
-	"Antwerp 22",
-	"Antwerp 5",
-	"Antwerp 17",
-	"Antwerp 6",
-	"Antwerp 16",
-	"Antwerp 15",
-	"Antwerp 14",
-	"Antwerp 19",
-	"Antwerp 8",
-	"Antwerp 29",
-	"Antwerp 9",
-	"Oslo 10",
-	"Oslo 17",
-	"Oslo 6",
-	"Oslo 28",
-	"Oslo 16",
-	"Oslo 21",
-	"Oslo 19",
-	"Oslo 9",
-	"Oslo 13",
-	"Oslo 15",
-	"Oslo 25",
-	"Oslo 22",
-	"Oslo 7",
-	"Oslo 14",
-	"Oslo 4",
-	"Oslo 11",
-	"Oslo 29",
-	"Oslo 26",
-	"Oslo 24",
-	"Oslo 3",
-	"Oslo 18",
-	"Oslo 31",
-	"Zagreb 7",
-	"Zagreb 9",
-	"Zagreb 2",
-	"Zagreb 1",
-	"Zagreb 3",
-	"Zagreb 4",
-	"Zagreb 11",
-	"Zagreb 12",
-	"Zagreb 6",
-	"Zagreb 14",
-	"Zagreb 15",
-	"Zagreb 13",
-	"Zagreb 8",
+	"Antwerp_40641B",
+	"Antwerp_4065D0",
+	"Antwerp_4065E0",
+	"Antwerp_4065E3",
+	"Antwerp_406424",
+	"Antwerp_4047DD",
+	"Antwerp_4043AE",
+	"Antwerp_4047D7",
+	"Antwerp_4065D3",
+	"Antwerp_408175",
+	"Antwerp_4067B3",
+	"Antwerp_40499F",
+	"Antwerp_4043B1",
+	"Antwerp_406246",
+	"Antwerp_4047CD",
+	"Antwerp_408168",
+	"Antwerp_4049A6",
+	"Antwerp_4047E7",
+	"Antwerp_4067BA",
+	"Antwerp_4067BD",
+	"Antwerp_406249",
+	"Antwerp_408178",
+	"Antwerp_40623F",
+	"Antwerp_402723",
+	"Antwerp_402B00",
+	"Antwerp_4067B0",
+	"Antwerp_4047E0",
+	"Antwerp_4065DA",
+	"Antwerp_408165",
+	"Antwerp_4065EA",
+	"Antwerp_4065DD",
+	"Antwerp_40499C",
+	"Antwerp_4043A7",
+	"Antwerp_40642B",
+	"Oslo_652FA4",
+	"Oslo_64E9C5",
+	"Oslo_647D5A",
+	"Oslo_651EFC",
+	"Oslo_649312",
+	"Oslo_653257",
+	"Oslo_426179",
+	"Oslo_64FD0A",
+	"Oslo_40817F",
+	"Oslo_652FAF",
+	"Oslo_64CB78",
+	"Oslo_64A291",
+	"Oslo_64CB6D",
+	"Oslo_65326C",
+	"Oslo_425FB3",
+	"Oslo_652D3A",
+	"Oslo_649526",
+	"Oslo_6517DD",
+	"Oslo_648B91",
+	"Oslo_65063E",
+	"Oslo_64CB70",
+	"Oslo_40458D",
+	"Zagreb_652FA1",
+	"Zagreb_649738",
+	"Zagreb_427907",
+	"Zagreb_648169",
+	"Zagreb_40641E",
+	"Zagreb_427906",
+	"Zagreb_64876C",
+	"Zagreb_64C52B",
+	"Zagreb_428164",
+	"Zagreb_64C225",
+	"Zagreb_64876B",
+	"Zagreb_652A38",
+	"Zagreb_648157",
+	"Zagreb_406414",
 ]
 	"Regression Techniques" = [
 		"Bayesian Automatic Relevance Detection (Default)",
@@ -1605,6 +722,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -1630,6 +748,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Random Forest (Default)",
@@ -1659,12 +778,8 @@
 	"Title" = "None"
 	"Scaling Techniques" = ["None"]
 
-# [[SensEURCity."NO2 Techniques (Scaling Technique) - Box Plot - nMAE".Graphs]]
-# 	"Title" = "Standard Scaling"
-# 	"Scaling Techniques" = ["Standard Scale"]
-
 [[SensEURCity."NO2 Techniques (Scaling Technique) - Box Plot - nMAE".Graphs]]
-	"Title" = "MinMax Scaling"
+	"Title" = "MinMax"
 	"Scaling Techniques" = ["MinMax Scale"]
 
 [[SensEURCity."NO2 Techniques (Scaling Technique) - Box Plot - nMAE".Graphs]]
@@ -1675,83 +790,80 @@
 	"Title" = "Uniform Quantile Transform"
 	"Scaling Techniques" = ["Quantile Transform (Uniform)"]
 
-# [[SensEURCity."NO2 Techniques (Scaling Technique) - Box Plot - nMAE".Graphs]]
-# 	"Title" = "Gaussian Quantile Transform"
-# 	"Scaling Techniques" = ["Quantile Transform (Gaussian)"]
-
 [SensEURCity."NO2 Techniques (Variables) - Box Plot - nMAE".Configuration]
 	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI"]
 	Fields = ["NO2"]
 	"Calibrated" = [
-	"Antwerp 32",
-	"Antwerp 34",
-	"Antwerp 33",
-	"Antwerp 31",
-	"Antwerp 21",
-	"Antwerp 2",
-	"Antwerp 13",
-	"Antwerp 25",
-	"Antwerp 30",
-	"Antwerp 10",
-	"Antwerp 12",
-	"Antwerp 11",
-	"Antwerp 26",
-	"Antwerp 18",
-	"Antwerp 24",
-	"Antwerp 28",
-	"Antwerp 1",
-	"Antwerp 4",
-	"Antwerp 20",
-	"Antwerp 23",
-	"Antwerp 7",
-	"Antwerp 27",
-	"Antwerp 3",
-	"Antwerp 22",
-	"Antwerp 5",
-	"Antwerp 17",
-	"Antwerp 6",
-	"Antwerp 16",
-	"Antwerp 15",
-	"Antwerp 14",
-	"Antwerp 19",
-	"Antwerp 8",
-	"Antwerp 29",
-	"Antwerp 9",
-	"Oslo 10",
-	"Oslo 17",
-	"Oslo 6",
-	"Oslo 28",
-	"Oslo 16",
-	"Oslo 21",
-	"Oslo 19",
-	"Oslo 9",
-	"Oslo 13",
-	"Oslo 15",
-	"Oslo 25",
-	"Oslo 22",
-	"Oslo 7",
-	"Oslo 14",
-	"Oslo 4",
-	"Oslo 11",
-	"Oslo 29",
-	"Oslo 26",
-	"Oslo 24",
-	"Oslo 3",
-	"Oslo 18",
-	"Oslo 31",
-	"Zagreb 7",
-	"Zagreb 9",
-	"Zagreb 2",
-	"Zagreb 1",
-	"Zagreb 3",
-	"Zagreb 4",
-	"Zagreb 11",
-	"Zagreb 12",
-	"Zagreb 6",
-	"Zagreb 14",
-	"Zagreb 15",
-	"Zagreb 13",
-	"Zagreb 8",
+	"Antwerp_40641B",
+	"Antwerp_4065D0",
+	"Antwerp_4065E0",
+	"Antwerp_4065E3",
+	"Antwerp_406424",
+	"Antwerp_4047DD",
+	"Antwerp_4043AE",
+	"Antwerp_4047D7",
+	"Antwerp_4065D3",
+	"Antwerp_408175",
+	"Antwerp_4067B3",
+	"Antwerp_40499F",
+	"Antwerp_4043B1",
+	"Antwerp_406246",
+	"Antwerp_4047CD",
+	"Antwerp_408168",
+	"Antwerp_4049A6",
+	"Antwerp_4047E7",
+	"Antwerp_4067BA",
+	"Antwerp_4067BD",
+	"Antwerp_406249",
+	"Antwerp_408178",
+	"Antwerp_40623F",
+	"Antwerp_402723",
+	"Antwerp_402B00",
+	"Antwerp_4067B0",
+	"Antwerp_4047E0",
+	"Antwerp_4065DA",
+	"Antwerp_408165",
+	"Antwerp_4065EA",
+	"Antwerp_4065DD",
+	"Antwerp_40499C",
+	"Antwerp_4043A7",
+	"Antwerp_40642B",
+	"Oslo_652FA4",
+	"Oslo_64E9C5",
+	"Oslo_647D5A",
+	"Oslo_651EFC",
+	"Oslo_649312",
+	"Oslo_653257",
+	"Oslo_426179",
+	"Oslo_64FD0A",
+	"Oslo_40817F",
+	"Oslo_652FAF",
+	"Oslo_64CB78",
+	"Oslo_64A291",
+	"Oslo_64CB6D",
+	"Oslo_65326C",
+	"Oslo_425FB3",
+	"Oslo_652D3A",
+	"Oslo_649526",
+	"Oslo_6517DD",
+	"Oslo_648B91",
+	"Oslo_65063E",
+	"Oslo_64CB70",
+	"Oslo_40458D",
+	"Zagreb_652FA1",
+	"Zagreb_649738",
+	"Zagreb_427907",
+	"Zagreb_648169",
+	"Zagreb_40641E",
+	"Zagreb_427906",
+	"Zagreb_64876C",
+	"Zagreb_64C52B",
+	"Zagreb_428164",
+	"Zagreb_64C225",
+	"Zagreb_64876B",
+	"Zagreb_652A38",
+	"Zagreb_648157",
+	"Zagreb_406414",
 ]
 	"Scaling Techniques" = [
 		"None",
@@ -1773,7 +885,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -1799,7 +911,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Random Forest (Default)",
@@ -1818,267 +930,104 @@
 	"Y Axis" = {"range" = [0, 4.4]}
 
 [[SensEURCity."NO2 Techniques (Variables) - Box Plot - nMAE".Graphs]]
-	"Title" = "$\\text{NO}_{2}$"
+	"Title" = "NO2"
 	"Variables" = ["NO2"]
 
 [[SensEURCity."NO2 Techniques (Variables) - Box Plot - nMAE".Graphs]]
-	"Title" = "$\\text{NO}_{2} + \\text{P} + \\text{CO} + \\text{NO} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
-	"Variables" = ["NO2 + P + CO + NO + RH + T + RH^2 + RH T + T^2"]
-
-[[SensEURCity."NO2 Techniques (Variables) - Box Plot - nMAE".Graphs]]
-	"Title" = "$\\text{NO}_{2} + \\text{Time Since Origin}$"
+	"Title" = "NO2 + Time Since Origin"
 	"Variables" = ["NO2 + Time Since Origin"]
 
 [[SensEURCity."NO2 Techniques (Variables) - Box Plot - nMAE".Graphs]]
-	"Title" = "$\\text{NO}_{2} + \\text{P} + \\text{CO} + \\text{NO} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}$"
+	"Title" = "NO2 + P + CO + NO + RH + T + RH^2 + RH T + T^2"
+	"Variables" = ["NO2 + P + CO + NO + RH + T + RH^2 + RH T + T^2"]
+
+[[SensEURCity."NO2 Techniques (Variables) - Box Plot - nMAE".Graphs]]
+	"Title" = "NO2 + P + CO + NO + RH + T + RH^2 + RH T + T^2 + Time Since Origin"
 	"Variables" = ["NO2 + P + CO + NO + RH + T + RH^2 + RH T + T^2 + Time Since Origin"]
-
-[SensEURCity."NO2 Techniques (Fold) - Box Plot - nMAE".Configuration]
-	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI"]
-	Fields = ["NO"]
-	Variables = [
-		"PM2.5",
-		"NO2",
-		"NO",
-		"NO + P + CO + NO2 + RH + T + RH^2 + RH T + T^2",
-		"NO2 + P + CO + NO + RH + T + RH^2 + RH T + T^2",
-		"PM2.5 + P + RH + T + RH^2 + RH T + T^2",
-	]
-	"Regression Techniques" = [
-		"Bayesian Automatic Relevance Detection (Default)",
-		"Bayesian Ridge Regression (Default)",
-		"Expectile GAM (Default)",
-		"Extra Trees Ensemble (Default)",
-		"Histogram-Based Gradient Boosting Regression (Default)",
-		"Isotonic Regression (Default)",
-		"Gradient Boosting Regression (Default)",
-		"Elastic Net Regression (Cross Validated) (Default)",
-		"Lasso Regression (Cross Validated) (Default)",
-		"Least Angle Lasso Regression (Default)",
-		"Least Angle Regression (Default)",
-		"Linear GAM (Default)",
-		"Linear Regression (Default)",
-		
-		"Multi-Layer Perceptron Regression (Default)",
-		"Nu-Support Vector Regression (Default)",
-		"Orthogonal Matching Pursuit (Default)",
-		"Passive Aggressive Regression (Default)",
-		"Random Forest (Default)",
-		"Ridge Regression (Cross Validated) (Default)",
-		"Support Vector Regression (Default)",
-		"Theil-Sen Regression (Default)",
-		"XGBoost Regression (Default)"
-	]
-	"Axis Order" = [
-		"Linear Regression (Default)",
-		"Lasso Regression (Cross Validated) (Default)",
-		"Least Angle Lasso Regression (Default)",
-		"Least Angle Regression (Default)",
-		"Bayesian Automatic Relevance Detection (Default)",
-		"Bayesian Ridge Regression (Default)",
-		"Ridge Regression (Cross Validated) (Default)",
-		"Passive Aggressive Regression (Default)",
-		"Elastic Net Regression (Cross Validated) (Default)",
-		"Orthogonal Matching Pursuit (Default)",
-		"Theil-Sen Regression (Default)",
-		"Linear GAM (Default)",
-		"Expectile GAM (Default)",
-		"Support Vector Regression (Default)",
-		
-		"Nu-Support Vector Regression (Default)",
-		"Isotonic Regression (Default)",
-		"Random Forest (Default)",
-		"Extra Trees Ensemble (Default)",
-		"Gradient Boosting Regression (Default)",
-		"Histogram-Based Gradient Boosting Regression (Default)",
-		"Multi-Layer Perceptron Regression (Default)",
-		"XGBoost Regression (Default)"
-	]
-	"Calibrated" = [
-		"Antwerp 32",
-		"Antwerp 34",
-		"Antwerp 33",
-		"Antwerp 31",
-		"Antwerp 21",
-		"Antwerp 2",
-		"Antwerp 13",
-		"Antwerp 25",
-		"Antwerp 30",
-		"Antwerp 10",
-		"Antwerp 12",
-		"Antwerp 11",
-		"Antwerp 26",
-		"Antwerp 18",
-		"Antwerp 24",
-		"Antwerp 28",
-		"Antwerp 1",
-		"Antwerp 4",
-		"Antwerp 20",
-		"Antwerp 23",
-		"Antwerp 7",
-		"Antwerp 27",
-		"Antwerp 3",
-		"Antwerp 22",
-		"Antwerp 5",
-		"Antwerp 17",
-		"Antwerp 6",
-		"Antwerp 16",
-		"Antwerp 15",
-		"Antwerp 14",
-		"Antwerp 19",
-		"Antwerp 8",
-		"Antwerp 29",
-		"Antwerp 9",
-		"Oslo 10",
-		"Oslo 17",
-		"Oslo 6",
-		"Oslo 28",
-		"Oslo 16",
-		"Oslo 21",
-		"Oslo 19",
-		"Oslo 9",
-		"Oslo 13",
-		"Oslo 15",
-		"Oslo 25",
-		"Oslo 22",
-		"Oslo 7",
-		"Oslo 14",
-		"Oslo 4",
-		"Oslo 11",
-		"Oslo 29",
-		"Oslo 26",
-		"Oslo 24",
-		"Oslo 3",
-		"Oslo 18",
-		"Oslo 31",
-		"Zagreb 7",
-		"Zagreb 9",
-		"Zagreb 2",
-		"Zagreb 1",
-		"Zagreb 3",
-		"Zagreb 4",
-		"Zagreb 11",
-		"Zagreb 12",
-		"Zagreb 6",
-		"Zagreb 14",
-		"Zagreb 15",
-		"Zagreb 13",
-		"Zagreb 8",
-	]
-	"Split By" = ["Technique"]
-	"Remove Outliers" = "Yes"
-	"Plot Type" = "Box Plot"
-	"Metric" = "Mean Absolute Error"
-	"Layout" = {"boxmode" = "group"}
-	"Normalise By" = "Reference Absolute Deviation"
-	"Y Axis" = {"range" = [0, 4.4]}
-
-[[SensEURCity."NO2 Techniques (Fold) - Box Plot - nMAE".Graphs]]
-	"Title" = "1"
-	"Fold" = ["1"]
-
-[[SensEURCity."NO2 Techniques (Fold) - Box Plot - nMAE".Graphs]]
-	"Title" = "2"
-	"Fold" = ["2"]
-
-[[SensEURCity."NO2 Techniques (Fold) - Box Plot - nMAE".Graphs]]
-	"Title" = "3"
-	"Fold" = ["3"]
-
-[[SensEURCity."NO2 Techniques (Fold) - Box Plot - nMAE".Graphs]]
-	"Title" = "4"
-	"Fold" = ["4"]
-
-[[SensEURCity."NO2 Techniques (Fold) - Box Plot - nMAE".Graphs]]
-	"Title" = "5"
-	"Fold" = ["5"]
-
-[[SensEURCity."NO2 Techniques (Fold) - Box Plot - nMAE".Graphs]]
-	"Title" = "Mean"
-	"Fold" = ["Mean"]
 
 
 [SensEURCity."PM2.5 Techniques (Scaling Technique) - Box Plot - nMAE".Configuration]
 	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI"]
 	Fields = ["PM2.5"]
 	"Calibrated" = [
-	"Antwerp 32",
-	"Antwerp 34",
-	"Antwerp 33",
-	"Antwerp 31",
-	"Antwerp 21",
-	"Antwerp 2",
-	"Antwerp 13",
-	"Antwerp 25",
-	"Antwerp 30",
-	"Antwerp 10",
-	"Antwerp 12",
-	"Antwerp 11",
-	"Antwerp 26",
-	"Antwerp 18",
-	"Antwerp 24",
-	"Antwerp 28",
-	"Antwerp 1",
-	"Antwerp 4",
-	"Antwerp 20",
-	"Antwerp 23",
-	"Antwerp 7",
-	"Antwerp 27",
-	"Antwerp 3",
-	"Antwerp 22",
-	"Antwerp 17",
-	"Antwerp 6",
-	"Antwerp 16",
-	"Antwerp 14",
-	"Antwerp 19",
-	"Antwerp 8",
-	"Antwerp 29",
-	"Antwerp 9",
-	"Oslo 30",
-	"Oslo 33",
-	"Oslo 10",
-	"Oslo 2",
-	"Oslo 17",
-	"Oslo 27",
-	"Oslo 6",
-	"Oslo 28",
-	"Oslo 16",
-	"Oslo 21",
-	"Oslo 19",
-	"Oslo 9",
-	"Oslo 13",
-	"Oslo 15",
-	"Oslo 25",
-	"Oslo 8",
-	"Oslo 22",
-	"Oslo 7",
-	"Oslo 14",
-	"Oslo 1",
-	"Oslo 4",
-	"Oslo 11",
-	"Oslo 29",
-	"Oslo 26",
-	"Oslo 24",
-	"Oslo 20",
-	"Oslo 3",
-	"Oslo 18",
-	"Oslo 31",
-	"Oslo 23",
-	"Zagreb 7",
-	"Zagreb 9",
-	"Zagreb 2",
-	"Zagreb 1",
-	"Zagreb 3",
-	"Zagreb 4",
-	"Zagreb 10",
-	"Zagreb 11",
-	"Zagreb 12",
-	"Zagreb 6",
-	"Zagreb 14",
-	"Zagreb 15",
-	"Zagreb 13",
-	"Zagreb 8",
-	"Zagreb 17",
+	"Antwerp_40641B",
+	"Antwerp_4065D0",
+	"Antwerp_4065E0",
+	"Antwerp_4065E3",
+	"Antwerp_406424",
+	"Antwerp_4047DD",
+	"Antwerp_4043AE",
+	"Antwerp_4047D7",
+	"Antwerp_4065D3",
+	"Antwerp_408175",
+	"Antwerp_4067B3",
+	"Antwerp_40499F",
+	"Antwerp_4043B1",
+	"Antwerp_406246",
+	"Antwerp_4047CD",
+	"Antwerp_408168",
+	"Antwerp_4049A6",
+	"Antwerp_4047E7",
+	"Antwerp_4067BA",
+	"Antwerp_4067BD",
+	"Antwerp_406249",
+	"Antwerp_408178",
+	"Antwerp_40623F",
+	"Antwerp_402723",
+	"Antwerp_4067B0",
+	"Antwerp_4047E0",
+	"Antwerp_4065DA",
+	"Antwerp_4065EA",
+	"Antwerp_4065DD",
+	"Antwerp_40499C",
+	"Antwerp_4043A7",
+	"Antwerp_40642B",
+	"Oslo_40642E",
+	"Oslo_40816F",
+	"Oslo_652FA4",
+	"Oslo_64FD11",
+	"Oslo_64E9C5",
+	"Oslo_64A292",
+	"Oslo_647D5A",
+	"Oslo_651EFC",
+	"Oslo_649312",
+	"Oslo_653257",
+	"Oslo_426179",
+	"Oslo_64FD0A",
+	"Oslo_40817F",
+	"Oslo_652FAF",
+	"Oslo_64CB78",
+	"Oslo_426178",
+	"Oslo_64A291",
+	"Oslo_64CB6D",
+	"Oslo_65326C",
+	"Oslo_651EF5",
+	"Oslo_425FB3",
+	"Oslo_652D3A",
+	"Oslo_649526",
+	"Oslo_6517DD",
+	"Oslo_648B91",
+	"Oslo_425FB4",
+	"Oslo_65063E",
+	"Oslo_64CB70",
+	"Oslo_40458D",
+	"Oslo_652A32",
+	"Zagreb_652FA1",
+	"Zagreb_649738",
+	"Zagreb_427907",
+	"Zagreb_648169",
+	"Zagreb_40641E",
+	"Zagreb_427906",
+	"Zagreb_42816D",
+	"Zagreb_64876C",
+	"Zagreb_64C52B",
+	"Zagreb_428164",
+	"Zagreb_64C225",
+	"Zagreb_64876B",
+	"Zagreb_652A38",
+	"Zagreb_648157",
+	"Zagreb_4047D0",
+	"Zagreb_406414",
 ]
 	"Regression Techniques" = [
 		"Bayesian Automatic Relevance Detection (Default)",
@@ -2094,7 +1043,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -2120,7 +1069,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Random Forest (Default)",
@@ -2147,19 +1096,19 @@
 	"Y Axis" = {"range" = [0, 4.4]}
 
 [[SensEURCity."PM2.5 Techniques (Variables) - Box Plot - nMAE".Graphs]]
-	"Title" = "$\\text{PM}_{2.5}$"
+	"Title" = "PM2.5"
 	"Variables" = ["PM2.5"]
 
 [[SensEURCity."PM2.5 Techniques (Variables) - Box Plot - nMAE".Graphs]]
-	"Title" = "$\\text{PM}_{2.5} + \\text{P} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
-	"Variables" = ["PM2.5 + P + RH + T + RH^2 + RH T + T^2"]
-
-[[SensEURCity."PM2.5 Techniques (Variables) - Box Plot - nMAE".Graphs]]
-	"Title" = "$\\text{PM}_{2.5} + \\text{Time Since Origin}$"
+	"Title" = "PM2.5 + Time Since Origin"
 	"Variables" = ["PM2.5 + Time Since Origin"]
 
 [[SensEURCity."PM2.5 Techniques (Variables) - Box Plot - nMAE".Graphs]]
-	"Title" = "$\\text{PM}_{2.5} + \\text{P} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}$"
+	"Title" = "PM2.5 + P + RH + T + RH^2 + RH T + T^2"
+	"Variables" = ["PM2.5 + P + RH + T + RH^2 + RH T + T^2"]
+
+[[SensEURCity."PM2.5 Techniques (Variables) - Box Plot - nMAE".Graphs]]
+	"Title" = "PM2.5 + P + RH + T + RH^2 + RH T + T^2 + Time Since Origin"
 	"Variables" = ["PM2.5 + P + RH + T + RH^2 + RH T + T^2 + Time Since Origin"]
 
 
@@ -2168,84 +1117,85 @@
 	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI"]
 	Fields = ["PM2.5"]
 	"Calibrated" = [
-		"Antwerp 32",
-		"Antwerp 34",
-		"Antwerp 33",
-		"Antwerp 31",
-		"Antwerp 21",
-		"Antwerp 2",
-		"Antwerp 13",
-		"Antwerp 25",
-		"Antwerp 30",
-		"Antwerp 10",
-		"Antwerp 12",
-		"Antwerp 11",
-		"Antwerp 26",
-		"Antwerp 18",
-		"Antwerp 24",
-		"Antwerp 28",
-		"Antwerp 1",
-		"Antwerp 4",
-		"Antwerp 20",
-		"Antwerp 23",
-		"Antwerp 7",
-		"Antwerp 27",
-		"Antwerp 3",
-		"Antwerp 22",
-		"Antwerp 17",
-		"Antwerp 6",
-		"Antwerp 16",
-		"Antwerp 14",
-		"Antwerp 19",
-		"Antwerp 8",
-		"Antwerp 29",
-		"Antwerp 9",
-		"Oslo 30",
-		"Oslo 33",
-		"Oslo 10",
-		"Oslo 2",
-		"Oslo 17",
-		"Oslo 27",
-		"Oslo 6",
-		"Oslo 28",
-		"Oslo 16",
-		"Oslo 21",
-		"Oslo 19",
-		"Oslo 9",
-		"Oslo 13",
-		"Oslo 15",
-		"Oslo 25",
-		"Oslo 8",
-		"Oslo 22",
-		"Oslo 7",
-		"Oslo 14",
-		"Oslo 1",
-		"Oslo 4",
-		"Oslo 11",
-		"Oslo 29",
-		"Oslo 26",
-		"Oslo 24",
-		"Oslo 20",
-		"Oslo 3",
-		"Oslo 18",
-		"Oslo 31",
-		"Oslo 23",
-		"Zagreb 7",
-		"Zagreb 9",
-		"Zagreb 2",
-		"Zagreb 1",
-		"Zagreb 3",
-		"Zagreb 4",
-		"Zagreb 10",
-		"Zagreb 11",
-		"Zagreb 12",
-		"Zagreb 6",
-		"Zagreb 14",
-		"Zagreb 15",
-		"Zagreb 13",
-		"Zagreb 8",
-		"Zagreb 17",
-	]
+	"Antwerp_40641B",
+	"Antwerp_4065D0",
+	"Antwerp_4065E0",
+	"Antwerp_4065E3",
+	"Antwerp_406424",
+	"Antwerp_4047DD",
+	"Antwerp_4043AE",
+	"Antwerp_4047D7",
+	"Antwerp_4065D3",
+	"Antwerp_408175",
+	"Antwerp_4067B3",
+	"Antwerp_40499F",
+	"Antwerp_4043B1",
+	"Antwerp_406246",
+	"Antwerp_4047CD",
+	"Antwerp_408168",
+	"Antwerp_4049A6",
+	"Antwerp_4047E7",
+	"Antwerp_4067BA",
+	"Antwerp_4067BD",
+	"Antwerp_406249",
+	"Antwerp_408178",
+	"Antwerp_40623F",
+	"Antwerp_402723",
+	"Antwerp_4067B0",
+	"Antwerp_4047E0",
+	"Antwerp_4065DA",
+	"Antwerp_4065EA",
+	"Antwerp_4065DD",
+	"Antwerp_40499C",
+	"Antwerp_4043A7",
+	"Antwerp_40642B",
+	"Oslo_40642E",
+	"Oslo_40816F",
+	"Oslo_652FA4",
+	"Oslo_64FD11",
+	"Oslo_64E9C5",
+	"Oslo_64A292",
+	"Oslo_647D5A",
+	"Oslo_651EFC",
+	"Oslo_649312",
+	"Oslo_653257",
+	"Oslo_426179",
+	"Oslo_64FD0A",
+	"Oslo_40817F",
+	"Oslo_652FAF",
+	"Oslo_64CB78",
+	"Oslo_426178",
+	"Oslo_64A291",
+	"Oslo_64CB6D",
+	"Oslo_65326C",
+	"Oslo_651EF5",
+	"Oslo_425FB3",
+	"Oslo_652D3A",
+	"Oslo_649526",
+	"Oslo_6517DD",
+	"Oslo_648B91",
+	"Oslo_425FB4",
+	"Oslo_65063E",
+	"Oslo_64CB70",
+	"Oslo_40458D",
+	"Oslo_652A32",
+	"Zagreb_652FA1",
+	"Zagreb_649738",
+	"Zagreb_427907",
+	"Zagreb_648169",
+	"Zagreb_40641E",
+	"Zagreb_427906",
+	"Zagreb_42816D",
+	"Zagreb_64876C",
+	"Zagreb_64C52B",
+	"Zagreb_428164",
+	"Zagreb_64C225",
+	"Zagreb_64876B",
+	"Zagreb_652A38",
+	"Zagreb_648157",
+	"Zagreb_4047D0",
+	"Zagreb_406414",
+]
 	"Scaling Techniques" = [
 		"None",
 		"MinMax Scale",
@@ -2266,7 +1216,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -2292,7 +1242,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Random Forest (Default)",
@@ -2314,12 +1264,8 @@
 	"Title" = "None"
 	"Scaling Techniques" = ["None"]
 
-# [[SensEURCity."PM2.5 Techniques (Scaling Technique) - Box Plot - nMAE".Graphs]]
-# 	"Title" = "Standard Scaling"
-# 	"Scaling Techniques" = ["Standard Scale"]
-
 [[SensEURCity."PM2.5 Techniques (Scaling Technique) - Box Plot - nMAE".Graphs]]
-	"Title" = "MinMax Scaling"
+	"Title" = "MinMax"
 	"Scaling Techniques" = ["MinMax Scale"]
 
 [[SensEURCity."PM2.5 Techniques (Scaling Technique) - Box Plot - nMAE".Graphs]]
@@ -2330,12 +1276,8 @@
 	"Title" = "Uniform Quantile Transform"
 	"Scaling Techniques" = ["Quantile Transform (Uniform)"]
 
-# [[SensEURCity."PM2.5 Techniques (Scaling Technique) - Box Plot - nMAE".Graphs]]
-# 	"Title" = "Gaussian Quantile Transform"
-# 	"Scaling Techniques" = ["Quantile Transform (Gaussian)"]
-
-[SensEURCity."PM2.5 Techniques (Fold) - Box Plot - nMAE".Configuration]
-	Folders = ["ANT_REF_R801", "OSL_REF_KVN", "ZAG_REF_IMI"]
+[SensEURCity."NO Techniques (Scaling Technique) Ispra - Box Plot - nMAE".Configuration]
+	Folders = ["Ispra"]
 	Fields = ["NO"]
 	Variables = [
 		"PM2.5",
@@ -2359,7 +1301,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -2385,7 +1327,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Random Forest (Default)",
@@ -2396,83 +1338,245 @@
 		"XGBoost Regression (Default)"
 	]
 	"Calibrated" = [
-		"Antwerp 32",
-		"Antwerp 34",
-		"Antwerp 33",
-		"Antwerp 31",
-		"Antwerp 21",
-		"Antwerp 2",
-		"Antwerp 13",
-		"Antwerp 25",
-		"Antwerp 30",
-		"Antwerp 10",
-		"Antwerp 12",
-		"Antwerp 11",
-		"Antwerp 26",
-		"Antwerp 18",
-		"Antwerp 24",
-		"Antwerp 28",
-		"Antwerp 1",
-		"Antwerp 4",
-		"Antwerp 20",
-		"Antwerp 23",
-		"Antwerp 7",
-		"Antwerp 27",
-		"Antwerp 3",
-		"Antwerp 22",
-		"Antwerp 17",
-		"Antwerp 6",
-		"Antwerp 16",
-		"Antwerp 14",
-		"Antwerp 19",
-		"Antwerp 8",
-		"Antwerp 29",
-		"Antwerp 9",
-		"Oslo 30",
-		"Oslo 33",
-		"Oslo 10",
-		"Oslo 2",
-		"Oslo 17",
-		"Oslo 27",
-		"Oslo 6",
-		"Oslo 28",
-		"Oslo 16",
-		"Oslo 21",
-		"Oslo 19",
-		"Oslo 9",
-		"Oslo 13",
-		"Oslo 15",
-		"Oslo 25",
-		"Oslo 8",
-		"Oslo 22",
-		"Oslo 7",
-		"Oslo 14",
-		"Oslo 1",
-		"Oslo 4",
-		"Oslo 11",
-		"Oslo 29",
-		"Oslo 26",
-		"Oslo 24",
-		"Oslo 20",
-		"Oslo 3",
-		"Oslo 18",
-		"Oslo 31",
-		"Oslo 23",
-		"Zagreb 7",
-		"Zagreb 9",
-		"Zagreb 2",
-		"Zagreb 1",
-		"Zagreb 3",
-		"Zagreb 4",
-		"Zagreb 10",
-		"Zagreb 11",
-		"Zagreb 12",
-		"Zagreb 6",
-		"Zagreb 14",
-		"Zagreb 15",
-		"Zagreb 13",
-		"Zagreb 8",
-		"Zagreb 17",
+	"Antwerp_40641B",
+	"Antwerp_4065D0",
+	"Antwerp_4065E0",
+	"Antwerp_4065E3",
+	"Antwerp_406424",
+	"Antwerp_4047DD",
+	"Antwerp_4043AE",
+	"Antwerp_4047D7",
+	"Antwerp_4065D3",
+	"Antwerp_408175",
+	"Antwerp_4067B3",
+	"Antwerp_40499F",
+	"Antwerp_4043B1",
+	"Antwerp_406246",
+	"Antwerp_4047CD",
+	"Antwerp_408168",
+	"Antwerp_4049A6",
+	"Antwerp_4047E7",
+	"Antwerp_4067BA",
+	"Antwerp_4067BD",
+	"Antwerp_406249",
+	"Antwerp_408178",
+	"Antwerp_40623F",
+	"Antwerp_402723",
+	"Antwerp_402B00",
+	"Antwerp_4067B0",
+	"Antwerp_4047E0",
+	"Antwerp_4065DA",
+	"Antwerp_408165",
+	"Antwerp_4065EA",
+	"Antwerp_4065DD",
+	"Antwerp_40499C",
+	"Antwerp_4043A7",
+	"Antwerp_40642B",
+	"Oslo_40642E",
+	"Oslo_4065ED",
+	"Oslo_40816F",
+	"Oslo_652FA4",
+	"Oslo_64E9C5",
+	"Oslo_647D5A",
+	"Oslo_651EFC",
+	"Oslo_649312",
+	"Oslo_653257",
+	"Oslo_426179",
+	"Oslo_40817F",
+	"Oslo_652FAF",
+	"Oslo_64CB78",
+	"Oslo_426178",
+	"Oslo_64A291",
+	"Oslo_64CB6D",
+	"Oslo_65326C",
+	"Oslo_425FB3",
+	"Oslo_652D3A",
+	"Oslo_649526",
+	"Oslo_6517DD",
+	"Oslo_648B91",
+	"Oslo_65063E",
+	"Oslo_64CB70",
+	"Oslo_40458D",
+	"Oslo_652A32",
+	"Zagreb_652FA1",
+	"Zagreb_649738",
+	"Zagreb_427907",
+	"Zagreb_648169",
+	"Zagreb_40641E",
+	"Zagreb_427906",
+	"Zagreb_42816D",
+	"Zagreb_64876C",
+	"Zagreb_64C52B",
+	"Zagreb_428164",
+	"Zagreb_64C225",
+	"Zagreb_64876B",
+	"Zagreb_64E03B",
+	"Zagreb_652A38",
+	"Zagreb_648157",
+	"Zagreb_4047D0",
+	"Zagreb_406414",
+]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Layout" = {"boxmode" = "group"}
+	"Normalise By" = "Reference Absolute Deviation"
+	"Y Axis" = {"range" = [0, 4.4]}
+
+[[SensEURCity."NO Techniques (Scaling Technique) Ispra - Box Plot - nMAE".Graphs]]
+	"Title" = "None"
+	"Scaling Techniques" = ["None"]
+
+[[SensEURCity."NO Techniques (Scaling Technique) Ispra - Box Plot - nMAE".Graphs]]
+	"Title" = "MinMax"
+	"Scaling Techniques" = ["MinMax Scale"]
+
+[[SensEURCity."NO Techniques (Scaling Technique) Ispra - Box Plot - nMAE".Graphs]]
+	"Title" = "Yeo-Johnson"
+	"Scaling Techniques" = ["Yeo-Johnson Transform"]
+
+[[SensEURCity."NO Techniques (Scaling Technique) Ispra - Box Plot - nMAE".Graphs]]
+	"Title" = "Uniform Quantile Transform"
+	"Scaling Techniques" = ["Quantile Transform (Uniform)"]
+
+[SensEURCity."NO Techniques (Variables) Ispra - Box Plot - nMAE".Configuration]
+	Folders = ["Ispra"]
+	Fields = ["NO"]
+	"Calibrated" = [
+	"Antwerp_40641B",
+	"Antwerp_4065D0",
+	"Antwerp_4065E0",
+	"Antwerp_4065E3",
+	"Antwerp_406424",
+	"Antwerp_4047DD",
+	"Antwerp_4043AE",
+	"Antwerp_4047D7",
+	"Antwerp_4065D3",
+	"Antwerp_408175",
+	"Antwerp_4067B3",
+	"Antwerp_40499F",
+	"Antwerp_4043B1",
+	"Antwerp_406246",
+	"Antwerp_4047CD",
+	"Antwerp_408168",
+	"Antwerp_4049A6",
+	"Antwerp_4047E7",
+	"Antwerp_4067BA",
+	"Antwerp_4067BD",
+	"Antwerp_406249",
+	"Antwerp_408178",
+	"Antwerp_40623F",
+	"Antwerp_402723",
+	"Antwerp_402B00",
+	"Antwerp_4067B0",
+	"Antwerp_4047E0",
+	"Antwerp_4065DA",
+	"Antwerp_408165",
+	"Antwerp_4065EA",
+	"Antwerp_4065DD",
+	"Antwerp_40499C",
+	"Antwerp_4043A7",
+	"Antwerp_40642B",
+	"Oslo_40642E",
+	"Oslo_4065ED",
+	"Oslo_40816F",
+	"Oslo_652FA4",
+	"Oslo_64E9C5",
+	"Oslo_647D5A",
+	"Oslo_651EFC",
+	"Oslo_649312",
+	"Oslo_653257",
+	"Oslo_426179",
+	"Oslo_40817F",
+	"Oslo_652FAF",
+	"Oslo_64CB78",
+	"Oslo_426178",
+	"Oslo_64A291",
+	"Oslo_64CB6D",
+	"Oslo_65326C",
+	"Oslo_425FB3",
+	"Oslo_652D3A",
+	"Oslo_649526",
+	"Oslo_6517DD",
+	"Oslo_648B91",
+	"Oslo_65063E",
+	"Oslo_64CB70",
+	"Oslo_40458D",
+	"Oslo_652A32",
+	"Zagreb_652FA1",
+	"Zagreb_649738",
+	"Zagreb_427907",
+	"Zagreb_648169",
+	"Zagreb_40641E",
+	"Zagreb_427906",
+	"Zagreb_42816D",
+	"Zagreb_64876C",
+	"Zagreb_64C52B",
+	"Zagreb_428164",
+	"Zagreb_64C225",
+	"Zagreb_64876B",
+	"Zagreb_64E03B",
+	"Zagreb_652A38",
+	"Zagreb_648157",
+	"Zagreb_4047D0",
+	"Zagreb_406414",
+]
+	"Scaling Techniques" = [
+		"None",
+		"MinMax Scale",
+		"Yeo-Johnson Transform",
+		"Quantile Transform (Uniform)",
+	]
+	"Regression Techniques" = [
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Expectile GAM (Default)",
+		"Extra Trees Ensemble (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Linear GAM (Default)",
+		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Random Forest (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Support Vector Regression (Default)",
+		"Theil-Sen Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Axis Order" = [
+		"Linear Regression (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Theil-Sen Regression (Default)",
+		"Linear GAM (Default)",
+		"Expectile GAM (Default)",
+		"Support Vector Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Random Forest (Default)",
+		"Extra Trees Ensemble (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"XGBoost Regression (Default)"
 	]
 	"Split By" = ["Technique"]
 	"Remove Outliers" = "Yes"
@@ -2482,29 +1586,334 @@
 	"Normalise By" = "Reference Absolute Deviation"
 	"Y Axis" = {"range" = [0, 4.4]}
 
-[[SensEURCity."PM2.5 Techniques (Fold) - Box Plot - nMAE".Graphs]]
-	"Title" = "1"
-	"Fold" = ["1"]
+[[SensEURCity."NO Techniques (Variables) Ispra - Box Plot - nMAE".Graphs]]
+	"Title" = "NO"
+	"Variables" = ["NO"]
 
-[[SensEURCity."PM2.5 Techniques (Fold) - Box Plot - nMAE".Graphs]]
-	"Title" = "2"
-	"Fold" = ["2"]
+[[SensEURCity."NO Techniques (Variables) Ispra - Box Plot - nMAE".Graphs]]
+	"Title" = "NO + Time Since Origin"
+	"Variables" = ["NO + Time Since Origin"]
 
-[[SensEURCity."PM2.5 Techniques (Fold) - Box Plot - nMAE".Graphs]]
-	"Title" = "3"
-	"Fold" = ["3"]
+[[SensEURCity."NO Techniques (Variables) Ispra - Box Plot - nMAE".Graphs]]
+	"Title" = "NO + P + CO + NO2 + RH + T + RH^2 + RH T + T^2"
+	"Variables" = ["NO + P + CO + NO2 + RH + T + RH^2 + RH T + T^2"]
 
-[[SensEURCity."PM2.5 Techniques (Fold) - Box Plot - nMAE".Graphs]]
-	"Title" = "4"
-	"Fold" = ["4"]
+[[SensEURCity."NO Techniques (Variables) Ispra - Box Plot - nMAE".Graphs]]
+	"Title" = "NO + P + CO + NO2 + RH + T + RH^2 + RH T + T^2 + Time Since Origin"
+	"Variables" = ["NO + P + CO + NO2 + RH + T + RH^2 + RH T + T^2 + Time Since Origin"]
 
-[[SensEURCity."PM2.5 Techniques (Fold) - Box Plot - nMAE".Graphs]]
-	"Title" = "5"
-	"Fold" = ["5"]
+[SensEURCity."NO2 Techniques (Scaling Technique) Ispra - Box Plot - nMAE".Configuration]
+	Folders = ["Ispra"]
+	Fields = ["NO2"]
+	"Calibrated" = [
+	"Antwerp_40641B",
+	"Antwerp_4065D0",
+	"Antwerp_4065E0",
+	"Antwerp_4065E3",
+	"Antwerp_406424",
+	"Antwerp_4047DD",
+	"Antwerp_4043AE",
+	"Antwerp_4047D7",
+	"Antwerp_4065D3",
+	"Antwerp_408175",
+	"Antwerp_4067B3",
+	"Antwerp_40499F",
+	"Antwerp_4043B1",
+	"Antwerp_406246",
+	"Antwerp_4047CD",
+	"Antwerp_408168",
+	"Antwerp_4049A6",
+	"Antwerp_4047E7",
+	"Antwerp_4067BA",
+	"Antwerp_4067BD",
+	"Antwerp_406249",
+	"Antwerp_408178",
+	"Antwerp_40623F",
+	"Antwerp_402723",
+	"Antwerp_402B00",
+	"Antwerp_4067B0",
+	"Antwerp_4047E0",
+	"Antwerp_4065DA",
+	"Antwerp_408165",
+	"Antwerp_4065EA",
+	"Antwerp_4065DD",
+	"Antwerp_40499C",
+	"Antwerp_4043A7",
+	"Antwerp_40642B",
+	"Oslo_652FA4",
+	"Oslo_64E9C5",
+	"Oslo_647D5A",
+	"Oslo_651EFC",
+	"Oslo_649312",
+	"Oslo_653257",
+	"Oslo_426179",
+	"Oslo_64FD0A",
+	"Oslo_40817F",
+	"Oslo_652FAF",
+	"Oslo_64CB78",
+	"Oslo_64A291",
+	"Oslo_64CB6D",
+	"Oslo_65326C",
+	"Oslo_425FB3",
+	"Oslo_652D3A",
+	"Oslo_649526",
+	"Oslo_6517DD",
+	"Oslo_648B91",
+	"Oslo_65063E",
+	"Oslo_64CB70",
+	"Oslo_40458D",
+	"Zagreb_652FA1",
+	"Zagreb_649738",
+	"Zagreb_427907",
+	"Zagreb_648169",
+	"Zagreb_40641E",
+	"Zagreb_427906",
+	"Zagreb_64876C",
+	"Zagreb_64C52B",
+	"Zagreb_428164",
+	"Zagreb_64C225",
+	"Zagreb_64876B",
+	"Zagreb_652A38",
+	"Zagreb_648157",
+	"Zagreb_406414",
+]
+	"Regression Techniques" = [
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Expectile GAM (Default)",
+		"Extra Trees Ensemble (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Linear GAM (Default)",
+		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Random Forest (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Support Vector Regression (Default)",
+		"Theil-Sen Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Axis Order" = [
+		"Linear Regression (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Theil-Sen Regression (Default)",
+		"Linear GAM (Default)",
+		"Expectile GAM (Default)",
+		"Support Vector Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Random Forest (Default)",
+		"Extra Trees Ensemble (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	Variables = [
+		"PM2.5",
+		"NO2",
+		"NO",
+		"NO + P + CO + NO2 + RH + T + RH^2 + RH T + T^2",
+		"NO2 + P + CO + NO + RH + T + RH^2 + RH T + T^2",
+		"PM2.5 + P + RH + T + RH^2 + RH T + T^2",
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Layout" = {"boxmode" = "group"}
+	"Normalise By" = "Reference Absolute Deviation"
+	"Y Axis" = {"range" = [0, 4.4]}
 
-[[SensEURCity."PM2.5 Techniques (Fold) - Box Plot - nMAE".Graphs]]
-	"Title" = "Mean"
-	"Fold" = ["Mean"]
+[[SensEURCity."NO2 Techniques (Scaling Technique) Ispra - Box Plot - nMAE".Graphs]]
+	"Title" = "None"
+	"Scaling Techniques" = ["None"]
+
+[[SensEURCity."NO2 Techniques (Scaling Technique) Ispra - Box Plot - nMAE".Graphs]]
+	"Title" = "MinMax"
+	"Scaling Techniques" = ["MinMax Scale"]
+
+[[SensEURCity."NO2 Techniques (Scaling Technique) Ispra - Box Plot - nMAE".Graphs]]
+	"Title" = "Yeo-Johnson"
+	"Scaling Techniques" = ["Yeo-Johnson Transform"]
+
+[[SensEURCity."NO2 Techniques (Scaling Technique) Ispra - Box Plot - nMAE".Graphs]]
+	"Title" = "Uniform Quantile Transform"
+	"Scaling Techniques" = ["Quantile Transform (Uniform)"]
+
+[SensEURCity."NO2 Techniques (Variables) Ispra - Box Plot - nMAE".Configuration]
+	Folders = ["Ispra"]
+	Fields = ["NO2"]
+	"Calibrated" = [
+	"Antwerp_40641B",
+	"Antwerp_4065D0",
+	"Antwerp_4065E0",
+	"Antwerp_4065E3",
+	"Antwerp_406424",
+	"Antwerp_4047DD",
+	"Antwerp_4043AE",
+	"Antwerp_4047D7",
+	"Antwerp_4065D3",
+	"Antwerp_408175",
+	"Antwerp_4067B3",
+	"Antwerp_40499F",
+	"Antwerp_4043B1",
+	"Antwerp_406246",
+	"Antwerp_4047CD",
+	"Antwerp_408168",
+	"Antwerp_4049A6",
+	"Antwerp_4047E7",
+	"Antwerp_4067BA",
+	"Antwerp_4067BD",
+	"Antwerp_406249",
+	"Antwerp_408178",
+	"Antwerp_40623F",
+	"Antwerp_402723",
+	"Antwerp_402B00",
+	"Antwerp_4067B0",
+	"Antwerp_4047E0",
+	"Antwerp_4065DA",
+	"Antwerp_408165",
+	"Antwerp_4065EA",
+	"Antwerp_4065DD",
+	"Antwerp_40499C",
+	"Antwerp_4043A7",
+	"Antwerp_40642B",
+	"Oslo_652FA4",
+	"Oslo_64E9C5",
+	"Oslo_647D5A",
+	"Oslo_651EFC",
+	"Oslo_649312",
+	"Oslo_653257",
+	"Oslo_426179",
+	"Oslo_64FD0A",
+	"Oslo_40817F",
+	"Oslo_652FAF",
+	"Oslo_64CB78",
+	"Oslo_64A291",
+	"Oslo_64CB6D",
+	"Oslo_65326C",
+	"Oslo_425FB3",
+	"Oslo_652D3A",
+	"Oslo_649526",
+	"Oslo_6517DD",
+	"Oslo_648B91",
+	"Oslo_65063E",
+	"Oslo_64CB70",
+	"Oslo_40458D",
+	"Zagreb_652FA1",
+	"Zagreb_649738",
+	"Zagreb_427907",
+	"Zagreb_648169",
+	"Zagreb_40641E",
+	"Zagreb_427906",
+	"Zagreb_64876C",
+	"Zagreb_64C52B",
+	"Zagreb_428164",
+	"Zagreb_64C225",
+	"Zagreb_64876B",
+	"Zagreb_652A38",
+	"Zagreb_648157",
+	"Zagreb_406414",
+]
+	"Scaling Techniques" = [
+		"None",
+		"MinMax Scale",
+		"Yeo-Johnson Transform",
+		"Quantile Transform (Uniform)"
+	]
+	"Regression Techniques" = [
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Expectile GAM (Default)",
+		"Extra Trees Ensemble (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Linear GAM (Default)",
+		"Linear Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Random Forest (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Support Vector Regression (Default)",
+		"Theil-Sen Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Axis Order" = [
+		"Linear Regression (Default)",
+		"Lasso Regression (Cross Validated) (Default)",
+		"Least Angle Lasso Regression (Default)",
+		"Least Angle Regression (Default)",
+		"Bayesian Automatic Relevance Detection (Default)",
+		"Bayesian Ridge Regression (Default)",
+		"Ridge Regression (Cross Validated) (Default)",
+		"Passive Aggressive Regression (Default)",
+		"Elastic Net Regression (Cross Validated) (Default)",
+		"Orthogonal Matching Pursuit (Default)",
+		"Theil-Sen Regression (Default)",
+		"Linear GAM (Default)",
+		"Expectile GAM (Default)",
+		"Support Vector Regression (Default)",
+		"Linear Support Vector Regression (Default)",
+		"Nu-Support Vector Regression (Default)",
+		"Isotonic Regression (Default)",
+		"Random Forest (Default)",
+		"Extra Trees Ensemble (Default)",
+		"Gradient Boosting Regression (Default)",
+		"Histogram-Based Gradient Boosting Regression (Default)",
+		"Multi-Layer Perceptron Regression (Default)",
+		"XGBoost Regression (Default)"
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Layout" = {"boxmode" = "group"}
+	"Normalise By" = "Reference Absolute Deviation"
+	"Y Axis" = {"range" = [0, 4.4]}
+
+[[SensEURCity."NO2 Techniques (Variables) Ispra - Box Plot - nMAE".Graphs]]
+	"Title" = "NO2"
+	"Variables" = ["NO2"]
+
+[[SensEURCity."NO2 Techniques (Variables) Ispra - Box Plot - nMAE".Graphs]]
+	"Title" = "NO2 + Time Since Origin"
+	"Variables" = ["NO2 + Time Since Origin"]
+
+[[SensEURCity."NO2 Techniques (Variables) Ispra - Box Plot - nMAE".Graphs]]
+	"Title" = "NO2 + P + CO + NO + RH + T + RH^2 + RH T + T^2"
+	"Variables" = ["NO2 + P + CO + NO + RH + T + RH^2 + RH T + T^2"]
+
+[[SensEURCity."NO2 Techniques (Variables) Ispra - Box Plot - nMAE".Graphs]]
+	"Title" = "NO2 + P + CO + NO + RH + T + RH^2 + RH T + T^2 + Time Since Origin"
+	"Variables" = ["NO2 + P + CO + NO + RH + T + RH^2 + RH T + T^2 + Time Since Origin"]
+
 
 [BPCr."All Reference Instruments + Pollutants vs Reference - Box Plot - All".Configuration]
 	Folders = ["Bushy Park", "Cranfield"]
@@ -2548,7 +1957,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -2638,7 +2047,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -2721,7 +2130,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -2803,7 +2212,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -2883,7 +2292,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -2954,7 +2363,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -3018,7 +2427,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -3081,7 +2490,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -3145,7 +2554,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -3234,7 +2643,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -3322,7 +2731,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -3416,7 +2825,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -3478,7 +2887,7 @@
 		"PM10, Zephyr D",
 		"PM10, Zephyr E",
 	]
-	"Layout" = {"boxmode" = "overlay", "width" = 1500}
+	"Layout" = {"boxmode" = "overlay"}
 
 [[BPCr."All Devices + Pollutants vs Reference - Box Plot - nMAE".Graphs]]
 	"Normalise By" = "Reference Absolute Deviation"
@@ -3528,7 +2937,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -3590,7 +2999,7 @@
 		"PM10, Zephyr D",
 		"PM10, Zephyr E",
 	]
-	"Layout" = {"boxmode" = "overlay", "width" = 1500}
+	"Layout" = {"boxmode" = "overlay"}
 
 [[BPCr."All Devices + Pollutants vs Reference - Box Plot - MAE".Graphs]]
 	"Y Axis" = {"range" = [0, 18]}
@@ -3639,7 +3048,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -3701,7 +3110,7 @@
 		"PM10, Zephyr D",
 		"PM10, Zephyr E",
 	]
-	"Layout" = {"boxmode" = "overlay", "width" = 1500}
+	"Layout" = {"boxmode" = "overlay"}
 
 [[BPCr."All Devices + Pollutants vs Reference - Box Plot - CvMAE".Graphs]]
 	"Normalise By" = "Reference Mean"
@@ -3746,7 +3155,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -3835,7 +3244,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -3923,7 +3332,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -4002,7 +3411,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -4073,7 +3482,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -4143,7 +3552,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -4215,7 +3624,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -4247,7 +3656,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -4261,14 +3670,14 @@
 	"Layout" = {"boxmode" = "group"}
 
 [[BPCr."O3 Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Graphs]]
-	Title = "$\\small{\\text{O}_{3}}$"
+	Title = "$\\text{O}_{3}$"
 	Variables = [
 		"O3",
 	]
 	"Y Axis" = {"range" = [0, 22]}
 
 [[BPCr."O3 Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Graphs]]
-	Title = "$\\small{\\text{O}_{3} + \\text{NO} + \\text{NO}_{2} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}}$"
+	Title = "$\\text{O}_{3} + \\text{NO} + \\text{NO}_{2} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
 	Variables = [
 		"O3 + NO + NO2 + RH + T + RH^2 + RH T + T^2",
 	]
@@ -4302,7 +3711,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -4334,7 +3743,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -4348,14 +3757,14 @@
 	"Layout" = {"boxmode" = "group"}
 
 [[BPCr."NO2 Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Graphs]]
-	Title = "$\\small{\\text{NO}_{2}}$"
+	Title = "$\\text{NO}_{2}$"
 	Variables = [
 		"NO2",
 	]
 	"Y Axis" = {"range" = [0, 14]}
 
 [[BPCr."NO2 Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Graphs]]
-	Title = "$\\small{\\text{NO}_{2} + \\text{NO} + \\text{O}_{3} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}}$"
+	Title = "$\\text{NO}_{2} + \\text{NO} + \\text{O}_{3} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
 	Variables = [
 		"NO2 + NO + O3 + RH + T + RH^2 + RH T + T^2",
 	]
@@ -4386,7 +3795,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -4418,7 +3827,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -4432,14 +3841,14 @@
 	"Layout" = {"boxmode" = "group"}
 
 [[BPCr."PM2.5 Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{2.5}}$"
+	Title = "$\\text{PM}_{2.5}$"
 	Variables = [
 		"PM2.5",
 	]
 	"Y Axis" = {"range" = [0, 9]}
 
 [[BPCr."PM2.5 Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{2.5} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}}$"
+	Title = "$\\text{PM}_{2.5} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
 	Variables = [
 		"PM2.5 + RH + T + RH^2 + RH T + T^2",
 	]
@@ -4470,7 +3879,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -4502,7 +3911,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -4516,14 +3925,14 @@
 	"Layout" = {"boxmode" = "group"}
 
 [[BPCr."PM10 Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{10}}$"
+	Title = "$\\text{PM}_{10}$"
 	Variables = [
 		"PM10",
 	]
 	"Y Axis" = {"range" = [0, 13]}
 
 [[BPCr."PM10 Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{10} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}}$"
+	Title = "$\\text{PM}_{10} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
 	Variables = [
 		"PM10 + RH + T + RH^2 + RH T + T^2",
 	]
@@ -4559,7 +3968,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Passive Aggressive Regression (Default)",
@@ -4589,7 +3998,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Extra Trees Ensemble (Default)",
 		"Random Forest (Default)",
@@ -4602,21 +4011,21 @@
 	"Layout" = {"boxmode" = "group"}
 
 # [[BPCr."O3 Techniques vs Reference (Split by Time Feature) - Box Plot - MAE".Graphs]]
-# 	Title = "$\\small{\\text{O}_{3}}$"
+# 	Title = "$\\text{O}_{3}$"
 # 	Variables = [
 # 		"O3",
 # 	]
 # 	"Y Axis" = {"range" = [0, 2]}
 
 [[BPCr."O3 Techniques vs Reference (Split by Time Feature) - Box Plot - MAE".Graphs]]
-	Title = "$\\small{\\text{O}_{3} + \\text{Time Since Origin}}$"
+	Title = "$\\text{O}_{3} + \\text{Time Since Origin}$"
 	Variables = [
 		"O3 + Time Since Origin",
 	]
 	"Y Axis" = {"range" = [0, 33]}
 
 [[BPCr."O3 Techniques vs Reference (Split by Time Feature) - Box Plot - MAE".Graphs]]
-	Title = "$\\small{\\text{O}_{3} + \\text{NO} + \\text{NO}_{2} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}}$"
+	Title = "$\\text{O}_{3} + \\text{NO} + \\text{NO}_{2} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}$"
 	Variables = [
 		"O3 + NO + NO2 + RH + T + RH^2 + RH T + T^2 + Time Since Origin",
 	]
@@ -4649,7 +4058,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Passive Aggressive Regression (Default)",
@@ -4679,7 +4088,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Extra Trees Ensemble (Default)",
 		"Random Forest (Default)",
@@ -4692,21 +4101,21 @@
 	"Layout" = {"boxmode" = "group"}
 
 # [[BPCr."NO2 Techniques vs Reference (Split by Time Feature) - Box Plot - MAE".Graphs]]
-# 	Title = "$\\small{\\text{NO}_{2}}$"
+# 	Title = "$\\text{NO}_{2}$"
 # 	Variables = [
 # 		"NO2",
 # 	]
 # 	"Y Axis" = {"range" = [0, 2]}
 
 [[BPCr."NO2 Techniques vs Reference (Split by Time Feature) - Box Plot - MAE".Graphs]]
-	Title = "$\\small{\\text{NO}_{2} + \\text{Time Since Origin}}$"
+	Title = "$\\text{NO}_{2} + \\text{Time Since Origin}$"
 	Variables = [
 		"NO2 + Time Since Origin",
 	]
 	"Y Axis" = {"range" = [0, 31]}
 
 [[BPCr."NO2 Techniques vs Reference (Split by Time Feature) - Box Plot - MAE".Graphs]]
-	Title = "$\\small{\\text{NO}_{2} + \\text{NO} + \\text{O}_{3} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}}$"
+	Title = "$\\text{NO}_{2} + \\text{NO} + \\text{O}_{3} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}$"
 	Variables = [
 		"NO2 + NO + O3 + RH + T + RH^2 + RH T + T^2 + Time Since Origin",
 	]
@@ -4736,7 +4145,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Passive Aggressive Regression (Default)",
@@ -4766,7 +4175,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Extra Trees Ensemble (Default)",
 		"Random Forest (Default)",
@@ -4779,14 +4188,14 @@
 	"Layout" = {"boxmode" = "group"}
 
 [[BPCr."PM2.5 Techniques vs Reference (Split by Time Feature) - Box Plot - MAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{2.5} + \\text{Time Since Origin}}$"
+	Title = "$\\text{PM}_{2.5} + \\text{Time Since Origin}$"
 	Variables = [
 		"PM2.5 + Time Since Origin",
 	]
 	"Y Axis" = {"range" = [0, 14]}
 
 [[BPCr."PM2.5 Techniques vs Reference (Split by Time Feature) - Box Plot - MAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{2.5} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}}$"
+	Title = "$\\text{PM}_{2.5} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}$"
 	Variables = [
 		"PM2.5 + RH + T + RH^2 + RH T + T^2 + Time Since Origin",
 	]
@@ -4816,7 +4225,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Passive Aggressive Regression (Default)",
@@ -4846,7 +4255,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Extra Trees Ensemble (Default)",
 		"Random Forest (Default)",
@@ -4859,14 +4268,14 @@
 	"Layout" = {"boxmode" = "group"}
 
 [[BPCr."PM10 Techniques vs Reference (Split by Time Feature) - Box Plot - MAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{10} + \\text{Time Since Origin}}$"
+	Title = "$\\text{PM}_{10} + \\text{Time Since Origin}$"
 	Variables = [
 		"PM10 + Time Since Origin",
 	]
 	"Y Axis" = {"range" = [0, 13]}
 
 [[BPCr."PM10 Techniques vs Reference (Split by Time Feature) - Box Plot - MAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{10} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}}$"
+	Title = "$\\text{PM}_{10} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}$"
 	Variables = [
 		"PM10 + RH + T + RH^2 + RH T + T^2 + Time Since Origin",
 	]
@@ -4905,7 +4314,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -4936,7 +4345,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -4997,7 +4406,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -5028,7 +4437,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -5089,7 +4498,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -5120,7 +4529,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -5177,7 +4586,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -5212,7 +4621,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -5240,6 +4649,320 @@
 	"Y Axis" = {"range" = [0, 21]}
 	"Scaling Techniques" = ["Yeo-Johnson Transform"]
 
+[BPCr."O3 Full Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["O3"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"NPL AQMesh C",
+		"Nova Sensor A",
+		"Nova Sensor B",
+		"AirView Low-Cost A",
+		"AirView Low-Cost B",
+		"Zephyr A",
+		"Zephyr B",
+		"Zephyr E",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference B"]
+	"Regression Techniques" = [
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	
+	"Scaling Techniques" = ["None", "Standard Scale", "MinMax Scale"]
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."O3 Full Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Graphs]]
+	Title = "$\\text{O}_{3}$"
+	Variables = [
+		"O3",
+	]
+	"Y Axis" = {"range" = [0, 0.3]}
+
+[[BPCr."O3 Full Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Graphs]]
+	Title = "$\\text{O}_{3} + \\text{NO} + \\text{NO}_{2} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
+	Variables = [
+		"O3",
+		"O3 + NO + NO2 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Y Axis" = {"range" = [0, 0.3]}
+
+[BPCr."NO2 Full Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["NO2"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"Nova Sensor A",
+		"Nova Sensor B",
+		"AirView Low-Cost A",
+		"AirView Low-Cost B",
+		"Zephyr A",
+		"Zephyr B",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference B"]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	
+	"Scaling Techniques" = ["None", "Standard Scale", "MinMax Scale"]
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."NO2 Full Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Graphs]]
+	Title = "$\\text{NO}_{2}$"
+	Variables = [
+		"NO2",
+	]
+	"Y Axis" = {"range" = [0, 1.05]}
+
+[[BPCr."NO2 Full Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Graphs]]
+	Title = "$\\text{NO}_{2} + \\text{NO} + \\text{O}_{3} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
+	Variables = [
+		"NO2",
+		"NO2 + NO + O3 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Y Axis" = {"range" = [0, 1.05]}
+
+[BPCr."PM2.5 Full Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["PM2.5"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"Zephyr A",
+		"Zephyr C",
+		"Zephyr E",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference A"]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	
+	"Scaling Techniques" = ["None", "Standard Scale", "MinMax Scale"]
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."PM2.5 Full Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Graphs]]
+	Title = "$\\text{PM}_{2.5}$"
+	Variables = [
+		"PM2.5",
+	]
+	"Y Axis" = {"range" = [0, 0.75]}
+
+[[BPCr."PM2.5 Full Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Graphs]]
+	Title = "$\\text{PM}_{2.5} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
+	Variables = [
+		"PM2.5",
+		"PM2.5 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Y Axis" = {"range" = [0, 0.75]}
+
+[BPCr."PM10 Full Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["PM10"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"Zephyr A",
+		"Zephyr C",
+		"Zephyr E",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference A"]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	
+	"Scaling Techniques" = ["None", "Standard Scale", "MinMax Scale"]
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."PM10 Full Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Graphs]]
+	Title = "$\\text{PM}_{10}$"
+	Variables = [
+		"PM10",
+	]
+	"Y Axis" = {"range" = [0, 0.6]}
+
+[[BPCr."PM10 Full Techniques vs Reference (Split by Var Count) - Box Plot - MAE".Graphs]]
+	Title = "$\\text{PM}_{10} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
+	Variables = [
+		"PM10",
+		"PM10 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Y Axis" = {"range" = [0, 0.6]}
+
+
+[BPCr."O3 Full Techniques vs Reference (Split by Scale) - Box Plot - MAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["O3"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"NPL AQMesh C",
+		"Nova Sensor A",
+		"Nova Sensor B",
+		"AirView Low-Cost A",
+		"AirView Low-Cost B",
+		"Zephyr A",
+		"Zephyr B",
+		"Zephyr E",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference B"]
+	Variables = [
+		"O3",
+		"O3 + NO + NO2 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."O3 Full Techniques vs Reference (Split by Scale) - Box Plot - MAE".Graphs]]
+	Title = "None"
+	"Y Axis" = {"range" = [0, 0.3]}
+	"Scaling Techniques" = ["None"]
+
+[[BPCr."O3 Full Techniques vs Reference (Split by Scale) - Box Plot - MAE".Graphs]]
+	Title = "MinMax Scaling"
+	"Scaling Techniques" = ["MinMax Scale"]
+	"Y Axis" = {"range" = [0, 0.3]}
+
+[[BPCr."O3 Full Techniques vs Reference (Split by Scale) - Box Plot - MAE".Graphs]]
+	Title = "Yeo-Johnson"
+	"Y Axis" = {"range" = [0, 0.3]}
+
+
+[BPCr."NO2 Full Techniques vs Reference (Split by Scale) - Box Plot - MAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["NO2"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"Nova Sensor A",
+		"Nova Sensor B",
+		"AirView Low-Cost A",
+		"AirView Low-Cost B",
+		"Zephyr A",
+		"Zephyr B",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference B"]
+	Variables = [
+		"NO2",
+		"NO2 + NO + O3 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."NO2 Full Techniques vs Reference (Split by Scale) - Box Plot - MAE".Graphs]]
+	Title = "None"
+	"Y Axis" = {"range" = [0, 1.05]}
+	"Scaling Techniques" = ["None"]
+
+[[BPCr."NO2 Full Techniques vs Reference (Split by Scale) - Box Plot - MAE".Graphs]]
+	Title = "MinMax Scaling"
+	"Scaling Techniques" = ["MinMax Scale"]
+	"Y Axis" = {"range" = [0, 1.05]}
+
+[[BPCr."NO2 Full Techniques vs Reference (Split by Scale) - Box Plot - MAE".Graphs]]
+	Title = "Yeo-Johnson"
+	"Y Axis" = {"range" = [0, 1.05]}
+
+[BPCr."PM2.5 Full Techniques vs Reference (Split by Scale) - Box Plot - MAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["PM2.5"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"Nova Sensor A",
+		"Nova Sensor B",
+		"AirView Low-Cost A",
+		"AirView Low-Cost B",
+		"Zephyr A",
+		"Zephyr C",
+		"Zephyr E",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference A"]
+	Variables = [
+		"PM2.5",
+		"PM2.5 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."PM2.5 Full Techniques vs Reference (Split by Scale) - Box Plot - MAE".Graphs]]
+	Title = "None"
+	"Y Axis" = {"range" = [0, 0.75]}
+	"Scaling Techniques" = ["None"]
+
+[[BPCr."PM2.5 Full Techniques vs Reference (Split by Scale) - Box Plot - MAE".Graphs]]
+	Title = "MinMax Scaling"
+	"Scaling Techniques" = ["MinMax Scale"]
+	"Y Axis" = {"range" = [0, 0.75]}
+
+[[BPCr."PM2.5 Full Techniques vs Reference (Split by Scale) - Box Plot - MAE".Graphs]]
+	Title = "Yeo-Johnson"
+	"Y Axis" = {"range" = [0, 0.75]}
+
+[BPCr."PM10 Full Techniques vs Reference (Split by Scale) - Box Plot - MAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["PM10"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"Nova Sensor A",
+		"Nova Sensor B",
+		"AirView Low-Cost A",
+		"AirView Low-Cost B",
+		"Zephyr A",
+		"Zephyr C",
+		"Zephyr E",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference A"]
+	Variables = [
+		"PM10",
+		"PM10 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."PM10 Full Techniques vs Reference (Split by Scale) - Box Plot - MAE".Graphs]]
+	Title = "None"
+	"Y Axis" = {"range" = [0, 0.7]}
+	"Scaling Techniques" = ["None"]
+
+[[BPCr."PM10 Full Techniques vs Reference (Split by Scale) - Box Plot - MAE".Graphs]]
+	Title = "MinMax Scaling"
+	"Scaling Techniques" = ["MinMax Scale"]
+	"Y Axis" = {"range" = [0, 0.7]}
+
+[[BPCr."PM10 Full Techniques vs Reference (Split by Scale) - Box Plot - MAE".Graphs]]
+	Title = "Yeo-Johnson"
+	"Y Axis" = {"range" = [0, 0.7]}
+	"Scaling Techniques" = ["Yeo-Johnson Transform"]
 [BPCr."O3 Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Configuration]
 	Folders = ["Bushy Park", "Cranfield"]
 	Fields = ["O3"]
@@ -5270,7 +4993,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -5302,7 +5025,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -5316,14 +5039,14 @@
 	"Layout" = {"boxmode" = "group"}
 
 [[BPCr."O3 Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Graphs]]
-	Title = "$\\small{\\text{O}_{3}}$"
+	Title = "$\\text{O}_{3}$"
 	Variables = [
 		"O3",
 	]
 	"Y Axis" = {"range" = [0, 1.4]}
 
 [[BPCr."O3 Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Graphs]]
-	Title = "$\\small{\\text{O}_{3} + \\text{NO} + \\text{NO}_{2} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}}$"
+	Title = "$\\text{O}_{3} + \\text{NO} + \\text{NO}_{2} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
 	Variables = [
 		"O3 + NO + NO2 + RH + T + RH^2 + RH T + T^2",
 	]
@@ -5357,7 +5080,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -5389,7 +5112,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -5403,14 +5126,14 @@
 	"Layout" = {"boxmode" = "group"}
 
 [[BPCr."NO2 Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Graphs]]
-	Title = "$\\small{\\text{NO}_{2}}$"
+	Title = "$\\text{NO}_{2}$"
 	Variables = [
 		"NO2",
 	]
 	"Y Axis" = {"range" = [0, 1]}
 
 [[BPCr."NO2 Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Graphs]]
-	Title = "$\\small{\\text{NO}_{2} + \\text{NO} + \\text{O}_{3} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}}$"
+	Title = "$\\text{NO}_{2} + \\text{NO} + \\text{O}_{3} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
 	Variables = [
 		"NO2 + NO + O3 + RH + T + RH^2 + RH T + T^2",
 	]
@@ -5441,7 +5164,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -5473,7 +5196,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -5487,14 +5210,14 @@
 	"Layout" = {"boxmode" = "group"}
 
 [[BPCr."PM2.5 Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{2.5}}$"
+	Title = "$\\text{PM}_{2.5}$"
 	Variables = [
 		"PM2.5",
 	]
 	"Y Axis" = {"range" = [0, 1.25]}
 
 [[BPCr."PM2.5 Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{2.5} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}}$"
+	Title = "$\\text{PM}_{2.5} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
 	Variables = [
 		"PM2.5 + RH + T + RH^2 + RH T + T^2",
 	]
@@ -5525,7 +5248,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -5557,7 +5280,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -5571,14 +5294,14 @@
 	"Layout" = {"boxmode" = "group"}
 
 [[BPCr."PM10 Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{10}}$"
+	Title = "$\\text{PM}_{10}$"
 	Variables = [
 		"PM10",
 	]
 	"Y Axis" = {"range" = [0, 1.25]}
 
 [[BPCr."PM10 Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{10} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}}$"
+	Title = "$\\text{PM}_{10} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
 	Variables = [
 		"PM10 + RH + T + RH^2 + RH T + T^2",
 	]
@@ -5614,7 +5337,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Passive Aggressive Regression (Default)",
@@ -5644,7 +5367,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Extra Trees Ensemble (Default)",
 		"Random Forest (Default)",
@@ -5657,21 +5380,21 @@
 	"Layout" = {"boxmode" = "group"}
 
 # [[BPCr."O3 Techniques vs Reference (Split by Time Feature) - Box Plot - nMAE".Graphs]]
-# 	Title = "$\\small{\\text{O}_{3}}$"
+# 	Title = "$\\text{O}_{3}$"
 # 	Variables = [
 # 		"O3",
 # 	]
 # 	"Y Axis" = {"range" = [0, 2]}
 
 [[BPCr."O3 Techniques vs Reference (Split by Time Feature) - Box Plot - nMAE".Graphs]]
-	Title = "$\\small{\\text{O}_{3} + \\text{Time Since Origin}}$"
+	Title = "$\\text{O}_{3} + \\text{Time Since Origin}$"
 	Variables = [
 		"O3 + Time Since Origin",
 	]
 	"Y Axis" = {"range" = [0, 2]}
 
 [[BPCr."O3 Techniques vs Reference (Split by Time Feature) - Box Plot - nMAE".Graphs]]
-	Title = "$\\small{\\text{O}_{3} + \\text{NO} + \\text{NO}_{2} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}}$"
+	Title = "$\\text{O}_{3} + \\text{NO} + \\text{NO}_{2} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}$"
 	Variables = [
 		"O3 + NO + NO2 + RH + T + RH^2 + RH T + T^2 + Time Since Origin",
 	]
@@ -5704,7 +5427,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Passive Aggressive Regression (Default)",
@@ -5734,7 +5457,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Extra Trees Ensemble (Default)",
 		"Random Forest (Default)",
@@ -5747,21 +5470,21 @@
 	"Layout" = {"boxmode" = "group"}
 
 # [[BPCr."NO2 Techniques vs Reference (Split by Time Feature) - Box Plot - nMAE".Graphs]]
-# 	Title = "$\\small{\\text{NO}_{2}}$"
+# 	Title = "$\\text{NO}_{2}$"
 # 	Variables = [
 # 		"NO2",
 # 	]
 # 	"Y Axis" = {"range" = [0, 2]}
 
 [[BPCr."NO2 Techniques vs Reference (Split by Time Feature) - Box Plot - nMAE".Graphs]]
-	Title = "$\\small{\\text{NO}_{2} + \\text{Time Since Origin}}$"
+	Title = "$\\text{NO}_{2} + \\text{Time Since Origin}$"
 	Variables = [
 		"NO2 + Time Since Origin",
 	]
 	"Y Axis" = {"range" = [0, 2]}
 
 [[BPCr."NO2 Techniques vs Reference (Split by Time Feature) - Box Plot - nMAE".Graphs]]
-	Title = "$\\small{\\text{NO}_{2} + \\text{NO} + \\text{O}_{3} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}}$"
+	Title = "$\\text{NO}_{2} + \\text{NO} + \\text{O}_{3} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}$"
 	Variables = [
 		"NO2 + NO + O3 + RH + T + RH^2 + RH T + T^2 + Time Since Origin",
 	]
@@ -5791,7 +5514,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Passive Aggressive Regression (Default)",
@@ -5821,7 +5544,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Extra Trees Ensemble (Default)",
 		"Random Forest (Default)",
@@ -5834,14 +5557,14 @@
 	"Layout" = {"boxmode" = "group"}
 
 [[BPCr."PM2.5 Techniques vs Reference (Split by Time Feature) - Box Plot - nMAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{2.5} + \\text{Time Since Origin}}$"
+	Title = "$\\text{PM}_{2.5} + \\text{Time Since Origin}$"
 	Variables = [
 		"PM2.5 + Time Since Origin",
 	]
 	"Y Axis" = {"range" = [0, 2.3]}
 
 [[BPCr."PM2.5 Techniques vs Reference (Split by Time Feature) - Box Plot - nMAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{2.5} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}}$"
+	Title = "$\\text{PM}_{2.5} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}$"
 	Variables = [
 		"PM2.5 + RH + T + RH^2 + RH T + T^2 + Time Since Origin",
 	]
@@ -5871,7 +5594,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Passive Aggressive Regression (Default)",
@@ -5901,7 +5624,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Extra Trees Ensemble (Default)",
 		"Random Forest (Default)",
@@ -5914,14 +5637,14 @@
 	"Layout" = {"boxmode" = "group"}
 
 [[BPCr."PM10 Techniques vs Reference (Split by Time Feature) - Box Plot - nMAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{10} + \\text{Time Since Origin}}$"
+	Title = "$\\text{PM}_{10} + \\text{Time Since Origin}$"
 	Variables = [
 		"PM10 + Time Since Origin",
 	]
 	"Y Axis" = {"range" = [0, 2.3]}
 
 [[BPCr."PM10 Techniques vs Reference (Split by Time Feature) - Box Plot - nMAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{10} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}}$"
+	Title = "$\\text{PM}_{10} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}$"
 	Variables = [
 		"PM10 + RH + T + RH^2 + RH T + T^2 + Time Since Origin",
 	]
@@ -5960,7 +5683,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -5991,7 +5714,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -6052,7 +5775,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -6083,7 +5806,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -6144,7 +5867,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -6175,7 +5898,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -6232,7 +5955,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -6267,7 +5990,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -6293,6 +6016,323 @@
 [[BPCr."PM10 Techniques vs Reference (Split by Scale) - Box Plot - nMAE".Graphs]]
 	Title = "Yeo-Johnson"
 	"Y Axis" = {"range" = [0, 0.85]}
+	"Scaling Techniques" = ["Yeo-Johnson Transform"]
+
+[BPCr."O3 Full Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["O3"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"NPL AQMesh C",
+		"Nova Sensor A",
+		"Nova Sensor B",
+		"AirView Low-Cost A",
+		"AirView Low-Cost B",
+		"Zephyr A",
+		"Zephyr B",
+		"Zephyr E",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference B"]
+	"Regression Techniques" = [
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Normalise By" = "Reference Absolute Deviation"
+	"Scaling Techniques" = ["None", "Standard Scale", "MinMax Scale"]
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."O3 Full Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Graphs]]
+	Title = "$\\text{O}_{3}$"
+	Variables = [
+		"O3",
+	]
+	"Y Axis" = {"range" = [0, 0.3]}
+
+[[BPCr."O3 Full Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Graphs]]
+	Title = "$\\text{O}_{3} + \\text{NO} + \\text{NO}_{2} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
+	Variables = [
+		"O3",
+		"O3 + NO + NO2 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Y Axis" = {"range" = [0, 0.3]}
+
+[BPCr."NO2 Full Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["NO2"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"Nova Sensor A",
+		"Nova Sensor B",
+		"AirView Low-Cost A",
+		"AirView Low-Cost B",
+		"Zephyr A",
+		"Zephyr B",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference B"]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Normalise By" = "Reference Absolute Deviation"
+	"Scaling Techniques" = ["None", "Standard Scale", "MinMax Scale"]
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."NO2 Full Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Graphs]]
+	Title = "$\\text{NO}_{2}$"
+	Variables = [
+		"NO2",
+	]
+	"Y Axis" = {"range" = [0, 1.05]}
+
+[[BPCr."NO2 Full Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Graphs]]
+	Title = "$\\text{NO}_{2} + \\text{NO} + \\text{O}_{3} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
+	Variables = [
+		"NO2",
+		"NO2 + NO + O3 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Y Axis" = {"range" = [0, 1.05]}
+
+[BPCr."PM2.5 Full Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["PM2.5"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"Zephyr A",
+		"Zephyr C",
+		"Zephyr E",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference A"]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Normalise By" = "Reference Absolute Deviation"
+	"Scaling Techniques" = ["None", "Standard Scale", "MinMax Scale"]
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."PM2.5 Full Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Graphs]]
+	Title = "$\\text{PM}_{2.5}$"
+	Variables = [
+		"PM2.5",
+	]
+	"Y Axis" = {"range" = [0, 0.75]}
+
+[[BPCr."PM2.5 Full Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Graphs]]
+	Title = "$\\text{PM}_{2.5} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
+	Variables = [
+		"PM2.5",
+		"PM2.5 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Y Axis" = {"range" = [0, 0.75]}
+
+[BPCr."PM10 Full Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["PM10"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"Zephyr A",
+		"Zephyr C",
+		"Zephyr E",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference A"]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Normalise By" = "Reference Absolute Deviation"
+	"Scaling Techniques" = ["None", "Standard Scale", "MinMax Scale"]
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."PM10 Full Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Graphs]]
+	Title = "$\\text{PM}_{10}$"
+	Variables = [
+		"PM10",
+	]
+	"Y Axis" = {"range" = [0, 0.6]}
+
+[[BPCr."PM10 Full Techniques vs Reference (Split by Var Count) - Box Plot - nMAE".Graphs]]
+	Title = "$\\text{PM}_{10} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
+	Variables = [
+		"PM10",
+		"PM10 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Y Axis" = {"range" = [0, 0.6]}
+
+
+[BPCr."O3 Full Techniques vs Reference (Split by Scale) - Box Plot - nMAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["O3"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"NPL AQMesh C",
+		"Nova Sensor A",
+		"Nova Sensor B",
+		"AirView Low-Cost A",
+		"AirView Low-Cost B",
+		"Zephyr A",
+		"Zephyr B",
+		"Zephyr E",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference B"]
+	Variables = [
+		"O3",
+		"O3 + NO + NO2 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Normalise By" = "Reference Absolute Deviation"
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."O3 Full Techniques vs Reference (Split by Scale) - Box Plot - nMAE".Graphs]]
+	Title = "None"
+	"Y Axis" = {"range" = [0, 0.3]}
+	"Scaling Techniques" = ["None"]
+
+[[BPCr."O3 Full Techniques vs Reference (Split by Scale) - Box Plot - nMAE".Graphs]]
+	Title = "MinMax Scaling"
+	"Scaling Techniques" = ["MinMax Scale"]
+	"Y Axis" = {"range" = [0, 0.3]}
+
+[[BPCr."O3 Full Techniques vs Reference (Split by Scale) - Box Plot - nMAE".Graphs]]
+	Title = "Yeo-Johnson"
+	"Y Axis" = {"range" = [0, 0.3]}
+
+
+[BPCr."NO2 Full Techniques vs Reference (Split by Scale) - Box Plot - nMAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["NO2"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"Nova Sensor A",
+		"Nova Sensor B",
+		"AirView Low-Cost A",
+		"AirView Low-Cost B",
+		"Zephyr A",
+		"Zephyr B",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference B"]
+	Variables = [
+		"NO2",
+		"NO2 + NO + O3 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Normalise By" = "Reference Absolute Deviation"
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."NO2 Full Techniques vs Reference (Split by Scale) - Box Plot - nMAE".Graphs]]
+	Title = "None"
+	"Y Axis" = {"range" = [0, 1.05]}
+	"Scaling Techniques" = ["None"]
+
+[[BPCr."NO2 Full Techniques vs Reference (Split by Scale) - Box Plot - nMAE".Graphs]]
+	Title = "MinMax Scaling"
+	"Scaling Techniques" = ["MinMax Scale"]
+	"Y Axis" = {"range" = [0, 1.05]}
+
+[[BPCr."NO2 Full Techniques vs Reference (Split by Scale) - Box Plot - nMAE".Graphs]]
+	Title = "Yeo-Johnson"
+	"Y Axis" = {"range" = [0, 1.05]}
+
+[BPCr."PM2.5 Full Techniques vs Reference (Split by Scale) - Box Plot - nMAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["PM2.5"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"Nova Sensor A",
+		"Nova Sensor B",
+		"AirView Low-Cost A",
+		"AirView Low-Cost B",
+		"Zephyr A",
+		"Zephyr C",
+		"Zephyr E",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference A"]
+	Variables = [
+		"PM2.5",
+		"PM2.5 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Normalise By" = "Reference Absolute Deviation"
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."PM2.5 Full Techniques vs Reference (Split by Scale) - Box Plot - nMAE".Graphs]]
+	Title = "None"
+	"Y Axis" = {"range" = [0, 0.75]}
+	"Scaling Techniques" = ["None"]
+
+[[BPCr."PM2.5 Full Techniques vs Reference (Split by Scale) - Box Plot - nMAE".Graphs]]
+	Title = "MinMax Scaling"
+	"Scaling Techniques" = ["MinMax Scale"]
+	"Y Axis" = {"range" = [0, 0.75]}
+
+[[BPCr."PM2.5 Full Techniques vs Reference (Split by Scale) - Box Plot - nMAE".Graphs]]
+	Title = "Yeo-Johnson"
+	"Y Axis" = {"range" = [0, 0.75]}
+
+[BPCr."PM10 Full Techniques vs Reference (Split by Scale) - Box Plot - nMAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["PM10"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"Nova Sensor A",
+		"Nova Sensor B",
+		"AirView Low-Cost A",
+		"AirView Low-Cost B",
+		"Zephyr A",
+		"Zephyr C",
+		"Zephyr E",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference A"]
+	Variables = [
+		"PM10",
+		"PM10 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Normalise By" = "Reference Absolute Deviation"
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."PM10 Full Techniques vs Reference (Split by Scale) - Box Plot - nMAE".Graphs]]
+	Title = "None"
+	"Y Axis" = {"range" = [0, 0.7]}
+	"Scaling Techniques" = ["None"]
+
+[[BPCr."PM10 Full Techniques vs Reference (Split by Scale) - Box Plot - nMAE".Graphs]]
+	Title = "MinMax Scaling"
+	"Scaling Techniques" = ["MinMax Scale"]
+	"Y Axis" = {"range" = [0, 0.7]}
+
+[[BPCr."PM10 Full Techniques vs Reference (Split by Scale) - Box Plot - nMAE".Graphs]]
+	Title = "Yeo-Johnson"
+	"Y Axis" = {"range" = [0, 0.7]}
 	"Scaling Techniques" = ["Yeo-Johnson Transform"]
 
 [BPCr."O3 Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Configuration]
@@ -6325,7 +6365,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -6357,7 +6397,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -6371,14 +6411,14 @@
 	"Layout" = {"boxmode" = "group"}
 
 [[BPCr."O3 Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Graphs]]
-	Title = "$\\small{\\text{O}_{3}}$"
+	Title = "$\\text{O}_{3}$"
 	Variables = [
 		"O3",
 	]
 	"Y Axis" = {"range" = [0, 0.45]}
 
 [[BPCr."O3 Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Graphs]]
-	Title = "$\\small{\\text{O}_{3} + \\text{NO} + \\text{NO}_{2} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}}$"
+	Title = "$\\text{O}_{3} + \\text{NO} + \\text{NO}_{2} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
 	Variables = [
 		"O3 + NO + NO2 + RH + T + RH^2 + RH T + T^2",
 	]
@@ -6412,7 +6452,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -6444,7 +6484,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -6458,14 +6498,14 @@
 	"Layout" = {"boxmode" = "group"}
 
 [[BPCr."NO2 Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Graphs]]
-	Title = "$\\small{\\text{NO}_{2}}$"
+	Title = "$\\text{NO}_{2}$"
 	Variables = [
 		"NO2",
 	]
 	"Y Axis" = {"range" = [0, 0.7]}
 
 [[BPCr."NO2 Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Graphs]]
-	Title = "$\\small{\\text{NO}_{2} + \\text{NO} + \\text{O}_{3} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}}$"
+	Title = "$\\text{NO}_{2} + \\text{NO} + \\text{O}_{3} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
 	Variables = [
 		"NO2 + NO + O3 + RH + T + RH^2 + RH T + T^2",
 	]
@@ -6496,7 +6536,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -6528,7 +6568,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -6542,14 +6582,14 @@
 	"Layout" = {"boxmode" = "group"}
 
 [[BPCr."PM2.5 Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{2.5}}$"
+	Title = "$\\text{PM}_{2.5}$"
 	Variables = [
 		"PM2.5",
 	]
 	"Y Axis" = {"range" = [0, 0.9]}
 
 [[BPCr."PM2.5 Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{2.5} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}}$"
+	Title = "$\\text{PM}_{2.5} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
 	Variables = [
 		"PM2.5 + RH + T + RH^2 + RH T + T^2",
 	]
@@ -6580,7 +6620,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -6612,7 +6652,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -6626,14 +6666,14 @@
 	"Layout" = {"boxmode" = "group"}
 
 [[BPCr."PM10 Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{10}}$"
+	Title = "$\\text{PM}_{10}$"
 	Variables = [
 		"PM10",
 	]
 	"Y Axis" = {"range" = [0, 0.8]}
 
 [[BPCr."PM10 Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{10} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}}$"
+	Title = "$\\text{PM}_{10} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
 	Variables = [
 		"PM10 + RH + T + RH^2 + RH T + T^2",
 	]
@@ -6669,7 +6709,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Passive Aggressive Regression (Default)",
@@ -6699,7 +6739,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Extra Trees Ensemble (Default)",
 		"Random Forest (Default)",
@@ -6712,21 +6752,21 @@
 	"Layout" = {"boxmode" = "group"}
 
 # [[BPCr."O3 Techniques vs Reference (Split by Time Feature) - Box Plot - CvMAE".Graphs]]
-# 	Title = "$\\small{\\text{O}_{3}}$"
+# 	Title = "$\\text{O}_{3}$"
 # 	Variables = [
 # 		"O3",
 # 	]
 # 	"Y Axis" = {"range" = [0, 2]}
 
 [[BPCr."O3 Techniques vs Reference (Split by Time Feature) - Box Plot - CvMAE".Graphs]]
-	Title = "$\\small{\\text{O}_{3} + \\text{Time Since Origin}}$"
+	Title = "$\\text{O}_{3} + \\text{Time Since Origin}$"
 	Variables = [
 		"O3 + Time Since Origin",
 	]
 	"Y Axis" = {"range" = [0, 0.6]}
 
 [[BPCr."O3 Techniques vs Reference (Split by Time Feature) - Box Plot - CvMAE".Graphs]]
-	Title = "$\\small{\\text{O}_{3} + \\text{NO} + \\text{NO}_{2} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}}$"
+	Title = "$\\text{O}_{3} + \\text{NO} + \\text{NO}_{2} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}$"
 	Variables = [
 		"O3 + NO + NO2 + RH + T + RH^2 + RH T + T^2 + Time Since Origin",
 	]
@@ -6759,7 +6799,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Passive Aggressive Regression (Default)",
@@ -6789,7 +6829,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Extra Trees Ensemble (Default)",
 		"Random Forest (Default)",
@@ -6802,21 +6842,21 @@
 	"Layout" = {"boxmode" = "group"}
 
 # [[BPCr."NO2 Techniques vs Reference (Split by Time Feature) - Box Plot - CvMAE".Graphs]]
-# 	Title = "$\\small{\\text{NO}_{2}}$"
+# 	Title = "$\\text{NO}_{2}$"
 # 	Variables = [
 # 		"NO2",
 # 	]
 # 	"Y Axis" = {"range" = [0, 2]}
 
 [[BPCr."NO2 Techniques vs Reference (Split by Time Feature) - Box Plot - CvMAE".Graphs]]
-	Title = "$\\small{\\text{NO}_{2} + \\text{Time Since Origin}}$"
+	Title = "$\\text{NO}_{2} + \\text{Time Since Origin}$"
 	Variables = [
 		"NO2 + Time Since Origin",
 	]
 	"Y Axis" = {"range" = [0, 1.6]}
 
 [[BPCr."NO2 Techniques vs Reference (Split by Time Feature) - Box Plot - CvMAE".Graphs]]
-	Title = "$\\small{\\text{NO}_{2} + \\text{NO} + \\text{O}_{3} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}}$"
+	Title = "$\\text{NO}_{2} + \\text{NO} + \\text{O}_{3} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}$"
 	Variables = [
 		"NO2 + NO + O3 + RH + T + RH^2 + RH T + T^2 + Time Since Origin",
 	]
@@ -6846,7 +6886,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Passive Aggressive Regression (Default)",
@@ -6876,7 +6916,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Extra Trees Ensemble (Default)",
 		"Random Forest (Default)",
@@ -6889,14 +6929,14 @@
 	"Layout" = {"boxmode" = "group"}
 
 [[BPCr."PM2.5 Techniques vs Reference (Split by Time Feature) - Box Plot - CvMAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{2.5} + \\text{Time Since Origin}}$"
+	Title = "$\\text{PM}_{2.5} + \\text{Time Since Origin}$"
 	Variables = [
 		"PM2.5 + Time Since Origin",
 	]
 	"Y Axis" = {"range" = [0, 1.05]}
 
 [[BPCr."PM2.5 Techniques vs Reference (Split by Time Feature) - Box Plot - CvMAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{2.5} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}}$"
+	Title = "$\\text{PM}_{2.5} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}$"
 	Variables = [
 		"PM2.5 + RH + T + RH^2 + RH T + T^2 + Time Since Origin",
 	]
@@ -6926,7 +6966,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Passive Aggressive Regression (Default)",
@@ -6956,7 +6996,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Extra Trees Ensemble (Default)",
 		"Random Forest (Default)",
@@ -6969,14 +7009,14 @@
 	"Layout" = {"boxmode" = "group"}
 
 [[BPCr."PM10 Techniques vs Reference (Split by Time Feature) - Box Plot - CvMAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{10} + \\text{Time Since Origin}}$"
+	Title = "$\\text{PM}_{10} + \\text{Time Since Origin}$"
 	Variables = [
 		"PM10 + Time Since Origin",
 	]
 	"Y Axis" = {"range" = [0, 1]}
 
 [[BPCr."PM10 Techniques vs Reference (Split by Time Feature) - Box Plot - CvMAE".Graphs]]
-	Title = "$\\small{\\text{PM}_{10} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}}$"
+	Title = "$\\text{PM}_{10} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2} + \\text{Time Since Origin}$"
 	Variables = [
 		"PM10 + RH + T + RH^2 + RH T + T^2 + Time Since Origin",
 	]
@@ -7015,7 +7055,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -7046,7 +7086,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -7107,7 +7147,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -7138,7 +7178,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -7199,7 +7239,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -7230,7 +7270,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -7287,7 +7327,7 @@
 		"Least Angle Regression (Default)",
 		"Linear GAM (Default)",
 		"Linear Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Multi-Layer Perceptron Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Orthogonal Matching Pursuit (Default)",
@@ -7322,7 +7362,7 @@
 		"Linear GAM (Default)",
 		"Expectile GAM (Default)",
 		"Support Vector Regression (Default)",
-		
+		"Linear Support Vector Regression (Default)",
 		"Nu-Support Vector Regression (Default)",
 		"Isotonic Regression (Default)",
 		"Extra Trees Ensemble (Default)",
@@ -7350,3 +7390,319 @@
 	"Y Axis" = {"range" = [0, 0.8]}
 	"Scaling Techniques" = ["Yeo-Johnson Transform"]
 
+[BPCr."O3 Full Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["O3"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"NPL AQMesh C",
+		"Nova Sensor A",
+		"Nova Sensor B",
+		"AirView Low-Cost A",
+		"AirView Low-Cost B",
+		"Zephyr A",
+		"Zephyr B",
+		"Zephyr E",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference B"]
+	"Regression Techniques" = [
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Normalise By" = "Reference Mean"
+	"Scaling Techniques" = ["None", "Standard Scale", "MinMax Scale"]
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."O3 Full Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Graphs]]
+	Title = "$\\text{O}_{3}$"
+	Variables = [
+		"O3",
+	]
+	"Y Axis" = {"range" = [0, 0.3]}
+
+[[BPCr."O3 Full Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Graphs]]
+	Title = "$\\text{O}_{3} + \\text{NO} + \\text{NO}_{2} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
+	Variables = [
+		"O3",
+		"O3 + NO + NO2 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Y Axis" = {"range" = [0, 0.3]}
+
+[BPCr."NO2 Full Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["NO2"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"Nova Sensor A",
+		"Nova Sensor B",
+		"AirView Low-Cost A",
+		"AirView Low-Cost B",
+		"Zephyr A",
+		"Zephyr B",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference B"]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Normalise By" = "Reference Mean"
+	"Scaling Techniques" = ["None", "Standard Scale", "MinMax Scale"]
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."NO2 Full Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Graphs]]
+	Title = "$\\text{NO}_{2}$"
+	Variables = [
+		"NO2",
+	]
+	"Y Axis" = {"range" = [0, 1.05]}
+
+[[BPCr."NO2 Full Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Graphs]]
+	Title = "$\\text{NO}_{2} + \\text{NO} + \\text{O}_{3} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
+	Variables = [
+		"NO2",
+		"NO2 + NO + O3 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Y Axis" = {"range" = [0, 1.05]}
+
+[BPCr."PM2.5 Full Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["PM2.5"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"Zephyr A",
+		"Zephyr C",
+		"Zephyr E",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference A"]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Normalise By" = "Reference Mean"
+	"Scaling Techniques" = ["None", "Standard Scale", "MinMax Scale"]
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."PM2.5 Full Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Graphs]]
+	Title = "$\\text{PM}_{2.5}$"
+	Variables = [
+		"PM2.5",
+	]
+	"Y Axis" = {"range" = [0, 0.75]}
+
+[[BPCr."PM2.5 Full Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Graphs]]
+	Title = "$\\text{PM}_{2.5} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
+	Variables = [
+		"PM2.5",
+		"PM2.5 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Y Axis" = {"range" = [0, 0.75]}
+
+[BPCr."PM10 Full Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["PM10"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"Zephyr A",
+		"Zephyr C",
+		"Zephyr E",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference A"]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Normalise By" = "Reference Mean"
+	"Scaling Techniques" = ["None", "Standard Scale", "MinMax Scale"]
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."PM10 Full Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Graphs]]
+	Title = "$\\text{PM}_{10}$"
+	Variables = [
+		"PM10",
+	]
+	"Y Axis" = {"range" = [0, 0.6]}
+
+[[BPCr."PM10 Full Techniques vs Reference (Split by Var Count) - Box Plot - CvMAE".Graphs]]
+	Title = "$\\text{PM}_{10} + \\text{RH} + \\text{T} + \\text{RH}^{2} + \\text{RH}*\\text{T} + \\text{T}^{2}$"
+	Variables = [
+		"PM10",
+		"PM10 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Y Axis" = {"range" = [0, 0.6]}
+
+
+[BPCr."O3 Full Techniques vs Reference (Split by Scale) - Box Plot - CvMAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["O3"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"NPL AQMesh C",
+		"Nova Sensor A",
+		"Nova Sensor B",
+		"AirView Low-Cost A",
+		"AirView Low-Cost B",
+		"Zephyr A",
+		"Zephyr B",
+		"Zephyr E",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference B"]
+	Variables = [
+		"O3",
+		"O3 + NO + NO2 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Normalise By" = "Reference Mean"
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."O3 Full Techniques vs Reference (Split by Scale) - Box Plot - CvMAE".Graphs]]
+	Title = "None"
+	"Y Axis" = {"range" = [0, 0.3]}
+	"Scaling Techniques" = ["None"]
+
+[[BPCr."O3 Full Techniques vs Reference (Split by Scale) - Box Plot - CvMAE".Graphs]]
+	Title = "MinMax Scaling"
+	"Scaling Techniques" = ["MinMax Scale"]
+	"Y Axis" = {"range" = [0, 0.3]}
+
+[[BPCr."O3 Full Techniques vs Reference (Split by Scale) - Box Plot - CvMAE".Graphs]]
+	Title = "Yeo-Johnson"
+	"Y Axis" = {"range" = [0, 0.3]}
+
+
+[BPCr."NO2 Full Techniques vs Reference (Split by Scale) - Box Plot - CvMAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["NO2"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"Nova Sensor A",
+		"Nova Sensor B",
+		"AirView Low-Cost A",
+		"AirView Low-Cost B",
+		"Zephyr A",
+		"Zephyr B",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference B"]
+	Variables = [
+		"NO2",
+		"NO2 + NO + O3 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Normalise By" = "Reference Mean"
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."NO2 Full Techniques vs Reference (Split by Scale) - Box Plot - CvMAE".Graphs]]
+	Title = "None"
+	"Y Axis" = {"range" = [0, 1.05]}
+	"Scaling Techniques" = ["None"]
+
+[[BPCr."NO2 Full Techniques vs Reference (Split by Scale) - Box Plot - CvMAE".Graphs]]
+	Title = "MinMax Scaling"
+	"Scaling Techniques" = ["MinMax Scale"]
+	"Y Axis" = {"range" = [0, 1.05]}
+
+[[BPCr."NO2 Full Techniques vs Reference (Split by Scale) - Box Plot - CvMAE".Graphs]]
+	Title = "Yeo-Johnson"
+	"Y Axis" = {"range" = [0, 1.05]}
+
+[BPCr."PM2.5 Full Techniques vs Reference (Split by Scale) - Box Plot - CvMAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["PM2.5"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"Nova Sensor A",
+		"Nova Sensor B",
+		"AirView Low-Cost A",
+		"AirView Low-Cost B",
+		"Zephyr A",
+		"Zephyr C",
+		"Zephyr E",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference A"]
+	Variables = [
+		"PM2.5",
+		"PM2.5 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Normalise By" = "Reference Mean"
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."PM2.5 Full Techniques vs Reference (Split by Scale) - Box Plot - CvMAE".Graphs]]
+	Title = "None"
+	"Y Axis" = {"range" = [0, 0.75]}
+	"Scaling Techniques" = ["None"]
+
+[[BPCr."PM2.5 Full Techniques vs Reference (Split by Scale) - Box Plot - CvMAE".Graphs]]
+	Title = "MinMax Scaling"
+	"Scaling Techniques" = ["MinMax Scale"]
+	"Y Axis" = {"range" = [0, 0.75]}
+
+[[BPCr."PM2.5 Full Techniques vs Reference (Split by Scale) - Box Plot - CvMAE".Graphs]]
+	Title = "Yeo-Johnson"
+	"Y Axis" = {"range" = [0, 0.75]}
+
+[BPCr."PM10 Full Techniques vs Reference (Split by Scale) - Box Plot - CvMAE".Configuration]
+	Folders = ["Bushy Park", "Cranfield"]
+	Fields = ["PM10"]
+	Calibrated = [
+		"NPL AQMesh A",
+		"NPL AQMesh B",
+		"Nova Sensor A",
+		"Nova Sensor B",
+		"AirView Low-Cost A",
+		"AirView Low-Cost B",
+		"Zephyr A",
+		"Zephyr C",
+		"Zephyr E",
+		"Zephyr D"
+	]
+	"Reference" = ["Reference", "AirView Reference A"]
+	Variables = [
+		"PM10",
+		"PM10 + RH + T + RH^2 + RH T + T^2",
+	]
+	"Split By" = ["Technique"]
+	"Remove Outliers" = "Yes"
+	"Plot Type" = "Box Plot"
+	"Metric" = "Mean Absolute Error"
+	"Normalise By" = "Reference Mean"
+	"Layout" = {"boxmode" = "group"}
+
+[[BPCr."PM10 Full Techniques vs Reference (Split by Scale) - Box Plot - CvMAE".Graphs]]
+	Title = "None"
+	"Y Axis" = {"range" = [0, 0.7]}
+	"Scaling Techniques" = ["None"]
+
+[[BPCr."PM10 Full Techniques vs Reference (Split by Scale) - Box Plot - CvMAE".Graphs]]
+	Title = "MinMax Scaling"
+	"Scaling Techniques" = ["MinMax Scale"]
+	"Y Axis" = {"range" = [0, 0.7]}
+
+[[BPCr."PM10 Full Techniques vs Reference (Split by Scale) - Box Plot - CvMAE".Graphs]]
+	Title = "Yeo-Johnson"
+	"Y Axis" = {"range" = [0, 0.7]}
+	"Scaling Techniques" = ["Yeo-Johnson Transform"]

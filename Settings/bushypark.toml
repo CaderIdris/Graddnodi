@@ -106,572 +106,573 @@
 
 
 
-[Comparisons."Bushy Park"]
-	"Start" = 2018-01-01
-	"End" = 2022-01-01
-	"Averaging Operator" = "mean"
-	"Averaging Period" = "1h"
-
-[Comparisons."Bushy Park".Devices."Bushy Park FDMS"]
-	"Bucket" = "AURN"
-	"Measurement" = "Automatic Urban Rural Network"
-	"Boolean Filters"."Site Name" = "London Teddington Bushy Park"
-	"Boolean Filters"."PM2.5 particulate matter unit" = "ugm-3 (TEOM FDMS)"
-	"Hour Beginning" = true
-	"Use as Reference" = true
-	"Training Cutoff" = "72d"
-
-[[Comparisons."Bushy Park".Devices."Bushy Park FDMS".Fields]]
-	"Tag" = "PM2.5"
-	"Field" = "PM2.5 particulate matter"
-
-
-
-[Comparisons."Bushy Park".Devices."Bushy Park OPC"]
-	"Bucket" = "AURN"
-	"Measurement" = "Automatic Urban Rural Network"
-	"Boolean Filters"."Site Name" = "London Teddington Bushy Park"
-	"Boolean Filters"."PM2.5 particulate matter unit" = "ugm-3 (Ref.eq)"
-	"Hour Beginning" = true
-	"Use as Reference" = true
-	"Timedelta" = "72d"
-
-[[Comparisons."Bushy Park".Devices."Bushy Park OPC".Fields]]
-	"Tag" = "PM2.5"
-	"Field" = "PM2.5 particulate matter"
-
-[[Comparisons."Bushy Park".Devices."Bushy Park OPC".Fields]]
-	"Tag" = "PM10"
-	"Field" = "PM10 particulate matter"
-
-
-
-[Comparisons."Bushy Park".Devices."AirView Reference A"]
-	"Bucket" = "AirView"
-	"Measurement" = "AirView"
-	"Boolean Filters"."Car" = "27522"
-	"Hour Beginning" = false
-	"Use as Reference" = true
-	"Training Cutoff" = "72d"
-
-[[Comparisons."Bushy Park".Devices."AirView Reference A"."Range Filters"]]
-	"Field" = "GlobalSat G-Star IV latitude degrees N"
-	"Min" = 51.424
-	"Max" = 51.426
-	"Min Equal" = true
-	"Max Equal" = true
-
-[[Comparisons."Bushy Park".Devices."AirView Reference A"."Range Filters"]]
-	"Field" = "GlobalSat G-Star IV longitude degrees E"
-	"Min" = -0.346
-	"Max" = -0.344
-	"Min Equal" = true
-	"Max Equal" = true
-
-[[Comparisons."Bushy Park".Devices."AirView Reference A"."Range Filters"]]
-	"Field" = "GlobalSat G-Star IV speed km/h"
-	"Min" = 0
-	"Max" = 1
-	"Min Equal" = true
-	"Max Equal" = false
-
-[[Comparisons."Bushy Park".Devices."AirView Reference A".Fields]]
-	"Tag" = "PM1"
-	"Field" = "Palas Fidas100 pm1 ug/m^3"
-	"Boolean Filters"."Palas Fidas100 Status" = "5x5"
-	"Scaling" = [
-		{"Start" = 2019-04-12 15:53:44, "Slope" = 1000}
-	]
-
-[[Comparisons."Bushy Park".Devices."AirView Reference A".Fields]]
-	"Tag" = "PM2.5"
-	"Field" = "Palas Fidas100 pm2.5 ug/m^3"
-	"Boolean Filters"."Palas Fidas100 Status" = "5x5"
-	"Scaling" = [
-		{"Start" = 2019-04-12 15:53:44, "Slope" = 1000}
-	]
-
-[[Comparisons."Bushy Park".Devices."AirView Reference A".Fields]]
-	"Tag" = "PM4"
-	"Field" = "Palas Fidas100 pm4 ug/m^3"
-	"Boolean Filters"."Palas Fidas100 Status" = "5x5"
-	"Scaling" = [
-		{"Start" = 2019-04-12 15:53:44, "Slope" = 1000}
-	]
-
-
-[[Comparisons."Bushy Park".Devices."AirView Reference A".Fields]]
-	"Tag" = "PM10"
-	"Field" = "Palas Fidas100 pm10 ug/m^3"
-	"Boolean Filters"."Palas Fidas100 Status" = "5x5"
-	"Scaling" = [
-		{"Start" = 2019-04-12 15:53:44, "Slope" = 1000}
-	]
-
-[[Comparisons."Bushy Park".Devices."AirView Reference A".Fields]]
-	"Tag" = "O3"
-	"Field" = "2bTechnologies Model 211-G o3 ppbv"
-	"Boolean Filters"."2bTechnologies Model 211-G Status" = "5x5"
-	"Scaling" = [
-		{"Slope" = 2}
-	]
-
-[[Comparisons."Bushy Park".Devices."AirView Reference A".Fields]]
-	"Tag" = "NO"
-	"Field" = "Echotech Serinus40 no ppm"
-	"Boolean Filters"."Echotech Serinus40 Status" = "5x5"
-	"Scaling" = [
-		{"Slope" = 1250}
-	]
-
-[[Comparisons."Bushy Park".Devices."AirView Reference A".Fields]]
-	"Tag" = "NO2"
-	"Field" = "Aerodyne CAPSNO2 no2 ppbv"
-	"Boolean Filters"."Aerodyne CAPSNO2 Status" = "Pump On, No Filter, Normal Operation - No Baseline, LED is Off, NO2 Monitor, Near IR (760 nm)"
-	"Scaling" = [
-		{"Slope" = 1.88}
-	]
-
-
-
-[Comparisons."Bushy Park".Devices."AirView Reference B"]
-	"Bucket" = "AirView"
-	"Measurement" = "AirView"
-	"Boolean Filters"."Car" = "27533"
-	"Hour Beginning" = false
-	"Use as Reference" = true
-	"Training Cutoff" = "72d"
-
-[[Comparisons."Bushy Park".Devices."AirView Reference B"."Range Filters"]]
-	"Field" = "GlobalSat G-Star IV latitude degrees N"
-	"Min" = 51.424
-	"Max" = 51.426
-	"Min Equal" = true
-	"Max Equal" = true
-
-[[Comparisons."Bushy Park".Devices."AirView Reference B"."Range Filters"]]
-	"Field" = "GlobalSat G-Star IV longitude degrees E"
-	"Min" = -0.346
-	"Max" = -0.344
-	"Min Equal" = true
-	"Max Equal" = true
-
-[[Comparisons."Bushy Park".Devices."AirView Reference B"."Range Filters"]]
-	"Field" = "GlobalSat G-Star IV speed km/h"
-	"Min" = 0
-	"Max" = 1
-	"Min Equal" = true
-	"Max Equal" = false
-
-[[Comparisons."Bushy Park".Devices."AirView Reference B".Fields]]
-	"Tag" = "PM1"
-	"Field" = "Palas Fidas100 pm1 ug/m^3"
-	"Boolean Filters"."Palas Fidas100 Status" = "5x5"
-	"Scaling" = [
-		{"Start" = 2019-04-12 15:53:44, "Slope" = 1000}
-	]
-
-[[Comparisons."Bushy Park".Devices."AirView Reference B".Fields]]
-	"Tag" = "PM2.5"
-	"Field" = "Palas Fidas100 pm2.5 ug/m^3"
-	"Boolean Filters"."Palas Fidas100 Status" = "5x5"
-	"Scaling" = [
-		{"Start" = 2019-04-12 15:53:44, "Slope" = 1000}
-	]
-
-[[Comparisons."Bushy Park".Devices."AirView Reference B".Fields]]
-	"Tag" = "PM4"
-	"Field" = "Palas Fidas100 pm4 ug/m^3"
-	"Boolean Filters"."Palas Fidas100 Status" = "5x5"
-	"Scaling" = [
-		{"Start" = 2019-04-12 15:53:44, "Slope" = 1000}
-	]
-
-[[Comparisons."Bushy Park".Devices."AirView Reference B".Fields]]
-	"Tag" = "PM10"
-	"Field" = "Palas Fidas100 pm10 ug/m^3"
-	"Boolean Filters"."Palas Fidas100 Status" = "5x5"
-	"Scaling" = [
-		{"Start" = 2019-04-12 15:53:44, "Slope" = 1000}
-	]
-
-[[Comparisons."Bushy Park".Devices."AirView Reference B".Fields]]
-	"Tag" = "O3"
-	"Field" = "2bTechnologies Model 211-G o3 ppbv"
-	"Boolean Filters"."2bTechnologies Model 211-G Status" = "5x5"
-	"Scaling" = [
-		{"Slope" = 2}
-	]
-
-[[Comparisons."Bushy Park".Devices."AirView Reference B".Fields]]
-	"Tag" = "NO"
-	"Field" = "Echotech Serinus40 no ppm"
-	"Boolean Filters"."Echotech Serinus40 Status" = "5x5"
-	"Scaling" = [
-		{"Slope" = 1250}
-	]
-
-[[Comparisons."Bushy Park".Devices."AirView Reference B".Fields]]
-	"Tag" = "NO2"
-	"Field" = "Aerodyne CAPSNO2 no2 ppbv"
-	"Boolean Filters"."Aerodyne CAPSNO2 Status" = "Pump On, No Filter, Normal Operation - No Baseline, LED is Off, NO2 Monitor, Near IR (760 nm)"
-	"Scaling" = [
-		{"Slope" = 1.88}
-	]
-
-
-
-[Comparisons."Bushy Park".Devices."Nova Sensor A"]
-	"Bucket" = "Nova PM"
-	"Measurement" = "Nova PM"
-	"Boolean Filters"."Serial Number" = "C008-0001"
-	"Hour Beginning" = false
-	"Use as Reference" = true
-	"Training Cutoff" = "72d"
-
-[[Comparisons."Bushy Park".Devices."Nova Sensor A".Fields]]
-	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
-
-[[Comparisons."Bushy Park".Devices."Nova Sensor A".Fields]]
-	"Tag" = "PM10"
-	"Field" = "PM10"
-
-
-
-[Comparisons."Bushy Park".Devices."Nova Sensor B"]
-	"Bucket" = "Nova PM"
-	"Measurement" = "Nova PM"
-	"Boolean Filters"."Serial Number" = "C008-0003"
-	"Hour Beginning" = false
-	"Use as Reference" = true
-	"Training Cutoff" = "72d"
-
-[[Comparisons."Bushy Park".Devices."Nova Sensor B".Fields]]
-	"Tag" = "PM2.5"
-	"Field" = "PM2.5"
-
-[[Comparisons."Bushy Park".Devices."Nova Sensor B".Fields]]
-	"Tag" = "PM10"
-	"Field" = "PM10"
-
-
-
-[Comparisons."Bushy Park".Devices."AirView Low-Cost A"]
-	"Bucket" = "AirView"
-	"Measurement" = "AirView"
-	"Boolean Filters"."Car" = "27522"
-	"Hour Beginning" = false
-	"Training Cutoff" = "72d"
-
-[[Comparisons."Bushy Park".Devices."AirView Low-Cost A"."Range Filters"]]
-	"Field" = "GlobalSat G-Star IV latitude degrees N"
-	"Min" = 51.424
-	"Max" = 51.426
-	"Min Equal" = true
-	"Max Equal" = true
-
-[[Comparisons."Bushy Park".Devices."AirView Low-Cost A"."Range Filters"]]
-	"Field" = "GlobalSat G-Star IV longitude degrees E"
-	"Min" = -0.346
-	"Max" = -0.344
-	"Min Equal" = true
-	"Max Equal" = true
-
-[[Comparisons."Bushy Park".Devices."AirView Low-Cost A"."Range Filters"]]
-	"Field" = "GlobalSat G-Star IV speed km/h"
-	"Min" = 0
-	"Max" = 1
-	"Min Equal" = true
-	"Max Equal" = false
-
-[[Comparisons."Bushy Park".Devices."AirView Low-Cost A".Fields]]
-	"Tag" = "PM2.5"
-	"Field" = "ThermoScientific PDR1500 pm ug/m^3"
-
-
-
-[Comparisons."Bushy Park".Devices."AirView Low-Cost B"]
-	"Bucket" = "AirView"
-	"Measurement" = "AirView"
-	"Boolean Filters"."Car" = "27533"
-	"Hour Beginning" = false
-	"Use as Reference" = true
-	"Training Cutoff" = "72d"
-
-[[Comparisons."Bushy Park".Devices."AirView Low-Cost B"."Range Filters"]]
-	"Field" = "GlobalSat G-Star IV latitude degrees N"
-	"Min" = 51.424
-	"Max" = 51.426
-	"Min Equal" = true
-	"Max Equal" = true
-
-[[Comparisons."Bushy Park".Devices."AirView Low-Cost B"."Range Filters"]]
-	"Field" = "GlobalSat G-Star IV longitude degrees E"
-	"Min" = -0.346
-	"Max" = -0.344
-	"Min Equal" = true
-	"Max Equal" = true
-
-[[Comparisons."Bushy Park".Devices."AirView Low-Cost B"."Range Filters"]]
-	"Field" = "GlobalSat G-Star IV speed km/h"
-	"Min" = 0
-	"Max" = 1
-	"Min Equal" = true
-	"Max Equal" = false
-
-[[Comparisons."Bushy Park".Devices."AirView Low-Cost B".Fields]]
-	"Tag" = "PM2.5"
-	"Field" = "ThermoScientific PDR1500 pm ug/m^3"
-
-
-
-[Comparisons."Bushy Park".Devices."NPL AQMesh A"]
-	"Bucket" = "ACOEM Data"
-	"Measurement" = "ACOEM UK Systems"
-	"Boolean Filters"."SerialNumber" = "1505150"
-	"Hour Beginning" = false
-	"Use as Reference" = true
-	"Training Cutoff" = "72d"
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh A".Fields]]
-	"Tag" = "PM1"
-	"Field" = "Particulate Matter (PM 1) PreScaled [Micrograms Per Cubic Meter]"
-	"Boolean Filters"."Particulate Matter (PM 1) Flag" = "Valid"
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh A".Fields]]
-	"Tag" = "PM2.5"
-	"Field" = "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]"
-	"Boolean Filters"."Particulate Matter (PM 2.5) Flag" = "Valid"
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh A".Fields]]
-	"Tag" = "PM4"
-	"Field" = "PM 4 PreScaled [Micrograms Per Cubic Meter]"
-	"Boolean Filters"."PM 4 Flag" = "Valid"
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh A".Fields]]
-	"Tag" = "PM10"
-	"Field" = "Particulate Matter (PM 10) PreScaled [Micrograms Per Cubic Meter]"
-	"Boolean Filters"."Particulate Matter (PM 10) Flag" = "Valid"
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh A".Fields]]
-	"Tag" = "NO"
-	"Field" = "Nitric Oxide PreScaled [Parts Per Billion]"
-	"Boolean Filters"."Nitric Oxide Flag" = "Valid"
-	"Scaling" = [
-		{"Slope" = 1.25}
-	]
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh A".Fields]]
-	"Tag" = "NO2"
-	"Field" = "Nitrogen Dioxide PreScaled [Parts Per Billion]"
-	"Boolean Filters"."Nitrogen Dioxide Flag" = "Valid"
-	"Scaling" = [
-		{"Slope" = 1.88}
-	]
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh A".Fields]]
-	"Tag" = "O3"
-	"Field" = "Ozone PreScaled [Parts Per Billion]"
-	"Boolean Filters"."Ozone Flag" = "Valid"
-	"Scaling" = [
-		{"Slope" = 2}
-	]
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh A"."Secondary Fields"]]
-	"Tag" = "RH"
-	"Field" = "Humidity PreScaled [Percent]"
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh A"."Secondary Fields"]]
-	"Tag" = "T"
-	"Field" = "Temperature PreScaled [Celsius]"
-
-
-
-[Comparisons."Bushy Park".Devices."NPL AQMesh B"]
-	"Bucket" = "ACOEM Data"
-	"Measurement" = "ACOEM UK Systems"
-	"Boolean Filters"."SerialNumber" = "1506150"
-	"Hour Beginning" = false
-	"Use as Reference" = true
-	"Training Cutoff" = "72d"
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh B".Fields]]
-	"Tag" = "PM1"
-	"Field" = "Particulate Matter (PM 1) PreScaled [Micrograms Per Cubic Meter]"
-	"Boolean Filters"."Particulate Matter (PM 1) Flag" = "Valid"
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh B".Fields]]
-	"Tag" = "PM2.5"
-	"Field" = "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]"
-	"Boolean Filters"."Particulate Matter (PM 2.5) Flag" = "Valid"
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh B".Fields]]
-	"Tag" = "PM4"
-	"Field" = "PM 4 PreScaled [Micrograms Per Cubic Meter]"
-	"Boolean Filters"."PM 4 Flag" = "Valid"
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh B".Fields]]
-	"Tag" = "PM10"
-	"Field" = "Particulate Matter (PM 10) PreScaled [Micrograms Per Cubic Meter]"
-	"Boolean Filters"."Particulate Matter (PM 10) Flag" = "Valid"
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh B".Fields]]
-	"Tag" = "NO"
-	"Field" = "Nitric Oxide PreScaled [Parts Per Billion]"
-	"Boolean Filters"."Nitric Oxide Flag" = "Valid"
-	"Scaling" = [
-		{"Slope" = 1.25}
-	]
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh B".Fields]]
-	"Tag" = "NO2"
-	"Field" = "Nitrogen Dioxide PreScaled [Parts Per Billion]"
-	"Boolean Filters"."Nitrogen Dioxide Flag" = "Valid"
-	"Scaling" = [
-		{"Slope" = 1.88}
-	]
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh B".Fields]]
-	"Tag" = "O3"
-	"Field" = "Ozone PreScaled [Parts Per Billion]"
-	"Boolean Filters"."Ozone Flag" = "Valid"
-	"Scaling" = [
-		{"Slope" = 2}
-	]
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh B"."Secondary Fields"]]
-	"Tag" = "RH"
-	"Field" = "Humidity PreScaled [Percent]"
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh B"."Secondary Fields"]]
-	"Tag" = "T"
-	"Field" = "Temperature PreScaled [Celsius]"
-
-
-
-[Comparisons."Bushy Park".Devices."Breathe London AQMesh"]
-	"Bucket" = "ACOEM Data"
-	"Measurement" = "ACOEM UK Systems"
-	"Boolean Filters"."SerialNumber" = "2450100"
-	"Hour Beginning" = false
-	"Use as Reference" = true
-	"Training Cutoff" = "72d"
-
-[[Comparisons."Bushy Park".Devices."Breathe London AQMesh".Fields]]
-	"Tag" = "PM1"
-	"Field" = "Particulate Matter (PM 1) PreScaled [Micrograms Per Cubic Meter]"
-	"Boolean Filters"."Particulate Matter (PM 1) Flag" = "Valid"
-
-[[Comparisons."Bushy Park".Devices."Breathe London AQMesh".Fields]]
-	"Tag" = "PM2.5"
-	"Field" = "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]"
-	"Boolean Filters"."Particulate Matter (PM 2.5) Flag" = "Valid"
-
-[[Comparisons."Bushy Park".Devices."Breathe London AQMesh".Fields]]
-	"Tag" = "PM4"
-	"Field" = "PM 4 PreScaled [Micrograms Per Cubic Meter]"
-	"Boolean Filters"."PM 4 Flag" = "Valid"
-
-[[Comparisons."Bushy Park".Devices."Breathe London AQMesh".Fields]]
-	"Tag" = "PM10"
-	"Field" = "Particulate Matter (PM 10) PreScaled [Micrograms Per Cubic Meter]"
-	"Boolean Filters"."Particulate Matter (PM 10) Flag" = "Valid"
-
-[[Comparisons."Bushy Park".Devices."Breathe London AQMesh".Fields]]
-	"Tag" = "NO"
-	"Field" = "Nitric Oxide PreScaled [Parts Per Billion]"
-	"Boolean Filters"."Nitric Oxide Flag" = "Valid"
-	"Scaling" = [
-		{"Slope" = 1.25}
-	]
-
-[[Comparisons."Bushy Park".Devices."Breathe London AQMesh".Fields]]
-	"Tag" = "NO2"
-	"Field" = "Nitrogen Dioxide PreScaled [Parts Per Billion]"
-	"Boolean Filters"."Nitrogen Dioxide Flag" = "Valid"
-	"Scaling" = [
-		{"Slope" = 1.88}
-	]
-
-[[Comparisons."Bushy Park".Devices."Breathe London AQMesh".Fields]]
-	"Tag" = "O3"
-	"Field" = "Ozone PreScaled [Parts Per Billion]"
-	"Boolean Filters"."Ozone Flag" = "Valid"
-	"Scaling" = [
-		{"Slope" = 2}
-	]
-
-[[Comparisons."Bushy Park".Devices."Breathe London AQMesh"."Secondary Fields"]]
-	"Tag" = "RH"
-	"Field" = "Humidity PreScaled [Percent]"
-
-[[Comparisons."Bushy Park".Devices."Breathe London AQMesh"."Secondary Fields"]]
-	"Tag" = "T"
-	"Field" = "Temperature PreScaled [Celsius]"
-
-
-
-[Comparisons."Bushy Park".Devices."NPL AQMesh C"]
-	"Bucket" = "ACOEM Data"
-	"Measurement" = "ACOEM UK Systems"
-	"Boolean Filters"."SerialNumber" = "2450222"
-	"Hour Beginning" = false
-	"Use as Reference" = true
-	"Training Cutoff" = "72d"
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh C".Fields]]
-	"Tag" = "PM1"
-	"Field" = "Particulate Matter (PM 1) PreScaled [Micrograms Per Cubic Meter]"
-	"Boolean Filters"."Particulate Matter (PM 1) Flag" = "Valid"
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh C".Fields]]
-	"Tag" = "PM2.5"
-	"Field" = "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]"
-	"Boolean Filters"."Particulate Matter (PM 2.5) Flag" = "Valid"
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh C".Fields]]
-	"Tag" = "PM4"
-	"Field" = "PM 4 PreScaled [Micrograms Per Cubic Meter]"
-	"Boolean Filters"."PM 4 Flag" = "Valid"
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh C".Fields]]
-	"Tag" = "PM10"
-	"Field" = "Particulate Matter (PM 10) PreScaled [Micrograms Per Cubic Meter]"
-	"Boolean Filters"."Particulate Matter (PM 10) Flag" = "Valid"
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh C".Fields]]
-	"Tag" = "NO"
-	"Field" = "Nitric Oxide PreScaled [Parts Per Billion]"
-	"Boolean Filters"."Nitric Oxide Flag" = "Valid"
-	"Scaling" = [
-		{"Slope" = 1.25}
-	]
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh C".Fields]]
-	"Tag" = "NO2"
-	"Field" = "Nitrogen Dioxide PreScaled [Parts Per Billion]"
-	"Boolean Filters"."Nitrogen Dioxide Flag" = "Valid"
-	"Scaling" = [
-		{"Slope" = 1.88}
-	]
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh C".Fields]]
-	"Tag" = "O3"
-	"Field" = "Ozone PreScaled [Parts Per Billion]"
-	"Boolean Filters"."Ozone Flag" = "Valid"
-	"Scaling" = [
-		{"Slope" = 2}
-	]
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh C"."Secondary Fields"]]
-	"Tag" = "RH"
-	"Field" = "Humidity PreScaled [Percent]"
-
-[[Comparisons."Bushy Park".Devices."NPL AQMesh C"."Secondary Fields"]]
-	"Tag" = "T"
-	"Field" = "Temperature PreScaled [Celsius]"
-
+# [Comparisons."Bushy Park"]
+# 	"Start" = 2018-01-01
+# 	"End" = 2022-01-01
+# 	"Averaging Operator" = "mean"
+# 	"Averaging Period" = "1h"
+#
+# [Comparisons."Bushy Park".Devices."Bushy Park FDMS"]
+# 	"Bucket" = "AURN"
+# 	"Measurement" = "Automatic Urban Rural Network"
+# 	"Boolean Filters"."Site Name" = "London Teddington Bushy Park"
+# 	"Boolean Filters"."PM2.5 particulate matter unit" = "ugm-3 (TEOM FDMS)"
+# 	"Hour Beginning" = true
+# 	"Use as Reference" = true
+# 	"Training Cutoff" = "72d"
+#
+# [[Comparisons."Bushy Park".Devices."Bushy Park FDMS".Fields]]
+# 	"Tag" = "PM2.5"
+# 	"Field" = "PM2.5 particulate matter"
+#
+#
+#
+# [Comparisons."Bushy Park".Devices."Bushy Park OPC"]
+# 	"Bucket" = "AURN"
+# 	"Measurement" = "Automatic Urban Rural Network"
+# 	"Boolean Filters"."Site Name" = "London Teddington Bushy Park"
+# 	"Boolean Filters"."PM2.5 particulate matter unit" = "ugm-3 (Ref.eq)"
+# 	"Hour Beginning" = true
+# 	"Use as Reference" = true
+# 	"Timedelta" = "72d"
+#
+# [[Comparisons."Bushy Park".Devices."Bushy Park OPC".Fields]]
+# 	"Tag" = "PM2.5"
+# 	"Field" = "PM2.5 particulate matter"
+#
+# [[Comparisons."Bushy Park".Devices."Bushy Park OPC".Fields]]
+# 	"Tag" = "PM10"
+# 	"Field" = "PM10 particulate matter"
+#
+#
+#
+# [Comparisons."Bushy Park".Devices."AirView Reference A"]
+# 	"Bucket" = "AirView"
+# 	"Measurement" = "AirView"
+# 	"Boolean Filters"."Car" = "27522"
+# 	"Hour Beginning" = false
+# 	"Use as Reference" = true
+# 	"Training Cutoff" = "72d"
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference A"."Range Filters"]]
+# 	"Field" = "GlobalSat G-Star IV latitude degrees N"
+# 	"Min" = 51.424
+# 	"Max" = 51.426
+# 	"Min Equal" = true
+# 	"Max Equal" = true
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference A"."Range Filters"]]
+# 	"Field" = "GlobalSat G-Star IV longitude degrees E"
+# 	"Min" = -0.346
+# 	"Max" = -0.344
+# 	"Min Equal" = true
+# 	"Max Equal" = true
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference A"."Range Filters"]]
+# 	"Field" = "GlobalSat G-Star IV speed km/h"
+# 	"Min" = 0
+# 	"Max" = 1
+# 	"Min Equal" = true
+# 	"Max Equal" = false
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference A".Fields]]
+# 	"Tag" = "PM1"
+# 	"Field" = "Palas Fidas100 pm1 ug/m^3"
+# 	"Boolean Filters"."Palas Fidas100 Status" = "5x5"
+# 	"Scaling" = [
+# 		{"Start" = 2019-04-12 15:53:44, "Slope" = 1000}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference A".Fields]]
+# 	"Tag" = "PM2.5"
+# 	"Field" = "Palas Fidas100 pm2.5 ug/m^3"
+# 	"Boolean Filters"."Palas Fidas100 Status" = "5x5"
+# 	"Scaling" = [
+# 		{"Start" = 2019-04-12 15:53:44, "Slope" = 1000}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference A".Fields]]
+# 	"Tag" = "PM4"
+# 	"Field" = "Palas Fidas100 pm4 ug/m^3"
+# 	"Boolean Filters"."Palas Fidas100 Status" = "5x5"
+# 	"Scaling" = [
+# 		{"Start" = 2019-04-12 15:53:44, "Slope" = 1000}
+# 	]
+#
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference A".Fields]]
+# 	"Tag" = "PM10"
+# 	"Field" = "Palas Fidas100 pm10 ug/m^3"
+# 	"Boolean Filters"."Palas Fidas100 Status" = "5x5"
+# 	"Scaling" = [
+# 		{"Start" = 2019-04-12 15:53:44, "Slope" = 1000}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference A".Fields]]
+# 	"Tag" = "O3"
+# 	"Field" = "2bTechnologies Model 211-G o3 ppbv"
+# 	"Boolean Filters"."2bTechnologies Model 211-G Status" = "5x5"
+# 	"Scaling" = [
+# 		{"Slope" = 2}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference A".Fields]]
+# 	"Tag" = "NO"
+# 	"Field" = "Echotech Serinus40 no ppm"
+# 	"Boolean Filters"."Echotech Serinus40 Status" = "5x5"
+# 	"Scaling" = [
+# 		{"Slope" = 1250}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference A".Fields]]
+# 	"Tag" = "NO2"
+# 	"Field" = "Aerodyne CAPSNO2 no2 ppbv"
+# 	"Boolean Filters"."Aerodyne CAPSNO2 Status" = "Pump On, No Filter, Normal Operation - No Baseline, LED is Off, NO2 Monitor, Near IR (760 nm)"
+# 	"Scaling" = [
+# 		{"Slope" = 1.88}
+# 	]
+#
+#
+#
+# [Comparisons."Bushy Park".Devices."AirView Reference B"]
+# 	"Bucket" = "AirView"
+# 	"Measurement" = "AirView"
+# 	"Boolean Filters"."Car" = "27533"
+# 	"Hour Beginning" = false
+# 	"Use as Reference" = true
+# 	"Training Cutoff" = "72d"
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference B"."Range Filters"]]
+# 	"Field" = "GlobalSat G-Star IV latitude degrees N"
+# 	"Min" = 51.424
+# 	"Max" = 51.426
+# 	"Min Equal" = true
+# 	"Max Equal" = true
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference B"."Range Filters"]]
+# 	"Field" = "GlobalSat G-Star IV longitude degrees E"
+# 	"Min" = -0.346
+# 	"Max" = -0.344
+# 	"Min Equal" = true
+# 	"Max Equal" = true
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference B"."Range Filters"]]
+# 	"Field" = "GlobalSat G-Star IV speed km/h"
+# 	"Min" = 0
+# 	"Max" = 1
+# 	"Min Equal" = true
+# 	"Max Equal" = false
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference B".Fields]]
+# 	"Tag" = "PM1"
+# 	"Field" = "Palas Fidas100 pm1 ug/m^3"
+# 	"Boolean Filters"."Palas Fidas100 Status" = "5x5"
+# 	"Scaling" = [
+# 		{"Start" = 2019-04-12 15:53:44, "Slope" = 1000}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference B".Fields]]
+# 	"Tag" = "PM2.5"
+# 	"Field" = "Palas Fidas100 pm2.5 ug/m^3"
+# 	"Boolean Filters"."Palas Fidas100 Status" = "5x5"
+# 	"Scaling" = [
+# 		{"Start" = 2019-04-12 15:53:44, "Slope" = 1000}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference B".Fields]]
+# 	"Tag" = "PM4"
+# 	"Field" = "Palas Fidas100 pm4 ug/m^3"
+# 	"Boolean Filters"."Palas Fidas100 Status" = "5x5"
+# 	"Scaling" = [
+# 		{"Start" = 2019-04-12 15:53:44, "Slope" = 1000}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference B".Fields]]
+# 	"Tag" = "PM10"
+# 	"Field" = "Palas Fidas100 pm10 ug/m^3"
+# 	"Boolean Filters"."Palas Fidas100 Status" = "5x5"
+# 	"Scaling" = [
+# 		{"Start" = 2019-04-12 15:53:44, "Slope" = 1000}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference B".Fields]]
+# 	"Tag" = "O3"
+# 	"Field" = "2bTechnologies Model 211-G o3 ppbv"
+# 	"Boolean Filters"."2bTechnologies Model 211-G Status" = "5x5"
+# 	"Scaling" = [
+# 		{"Slope" = 2}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference B".Fields]]
+# 	"Tag" = "NO"
+# 	"Field" = "Echotech Serinus40 no ppm"
+# 	"Boolean Filters"."Echotech Serinus40 Status" = "5x5"
+# 	"Scaling" = [
+# 		{"Slope" = 1250}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."AirView Reference B".Fields]]
+# 	"Tag" = "NO2"
+# 	"Field" = "Aerodyne CAPSNO2 no2 ppbv"
+# 	"Boolean Filters"."Aerodyne CAPSNO2 Status" = "Pump On, No Filter, Normal Operation - No Baseline, LED is Off, NO2 Monitor, Near IR (760 nm)"
+# 	"Scaling" = [
+# 		{"Slope" = 1.88}
+# 	]
+#
+#
+#
+# [Comparisons."Bushy Park".Devices."Nova Sensor A"]
+# 	"Bucket" = "Nova PM"
+# 	"Measurement" = "Nova PM"
+# 	"Boolean Filters"."Serial Number" = "C008-0001"
+# 	"Hour Beginning" = false
+# 	"Use as Reference" = false
+# 	"Training Cutoff" = "72d"
+#
+# [[Comparisons."Bushy Park".Devices."Nova Sensor A".Fields]]
+# 	"Tag" = "PM2.5"
+# 	"Field" = "PM2.5"
+#
+# [[Comparisons."Bushy Park".Devices."Nova Sensor A".Fields]]
+# 	"Tag" = "PM10"
+# 	"Field" = "PM10"
+#
+#
+#
+# [Comparisons."Bushy Park".Devices."Nova Sensor B"]
+# 	"Bucket" = "Nova PM"
+# 	"Measurement" = "Nova PM"
+# 	"Boolean Filters"."Serial Number" = "C008-0003"
+# 	"Hour Beginning" = false
+# 	"Use as Reference" = false
+# 	"Training Cutoff" = "72d"
+#
+# [[Comparisons."Bushy Park".Devices."Nova Sensor B".Fields]]
+# 	"Tag" = "PM2.5"
+# 	"Field" = "PM2.5"
+#
+# [[Comparisons."Bushy Park".Devices."Nova Sensor B".Fields]]
+# 	"Tag" = "PM10"
+# 	"Field" = "PM10"
+#
+#
+#
+# [Comparisons."Bushy Park".Devices."AirView Low-Cost A"]
+# 	"Bucket" = "AirView"
+# 	"Measurement" = "AirView"
+# 	"Boolean Filters"."Car" = "27522"
+# 	"Hour Beginning" = false
+# 	"Use as Reference" = false
+# 	"Training Cutoff" = "72d"
+#
+# [[Comparisons."Bushy Park".Devices."AirView Low-Cost A"."Range Filters"]]
+# 	"Field" = "GlobalSat G-Star IV latitude degrees N"
+# 	"Min" = 51.424
+# 	"Max" = 51.426
+# 	"Min Equal" = true
+# 	"Max Equal" = true
+#
+# [[Comparisons."Bushy Park".Devices."AirView Low-Cost A"."Range Filters"]]
+# 	"Field" = "GlobalSat G-Star IV longitude degrees E"
+# 	"Min" = -0.346
+# 	"Max" = -0.344
+# 	"Min Equal" = true
+# 	"Max Equal" = true
+#
+# [[Comparisons."Bushy Park".Devices."AirView Low-Cost A"."Range Filters"]]
+# 	"Field" = "GlobalSat G-Star IV speed km/h"
+# 	"Min" = 0
+# 	"Max" = 1
+# 	"Min Equal" = true
+# 	"Max Equal" = false
+#
+# [[Comparisons."Bushy Park".Devices."AirView Low-Cost A".Fields]]
+# 	"Tag" = "PM2.5"
+# 	"Field" = "ThermoScientific PDR1500 pm ug/m^3"
+#
+#
+#
+# [Comparisons."Bushy Park".Devices."AirView Low-Cost B"]
+# 	"Bucket" = "AirView"
+# 	"Measurement" = "AirView"
+# 	"Boolean Filters"."Car" = "27533"
+# 	"Hour Beginning" = false
+# 	"Use as Reference" = false
+# 	"Training Cutoff" = "72d"
+#
+# [[Comparisons."Bushy Park".Devices."AirView Low-Cost B"."Range Filters"]]
+# 	"Field" = "GlobalSat G-Star IV latitude degrees N"
+# 	"Min" = 51.424
+# 	"Max" = 51.426
+# 	"Min Equal" = true
+# 	"Max Equal" = true
+#
+# [[Comparisons."Bushy Park".Devices."AirView Low-Cost B"."Range Filters"]]
+# 	"Field" = "GlobalSat G-Star IV longitude degrees E"
+# 	"Min" = -0.346
+# 	"Max" = -0.344
+# 	"Min Equal" = true
+# 	"Max Equal" = true
+#
+# [[Comparisons."Bushy Park".Devices."AirView Low-Cost B"."Range Filters"]]
+# 	"Field" = "GlobalSat G-Star IV speed km/h"
+# 	"Min" = 0
+# 	"Max" = 1
+# 	"Min Equal" = true
+# 	"Max Equal" = false
+#
+# [[Comparisons."Bushy Park".Devices."AirView Low-Cost B".Fields]]
+# 	"Tag" = "PM2.5"
+# 	"Field" = "ThermoScientific PDR1500 pm ug/m^3"
+#
+#
+#
+# [Comparisons."Bushy Park".Devices."NPL AQMesh A"]
+# 	"Bucket" = "ACOEM Data"
+# 	"Measurement" = "ACOEM UK Systems"
+# 	"Boolean Filters"."SerialNumber" = "1505150"
+# 	"Hour Beginning" = false
+# 	"Use as Reference" = false
+# 	"Training Cutoff" = "72d"
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh A".Fields]]
+# 	"Tag" = "PM1"
+# 	"Field" = "Particulate Matter (PM 1) PreScaled [Micrograms Per Cubic Meter]"
+# 	"Boolean Filters"."Particulate Matter (PM 1) Flag" = "Valid"
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh A".Fields]]
+# 	"Tag" = "PM2.5"
+# 	"Field" = "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]"
+# 	"Boolean Filters"."Particulate Matter (PM 2.5) Flag" = "Valid"
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh A".Fields]]
+# 	"Tag" = "PM4"
+# 	"Field" = "PM 4 PreScaled [Micrograms Per Cubic Meter]"
+# 	"Boolean Filters"."PM 4 Flag" = "Valid"
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh A".Fields]]
+# 	"Tag" = "PM10"
+# 	"Field" = "Particulate Matter (PM 10) PreScaled [Micrograms Per Cubic Meter]"
+# 	"Boolean Filters"."Particulate Matter (PM 10) Flag" = "Valid"
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh A".Fields]]
+# 	"Tag" = "NO"
+# 	"Field" = "Nitric Oxide PreScaled [Parts Per Billion]"
+# 	"Boolean Filters"."Nitric Oxide Flag" = "Valid"
+# 	"Scaling" = [
+# 		{"Slope" = 1.25}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh A".Fields]]
+# 	"Tag" = "NO2"
+# 	"Field" = "Nitrogen Dioxide PreScaled [Parts Per Billion]"
+# 	"Boolean Filters"."Nitrogen Dioxide Flag" = "Valid"
+# 	"Scaling" = [
+# 		{"Slope" = 1.88}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh A".Fields]]
+# 	"Tag" = "O3"
+# 	"Field" = "Ozone PreScaled [Parts Per Billion]"
+# 	"Boolean Filters"."Ozone Flag" = "Valid"
+# 	"Scaling" = [
+# 		{"Slope" = 2}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh A"."Secondary Fields"]]
+# 	"Tag" = "RH"
+# 	"Field" = "Humidity PreScaled [Percent]"
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh A"."Secondary Fields"]]
+# 	"Tag" = "T"
+# 	"Field" = "Temperature PreScaled [Celsius]"
+#
+#
+#
+# [Comparisons."Bushy Park".Devices."NPL AQMesh B"]
+# 	"Bucket" = "ACOEM Data"
+# 	"Measurement" = "ACOEM UK Systems"
+# 	"Boolean Filters"."SerialNumber" = "1506150"
+# 	"Hour Beginning" = false
+# 	"Use as Reference" = false
+# 	"Training Cutoff" = "72d"
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh B".Fields]]
+# 	"Tag" = "PM1"
+# 	"Field" = "Particulate Matter (PM 1) PreScaled [Micrograms Per Cubic Meter]"
+# 	"Boolean Filters"."Particulate Matter (PM 1) Flag" = "Valid"
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh B".Fields]]
+# 	"Tag" = "PM2.5"
+# 	"Field" = "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]"
+# 	"Boolean Filters"."Particulate Matter (PM 2.5) Flag" = "Valid"
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh B".Fields]]
+# 	"Tag" = "PM4"
+# 	"Field" = "PM 4 PreScaled [Micrograms Per Cubic Meter]"
+# 	"Boolean Filters"."PM 4 Flag" = "Valid"
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh B".Fields]]
+# 	"Tag" = "PM10"
+# 	"Field" = "Particulate Matter (PM 10) PreScaled [Micrograms Per Cubic Meter]"
+# 	"Boolean Filters"."Particulate Matter (PM 10) Flag" = "Valid"
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh B".Fields]]
+# 	"Tag" = "NO"
+# 	"Field" = "Nitric Oxide PreScaled [Parts Per Billion]"
+# 	"Boolean Filters"."Nitric Oxide Flag" = "Valid"
+# 	"Scaling" = [
+# 		{"Slope" = 1.25}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh B".Fields]]
+# 	"Tag" = "NO2"
+# 	"Field" = "Nitrogen Dioxide PreScaled [Parts Per Billion]"
+# 	"Boolean Filters"."Nitrogen Dioxide Flag" = "Valid"
+# 	"Scaling" = [
+# 		{"Slope" = 1.88}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh B".Fields]]
+# 	"Tag" = "O3"
+# 	"Field" = "Ozone PreScaled [Parts Per Billion]"
+# 	"Boolean Filters"."Ozone Flag" = "Valid"
+# 	"Scaling" = [
+# 		{"Slope" = 2}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh B"."Secondary Fields"]]
+# 	"Tag" = "RH"
+# 	"Field" = "Humidity PreScaled [Percent]"
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh B"."Secondary Fields"]]
+# 	"Tag" = "T"
+# 	"Field" = "Temperature PreScaled [Celsius]"
+#
+#
+#
+# [Comparisons."Bushy Park".Devices."Breathe London AQMesh"]
+# 	"Bucket" = "ACOEM Data"
+# 	"Measurement" = "ACOEM UK Systems"
+# 	"Boolean Filters"."SerialNumber" = "2450100"
+# 	"Hour Beginning" = false
+# 	"Use as Reference" = false
+# 	"Training Cutoff" = "72d"
+#
+# [[Comparisons."Bushy Park".Devices."Breathe London AQMesh".Fields]]
+# 	"Tag" = "PM1"
+# 	"Field" = "Particulate Matter (PM 1) PreScaled [Micrograms Per Cubic Meter]"
+# 	"Boolean Filters"."Particulate Matter (PM 1) Flag" = "Valid"
+#
+# [[Comparisons."Bushy Park".Devices."Breathe London AQMesh".Fields]]
+# 	"Tag" = "PM2.5"
+# 	"Field" = "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]"
+# 	"Boolean Filters"."Particulate Matter (PM 2.5) Flag" = "Valid"
+#
+# [[Comparisons."Bushy Park".Devices."Breathe London AQMesh".Fields]]
+# 	"Tag" = "PM4"
+# 	"Field" = "PM 4 PreScaled [Micrograms Per Cubic Meter]"
+# 	"Boolean Filters"."PM 4 Flag" = "Valid"
+#
+# [[Comparisons."Bushy Park".Devices."Breathe London AQMesh".Fields]]
+# 	"Tag" = "PM10"
+# 	"Field" = "Particulate Matter (PM 10) PreScaled [Micrograms Per Cubic Meter]"
+# 	"Boolean Filters"."Particulate Matter (PM 10) Flag" = "Valid"
+#
+# [[Comparisons."Bushy Park".Devices."Breathe London AQMesh".Fields]]
+# 	"Tag" = "NO"
+# 	"Field" = "Nitric Oxide PreScaled [Parts Per Billion]"
+# 	"Boolean Filters"."Nitric Oxide Flag" = "Valid"
+# 	"Scaling" = [
+# 		{"Slope" = 1.25}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."Breathe London AQMesh".Fields]]
+# 	"Tag" = "NO2"
+# 	"Field" = "Nitrogen Dioxide PreScaled [Parts Per Billion]"
+# 	"Boolean Filters"."Nitrogen Dioxide Flag" = "Valid"
+# 	"Scaling" = [
+# 		{"Slope" = 1.88}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."Breathe London AQMesh".Fields]]
+# 	"Tag" = "O3"
+# 	"Field" = "Ozone PreScaled [Parts Per Billion]"
+# 	"Boolean Filters"."Ozone Flag" = "Valid"
+# 	"Scaling" = [
+# 		{"Slope" = 2}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."Breathe London AQMesh"."Secondary Fields"]]
+# 	"Tag" = "RH"
+# 	"Field" = "Humidity PreScaled [Percent]"
+#
+# [[Comparisons."Bushy Park".Devices."Breathe London AQMesh"."Secondary Fields"]]
+# 	"Tag" = "T"
+# 	"Field" = "Temperature PreScaled [Celsius]"
+#
+#
+#
+# [Comparisons."Bushy Park".Devices."NPL AQMesh C"]
+# 	"Bucket" = "ACOEM Data"
+# 	"Measurement" = "ACOEM UK Systems"
+# 	"Boolean Filters"."SerialNumber" = "2450222"
+# 	"Hour Beginning" = false
+# 	"Use as Reference" = false
+# 	"Training Cutoff" = "72d"
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh C".Fields]]
+# 	"Tag" = "PM1"
+# 	"Field" = "Particulate Matter (PM 1) PreScaled [Micrograms Per Cubic Meter]"
+# 	"Boolean Filters"."Particulate Matter (PM 1) Flag" = "Valid"
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh C".Fields]]
+# 	"Tag" = "PM2.5"
+# 	"Field" = "Particulate Matter (PM 2.5) PreScaled [Micrograms Per Cubic Meter]"
+# 	"Boolean Filters"."Particulate Matter (PM 2.5) Flag" = "Valid"
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh C".Fields]]
+# 	"Tag" = "PM4"
+# 	"Field" = "PM 4 PreScaled [Micrograms Per Cubic Meter]"
+# 	"Boolean Filters"."PM 4 Flag" = "Valid"
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh C".Fields]]
+# 	"Tag" = "PM10"
+# 	"Field" = "Particulate Matter (PM 10) PreScaled [Micrograms Per Cubic Meter]"
+# 	"Boolean Filters"."Particulate Matter (PM 10) Flag" = "Valid"
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh C".Fields]]
+# 	"Tag" = "NO"
+# 	"Field" = "Nitric Oxide PreScaled [Parts Per Billion]"
+# 	"Boolean Filters"."Nitric Oxide Flag" = "Valid"
+# 	"Scaling" = [
+# 		{"Slope" = 1.25}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh C".Fields]]
+# 	"Tag" = "NO2"
+# 	"Field" = "Nitrogen Dioxide PreScaled [Parts Per Billion]"
+# 	"Boolean Filters"."Nitrogen Dioxide Flag" = "Valid"
+# 	"Scaling" = [
+# 		{"Slope" = 1.88}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh C".Fields]]
+# 	"Tag" = "O3"
+# 	"Field" = "Ozone PreScaled [Parts Per Billion]"
+# 	"Boolean Filters"."Ozone Flag" = "Valid"
+# 	"Scaling" = [
+# 		{"Slope" = 2}
+# 	]
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh C"."Secondary Fields"]]
+# 	"Tag" = "RH"
+# 	"Field" = "Humidity PreScaled [Percent]"
+#
+# [[Comparisons."Bushy Park".Devices."NPL AQMesh C"."Secondary Fields"]]
+# 	"Tag" = "T"
+# 	"Field" = "Temperature PreScaled [Celsius]"
+#
 [Comparisons."Cranfield"]
 	"Start" = 2022-01-01
 	"End" = 2023-09-01
@@ -695,10 +696,16 @@
 [[Comparisons."Cranfield".Devices."Reference".Fields]]
 	"Tag" = "NO2"
 	"Field" = "NitrogenDioxide"
+	"Scaling" = [
+		{"Slope" = 1.88}
+	]
 
 [[Comparisons."Cranfield".Devices."Reference".Fields]]
 	"Tag" = "O3"
 	"Field" = "Ozone"
+	"Scaling" = [
+		{"Slope" = 2}
+	]
 
 [Comparisons."Cranfield".Devices."Zep_1107b"]
 	"Bucket" = "Cranfield"

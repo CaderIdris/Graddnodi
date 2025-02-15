@@ -35,6 +35,7 @@
 	"Bucket" = "{{ device['Bucket'] }}"
 	"Measurement" = "{{ device['Measurement'] }}"
 	"Use as Reference" = false
+	"Training Cutoff" = "{{ device['Training Cutoff'] }}"
 
 [Comparisons."{{ study['Name'] }}".Devices."{{ device['Name'] }}"."Boolean Filters"]
 	"Name" = "{{ device['Name'] }}"
@@ -88,8 +89,8 @@
 	"Quantile Regression" = true
 	"Decision Tree" = true
 	"Extra Tree" = true
-	"Random Forest" = false
-	"Extra Trees Ensemble" = false
+	"Random Forest" = true
+	"Extra Trees Ensemble" = true
 	"Gradient Boosting Regression" = true
 	"Histogram-Based Gradient Boosting Regression" = true
 	"Multi-Layer Perceptron Regression" = true
@@ -100,6 +101,8 @@
 	"Isotonic Regression" = true
 	"XGBoost Regression" = true
 	"XGBoost Random Forest Regression" = true	
+	"Linear GAM" = true
+	"Expectile GAM" = true
 
 [Calibration.Techniques."Random Search"]
 	"Linear Regression" = false
@@ -153,6 +156,7 @@
 	"Reference Mean" = true
 	"Reference Range" = true
 	"Reference Standard Deviation" = true
+	"Reference Absolute Deviation" = true
 
 [Calibration."Secondary Variables"]
 	{% for key, value in sec_vars.items() -%}

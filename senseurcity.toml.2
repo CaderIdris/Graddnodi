@@ -1,0 +1,2372 @@
+
+[Calibration.Configuration]
+	"Folds" = 5
+	"Stratification Groups" = 10
+	"Seed" = 72
+	"Scalers" = "All"
+
+[Calibration.Techniques.Default]
+	"Linear Regression" = true
+	"Ridge Regression" = false
+	"Ridge Regression (Cross Validated)" = true
+	"Lasso Regression" = false
+	"Lasso Regression (Cross Validated)" = true
+	"Elastic Net Regression" = false
+	"Elastic Net Regression (Cross Validated)" = true
+	"Least Angle Regression" = true
+	"Least Angle Lasso Regression" = true
+	"Orthogonal Matching Pursuit" = true
+	"Bayesian Ridge Regression" = true
+	"Bayesian Automatic Relevance Detection" = true
+	"Tweedie Regression" = true
+	"Stochastic Gradient Descent" = true
+	"Passive Aggressive Regression" = true
+	"RANSAC" = false
+	"Theil-Sen Regression" = true
+	"Huber Regression" = true
+	"Quantile Regression" = false
+	"Decision Tree" = true
+	"Extra Tree" = true
+	"Random Forest" = true
+	"Extra Trees Ensemble" = true
+	"Gradient Boosting Regression" = true
+	"Histogram-Based Gradient Boosting Regression" = true
+	"Multi-Layer Perceptron Regression" = true
+	"Support Vector Regression" = true
+	"Linear Support Vector Regression" = true
+	"Nu-Support Vector Regression" = true
+	"Gaussian Process Regression" = false
+	"Isotonic Regression" = true
+	"XGBoost Regression" = true
+	"XGBoost Random Forest Regression" = true	
+	"Linear GAM" = true
+	"Expectile GAM" = true
+
+[Calibration.Techniques."Random Search"]
+	"Linear Regression" = false
+	"Ridge Regression" = false
+	"Lasso Regression" = false
+	"Elastic Net Regression" = false
+	"Least Angle Regression" = false
+	"Least Angle Lasso Regression" = false
+	"Orthogonal Matching Pursuit" = false
+	"Bayesian Ridge Regression" = false
+	"Bayesian Automatic Relevance Detection" = false
+	"Tweedie Regression" = false
+	"Stochastic Gradient Descent" = false
+	"Passive Aggressive Regression" = false
+	"RANSAC" = false
+	"Theil-Sen Regression" = false
+	"Huber Regression" = false
+	"Quantile Regression" = false
+	"Decision Tree" = false
+	"Extra Tree" = false
+	"Random Forest" = false
+	"Extra Trees Ensemble" = false
+	"Gradient Boosting Regression" = false
+	"Histogram-Based Gradient Boosting Regression" = false
+	"Multi-Layer Perceptron Regression" = false
+	"Support Vector Regression" = false
+	"Linear Support Vector Regression" = false
+	"Nu-Support Vector Regression" = false
+	"Gaussian Process Regression" = false
+	"Isotonic Regression" = false
+	"XGBoost Regression" = false
+	"XGBoost Random Forest Regression" = false	
+
+[Metrics]
+	"Explained Variance Score" = false
+	"Max Error" = true
+	"Mean Absolute Error" = true
+	"Root Mean Squared Error" = true
+	"Root Mean Squared Log Error" = false
+	"Median Absolute Error" = true
+	"Mean Absolute Percentage Error" = true
+	"r2" = true
+	"Mean Poisson Deviance" = false
+	"Mean Gamma Deviance" = false
+	"Mean Tweedie Deviance" = false
+	"Mean Pinball Loss" = true
+	"Centered Root Mean Squared Error" = true
+	"Unnbiased Root Mean Squared Error" = true
+	"Mean Bias Error" = true
+	"Reference IQR" = true
+	"Reference Mean" = true
+	"Reference Range" = true
+	"Reference Standard Deviation" = true
+	"Reference Absolute Deviation" = true
+
+[Calibration."Secondary Variables"]
+	"CO" = ["RH", "T", "P", "CO2"]
+	"CO2" = ["RH", "T", "P", "CO"]
+	"NO2" = ["RH", "T", "P", "CO", "NO"]
+	"NO" = ["RH", "T", "P", "NO2", "CO"]
+	"PM1" = ["RH", "T", "P"]
+	"PM2.5" = ["RH", "T", "P"]
+	"PM10" = ["RH", "T", "P"]
+	
+[Comparisons."ZAG_REF_IMI"]
+	"Start" = 2020-01-21
+	"End" = 2021-07-21
+	"Averaging Operator" = "mean"
+	"Averaging Period" = "1m"
+
+[Comparisons."ZAG_REF_IMI".Devices."ZAG_REF_IMI"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Reference"
+	"Use as Reference" = true
+
+[Comparisons."ZAG_REF_IMI".Devices."ZAG_REF_IMI"."Boolean Filters"]
+	"Name" = "ZAG_REF_IMI"
+
+[[Comparisons."ZAG_REF_IMI".Devices."ZAG_REF_IMI".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."ZAG_REF_IMI".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."ZAG_REF_IMI".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."ZAG_REF_IMI".Fields]]
+	"Tag" = "CO2"
+	"Field" = "CO2"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."ZAG_REF_IMI".Fields]]
+	"Tag" = "PM1"
+	"Field" = "PM1"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."ZAG_REF_IMI".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "PM2.5"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."ZAG_REF_IMI".Fields]]
+	"Tag" = "PM10"
+	"Field" = "PM10"
+	
+	
+
+
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Zagreb"
+	"Use as Reference" = false
+	"Training Cutoff" = "2020-10-01"
+
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169"."Boolean Filters"]
+	"Name" = "Zagreb_648169"
+	"Location.ID" = "ZAG_REF_IMI"
+
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648169".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Zagreb"
+	"Use as Reference" = false
+	"Training Cutoff" = "2021-01-14"
+
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907"."Boolean Filters"]
+	"Name" = "Zagreb_427907"
+	"Location.ID" = "ZAG_REF_IMI"
+
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427907".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Zagreb"
+	"Use as Reference" = false
+	"Training Cutoff" = "2020-10-01"
+
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E"."Boolean Filters"]
+	"Name" = "Zagreb_40641E"
+	"Location.ID" = "ZAG_REF_IMI"
+
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_40641E".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Zagreb"
+	"Use as Reference" = false
+	"Training Cutoff" = "2020-10-01"
+
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906"."Boolean Filters"]
+	"Name" = "Zagreb_427906"
+	"Location.ID" = "ZAG_REF_IMI"
+
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_427906".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Zagreb"
+	"Use as Reference" = false
+	"Training Cutoff" = "2020-10-01"
+
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414"."Boolean Filters"]
+	"Name" = "Zagreb_406414"
+	"Location.ID" = "ZAG_REF_IMI"
+
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_406414".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Zagreb"
+	"Use as Reference" = false
+	"Training Cutoff" = "7d"
+
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B"."Boolean Filters"]
+	"Name" = "Zagreb_64E03B"
+	"Location.ID" = "ZAG_REF_IMI"
+
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64E03B".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Zagreb"
+	"Use as Reference" = false
+	"Training Cutoff" = "2020-10-01"
+
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164"."Boolean Filters"]
+	"Name" = "Zagreb_428164"
+	"Location.ID" = "ZAG_REF_IMI"
+
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_428164".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Zagreb"
+	"Use as Reference" = false
+	"Training Cutoff" = "2021-01-14"
+
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0"."Boolean Filters"]
+	"Name" = "Zagreb_4047D0"
+	"Location.ID" = "ZAG_REF_IMI"
+
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Zagreb"
+	"Use as Reference" = false
+	"Training Cutoff" = "2020-10-01"
+
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1"."Boolean Filters"]
+	"Name" = "Zagreb_652FA1"
+	"Location.ID" = "ZAG_REF_IMI"
+
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652FA1".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Zagreb"
+	"Use as Reference" = false
+	"Training Cutoff" = "2020-10-01"
+
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157"."Boolean Filters"]
+	"Name" = "Zagreb_648157"
+	"Location.ID" = "ZAG_REF_IMI"
+
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_648157".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Zagreb"
+	"Use as Reference" = false
+	"Training Cutoff" = "2020-10-01"
+
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738"."Boolean Filters"]
+	"Name" = "Zagreb_649738"
+	"Location.ID" = "ZAG_REF_IMI"
+
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_649738".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Zagreb"
+	"Use as Reference" = false
+	"Training Cutoff" = "2020-10-01"
+
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D"."Boolean Filters"]
+	"Name" = "Zagreb_42816D"
+	"Location.ID" = "ZAG_REF_IMI"
+
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_42816D".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Zagreb"
+	"Use as Reference" = false
+	"Training Cutoff" = "2020-10-01"
+
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C"."Boolean Filters"]
+	"Name" = "Zagreb_64876C"
+	"Location.ID" = "ZAG_REF_IMI"
+
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876C".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Zagreb"
+	"Use as Reference" = false
+	"Training Cutoff" = "2020-10-01"
+
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B"."Boolean Filters"]
+	"Name" = "Zagreb_64C52B"
+	"Location.ID" = "ZAG_REF_IMI"
+
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C52B".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Zagreb"
+	"Use as Reference" = false
+	"Training Cutoff" = "2020-10-01"
+
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38"."Boolean Filters"]
+	"Name" = "Zagreb_652A38"
+	"Location.ID" = "ZAG_REF_IMI"
+
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_652A38".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Zagreb"
+	"Use as Reference" = false
+	"Training Cutoff" = "2020-10-01"
+
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225"."Boolean Filters"]
+	"Name" = "Zagreb_64C225"
+	"Location.ID" = "ZAG_REF_IMI"
+
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64C225".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876B"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Zagreb"
+	"Use as Reference" = false
+	"Training Cutoff" = "2020-10-01"
+
+[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876B"."Boolean Filters"]
+	"Name" = "Zagreb_64876B"
+	"Location.ID" = "ZAG_REF_IMI"
+
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876B".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876B".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876B".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876B".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876B".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876B".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876B".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876B".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876B".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."ZAG_REF_IMI".Devices."Zagreb_64876B".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+
+
+[Comparisons."Ispra"]
+	"Start" = 2020-01-21
+	"End" = 2021-07-21
+	"Averaging Operator" = "mean"
+	"Averaging Period" = "1m"
+
+[Comparisons."Ispra".Devices."Ispra"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Reference"
+	"Use as Reference" = true
+
+[Comparisons."Ispra".Devices."Ispra"."Boolean Filters"]
+	"Name" = "Ispra"
+
+[[Comparisons."Ispra".Devices."Ispra".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO"
+	
+	
+[[Comparisons."Ispra".Devices."Ispra".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2"
+	
+	
+[[Comparisons."Ispra".Devices."Ispra".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO"
+	
+	
+[[Comparisons."Ispra".Devices."Ispra".Fields]]
+	"Tag" = "CO2"
+	"Field" = "CO2"
+	
+	
+[[Comparisons."Ispra".Devices."Ispra".Fields]]
+	"Tag" = "PM1"
+	"Field" = "PM1"
+	
+	
+[[Comparisons."Ispra".Devices."Ispra".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "PM2.5"
+	
+	
+[[Comparisons."Ispra".Devices."Ispra".Fields]]
+	"Tag" = "PM10"
+	"Field" = "PM10"
+	
+	
+
+
+[Comparisons."Ispra".Devices."Antwerp_4065E3"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Antwerp"
+	"Use as Reference" = false
+	"Training Cutoff" = "7d"
+
+[Comparisons."Ispra".Devices."Antwerp_4065E3"."Boolean Filters"]
+	"Name" = "Antwerp_4065E3"
+	"Location.ID" = "Ispra"
+
+[[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065E3".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."Ispra".Devices."Antwerp_40641B"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Antwerp"
+	"Use as Reference" = false
+	"Training Cutoff" = "7d"
+
+[Comparisons."Ispra".Devices."Antwerp_40641B"."Boolean Filters"]
+	"Name" = "Antwerp_40641B"
+	"Location.ID" = "Ispra"
+
+[[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_40641B".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."Ispra".Devices."Antwerp_4065E0"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Antwerp"
+	"Use as Reference" = false
+	"Training Cutoff" = "7d"
+
+[Comparisons."Ispra".Devices."Antwerp_4065E0"."Boolean Filters"]
+	"Name" = "Antwerp_4065E0"
+	"Location.ID" = "Ispra"
+
+[[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065E0".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."Ispra".Devices."Antwerp_4065D0"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Antwerp"
+	"Use as Reference" = false
+	"Training Cutoff" = "7d"
+
+[Comparisons."Ispra".Devices."Antwerp_4065D0"."Boolean Filters"]
+	"Name" = "Antwerp_4065D0"
+	"Location.ID" = "Ispra"
+
+[[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Antwerp_4065D0".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."Ispra".Devices."Oslo_40642E"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Oslo"
+	"Use as Reference" = false
+	"Training Cutoff" = "7d"
+
+[Comparisons."Ispra".Devices."Oslo_40642E"."Boolean Filters"]
+	"Name" = "Oslo_40642E"
+	"Location.ID" = "Ispra"
+
+[[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40642E".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."Ispra".Devices."Oslo_40458D"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Oslo"
+	"Use as Reference" = false
+	"Training Cutoff" = "7d"
+
+[Comparisons."Ispra".Devices."Oslo_40458D"."Boolean Filters"]
+	"Name" = "Oslo_40458D"
+	"Location.ID" = "Ispra"
+
+[[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40458D".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."Ispra".Devices."Oslo_4065ED"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Oslo"
+	"Use as Reference" = false
+	"Training Cutoff" = "7d"
+
+[Comparisons."Ispra".Devices."Oslo_4065ED"."Boolean Filters"]
+	"Name" = "Oslo_4065ED"
+	"Location.ID" = "Ispra"
+
+[[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_4065ED".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."Ispra".Devices."Oslo_40816F"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Oslo"
+	"Use as Reference" = false
+	"Training Cutoff" = "7d"
+
+[Comparisons."Ispra".Devices."Oslo_40816F"."Boolean Filters"]
+	"Name" = "Oslo_40816F"
+	"Location.ID" = "Ispra"
+
+[[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Oslo_40816F".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."Ispra".Devices."Zagreb_406414"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Zagreb"
+	"Use as Reference" = false
+	"Training Cutoff" = "7d"
+
+[Comparisons."Ispra".Devices."Zagreb_406414"."Boolean Filters"]
+	"Name" = "Zagreb_406414"
+	"Location.ID" = "Ispra"
+
+[[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Zagreb_406414".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+[Comparisons."Ispra".Devices."Zagreb_4047D0"]
+	"Bucket" = "SensEURCity"
+	"Measurement" = "Zagreb"
+	"Use as Reference" = false
+	"Training Cutoff" = "7d"
+
+[Comparisons."Ispra".Devices."Zagreb_4047D0"."Boolean Filters"]
+	"Name" = "Zagreb_4047D0"
+	"Location.ID" = "Ispra"
+
+[[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "P"
+	"Field" = "BMP280"
+	
+	"Boolean Filters"."BMP280_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "T"
+	"Field" = "SHT31TI"
+	
+	"Boolean Filters"."SHT31TI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "RH"
+	"Field" = "SHT31HI"
+	
+	"Boolean Filters"."SHT31HI_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "NO"
+	"Field" = "NO_B4_P1"
+	
+	"Boolean Filters"."NO_B4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "NO2"
+	"Field" = "NO2_B43F_P1"
+	
+	"Boolean Filters"."NO2_B43F_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "CO"
+	"Field" = "CO_A4_P1"
+	
+	"Boolean Filters"."CO_A4_P1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "CO2"
+	"Field" = "D300"
+	
+	"Boolean Filters"."D300_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "PM1"
+	"Field" = "OPCN3PM1"
+	
+	"Boolean Filters"."OPCN3PM1_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "PM2.5"
+	"Field" = "OPCN3PM25"
+	
+	"Boolean Filters"."OPCN3PM25_flag" = "None"
+	
+	
+[[Comparisons."Ispra".Devices."Zagreb_4047D0".Fields]]
+	"Tag" = "PM10"
+	"Field" = "OPCN3PM10"
+	
+	"Boolean Filters"."OPCN3PM10_flag" = "None"
+	
+	
+

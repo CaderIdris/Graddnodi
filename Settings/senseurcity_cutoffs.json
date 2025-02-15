@@ -1,0 +1,292 @@
+{
+	"ANT_REF_R801": {
+		"Antwerp_4049A6": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_4047DD": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_40623F": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_4047E7": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_402B00": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_4047E0": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_406249": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_40499C": {
+			"Training Cutoff": "2020-10-01"
+		},
+		"Antwerp_40642B": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_4065E3": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_408175": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_40499F": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_4067B3": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_4043AE": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_4065EA": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_408165": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_4065DA": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_4067B0": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_406246": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_4065DD": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_40641B": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_4067BA": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_4065E0": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_406424": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_402723": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_4067BD": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_4047CD": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_4065D0": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_4047D7": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_4043B1": {
+			"Training Cutoff": "2020-10-01"
+		},
+		"Antwerp_408178": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_408168": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_4043A7": {
+			"Training Cutoff": "2020-07-01"
+		},
+		"Antwerp_4065D3": {
+			"Training Cutoff": "2020-07-01"
+		}
+	},
+	"OSL_REF_KVN": {
+		"Oslo_651EF5": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_64FD11": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_65063E": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_425FB3": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_64B082": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_647D5A": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_64CB6D": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_426178": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_64FD0A": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_652FA4": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_652D3A": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_65325E": {
+			"Training Cutoff": "2021-03-14"
+		},
+		"Oslo_40642E": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_40458D": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_40817F": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_4065ED": {
+			"Training Cutoff": "7d"
+		},
+		"Oslo_65326C": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_652FAF": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_649312": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_64E9C5": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_64CB70": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_426179": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_40816F": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_425FB4": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_653257": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_64A291": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_652A32": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_648B91": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_64CB78": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_6517DD": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_64A292": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_651EFC": {
+			"Training Cutoff": "2020-11-14"
+		},
+		"Oslo_649526": {
+			"Training Cutoff": "2020-11-14"
+		}
+	},
+	"ZAG_REF_IMI": {
+		"Zagreb_648169": {
+			"Training Cutoff": "2020-10-01"
+		},
+		"Zagreb_427907": {
+			"Training Cutoff": "2021-01-14"
+		},
+		"Zagreb_40641E": {
+			"Training Cutoff": "2020-10-01"
+		},
+		"Zagreb_427906": {
+			"Training Cutoff": "2020-10-01"
+		},
+		"Zagreb_406414": {
+			"Training Cutoff": "2020-10-01"
+		},
+		"Zagreb_64E03B": {
+			"Training Cutoff": "7d"
+		},
+		"Zagreb_428164": {
+			"Training Cutoff": "2020-10-01"
+		},
+		"Zagreb_4047D0": {
+			"Training Cutoff": "2021-01-14"
+		},
+		"Zagreb_652FA1": {
+			"Training Cutoff": "2020-10-01"
+		},
+		"Zagreb_648157": {
+			"Training Cutoff": "2020-10-01"
+		},
+		"Zagreb_649738": {
+			"Training Cutoff": "2020-10-01"
+		},
+		"Zagreb_42816D": {
+			"Training Cutoff": "2020-10-01"
+		},
+		"Zagreb_64876C": {
+			"Training Cutoff": "2020-10-01"
+		},
+		"Zagreb_64C52B": {
+			"Training Cutoff": "2020-10-01"
+		},
+		"Zagreb_652A38": {
+			"Training Cutoff": "2020-10-01"
+		},
+		"Zagreb_64C225": {
+			"Training Cutoff": "2020-10-01"
+		},
+		"Zagreb_64876B": {
+			"Training Cutoff": "2020-10-01"
+		}
+	},
+	"Ispra": {
+		"Antwerp_4065E3": {
+			"Training Cutoff": "7d"
+		},
+		"Antwerp_40641B": {
+			"Training Cutoff": "7d"
+		},
+		"Antwerp_4065E0": {
+			"Training Cutoff": "7d"
+		},
+		"Antwerp_4065D0": {
+			"Training Cutoff": "7d"
+		},
+		"Oslo_40642E": {
+			"Training Cutoff": "7d"
+		},
+		"Oslo_40458D": {
+			"Training Cutoff": "7d"
+		},
+		"Oslo_4065ED": {
+			"Training Cutoff": "7d"
+		},
+		"Oslo_40816F": {
+			"Training Cutoff": "7d"
+		},
+		"Zagreb_406414": {
+			"Training Cutoff": "7d"
+		},
+		"Zagreb_4047D0": {
+			"Training Cutoff": "7d"
+		}
+	}
+}

@@ -738,6 +738,7 @@ def download_cache(path: Union[str, Path]) -> GraddnodiResults:
                 "Technique",
                 "Scaling Method",
                 "Variables",
+                "Pipeline Hash"
             ]
         )
     con.close()
@@ -879,6 +880,7 @@ def comparisons(
         # Loop over ground truth (dependent) devices
         logger.debug("Using %s as ground truth", y_device)
         y_dframe = measurements.get(y_device)
+
         logger.error(pipelines.keys())
         if not isinstance(y_dframe, pd.DataFrame):
             continue
@@ -891,6 +893,8 @@ def comparisons(
             comparison_name = f"{x_device} vs {y_device}"
             logger.info(f"Comparing {x_device} to {y_device}")
             validation_split = get_val_split(x_config.get("Training Cutoff", 0.1))
+            if y_dframe.index.tz is not None and isinstance(validation_split, dt.datetime):
+                validation_split = validation_split.astimezone(y_dframe.index.tz)
             if pipelines.get(comparison_name) is None:
                 pipelines[comparison_name] = {}
             if matched_measurements.get(comparison_name) is None:
@@ -1011,10 +1015,13 @@ def get_results(
     matched_measurements: MatchedMeasurementsDict,
     error_config: dict[str, bool],
     error_db_path: Path,
-    errors: pd.DataFrame = pd.DataFrame(),
+    errors: Optional[pd.DataFrame] = None,
 ) -> ResultsDict:
     """ """
+    if errors is None:
+        errors: pd.DataFrame = pd.DataFrame()
     for comparison, fields in pipeline_dict.items():
+        logging.critical(comparison)
         x_name = re.match(r"(?P<device>.*)( vs .*)", comparison).group(
             "device"
         )
@@ -1022,23 +1029,17 @@ def get_results(
         for field, techniques in fields.items():
             logger.debug(f"Testing {field} in {comparison}")
             sub_errors = errors[
-                np.logical_and(
-                    errors["Reference"] == y_name,
-                    errors["Calibrated"] == x_name,
-                )
+                errors["Reference"].eq(y_name) &
+                errors["Calibrated"].eq(x_name) &
+                errors["Field"].eq(field)
             ]
-            sub_errors = sub_errors[sub_errors["Field"] == field]
             try:
                 result_calculations = Results(
                     matched_measurements[comparison][field]["x"],
                     matched_measurements[comparison][field]["y"],
                     target=field,
                     models=techniques,
-                    errors=errors.loc[
-                        (errors["Field"] == field)
-                        & (errors["Reference"] == y_name)
-                        & (errors["Calibrated"] == x_name)
-                    ],
+                    errors=sub_errors.copy()
                 )
             except KeyError:
                 continue
@@ -1069,13 +1070,15 @@ def get_results(
                 else:
                     logger.debug(f"Skipping {tech} as not in config")
             err = result_calculations.return_errors()
+            if not err.shape[0]:
+                continue
             err["Field"] = field
             err["Reference"] = y_name
             err["Calibrated"] = x_name
+            err["Pipeline Hash"] = err.index
             errors = (
                 pd.concat([errors, err])
                 .reset_index(drop=True)
-                .drop_duplicates()
             )
             con = sql.connect(error_db_path)
             errors.to_sql("Results", con=con, if_exists="replace")

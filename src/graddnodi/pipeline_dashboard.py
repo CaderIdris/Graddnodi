@@ -1,8 +1,9 @@
 from io import StringIO
-import logging as lg
+import logging
 import os
 from pathlib import Path
 import pickle
+import re
 import sqlite3 as sql
 from typing import TYPE_CHECKING
 
@@ -17,16 +18,46 @@ import shap
 from sklearn.pipeline import Pipeline
 
 
-FULL_TABLE_LAYOUT = {"margin": {"pad": 0, "b": 0, "t": 0, "l": 0, "r": 0}}
+FULL_TABLE_LAYOUT = {"margin": {"pad": 0, "b": 0, "t": 1, "l": 0, "r": 0}}
 
 FIGURE_LAYOUT = {
-    "margin": {"pad": 0, "b": 40, "t": 40, "l": 40, "r": 0},
-    "showlegend": False,
+    "margin": {"pad": 0, "b": 40, "t": 50, "l": 40, "r": 0},
+    "showlegend": True,
     "font": {"size": 10},
     "paper_bgcolor": "rgba(0,0,0,0)",
     "plot_bgcolor": "rgba(0,0,0,0)",
-    "colorway": ["#1d2021"],
+    "colorway": [
+        "#fb4934",
+        "#458588",
+        "#98971a",
+        "#b16286",
+        "#fabd2f",
+        "#d65d0e",
+        "#7fa2ac",
+        "#665c54"
+    ],
     "scattermode": "group",
+    "legend": {
+        "orientation": 'h',
+        "x": 0.5,
+        "xanchor": "center",
+        "yanchor": "bottom",
+        "y": 1.10
+    }
+}
+
+RENAME_OPTIONS = {
+    "PM2.5": r"\\text{PM}_{2.5}",
+    "PM10": r"\\text{PM}_{10}",
+    "NO2": r"\\text{NO}_{2}",
+    "O3": r"\\text{O}_{3}",
+    r"NO[^\}]": r"\\text{NO} ",
+    "^2": r"^{2}",
+    "RH T": "RH*T",
+    "RH": r"\\text{RH}",
+    "T ": r"\\text{T} ",
+    "Time Since Origin": r"\\text{Time Since Origin}",
+    ", (.*)": r"\\text{, \g<1>}",
 }
 
 MARKERS = [
@@ -206,7 +237,7 @@ def get_shap(
     shaps_list = []
     for fold, pipeline in pipelines.items():
         if len(pipelines.keys()) > 1:
-            fold_index = y[y.loc[:, "Fold"].isin(["Validation", fold])].index
+            fold_index = y[y.loc[:, "Fold"].isin(["Validation"])].index
             x_data = x.loc[fold_index, :]
         else:
             x_data = x
@@ -215,8 +246,14 @@ def get_shap(
             index=x_data.index
         )
         x_data = x_data[predicted.notna()]
+        logging.critical(x_data)
 
         transformed_data = pipeline[:-1].transform(x_data)
+        if transformed_data.shape[0] > 100:
+            transformed_data = transformed_data.sample(n=100)
+
+        logging.critical(transformed_data)
+        logging.critical([(fold, col.replace("selector__", "")) for col in pipeline[:-1].get_feature_names_out()])
 
         explainer = shap.KernelExplainer(
             model=pipeline[-1].predict,
@@ -226,33 +263,31 @@ def get_shap(
         shaps = explainer.shap_values(transformed_data)
         shaps_fold = pd.DataFrame(
             shaps,
-            index=x_data.index,
+            index=transformed_data.index,
             columns=pd.MultiIndex.from_tuples(
                 [(fold, col.replace("selector__", "")) for col in pipeline[:-1].get_feature_names_out()]
             )
         )
-        pred = pipeline.predict(x_data)
         shaps_list.append(shaps_fold)
     return pd.concat(shaps_list, axis=1).sort_index()
 
 
 def shap_graph(
-        x: pd.DataFrame,
-        y: pd.DataFrame,
-        path: Path
-    ) -> go.Figure:
+    x: pd.DataFrame,
+    y: pd.DataFrame,
+    path: Path
+) -> go.Figure:
     """Plot shap values."""
     shap_path = path.joinpath('shaps.tar.gz')
     shap_combined = {}
+    pipelines = {}
+    pipelines_paths = path.glob("*.pkl")
+    for pipe in pipelines_paths:
+        with pipe.open('rb') as pickle_file:
+            pipelines[pipe.stem] = pickle.load(pickle_file)
     try:
         shaps = pd.read_pickle(shap_path)
     except FileNotFoundError:
-        pipelines = {}
-        pipelines_paths = path.glob("*.pkl")
-        for pipe in pipelines_paths:
-            with pipe.open('rb') as pickle_file:
-                pipelines[pipe.stem] = pickle.load(pickle_file)
-
         shaps = get_shap(x, y, pipelines)
         shaps.to_pickle(shap_path)
     for fold in shaps.columns.get_level_values(0):
@@ -261,32 +296,74 @@ def shap_graph(
                 shap_combined[feature] = {}
             scatter_df = pd.DataFrame()
             scatter_df["Shap"] = col
-            scatter_df["Measurement"] = x[feature]
+            transformed_data = pipelines[fold][:-1].transform(x)
+            scatter_df["Measurement"] = transformed_data.loc[
+                scatter_df.index, feature
+            ]
             scatter_df = scatter_df.dropna()
             shap_combined[feature][fold] = scatter_df
+    folds_plotted = set()
 
     rows = int(np.ceil(len(shap_combined.keys()) / 2))
+    shap_titles = []
+    for tit in shap_combined.keys():
+        math_mode = False
+        for pat, repl in RENAME_OPTIONS.items():
+            tit = re.sub(pat, repl, tit)
+            math_mode = True
+        shap_titles.append(f"{'$' if math_mode else ''}{tit}{'$' if math_mode else ''}")
     fig = make_subplots(
         rows=rows,
         cols=2,
-        subplot_titles=list(shap_combined.keys())
+        subplot_titles=list(shap_titles),
+        vertical_spacing=0.05,
+        # shared_xaxes=True,
+        # shared_yaxes=True
     )
     for title_index, (title, graph_data) in enumerate(shap_combined.items()):
+        max_measurement_vals = []
+        math_mode = False
+        for pat, repl in RENAME_OPTIONS.items():
+            title = re.sub(pat, repl, title)
+            math_mode = True
+        for _, graph_df in sorted(graph_data.items()):
+            max_measurement_vals.append(graph_df["Measurement"].max()) 
+
         for index, (fold, graph_df) in enumerate(sorted(graph_data.items())):
             symbol_index = index % len(MARKERS)
             row = (title_index // 2) + 1
             col = (title_index % 2 != 0) + 1
             fig.add_trace(
                 go.Scatter(
-                    x=graph_df['Measurement'],
+                    x=graph_df['Measurement'].div(max(max_measurement_vals)),
                     y=graph_df['Shap'],
                     mode="markers",
                     marker_symbol=MARKERS[symbol_index],
-                    name=fold
+                    name=fold,
+                    showlegend=fold not in folds_plotted
                 ),
                 row=row,
                 col=col
             )
+            fig.layout[f"xaxis{title_index+1}"]["title"] = (
+                f"{'$' if math_mode else ''}"
+                f"{title} / max({title})"
+                f"{'$' if math_mode else ''}"
+            )
+            fig.layout[f"yaxis{title_index+1}"]["title"] = "Influence on prediction"
+            if len(graph_data) > 1:
+                fig.add_annotation(
+                    xref='x domain',
+                    yref='y domain',
+                    x=0.01,
+                    y=0.97,
+                    text=f'({chr(97+title_index)})',
+                    font={"size": 24},
+                    showarrow=False,
+                    row=row,
+                    col=col
+                )
+            folds_plotted.update(fold)
 
 
     fig.update_layout(**{"width": 750, "height": 375 * rows, **FIGURE_LAYOUT})
@@ -461,7 +538,7 @@ app.layout = dbc.Container(
         html.Hr(),
         *selections,
         *graph_tab,
-        dcc.Graph(id="scatter-graphs"),
+        dcc.Graph(mathjax=True, id="scatter-graphs"),
     ]
 )
 

@@ -7,11 +7,11 @@
 
 [Calibration.Techniques.Default]
 	"Linear Regression" = true
-	"Ridge Regression" = false
+	"Ridge Regression" = true
 	"Ridge Regression (Cross Validated)" = true
-	"Lasso Regression" = false
+	"Lasso Regression" = true
 	"Lasso Regression (Cross Validated)" = true
-	"Elastic Net Regression" = false
+	"Elastic Net Regression" = true
 	"Elastic Net Regression (Cross Validated)" = true
 	"Least Angle Regression" = true
 	"Least Angle Lasso Regression" = true
@@ -21,10 +21,10 @@
 	"Tweedie Regression" = true
 	"Stochastic Gradient Descent" = true
 	"Passive Aggressive Regression" = true
-	"RANSAC" = false
+	"RANSAC" = true
 	"Theil-Sen Regression" = true
 	"Huber Regression" = true
-	"Quantile Regression" = false
+	"Quantile Regression" = true
 	"Decision Tree" = true
 	"Extra Tree" = true
 	"Random Forest" = true

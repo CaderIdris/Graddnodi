@@ -14,10 +14,10 @@ dash = "*"
 dash-bootstrap-components = "*"
 tomli = "*"
 pygam = "*"
-kaleido = "*"
 statsmodels = "*"
 distfit = "*"
 "sqlean.py" = "*"
+kaleido = "*"
 
 [dev-packages]
 flake8 = "*"

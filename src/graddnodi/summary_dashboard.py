@@ -6,6 +6,8 @@ from itertools import cycle
 import logging
 import os
 from pathlib import Path
+import re
+import time
 import tomllib
 from typing import Optional
 
@@ -25,18 +27,51 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(
     level=logging.WARNING if not os.getenv("PYLOGDEBUG", None) \
         else logging.DEBUG,
-    format=(
+format=(
         "%(asctime)s: %(levelname)s - [%(funcName)s]:[%(lineno)d]"
         "- %(message)s"
     )
 )
 
-FULL_TABLE_LAYOUT = {"margin": {"pad": 0, "b": 0, "t": 0, "l": 0, "r": 0}}
+FULL_TABLE_LAYOUT = {
+    "margin": {
+        "pad": 0,
+        "b": 0.25,
+        "t": 0.25,
+        "l": 0.25,
+        "r": 0.25,
+    },
+}
 
 FIGURE_LAYOUT = {
-    "margin": {"pad": 0, "b": 0, "t": 0, "l": 0, "r": 0},
+    "margin": {
+        "pad": 0,
+        "b": 0,
+        "t": 0,
+        "l": 0,
+        "r": 0,
+    },
+    "title": {
+        "font": {
+            "size": 12,
+            "family": "Droid Sans"
+        },
+        "pad": {
+            "b": 6,
+            "t": 6,
+        },
+        "subtitle": {
+            "font": {
+                "size": 12,
+                "family": "Droid Sans"
+            },
+        },
+    },
     "showlegend": True,
-    "font": {"size": 12},
+    "font": {
+        "size": 12,
+        "family": "Droid Sans"
+    },
     "paper_bgcolor": "rgba(255,255,255)",
     "plot_bgcolor": "rgba(0,0,0,0)",
     "colorway": [
@@ -55,8 +90,26 @@ FIGURE_LAYOUT = {
         "x": 0.5,
         "xanchor": "center",
         "yanchor": "bottom",
-        "y": 1.02
+        "y": 1.03
     }
+}
+
+RENAME_OPTIONS = {
+    r"((?:(?:Antwerp)|(?:Oslo)|(?:Zagreb))_[\w\d]{6})": r"\\text{\g<1>}",
+    "PM2.5": r"\\text{PM}_{2.5}",
+    "PM10": r"\\text{PM}_{10}",
+    "NO2": r"\\text{NO}_{2}",
+    "O3": r"\\text{O}_{3}",
+    r"NO([^\}])": r"\\text{NO}\g<1>",
+    r"CO": r"\\text{CO}",
+    r"P ": r"\\text{P} ",
+    r"\^2": r"^{2}",
+    "RH T": "RH*T",
+    "RH": r"\\text{RH}",
+    r"T\^\{2\}": r"\\text{T}^{2} ",
+    "T ": r"\\text{T} ",
+    "Time Since Origin": r"\\text{Time Since Origin}",
+    ", (.*)": r"\\text{, \g<1>}",
 }
 
 external_stylesheets = [dbc.themes.COSMO]
@@ -116,14 +169,14 @@ def ref_opt(folders: Optional[list[str]]):
 @callback(
     Output("ref-colours", "data"),
     Input("reference-button-state", "n_clicks"),
-    State("reference-options", "value"),
+    State("folder-name", "value"),
 )
 def get_colours(
     _: int,
-    ref_opts: Optional[list[str]]
+    folders: Optional[list[str]]
 ):
     """"""
-    if not ref_opts:
+    if not folders:
         raise PreventUpdate
     colors = cycle(
         [
@@ -138,7 +191,7 @@ def get_colours(
         ]
     )
     return {
-        k: next(colors) for k in ref_opts
+        k: next(colors) for k in folders
     }
 
 
@@ -171,6 +224,7 @@ def get_df_index(
     for path, config in ref_df.groupby("Folder"):
         logger.debug("Querying sqlite db in %s", path)
         con = sql.connect(str(path))
+        con.set_trace_callback(logger.debug)
         query_opts = {}
         sql_query = [
             (
@@ -182,18 +236,15 @@ def get_df_index(
         if reference_options:
             logger.debug(reference_options)
             logger.debug(config["Reference"])
-            query_opts["ref_opts"] = "', '".join(
-                [
-                    ref
-                    for ref in reference_options
-                    if ref in config["Reference"].to_list()
-                ]
+            refs = "', '".join(
+                ref
+                for ref in reference_options
+                if ref in config["Reference"].to_list()
             )
-            sql_query.append('WHERE "Reference" IN (:ref_opts)')
+            sql_query.append(f"WHERE \"Reference\" IN ('{refs}')")
         sql_query.append(";")
-        logger.debug("".join(sql_query))
         cursor = con.cursor()
-        cursor.execute("".join(sql_query), query_opts)
+        cursor.execute("".join(sql_query))
         sql_index = pd.DataFrame(
             cursor.fetchall(),
             columns=pd.Index(
@@ -450,13 +501,13 @@ def get_results_df(
                     f'{query_params["norm"]}, 75) as IQR, '
                     f'percentile("{query_params["metric"]}" / '
                     f'{query_params["norm"]}, 25) - '
-                    f'(1.5 * (percentile("{query_params["metric"]}" '
+                    f'(3 * (percentile("{query_params["metric"]}" '
                     f'/ {query_params["norm"]}, 75) - '
                     f'percentile("{query_params["metric"]}" / '
                     f'{query_params["norm"]}, 25))) AS Low, '
                     f'percentile("{query_params["metric"]}" / '
                     f'{query_params["norm"]}, 75) + '
-                    f'(1.5 * (percentile("{query_params["metric"]}" '
+                    f'(3 * (percentile("{query_params["metric"]}" '
                     f'/ {query_params["norm"]}, 75) - '
                     f'percentile("{query_params["metric"]}" / '
                     f'{query_params["norm"]}, 25))) AS High '
@@ -577,7 +628,8 @@ def get_results_df(
                 )
             summary_query.append(
                 f'AND "{query_params["metric"]}" / {query_params["norm"]} '
-                f'BETWEEN {bounds["Low"]} AND {bounds["High"]}'
+                # f'BETWEEN {bounds["Low"]} AND {bounds["High"]}'
+                f'< {bounds["High"]}'
             )
             summary_query.append(";")
             cursor.execute("".join(summary_query), query_params)
@@ -623,7 +675,7 @@ def empty_figure(missing_graph_type: str = ""):
             yref="paper",
             text=f"{missing_graph_type} is not implemented",
             showarrow=False,
-            font={"size": 32},
+            font={"size": 32, "family": "Serif"},
         )
     return fig
 
@@ -673,8 +725,15 @@ def box_plot(dfs, col, norm_options, colours, legend):
         "r2",
         "Explained Variance Score",
     ]
+    logger.error(colours)
     box_plot_fig = go.Figure()
     for key, data in dfs.items():
+        if all([
+            bool(re.search(r"\(Default\)$|^None$", i)) for i in data.index
+        ]):
+            data.index = [
+                re.sub(r" \(Default\)$", "", i) for i in data.index
+            ]
         box_plot_fig.add_trace(
             go.Box(
                 x=data.index,
@@ -683,8 +742,8 @@ def box_plot(dfs, col, norm_options, colours, legend):
                 q3=data["Q3"],
                 lowerfence=data["Min"],
                 upperfence=data["Max"],
-                mean=data["Mean"],
-                sd=data["σ"],
+                # mean=data["Mean"],
+                # sd=data["σ"],
                 name=key,
                 offsetgroup=key,
                 showlegend=legend,
@@ -696,13 +755,15 @@ def box_plot(dfs, col, norm_options, colours, legend):
     if norm_options and norm_options != "None" and col not in no_norm:
         title = f"{col} /<br>{norm_options}"
     else:
-        title = col
+        title = f"{col} /<br>μgm$^{{-3}}$"
 
     box_plot_fig.update_layout(
         **FIGURE_LAYOUT,
         width=1200,
         height=800,
         boxmode='group',
+        boxgap=0.2,
+        boxgroupgap=0.1,
         yaxis={
             "autorange": False,
             "title": title,
@@ -766,225 +827,221 @@ def generate_graphs_for_paper(button):
     }
     config = tomllib.loads(toml_string)
     graph_path = Path("./Graphs")
+    table_path = Path("./Tables")
     graph_path.mkdir(exist_ok=True, parents=True)
-    for run, run_data in config.items():
-        config = run_data["Configuration"]
-        graphs = run_data["Graphs"]
-        filepath = graph_path.joinpath(f"{run}.png")
-        if filepath.exists():
-            logger.info("Skipping %s", run)
-            continue
-        logger.info("Generating %s", run)
-        plot = make_subplots(
-            cols=1,
-            rows=len(graphs),
-            vertical_spacing=0.01,
-            shared_xaxes=True
-        )
-        for index, data in enumerate(graphs, start=1):
-            arg_folders = config["Folders"]
-            reference_options, reference_index = ref_opt(arg_folders)
-            reference_options = [i["value"] for i in reference_options]
-            df_index = get_df_index(
-                1,
-                reference_index,
-                data.get("Reference", reference_options)
-            )
-            arg_reference = double_stack_config(data, config, "Reference", reference_options)
-            arg_field = double_stack_config(data, config, "Fields")
-            arg_cal = double_stack_config(data, config, "Calibrated")
-            arg_tech = double_stack_config(data, config, "Regression Techniques")
-            arg_scaling = double_stack_config(data, config, "Scaling Techniques")
-            arg_variables = double_stack_config(data, config, "Variables")
-            arg_fold = double_stack_config(data, config, "Folds")
-            arg_split = double_stack_config(data, config, "Split By")
-            arg_norm = double_stack_config(data, config, "Normalise By", "")
-            arg_metric = double_stack_config(data, config, "Metric", "Mean Absolute Error")
-            arg_outlier = double_stack_config(data, config, "Remove Outliers", "Yes")
-            results = get_results_df(
-                1,
-                df_index,
-                ref_opts = arg_reference,
-                field_opts = arg_field,
-                cal_opts = arg_cal,
-                tech_opts = arg_tech,
-                scaling_opts = arg_scaling,
-                var_opts = arg_variables,
-                fold_opts = arg_fold,
-                split_opts = arg_split,
-                norm_opt = arg_norm,
-                metric_opt = arg_metric,
-                outlier_opt = arg_outlier
-            )
-            colours = get_colours(1, data.get("Reference", reference_options))
-            subplot = results_plot(
-                tag_dict[data.get("Plot Type", "Box Plot")],
-                results,
-                data.get("Metric", "Mean Absolute Error"),
-                data.get("Normalise By", ""),
-                colours,
-                legend = index == 1
-            )
-            traces = subplot.select_traces()
-            plot_config = subplot.to_dict()
-            layout = plot_config.get("layout", {})
-            for trace in traces:
-                plot.add_trace(
-                    trace,
-                    row=index,
-                    col=1
-                )
-            if len(graphs) > 1:
-                plot.add_annotation(
-                    xref='x domain',
-                    yref='y domain',
-                    x=0.01,
-                    y=0.97,
-                    text=f'({chr(96+index)})',
-                    font={"size": 24},
-                    showarrow=False,
-                    row=index,
-                    col=1
-                )
-            plot.update_layout(**{
-                k: v
-                for k, v in layout.items()
-                if k not in ["xaxis", "yaxis"]
-            })
-            xaxis_config = layout.get('xaxis', {})
-            xaxis_config.update(data.get("X Axis", {}))
-            xaxis_config.update({
-                "ticks": "outside",
-                "gridcolor": "#b6bdbf",
-                "showgrid": True,
-                "showline": True,
-                "mirror": True,
-                "linecolor": "#1d2021",
-                #"title": {"font": {"size": 16}},
-                "tickangle": -45
-            })
-            yaxis_config = layout.get('yaxis', {})
-            yaxis_config.update(data.get("Y Axis", {}))
-            yaxis_config.update({
-                "ticks": "outside",
-                "gridcolor": "#b6bdbf",
-                "showgrid": True,
-                "zeroline": True,
-                "showline": True,
-                #"title": {"font": {"size": 16}},
-                "mirror": True,
-                "zerolinecolor": "#b6bdbf",
-                "linecolor": "#1d2021",
-                "minor": {
-                    "ticks": "outside",
-                    "gridcolor": "#e5e6e7",
-                    "showgrid": True,
-
-                }
-            })
-            plot.layout[f'xaxis{index}'].update(**xaxis_config)
-            plot.layout[f'yaxis{index}'].update(**yaxis_config)
-        plot.update_xaxes(**config.get("X Axis", {}))
-        plot.update_yaxes(**config.get("Y Axis", {}))
-        plot.update_yaxes(
-            ticks = "outside",
-            gridcolor = "#1d2021",
-            showgrid = True,
-            zeroline = True,
-            zerolinecolor = "#1d2021"
-        )
-        dimension_dict = {
-            "width": 2100,
-            "height": 800 * (len(graphs))
-        }
-        layout_dict = config.get("Layout", {})
-        plot.update_layout(
-            boxmode='group',
-            **FIGURE_LAYOUT,
-            **layout_dict,
-            **{k: v for k, v in dimension_dict.items() if k not in layout_dict}
-        )
-        plot.write_image(filepath)
-    return None
-    for i in []:
-        filepath = graph_path.joinpath(f"{run}.png")
-        if filepath.exists():
-            continue
-        _, _, _, _, _, _, cci, _ = filter_options(
-            None,
-            db_index,
-            data.get("Reference Instruments", []),
-            data.get("Fields", []),
-            data.get("Calibration Devices", []),
-            data.get("Techniques", []),
-            data.get("Scaling Techniques", []),
-            data.get("Variables", []),
-            data.get("Folds", []),
-        )
-        results, raw = get_results_df(
-            cci, path, data.get("Reference Instruments", [])
-        )
-        grouped = grouped_data(
-            results,
-            data.get("Split By", ["Calibrated"]),
-            data.get("Normalise By", "None"),
-            data.get("Remove Outliers", "Yes"),
-            raw,
-        )
-        metric_columns = data.get("Metric Column", "r2")
-        if isinstance(metric_columns, str):
-            plot = results_plot(
-                tag_dict.get(data.get("Plot Type", "Box Plot")),
-                grouped,
-                metric_columns,
-                data.get("Normalise By", "None"),
-            )
-            plot.update_xaxes(**data.get("X Axis", {}))
-            plot.update_yaxes(**data.get("Y Axis", {}))
-            plot.update_yaxes(**{
-                "ticks": "outside",
-                "gridcolor": "#1d2021",
-                #"font": {"size": 16},
-                "showgrid": True,
-                "zeroline": True,
-                "showline": True,
-                "zerolinecolor": "#1d2021",
-            })
-        elif isinstance(metric_columns, list):
-            plot_type = tag_dict.get(data.get("Plot Type", "Box Plot"))
-            normalise_by = data.get("Normalise By", "None")
-            plots = {
-                metric: results_plot(plot_type, grouped, metric, normalise_by)
-                for metric in metric_columns
-            }
-            plot_type = 'table' if plot_type == "results-table-tab" else "xy"
+    table_path.mkdir(exist_ok=True, parents=True)
+    for subfolder, subconfig in config.items():
+        for run, run_data in subconfig.items():
+            config = run_data["Configuration"]
+            graphs = run_data["Graphs"]
+            graph_path.joinpath(subfolder).mkdir(parents=True, exist_ok=True)
+            table_path.joinpath(subfolder).mkdir(parents=True, exist_ok=True)
+            filepath = graph_path.joinpath(f"{subfolder}/{run}.png")
+            csvpath = table_path.joinpath(f"{subfolder}")
+            if filepath.exists():
+                logger.info("Skipping %s", run)
+                continue
+            logger.info("Generating %s", run)
+            titles = [g.get("Title") for g in graphs]
+            graph_height = max(600, 400 * len(graphs))
             plot = make_subplots(
                 cols=1,
-                rows=len(plots),
-                vertical_spacing=0.01,
+                rows=len(graphs),
+                vertical_spacing= (
+                    (64 / graph_height)
+                    if set(titles) != {None}
+                    else 0.01
+                ),
                 shared_xaxes=True,
-                specs = [[{'type': plot_type}] for _ in range(len(plots))]
+                subplot_titles=titles
             )
-            for index, (metric, subplot) in enumerate(plots.items(), start=1):
-                axes_num = "" if index == 1 else str(index)
+            for index, data in enumerate(graphs, start=1):
+                arg_folders = config["Folders"]
+                reference_options, reference_index = ref_opt(arg_folders)
+                reference_options = [i["value"] for i in reference_options]
+                df_index = get_df_index(
+                    1,
+                    reference_index,
+                    data.get("Reference", reference_options)
+                )
+                arg_reference = double_stack_config(
+                    data,
+                    config,
+                    "Reference",
+                    reference_options
+                )
+                arg_field = double_stack_config(
+                    data,
+                    config,
+                    "Fields"
+                )
+                arg_cal = double_stack_config(
+                    data,
+                    config,
+                    "Calibrated"
+                )
+                arg_tech = double_stack_config(
+                    data,
+                    config,
+                    "Regression Techniques"
+                )
+                arg_scaling = double_stack_config(
+                    data,
+                    config,
+                    "Scaling Techniques"
+                )
+                arg_variables = double_stack_config(
+                    data,
+                    config,
+                    "Variables"
+                )
+                arg_fold = double_stack_config(
+                    data,
+                    config,
+                    "Fold"
+                )
+                arg_split = double_stack_config(
+                    data,
+                    config,
+                    "Split By"
+                )
+                arg_norm = double_stack_config(
+                    data,
+                    config,
+                    "Normalise By",
+                    ""
+                )
+                arg_metric = double_stack_config(
+                    data,
+                    config,
+                    "Metric",
+                    "Mean Absolute Error"
+                )
+                arg_outlier = double_stack_config(
+                    data,
+                    config,
+                    "Remove Outliers",
+                    "Yes"
+                )
+                arg_order = double_stack_config(
+                    data,
+                    config,
+                    "Axis Order",
+                    []
+                )
+                if arg_order and all([
+                    bool(re.search(r"\(Default\)$|^None$", i))
+                    for i in arg_order
+                ]):
+                    arg_order = [
+                        re.sub(r" \(Default\)$", "", i) for i in arg_order
+                    ]
+                results = get_results_df(
+                    1,
+                    df_index,
+                    ref_opts = arg_reference,
+                    field_opts = arg_field,
+                    cal_opts = arg_cal,
+                    tech_opts = arg_tech,
+                    scaling_opts = arg_scaling,
+                    var_opts = arg_variables,
+                    fold_opts = arg_fold,
+                    split_opts = arg_split,
+                    norm_opt = arg_norm,
+                    metric_opt = arg_metric,
+                    outlier_opt = arg_outlier
+                )
+                for k, v in results.items():
+                    fpath = csvpath / f"{run}_{index}_{k}.csv"
+                    texpath = csvpath / f"{run}_{index}_{k}.tex"
+                    data_to_text = pd.read_json(StringIO(v), orient='split')
+                    if all([
+                        bool(re.search(r"\(Default\)$|^None$", i))
+                        for i in data_to_text.index
+                    ]):
+                        data_to_text.index = [
+                            re.sub(r" \(Default\)$", "", i)
+                            for i in data_to_text.index
+                        ]
+                    if arg_order:
+                        not_in_arg_order = [
+                            i
+                            for i in data_to_text.index
+                            if i not in arg_order
+                        ]
+                        old_data = data_to_text.loc[not_in_arg_order, :]
+                        data_to_text = pd.concat(
+                            [
+                                data_to_text.reindex([
+                                    i
+                                    for i in arg_order
+                                    if i in data_to_text.index
+                                ]),
+                                old_data
+                            ]
+                        )
+                    for pat, repl in RENAME_OPTIONS.items():
+                        data_to_text.index = data_to_text.index.str.replace(
+                            pat,
+                            repl,
+                            regex=True
+                        )
+                    data_to_text.index = [
+                        re.sub(r"\$", r"", i)
+                        for i in data_to_text.index
+                    ]
+                    data_to_text.index = [
+                        re.sub(r"(.+)$", r"$\g<1>$", i) if any(
+                            lat in i for lat in [r'_{', r'^{', r'text']
+                        ) else i
+                        for i in data_to_text.index
+                    ]
+                    data_to_text.index = [
+                        re.sub(r"\\\\", r"\\", i)
+                        for i in data_to_text.index
+                    ]
+                    data_to_text.index = [
+                        re.sub(r"\\text", r"\\textrm", i)
+                        for i in data_to_text.index
+                    ]
+
+                    data_to_text.to_csv(
+                        fpath,
+                        float_format="%.2f",
+                    )
+                    data_to_text.to_latex(
+                        texpath,
+                        na_rep="-",
+                        float_format="%.2f",
+                        escape=False
+                    )
+
+                colours = get_colours(1, data.get("Folders", arg_folders))
+                subplot = results_plot(
+                    tag_dict[data.get("Plot Type", "Box Plot")],
+                    results,
+                    data.get("Metric", "Mean Absolute Error"),
+                    data.get("Normalise By", ""),
+                    colours,
+                    legend = index == 1
+                )
                 traces = subplot.select_traces()
                 plot_config = subplot.to_dict()
                 layout = plot_config.get("layout", {})
-                print(plot_config["layout"].keys())
                 for trace in traces:
                     plot.add_trace(
                         trace,
                         row=index,
                         col=1
                     )
-                if plot_type != 'table':
+                if len(graphs) > 1:
                     plot.add_annotation(
                         xref='x domain',
                         yref='y domain',
                         x=0.01,
                         y=0.97,
                         text=f'({chr(96+index)})',
-                        font={"size": 24},
+                        font={"size": 24, "family": "Serif"},
                         showarrow=False,
                         row=index,
                         col=1
@@ -995,7 +1052,7 @@ def generate_graphs_for_paper(button):
                     if k not in ["xaxis", "yaxis"]
                 })
                 xaxis_config = layout.get('xaxis', {})
-                xaxis_config.update(data.get("X Axis", {}).get(metric, {}))
+                xaxis_config.update(data.get("X Axis", {}))
                 xaxis_config.update({
                     "ticks": "outside",
                     "gridcolor": "#b6bdbf",
@@ -1007,7 +1064,7 @@ def generate_graphs_for_paper(button):
                     "tickangle": -45
                 })
                 yaxis_config = layout.get('yaxis', {})
-                yaxis_config.update(data.get("Y Axis", {}).get(metric, {}))
+                yaxis_config.update(data.get("Y Axis", {}))
                 yaxis_config.update({
                     "ticks": "outside",
                     "gridcolor": "#b6bdbf",
@@ -1025,97 +1082,73 @@ def generate_graphs_for_paper(button):
 
                     }
                 })
-                if plot_type != 'table':
-                    plot.layout[f'xaxis{axes_num}'].update(**xaxis_config)
-                    plot.layout[f'yaxis{axes_num}'].update(**yaxis_config)
-        else:
-            plot = results_plot(
-                tag_dict.get(data.get("Plot Type", "Box Plot")),
-                grouped,
-                "r2",
-                data.get("Normalise By", "None"),
+                plot.layout[f'xaxis{index}'].update(**xaxis_config)
+                plot.layout[f'yaxis{index}'].update(**yaxis_config)
+                plot.layout[f'yaxis{index}']['title'] = (
+                    f"{arg_metric}"
+                    f"{ f' /<br> {arg_norm}' if arg_norm else ' /<br> μgm⁻³'}"
+                )
+            plot.update_xaxes(**config.get("X Axis", {}))
+            plot.update_yaxes(**config.get("Y Axis", {}))
+            dimension_dict = FIGURE_LAYOUT | {
+                "width": 900,
+                "height": graph_height,
+                "boxgap": 0.1,
+                "boxgroupgap": 0.1,
+                "margin": {
+                    "r": 4,
+                    "t": 32
+                }
+            }
+            layout_dict = config.get("Layout", {})
+            plot.update_layout(
+                **layout_dict,
+                **{k: v for (
+                    k,
+                    v,
+                ) in dimension_dict.items() if k not in layout_dict}
             )
-            plot.update_xaxes(**data.get("X Axis", {}))
-            plot.update_yaxes(**data.get("Y Axis", {}))
-            plot.update_yaxes(**{
-                "ticks": "outside",
-                "gridcolor": "#1d2021",
-                "showgrid": True,
-                "zeroline": True,
-                "zerolinecolor": "#1d2021",
-            })
-        dimension_dict = {
-            "width": 2100,
-            "height": 800 * (
-                len(metric_columns) if isinstance(metric_columns, list) else 1
-            )
-        }
-        layout_dict = data.get("Layout", {})
-        plot.update_layout(
-            **layout_dict,
-            **{k: v for k, v in dimension_dict.items() if k not in layout_dict}
-        )
-        plot.write_image(filepath)
+            for pat, repl in RENAME_OPTIONS.items():
+                if arg_order:
+                    arg_order_2 = [
+                        re.sub(pat, repl, i) for i in arg_order
+                    ]
+                    arg_order = arg_order_2
+                plot.for_each_trace(lambda trace: trace.update(x=[
+                    re.sub(pat, repl, i)
+                    for i in trace.x
+                ]))
+            arg_order_2 = [
+                re.sub(r"\$", "", i) for i in arg_order
+            ]
+            arg_order = arg_order_2
+            plot.for_each_trace(lambda trace: trace.update(x=[
+                re.sub(r"\$", "", i)
+                for i in trace.x
+            ]))
+            arg_order_2 = [
+                re.sub(r"(.+)$", r"$\\small{\g<1>}$", i) if any(
+                    lat in i for lat in ['_', '^', 'text']
+                ) else i
+                for i in arg_order
+            ]
+            arg_order = arg_order_2
+            plot.for_each_trace(lambda trace: trace.update(x=[
+                re.sub(r"(.+)$", r"$\\small{\g<1>}$", i) if any(
+                    lat in i for lat in ['_', '^', 'text']
+                ) else i
+                for i in trace.x
+            ]))
+            if arg_order:
+                for index in range(len(graphs)):
+                    plot.layout[f"xaxis{index+1}"].update(
+                        categoryorder = 'array',
+                        categoryarray = arg_order
+                    )
+            plot.write_image(filepath)
+    logger.info("All graphs generated")
 
 
-@callback(
-    Output("graph-config-json", "data"),
-    Input("download-config", "n_clicks"),
-    State("reference-options", "value"),
-    State("field-options", "value"),
-    State("calibrated-device-options", "value"),
-    State("technique-options", "value"),
-    State("scaling-options", "value"),
-    State("var-options", "value"),
-    State("fold-options", "value"),
-    State("result-box-plot-split-by", "value"),
-    State("norm-options", "value"),
-    State("remove-outliers", "value"),
-    State("graph-type", "value"),
-    State("metric-options", "value"),
-    prevent_initial_call=True,
-)
-def download_config(
-    _,
-    ref,
-    field,
-    cal,
-    tech,
-    scal,
-    var,
-    fold,
-    splitby,
-    norm,
-    outliers,
-    graph_type,
-    metric,
-):
-    """ """
-    tag_dict = {
-        "results-table-tab": "Results Table",
-        "box-plot-tab": "Box Plot",
-        "violin-plot-tab": "Violin Plot",
-        "prop-imp-plot-tab": "Proportion Improved",
-        "target-plot-tab": "Target Diagram",
-    }
-    config = {
-        "Reference Instruments": ref,
-        "Fields": field,
-        "Calibration Devices": cal,
-        "Techniques": tech,
-        "Scaling Techniques": scal,
-        "Variables": var,
-        "Folds": fold,
-        "Split By": splitby,
-        "Normalise By": norm,
-        "Remove Outliers": outliers,
-        "Plot Type": tag_dict.get(graph_type),
-        "Metric Column": metric,
-    }
-    config_json = json.dumps(
-        {key: val for key, val in config.items() if val is not None}, indent=4
-    )
-    return {"content": config_json, "filename": "config.json"}
 
 
 item_stores = [
@@ -1295,8 +1328,6 @@ graph_selection_row = [
             ),
             dbc.Col(
                 [
-                    html.Button("Download config", id="download-config"),
-                    dcc.Download(id="graph-config-json"),
                 ],
                 width=2,
             ),

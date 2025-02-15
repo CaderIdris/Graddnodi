@@ -6,3 +6,5 @@ Output/
 **/.ipynb_checkpoints/
 Pipfile.lock
 Graphs/
+Tables/
+notebooks/
